@@ -3,11 +3,9 @@ import java.util.Date;
 
 import cn.seeumt.dao.ArticleMapper;
 import cn.seeumt.dao.CommentMapper;
-import cn.seeumt.dao.ContentMapper;
 import cn.seeumt.dao.LoveMapper;
 import cn.seeumt.dataobject.Article;
 import cn.seeumt.dataobject.Comment;
-import cn.seeumt.dataobject.Content;
 import cn.seeumt.dataobject.Love;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.service.ArticleService;

@@ -1,25 +1,22 @@
 package cn.seeumt.model;
 
-import cn.seeumt.dataobject.Comment;
 import lombok.Data;
 
 import java.util.List;
 
 /**
  * @author Seeumt
- * @date 2019/12/8 15:48
+ * @date 2019/12/8 20:31
  */
 @Data
-public class User {
-    private String id;
+public class Commenter {
+
+    private String userId;
 
     private String nickname;
 
     private String faceIcon;
 
-    private Byte enabled;
-
-    List<Comment> comments;
-
+    List<CommentContent> commentContents;
 
 }

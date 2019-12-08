@@ -1,21 +1,18 @@
 package cn.seeumt.model;
 
+import cn.seeumt.dataobject.UserInfo;
 import lombok.Data;
 
 import java.util.Date;
 @Data
-public class Comment {
+public class CommentContent {
+
     private String id;
 
-    private Byte type;
+    private String content;
 
     private Date createTime;
 
-
-    private Boolean enabled;
-
-
     private String commentId;
-
 
 }

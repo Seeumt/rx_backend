@@ -11,9 +11,9 @@ public interface ContentMapper {
 
     Content selectByPrimaryKey(String id);
 
-    int updateByPrimaryKeySelective(Content record);
+    Content selectByContentId(String contentId);
 
-    int updateByPrimaryKeyWithBLOBs(Content record);
+    int updateByPrimaryKeySelective(Content record);
 
     int updateByPrimaryKey(Content record);
 }

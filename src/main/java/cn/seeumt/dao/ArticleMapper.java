@@ -2,6 +2,8 @@ package cn.seeumt.dao;
 
 import cn.seeumt.dataobject.Article;
 
+import java.util.List;
+
 public interface ArticleMapper {
     int deleteByPrimaryKey(String id);
 
@@ -10,6 +12,8 @@ public interface ArticleMapper {
     int insertSelective(Article record);
 
     Article selectByPrimaryKey(String id);
+
+    List<Article> selectByCommentId(String commentId);
 
     int updateByPrimaryKeySelective(Article record);
 

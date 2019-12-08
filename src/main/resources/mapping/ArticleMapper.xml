@@ -15,11 +15,11 @@
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, md_content, html_content, love_id, comment_id, user_id, create_time, update_time, 
+    id, title, md_content, html_content, love_id, comment_id, user_id, create_time, update_time,
     enabled, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from article
     where id = #{id,jdbcType=VARCHAR}
@@ -29,13 +29,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Article">
-    insert into article (id, title, md_content, 
-      html_content, love_id, comment_id, 
-      user_id, create_time, update_time, 
+    insert into article (id, title, md_content,
+      html_content, love_id, comment_id,
+      user_id, create_time, update_time,
       enabled, deleted)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{mdContent,jdbcType=VARCHAR}, 
-      #{htmlContent,jdbcType=VARCHAR}, #{loveId,jdbcType=VARCHAR}, #{commentId,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{mdContent,jdbcType=VARCHAR},
+      #{htmlContent,jdbcType=VARCHAR}, #{loveId,jdbcType=VARCHAR}, #{commentId,jdbcType=VARCHAR},
+      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{enabled,jdbcType=BIT}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Article">
@@ -161,4 +161,10 @@
       deleted = #{deleted,jdbcType=BIT}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByCommentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from article
+    where comment_id = #{commentId,jdbcType=VARCHAR}
+  </select>
 </mapper>

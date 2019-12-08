@@ -1,6 +1,9 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Comment;
+import cn.seeumt.model.CommentContent;
+
+import java.util.List;
 
 /**
  * @author Seeumt
@@ -8,5 +11,7 @@ import cn.seeumt.dataobject.Comment;
  */
 public interface CommentService {
     Comment selectByCommentId(String commentId);
+    List<CommentContent> findUserCommentsOfAnArticle(String articleId, String userId);
+
 }
 

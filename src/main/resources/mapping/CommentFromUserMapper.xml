@@ -15,7 +15,7 @@
     id, type, content_id, from_user_id, create_time, update_time, comment_id, from_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from comment_from_user
     where id = #{id,jdbcType=VARCHAR}
@@ -25,11 +25,11 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.CommentFromUser">
-    insert into comment_from_user (id, type, content_id, 
-      from_user_id, create_time, update_time, 
+    insert into comment_from_user (id, type, content_id,
+      from_user_id, create_time, update_time,
       comment_id, from_id)
-    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{contentId,jdbcType=VARCHAR}, 
-      #{fromUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{contentId,jdbcType=VARCHAR},
+      #{fromUserId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{commentId,jdbcType=VARCHAR}, #{fromId,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.CommentFromUser">
@@ -125,4 +125,21 @@
       from_id = #{fromId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByUserIdAndCommentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from comment_from_user
+    where from_user_id = #{userId,jdbcType=VARCHAR}
+    and
+    comment_id= #{commentId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByCommentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from comment_from_user
+    where
+    comment_id= #{commentId,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

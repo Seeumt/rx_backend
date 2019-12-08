@@ -1,12 +1,11 @@
 package cn.seeumt.controller;
 
-import cn.seeumt.dao.CommentFromUserMapper;
-import cn.seeumt.dao.ContentMapper;
-import cn.seeumt.dao.LoveFromUserMapper;
-import cn.seeumt.dao.LoveMapper;
+import cn.seeumt.dao.*;
 import cn.seeumt.dataobject.*;
 import cn.seeumt.dto.ArticleDTO;
 import cn.seeumt.enums.Tips;
+import cn.seeumt.model.CommentContent;
+import cn.seeumt.model.Commenter;
 import cn.seeumt.service.ArticleService;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.service.UserInfoService;
@@ -18,9 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Seeumt
@@ -43,6 +40,9 @@ public class ArticleController {
     private CommentFromUserMapper commentFromUserMapper;
     @Autowired
     private ContentMapper contentMapper;
+    @Autowired
+    private ArticleMapper articleMapper;
+
 
     @GetMapping(value = "/")
     @ResponseBody
@@ -71,7 +71,6 @@ public class ArticleController {
     @GetMapping(value = "/findArticle")
     @ResponseBody
     public ArticleDTO add(String articleId) {
-
         Article article = articleService.selectByPrimaryKey(articleId);
         ArticleDTO articleDTO = new ArticleDTO();
         BeanUtils.copyProperties(article,articleDTO);
@@ -82,6 +81,24 @@ public class ArticleController {
             userInfoList.add(userInfoService.selectByPrimaryKey(loveFromUser.getFromUserId()));
         }
         articleDTO.setThumbers(userInfoList);
+        List<CommentFromUser> commentFromUserList = commentFromUserMapper.selectByCommentId(article.getCommentId());
+        Set set = new HashSet();
+        for (CommentFromUser commentFromUser : commentFromUserList) {
+            set.add(commentFromUser.getFromUserId());
+        }
+        List<Commenter> commenters = new ArrayList<>();
+        for (int i = 0; i < set.toArray().length; i++) {
+            Commenter commenter = new Commenter();
+            commenter.setUserId(set.toArray()[i].toString());
+            UserInfo userInfo = userInfoService.selectByPrimaryKey(set.toArray()[i].toString());
+            commenter.setNickname(userInfo.getNickname());
+            commenter.setFaceIcon(userInfo.getFaceIcon());
+            commenter.setCommentContents(commentService.findUserCommentsOfAnArticle(articleId, set.toArray()[i].toString()));
+            commenters.add(commenter);
+        }
+        articleDTO.setCommenters(commenters);
+
+
         return articleDTO;
 
     }
@@ -115,4 +132,7 @@ public class ArticleController {
         contentMapper.insert(content);
 
     }
+
+
+
 }

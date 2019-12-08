@@ -3,6 +3,7 @@
 <mapper namespace="cn.seeumt.dao.ContentMapper">
   <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Content">
     <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="type" jdbcType="TINYINT" property="type" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -11,20 +12,12 @@
     <result column="comment_id" jdbcType="VARCHAR" property="commentId" />
     <result column="content_id" jdbcType="VARCHAR" property="contentId" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="cn.seeumt.dataobject.Content">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
   <sql id="Base_Column_List">
-    id, type, create_time, update_time, deleted, love_id, comment_id, content_id
+    id, content, type, create_time, update_time, deleted, love_id, comment_id, content_id
   </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select 
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from content
     where id = #{id,jdbcType=VARCHAR}
   </select>
@@ -33,13 +26,13 @@
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Content">
-    insert into content (id, type, create_time, 
-      update_time, deleted, love_id, 
-      comment_id, content_id, content
+    insert into content (id, content, type,
+      create_time, update_time, deleted,
+      love_id, comment_id, content_id
       )
-    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}, #{loveId,jdbcType=VARCHAR}, 
-      #{commentId,jdbcType=VARCHAR}, #{contentId,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+    values (#{id,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT},
+      #{loveId,jdbcType=VARCHAR}, #{commentId,jdbcType=VARCHAR}, #{contentId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Content">
@@ -47,6 +40,9 @@
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
+      </if>
+      <if test="content != null">
+        content,
       </if>
       <if test="type != null">
         type,
@@ -69,13 +65,13 @@
       <if test="contentId != null">
         content_id,
       </if>
-      <if test="content != null">
-        content,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=TINYINT},
@@ -98,14 +94,14 @@
       <if test="contentId != null">
         #{contentId,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="cn.seeumt.dataobject.Content">
     update content
     <set>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
       <if test="type != null">
         type = #{type,jdbcType=TINYINT},
       </if>
@@ -127,27 +123,13 @@
       <if test="contentId != null">
         content_id = #{contentId,jdbcType=VARCHAR},
       </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="cn.seeumt.dataobject.Content">
-    update content
-    set type = #{type,jdbcType=TINYINT},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP},
-      deleted = #{deleted,jdbcType=BIT},
-      love_id = #{loveId,jdbcType=VARCHAR},
-      comment_id = #{commentId,jdbcType=VARCHAR},
-      content_id = #{contentId,jdbcType=VARCHAR},
-      content = #{content,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.seeumt.dataobject.Content">
     update content
-    set type = #{type,jdbcType=TINYINT},
+    set content = #{content,jdbcType=VARCHAR},
+      type = #{type,jdbcType=TINYINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT},
@@ -156,4 +138,20 @@
       content_id = #{contentId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByContentId" resultMap="BaseResultMap">
+    SELECT
+	id,
+	content,
+	type,
+	create_time,
+	update_time,
+	deleted,
+	love_id,
+	comment_id,
+	content_id
+    FROM
+	content
+    WHERE
+	content_id=#{contentId}
+  </select>
 </mapper>
