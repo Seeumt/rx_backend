@@ -1,14 +1,14 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.dao.CommentFromUserMapper;
+import cn.seeumt.dao.ContentMapper;
 import cn.seeumt.dao.LoveFromUserMapper;
 import cn.seeumt.dao.LoveMapper;
-import cn.seeumt.dataobject.Article;
-import cn.seeumt.dataobject.Love;
-import cn.seeumt.dataobject.LoveFromUser;
-import cn.seeumt.dataobject.UserInfo;
+import cn.seeumt.dataobject.*;
 import cn.seeumt.dto.ArticleDTO;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.service.ArticleService;
+import cn.seeumt.service.CommentService;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.utils.UuidUtil;
 import org.springframework.beans.BeanUtils;
@@ -37,6 +37,12 @@ public class ArticleController {
     private LoveMapper loveMapper;
     @Autowired
     private LoveFromUserMapper loveFromUserMapper;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private CommentFromUserMapper commentFromUserMapper;
+    @Autowired
+    private ContentMapper contentMapper;
 
     @GetMapping(value = "/")
     @ResponseBody
@@ -44,9 +50,9 @@ public class ArticleController {
         Article article = new Article();
         String id = UuidUtil.getUUID();
         article.setId(id);
-        article.setTitle("第一篇文章");
-        article.setMdContent("第一篇文章的mdcontent");
-        article.setHtmlContent("第一篇文章的htmlcontent");
+        article.setTitle("第四篇文章");
+        article.setMdContent("第四篇文章的mdcontent");
+        article.setHtmlContent("第四篇文章的htmlcontent");
         String loveId = UuidUtil.getUUID();
         article.setLoveId(loveId);
         String commentId = UuidUtil.getUUID();
@@ -77,6 +83,36 @@ public class ArticleController {
         }
         articleDTO.setThumbers(userInfoList);
         return articleDTO;
+
+    }
+
+    @GetMapping(value = "/comment")
+    public void comment(String articleId,String userId, String commentContent) {
+        Article article = articleService.selectByPrimaryKey(articleId);
+        Comment comment = commentService.selectByCommentId(article.getCommentId());
+        String commentId = comment.getCommentId();
+        CommentFromUser commentFromUser = new CommentFromUser();
+        commentFromUser.setId(UuidUtil.getUUID());
+        commentFromUser.setType((byte) Tips.ARTICLE_COMMENT.getCode().intValue());
+        commentFromUser.setCreateTime(new Date());
+        commentFromUser.setUpdateTime(new Date());
+        //这个commentId 每篇文章只有一个
+        commentFromUser.setCommentId(commentId);
+        commentFromUser.setFromId(comment.getFromId());
+        commentFromUser.setFromUserId(userId);
+        commentFromUser.setContentId(UuidUtil.getUUID());
+        commentFromUserMapper.insert(commentFromUser);
+        Content content = new Content();
+        content.setId(UuidUtil.getUUID());
+        content.setType((byte) Tips.ARTICLE_COMMENT.getCode().intValue());
+        content.setCreateTime(new Date());
+        content.setUpdateTime(new Date());
+        content.setDeleted(false);
+        content.setLoveId(UuidUtil.getUUID());
+        content.setCommentId(UuidUtil.getUUID());
+        content.setContentId(commentFromUser.getContentId());
+        content.setContent(commentContent);
+        contentMapper.insert(content);
 
     }
 }

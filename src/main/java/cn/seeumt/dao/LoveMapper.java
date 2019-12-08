@@ -3,7 +3,7 @@ package cn.seeumt.dao;
 import cn.seeumt.dataobject.Love;
 import org.apache.ibatis.annotations.Param;
 
-public interface LoveMapper {
+public interface LoveMapper{
     int deleteByPrimaryKey(String id);
 
     int insert(Love record);
@@ -11,7 +11,7 @@ public interface LoveMapper {
     int insertSelective(Love record);
 
     Love selectByPrimaryKey(String id);
-    
+
     int updateByPrimaryKeySelective(Love record);
 
     int updateByPrimaryKey(Love record);

@@ -10,6 +10,8 @@ import lombok.Getter;
 public enum Tips {
     ARTICLE_THUMB(1,"文章点赞"),
     ARTICLE_TRANSFER(2,"文章转发"),
+    ARTICLE_COMMENT(1,"文章的评论"),
+    COMMENT_COMMENT(2,"评论的评论")
     ;
 
 

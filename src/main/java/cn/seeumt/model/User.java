@@ -3,7 +3,6 @@ package cn.seeumt.model;
 import cn.seeumt.dataobject.Comment;
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
 
 /**
