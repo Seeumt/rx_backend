@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 @Data
 @Component
 @ConfigurationProperties(prefix = "qqmail")
+/**
+ * @author seeumt
+ */
 public class MailConfig {
 
     private String sender;

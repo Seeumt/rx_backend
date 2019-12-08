@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seeumt.dao.LoveMapper">
+  <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Love">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="love_id" jdbcType="VARCHAR" property="loveId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, type, status, create_time, update_time, enabled, from_id, love_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from love
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.seeumt.dataobject.Love">
+    insert into love (id, type, status,
+      create_time, update_time, enabled,
+      from_id, love_id)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{status,jdbcType=BIT},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT},
+      #{fromId,jdbcType=VARCHAR}, #{loveId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Love">
+    insert into love
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="loveId != null">
+        love_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="fromId != null">
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="loveId != null">
+        #{loveId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.seeumt.dataobject.Love">
+    update love
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="fromId != null">
+        from_id = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="loveId != null">
+        love_id = #{loveId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.seeumt.dataobject.Love">
+    update love
+    set type = #{type,jdbcType=TINYINT},
+      status = #{status,jdbcType=BIT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      enabled = #{enabled,jdbcType=BIT},
+      from_id = #{fromId,jdbcType=VARCHAR},
+      love_id = #{loveId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByLoveIdAndType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where
+    love_id = #{loveId}
+    and
+    type = #{type}
+  </select>
+</mapper>
