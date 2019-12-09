@@ -10,7 +10,7 @@ import java.util.List;
 
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
-public class CommentContent {
+public class CommentContent {// TODO: 2019/12/9 Oops~~~
 
     private String id;
 
@@ -21,6 +21,10 @@ public class CommentContent {
     private String commentId;
 
     private String contentId;
+
+    private String fromId;
+
+    private String loveId;
 
     private List<UserInfo> thumbers;
 

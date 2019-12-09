@@ -130,8 +130,19 @@
     <include refid="Base_Column_List" />
     from love
     where
-    love_id = #{loveId}
+    love_id=#{loveId}
     and
-    type = #{type}
+    type=#{type}
+  </select>
+  <select id="selectByLoveIdAndTypeAndFromId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where
+    love_id=#{loveId}
+    and
+    type=#{type}
+    and
+    from_id=#{fromId}
   </select>
 </mapper>

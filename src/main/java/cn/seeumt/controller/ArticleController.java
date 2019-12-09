@@ -101,13 +101,13 @@ public class ArticleController {
                 for (CommentFromUser commentFromUser1 : commentFromUserList1) {
                     set1.add(commentFromUser1.getFromUserId());
                 }
-//                Love love1 = loveMapper.selectByLoveIdAndType(commentContent.getLoveId(), Tips.COMMENT_THUMB.getCode());
-//                List<LoveFromUser> loveFromUsersList1 = loveFromUserMapper.selectListByFromId(love1.getFromId());
-//                List<UserInfo> userInfoList1 = new ArrayList<>();
-//                for (LoveFromUser loveFromUser : loveFromUsersList1) {
-//                    userInfoList1.add(userInfoService.selectByPrimaryKey(loveFromUser.getFromUserId()));
-//                }
-//                commentContent.setThumbers(userInfoList1);
+                Love love1 = loveMapper.selectByLoveIdAndTypeAndFromId(commentContent.getLoveId(), Tips.COMMENT_THUMB.getCode(),commentContent.getFromId());
+                List<LoveFromUser> loveFromUsersList1 = loveFromUserMapper.selectListByFromId(love1.getFromId());
+                List<UserInfo> userInfoList1 = new ArrayList<>();
+                for (LoveFromUser loveFromUser : loveFromUsersList1) {
+                    userInfoList1.add(userInfoService.selectByPrimaryKey(loveFromUser.getFromUserId()));
+                }
+                commentContent.setThumbers(userInfoList1);
                 List<Commenter> commenters1 = new ArrayList<>();
                 for (int i1 = 0; i1 < set1.toArray().length; i1++) {
                     Commenter commenter1 = new Commenter();

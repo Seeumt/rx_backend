@@ -48,6 +48,7 @@ public class CommentServiceImpl implements CommentService {
             Content content = contentMapper.selectByContentId(commentFromUser.getContentId());
             commentContent.setContent(content.getContent());
             commentContent.setCommentId(content.getCommentId());
+            commentContent.setLoveId(content.getLoveId());
             commentContents.add(commentContent);
         }
         return commentContents;
@@ -63,6 +64,7 @@ public class CommentServiceImpl implements CommentService {
             Content content = contentMapper.selectByContentId(commentFromUser.getContentId());
             commentContent.setContent(content.getContent());
             commentContent.setCommentId(content.getCommentId());
+            commentContent.setLoveId(content.getLoveId());
             commentContents.add(commentContent);
         }
         return commentContents;

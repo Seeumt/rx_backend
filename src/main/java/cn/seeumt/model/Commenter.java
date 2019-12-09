@@ -17,8 +17,6 @@ public class Commenter {
 
     private String faceIcon;
 
-    private String loveId;
-
     List<CommentContent> commentContents;
 
 }

@@ -18,4 +18,5 @@ public interface LoveMapper{
 
     Love selectByLoveIdAndType(@Param("loveId") String loveId,@Param("type") Integer type);
 
+    Love selectByLoveIdAndTypeAndFromId(@Param("loveId") String loveId,@Param("type") Integer type,@Param("fromId") String fromId);
 }
