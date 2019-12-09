@@ -10,4 +10,6 @@ import java.util.List;
  */
 public interface LoveFromUserService {
     List<LoveFromUser> selectListByFromId(String fromId);
+
+    int createThumb(String userId, String fromId);
 }

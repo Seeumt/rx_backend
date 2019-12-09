@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Article;
+import cn.seeumt.model.Thumber;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface ArticleService {
     Article createArticle(Article article);
 
     Article selectByPrimaryKey(String articleId);
+
+    List<Thumber> getThumbersOfANArticle(String articleId);
 
 
 }

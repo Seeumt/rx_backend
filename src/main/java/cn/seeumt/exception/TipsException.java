@@ -1,6 +1,7 @@
 package cn.seeumt.exception;
 
 import cn.seeumt.enums.ResultEnum;
+import cn.seeumt.enums.TipsFlash;
 import lombok.Getter;
 
 @Getter
@@ -16,4 +17,11 @@ public class TipsException extends RuntimeException {
         super(msg);
         this.code = code;
     }
+
+    public TipsException(TipsFlash tipsFlash) {
+        super(tipsFlash.getMsg());
+        this.code = tipsFlash.getCode();
+    }
+
+
 }

@@ -16,6 +16,8 @@ public interface LoveMapper{
 
     int updateByPrimaryKey(Love record);
 
+    Love selectByLoveId(String loveId);
+
     Love selectByLoveIdAndType(@Param("loveId") String loveId,@Param("type") Integer type);
 
     Love selectByLoveIdAndTypeAndFromId(@Param("loveId") String loveId,@Param("type") Integer type,@Param("fromId") String fromId);

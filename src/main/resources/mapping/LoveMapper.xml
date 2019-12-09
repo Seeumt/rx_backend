@@ -125,6 +125,13 @@
       love_id = #{loveId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <select id="selectByLoveId" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where
+    love_id=#{loveId}
+  </select>
   <select id="selectByLoveIdAndType" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />

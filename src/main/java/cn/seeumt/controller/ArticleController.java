@@ -4,18 +4,17 @@ import cn.seeumt.dao.*;
 import cn.seeumt.dataobject.*;
 import cn.seeumt.dto.ArticleDTO;
 import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.model.Commenter;
-import cn.seeumt.service.ArticleService;
-import cn.seeumt.service.CommentService;
-import cn.seeumt.service.UserInfoService;
+import cn.seeumt.model.Thumber;
+import cn.seeumt.service.*;
 import cn.seeumt.utils.UuidUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
@@ -42,6 +41,11 @@ public class ArticleController {
     private ContentMapper contentMapper;
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private LoveService loveService;
+    @Autowired
+    private LoveFromUserService loveFromUserService;
+
 
 
     @GetMapping(value = "/")
@@ -161,6 +165,28 @@ public class ArticleController {
         contentMapper.insert(content);
 
     }
+
+
+
+
+
+    @PostMapping(value = "/love")
+    @ResponseBody
+    public int addLove(@RequestParam("userId") String userId,
+                        @RequestParam("articleId") String articleId
+                        ) {
+        Article article = articleService.selectByPrimaryKey(articleId);
+        int loveNum = loveService.addLove(userId, article.getLoveId());
+        return loveNum;
+    }
+
+    @GetMapping(value = "/getThumbers")
+    @ResponseBody
+    public List<Thumber> getThumbersOfANArticle(String articleId) {
+        List<Thumber> thumbers = articleService.getThumbersOfANArticle(articleId);
+        return thumbers;
+    }
+
 
 
 

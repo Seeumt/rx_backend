@@ -1,6 +1,7 @@
 package cn.seeumt.dao;
 
 import cn.seeumt.dataobject.Article;
+import cn.seeumt.model.Thumber;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface ArticleMapper {
     int updateByPrimaryKeySelective(Article record);
 
     int updateByPrimaryKey(Article record);
+
+
 }
