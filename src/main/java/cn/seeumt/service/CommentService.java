@@ -12,6 +12,7 @@ import java.util.List;
 public interface CommentService {
     Comment selectByCommentId(String commentId);
     List<CommentContent> findUserCommentsOfAnArticle(String articleId, String userId);
+    List<CommentContent> findUserCommentsOfAnComments(String userId,String commentId);
 
 }
 

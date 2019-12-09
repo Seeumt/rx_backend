@@ -81,6 +81,7 @@ public class ArticleController {
             userInfoList.add(userInfoService.selectByPrimaryKey(loveFromUser.getFromUserId()));
         }
         articleDTO.setThumbers(userInfoList);
+
         List<CommentFromUser> commentFromUserList = commentFromUserMapper.selectByCommentId(article.getCommentId());
         Set set = new HashSet();
         for (CommentFromUser commentFromUser : commentFromUserList) {
@@ -93,7 +94,35 @@ public class ArticleController {
             UserInfo userInfo = userInfoService.selectByPrimaryKey(set.toArray()[i].toString());
             commenter.setNickname(userInfo.getNickname());
             commenter.setFaceIcon(userInfo.getFaceIcon());
-            commenter.setCommentContents(commentService.findUserCommentsOfAnArticle(articleId, set.toArray()[i].toString()));
+            List<CommentContent> commentContents = commentService.findUserCommentsOfAnArticle(articleId, set.toArray()[i].toString());
+            for (CommentContent commentContent : commentContents) {
+                List<CommentFromUser> commentFromUserList1 = commentFromUserMapper.selectByCommentId(commentContent.getCommentId());
+                Set set1 = new HashSet();
+                for (CommentFromUser commentFromUser1 : commentFromUserList1) {
+                    set1.add(commentFromUser1.getFromUserId());
+                }
+//                Love love1 = loveMapper.selectByLoveIdAndType(commentContent.getLoveId(), Tips.COMMENT_THUMB.getCode());
+//                List<LoveFromUser> loveFromUsersList1 = loveFromUserMapper.selectListByFromId(love1.getFromId());
+//                List<UserInfo> userInfoList1 = new ArrayList<>();
+//                for (LoveFromUser loveFromUser : loveFromUsersList1) {
+//                    userInfoList1.add(userInfoService.selectByPrimaryKey(loveFromUser.getFromUserId()));
+//                }
+//                commentContent.setThumbers(userInfoList1);
+                List<Commenter> commenters1 = new ArrayList<>();
+                for (int i1 = 0; i1 < set1.toArray().length; i1++) {
+                    Commenter commenter1 = new Commenter();
+                    commenter1.setUserId(set1.toArray()[i1].toString());
+                    UserInfo userInfo1 = userInfoService.selectByPrimaryKey(set1.toArray()[i1].toString());
+                    commenter1.setNickname(userInfo1.getNickname());
+                    commenter1.setFaceIcon(userInfo1.getFaceIcon());
+                    List<CommentContent> commentContents1 = commentService.findUserCommentsOfAnComments(set1.toArray()[i1].toString(),commentContent.getCommentId());
+                    commenter1.setCommentContents(commentContents1);
+                    commenters1.add(commenter1);
+                }
+                commentContent.setCommenters(commenters1);
+
+            }
+            commenter.setCommentContents(commentContents);
             commenters.add(commenter);
         }
         articleDTO.setCommenters(commenters);

@@ -53,4 +53,19 @@ public class CommentServiceImpl implements CommentService {
         return commentContents;
     }
 
+    @Override
+    public List<CommentContent> findUserCommentsOfAnComments(String userId,String commentId) {
+        List<CommentFromUser> commentFromUsersLists = commentFromUserMapper.selectByUserIdAndCommentId(userId,commentId);
+        List<CommentContent> commentContents = new ArrayList<>();
+        for (CommentFromUser commentFromUser : commentFromUsersLists) {
+            CommentContent commentContent = new CommentContent();
+            BeanUtils.copyProperties(commentFromUser,commentContent);
+            Content content = contentMapper.selectByContentId(commentFromUser.getContentId());
+            commentContent.setContent(content.getContent());
+            commentContent.setCommentId(content.getCommentId());
+            commentContents.add(commentContent);
+        }
+        return commentContents;
+    }
+
 }
