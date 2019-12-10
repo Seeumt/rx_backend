@@ -1,5 +1,6 @@
 package cn.seeumt.model;
 
+import cn.seeumt.dataobject.UserInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -9,8 +10,9 @@ import java.util.Date;
 import java.util.List;
 @Data
 //@JsonPropertyOrder("true")
+@JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class PostComment {
-    @JsonProperty("commentId")
+
     private String id;
 
     private Byte type;
@@ -27,6 +29,9 @@ public class PostComment {
 
     private String userId;
 
-    @JsonInclude(value = JsonInclude.Include.NON_NULL)
+    @JsonProperty("thumbers")
+    private List<Thumber> thumbers;
+
+
     private List<PostComment> children;
 }

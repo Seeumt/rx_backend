@@ -25,4 +25,5 @@ public interface PostCommentMapper {
     List<PostComment> selectByReplyId(String replyId);
 
 
+    List<PostComment> findAllCommentsByPostId(String postId);
 }

@@ -2,47 +2,45 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.seeumt.dao.ArticleMapper">
   <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Article">
-    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="article_id" jdbcType="VARCHAR" property="articleId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
     <result column="md_content" jdbcType="VARCHAR" property="mdContent" />
     <result column="html_content" jdbcType="VARCHAR" property="htmlContent" />
-    <result column="love_id" jdbcType="VARCHAR" property="loveId" />
-    <result column="comment_id" jdbcType="VARCHAR" property="commentId" />
-    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="enabled" jdbcType="BIT" property="enabled" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, title, md_content, html_content, love_id, comment_id, user_id, create_time, update_time,
+    article_id, title, md_content, html_content, owner_id, create_time, update_time, 
     enabled, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from article
-    where id = #{id,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from article
-    where id = #{id,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Article">
-    insert into article (id, title, md_content,
-      html_content, love_id, comment_id,
-      user_id, create_time, update_time,
-      enabled, deleted)
-    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{mdContent,jdbcType=VARCHAR},
-      #{htmlContent,jdbcType=VARCHAR}, #{loveId,jdbcType=VARCHAR}, #{commentId,jdbcType=VARCHAR},
-      #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
-      #{enabled,jdbcType=BIT}, #{deleted,jdbcType=BIT})
+    insert into article (article_id, title, md_content, 
+      html_content, owner_id, create_time, 
+      update_time, enabled, deleted
+      )
+    values (#{articleId,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{mdContent,jdbcType=VARCHAR}, 
+      #{htmlContent,jdbcType=VARCHAR}, #{ownerId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT}, #{deleted,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Article">
     insert into article
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="articleId != null">
+        article_id,
       </if>
       <if test="title != null">
         title,
@@ -53,14 +51,8 @@
       <if test="htmlContent != null">
         html_content,
       </if>
-      <if test="loveId != null">
-        love_id,
-      </if>
-      <if test="commentId != null">
-        comment_id,
-      </if>
-      <if test="userId != null">
-        user_id,
+      <if test="ownerId != null">
+        owner_id,
       </if>
       <if test="createTime != null">
         create_time,
@@ -76,8 +68,8 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=VARCHAR},
+      <if test="articleId != null">
+        #{articleId,jdbcType=VARCHAR},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -88,14 +80,8 @@
       <if test="htmlContent != null">
         #{htmlContent,jdbcType=VARCHAR},
       </if>
-      <if test="loveId != null">
-        #{loveId,jdbcType=VARCHAR},
-      </if>
-      <if test="commentId != null">
-        #{commentId,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        #{userId,jdbcType=VARCHAR},
+      <if test="ownerId != null">
+        #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -123,14 +109,8 @@
       <if test="htmlContent != null">
         html_content = #{htmlContent,jdbcType=VARCHAR},
       </if>
-      <if test="loveId != null">
-        love_id = #{loveId,jdbcType=VARCHAR},
-      </if>
-      <if test="commentId != null">
-        comment_id = #{commentId,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null">
-        user_id = #{userId,jdbcType=VARCHAR},
+      <if test="ownerId != null">
+        owner_id = #{ownerId,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -145,26 +125,18 @@
         deleted = #{deleted,jdbcType=BIT},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="cn.seeumt.dataobject.Article">
     update article
     set title = #{title,jdbcType=VARCHAR},
       md_content = #{mdContent,jdbcType=VARCHAR},
       html_content = #{htmlContent,jdbcType=VARCHAR},
-      love_id = #{loveId,jdbcType=VARCHAR},
-      comment_id = #{commentId,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=VARCHAR},
+      owner_id = #{ownerId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       enabled = #{enabled,jdbcType=BIT},
       deleted = #{deleted,jdbcType=BIT}
-    where id = #{id,jdbcType=VARCHAR}
+    where article_id = #{articleId,jdbcType=VARCHAR}
   </update>
-  <select id="selectByCommentId" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List" />
-    from article
-    where comment_id = #{commentId,jdbcType=VARCHAR}
-  </select>
 </mapper>

@@ -1,6 +1,5 @@
 package cn.seeumt.model;
 
-import cn.seeumt.dataobject.Comment;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,6 +22,6 @@ public class Content {
 
     private String content;
 
-    private Comment comment;
+//    private Comment comment;
 
 }

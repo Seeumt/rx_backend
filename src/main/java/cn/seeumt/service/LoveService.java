@@ -2,12 +2,14 @@ package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Love;
 
+import java.util.List;
+
 /**
  * @author Seeumt
  * @date 2019/12/8 12:25
  */
 public interface LoveService {
-    int addLove(String userId,String loveId);
+    int addLove(String apiRootId,String userId);
 
-    Love selectByLoveId(String loveId);
+    List<Love> selectByApiRootId(String apiRootId);
 }

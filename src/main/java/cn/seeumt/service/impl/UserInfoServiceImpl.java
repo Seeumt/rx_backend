@@ -7,8 +7,6 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 /**
  * @author Seeumt
  * @date 2019/12/8 14:57
@@ -16,6 +14,8 @@ import java.util.List;
 @Data
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
+
+
     @Autowired
     private UserInfoMapper userInfoMapper;
 

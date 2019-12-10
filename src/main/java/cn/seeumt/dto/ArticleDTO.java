@@ -1,6 +1,5 @@
 package cn.seeumt.dto;
 
-import cn.seeumt.dataobject.UserInfo;
 import cn.seeumt.model.Commenter;
 import lombok.Data;
 
@@ -35,7 +34,6 @@ public class ArticleDTO {
 
     private Boolean deleted;
 
-    private List<UserInfo> thumbers;
 
     private List<Commenter> commenters;
 }

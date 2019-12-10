@@ -1,7 +1,5 @@
 package cn.seeumt.model;
 
-import cn.seeumt.dataobject.UserInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -26,7 +24,7 @@ public class CommentContent {// TODO: 2019/12/9 Oops~~~
 
     private String loveId;
 
-    private List<UserInfo> thumbers;
+//    private List<UserInfo> thumbers;
 
     private List<Commenter> commenters;
 

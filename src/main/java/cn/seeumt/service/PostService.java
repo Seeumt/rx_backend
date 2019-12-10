@@ -14,5 +14,9 @@ public interface PostService {
 
     List<PostComment> findAllCommentsOfAPost(String postId, String replyId);
 
+//    List<PostComment> findAllCommentsByPostId(String postId);
+
+
+
 //    PostCommentDTO findAllCommentsOfAPost1(String postId, String replyId);
 }

@@ -3,15 +3,13 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dao.LoveMapper;
 import cn.seeumt.dataobject.Love;
 import cn.seeumt.enums.Tips;
-import cn.seeumt.enums.TipsFlash;
-import cn.seeumt.exception.TipsException;
-import cn.seeumt.service.LoveFromUserService;
 import cn.seeumt.service.LoveService;
 import cn.seeumt.utils.UuidUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Seeumt
@@ -26,39 +24,59 @@ public class LoveServiceImpl implements LoveService {
 
     @Autowired
     private LoveMapper loveMapper;
-    @Autowired
-    private LoveFromUserService loveFromUserService;
 
     @Override
-    public int addLove(String userId,String loveId) {
-        Love love = loveMapper.selectByLoveId(loveId);
-        if (love == null) {
-            Love love1 = new Love();
-            love1.setId(UuidUtil.getUUID());
-            love1.setLoveId(loveId);
-            love1.setType((byte) Tips.ARTICLE_THUMB.getCode().intValue());
-            love1.setStatus(true);
-            love1.setCreateTime(new Date());
-            love1.setUpdateTime(new Date());
-            love1.setEnabled(true);
-            love1.setFromId(UuidUtil.getUUID());
-            loveMapper.insert(love1);
-            int thumbNum = loveFromUserService.createThumb(userId, love1.getFromId());
-            if (thumbNum != 1) {
-                throw new TipsException(TipsFlash.ARTICLE_THUMB_FAILED);
-            }
-        } else {
-            int thumbNum = loveFromUserService.createThumb(userId, love.getFromId());
-            if (thumbNum != 1) {
-                throw new TipsException(TipsFlash.ARTICLE_THUMB_FAILED);
-            }
-        }
-        return 10;
-
+    public int addLove(String apiRootId, String userId) {
+        Love love = new Love();
+        love.setLoveId(UuidUtil.getUUID());
+        love.setType((byte)(Tips.POST_THUMB.getCode().intValue()));
+        love.setStatus(true);
+        love.setCreateTime(new Date());
+        love.setUpdateTime(new Date());
+        love.setEnabled(true);
+        love.setUserId(userId);
+        love.setApiRootId(apiRootId);
+        love.setContent(null);
+        return loveMapper.insert(love);
     }
 
     @Override
-    public Love selectByLoveId(String loveId) {
-        return loveMapper.selectByLoveId(loveId);
+    public List<Love> selectByApiRootId(String apiRootId) {
+        return loveMapper.selectByApiRootId(apiRootId);
     }
+
+
+
+
+//    public int addLove(String userId,String loveId) {
+//        Love love = loveMapper.selectByLoveId(loveId);
+//        if (love == null) {
+//            Love love1 = new Love();
+//            love1.setId(UuidUtil.getUUID());
+//            love1.setLoveId(loveId);
+//            love1.setType((byte) Tips.ARTICLE_THUMB.getCode().intValue());
+//            love1.setStatus(true);
+//            love1.setCreateTime(new Date());
+//            love1.setUpdateTime(new Date());
+//            love1.setEnabled(true);
+//            love1.setFromId(UuidUtil.getUUID());
+//            loveMapper.insert(love1);
+//            int thumbNum = loveFromUserService.createThumb(userId, love1.getFromId());
+//            if (thumbNum != 1) {
+//                throw new TipsException(TipsFlash.ARTICLE_THUMB_FAILED);
+//            }
+//        } else {
+//            int thumbNum = loveFromUserService.createThumb(userId, love.getFromId());
+//            if (thumbNum != 1) {
+//                throw new TipsException(TipsFlash.ARTICLE_THUMB_FAILED);
+//            }
+//        }
+//        return 10;
+//
+//    }
+//
+//    @Override
+//    public Love selectByLoveId(String loveId) {
+//        return loveMapper.selectByLoveId(loveId);
+//    }
 }

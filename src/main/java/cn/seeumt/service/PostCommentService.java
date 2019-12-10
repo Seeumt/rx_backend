@@ -8,4 +8,6 @@ public interface PostCommentService {
     int comment(String postId, String replyId,String userId);
 
     List<PostComment> selectByReplyId(String replyId);
+
+    List<PostComment> findAllCommentsByPostId(String postId);
 }

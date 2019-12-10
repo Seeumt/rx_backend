@@ -1,7 +1,7 @@
 package cn.seeumt.dao;
 
 import cn.seeumt.dataobject.Post;
-import cn.seeumt.dataobject.PostComment;
+import cn.seeumt.model.PostComment;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,6 +18,8 @@ public interface PostMapper {
     int updateByPrimaryKeySelective(Post record);
 
     int updateByPrimaryKey(Post record);
+
+    List<PostComment> findAllCommentsByPostId(String postId);
 
 
 }

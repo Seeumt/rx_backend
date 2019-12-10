@@ -41,4 +41,17 @@ public class PostCommentServiceImpl implements PostCommentService {
         }
         return postComments;
     }
+
+    @Override
+    public List<cn.seeumt.model.PostComment> findAllCommentsByPostId(String postId) {
+        List<PostComment> commentsLevelOne = postCommentMapper.findAllCommentsByPostId(postId);
+        List<cn.seeumt.model.PostComment> postComments = new ArrayList<>();
+        for (PostComment postComment : commentsLevelOne) {
+            cn.seeumt.model.PostComment postComment1 = new cn.seeumt.model.PostComment();
+            BeanUtils.copyProperties(postComment,postComment1);
+            postComments.add(postComment1);
+        }
+        return postComments;
+    }
+
 }

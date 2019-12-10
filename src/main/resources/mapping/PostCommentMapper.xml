@@ -148,4 +148,10 @@
     from post_comment
     where reply_id = #{replyId,jdbcType=VARCHAR}
   </select>
+  <select id="findAllCommentsByPostId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from post_comment
+    where post_id = #{postId,jdbcType=VARCHAR}
+  </select>
 </mapper>
