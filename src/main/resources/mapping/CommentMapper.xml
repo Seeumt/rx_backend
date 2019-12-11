@@ -13,11 +13,11 @@
     <result column="api_root_id" jdbcType="VARCHAR" property="apiRootId" />
   </resultMap>
   <sql id="Base_Column_List">
-    comment_id, type, user_id, content, create_time, update_time, enabled, parent_id, 
+    comment_id, type, user_id, content, create_time, update_time, enabled, parent_id,
     api_root_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from comment
     where comment_id = #{commentId,jdbcType=VARCHAR}
@@ -27,12 +27,12 @@
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Comment">
-    insert into comment (comment_id, type, user_id, 
-      content, create_time, update_time, 
+    insert into comment (comment_id, type, user_id,
+      content, create_time, update_time,
       enabled, parent_id, api_root_id
       )
-    values (#{commentId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{userId,jdbcType=VARCHAR}, 
-      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+    values (#{commentId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{userId,jdbcType=VARCHAR},
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP},
       #{enabled,jdbcType=BIT}, #{parentId,jdbcType=VARCHAR}, #{apiRootId,jdbcType=VARCHAR}
       )
   </insert>
@@ -139,4 +139,10 @@
       api_root_id = #{apiRootId,jdbcType=VARCHAR}
     where comment_id = #{commentId,jdbcType=VARCHAR}
   </update>
+  <select id="findNextLevelCommentsByParentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from comment
+    where parent_id = #{parentId,jdbcType=VARCHAR}
+  </select>
 </mapper>

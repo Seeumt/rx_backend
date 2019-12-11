@@ -9,5 +9,10 @@ public interface PostCommentService {
 
     List<PostComment> selectByReplyId(String replyId);
 
+    /**
+     * 通过某postId(其实是父级Id 因为第一级评论的父级id都是postId)找到其所有下一级的评论
+     * @param postId
+     * @return
+     */
     List<PostComment> findAllCommentsByPostId(String postId);
 }

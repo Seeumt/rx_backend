@@ -10,6 +10,8 @@ public interface PostService {
 
     int comment(String postId);
 
+
+
 //    PostCommentDTO findAllCommentsOfAPost(String postId, String replyId);
 
     List<PostComment> findAllCommentsOfAPost(String postId, String replyId);
