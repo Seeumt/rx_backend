@@ -1,5 +1,6 @@
 package cn.seeumt.vo;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -10,6 +11,7 @@ public class ResultVO implements Serializable {
 
     private Integer code;
     private String msg;
+    @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Object data;
 
 
@@ -27,10 +29,10 @@ public class ResultVO implements Serializable {
     }
 
     public static ResultVO error(Integer code, String msg) {
-        ResultVO result = new ResultVO();
-        result.setCode(code);
-        result.setMsg(msg);
-        return result;
+        ResultVO resultvo = new ResultVO();
+        resultvo.setCode(code);
+        resultvo.setMsg(msg);
+        return resultvo;
     }
 
 

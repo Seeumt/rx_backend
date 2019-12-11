@@ -4,19 +4,18 @@
   <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Post">
     <id column="post_id" jdbcType="VARCHAR" property="postId" />
     <result column="type" jdbcType="BIT" property="type" />
-    <result column="content_id" jdbcType="VARCHAR" property="contentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
     <result column="img_id" jdbcType="VARCHAR" property="imgId" />
-    <result column="love_id" jdbcType="VARCHAR" property="loveId" />
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="deleted" jdbcType="BIT" property="deleted" />
   </resultMap>
   <sql id="Base_Column_List">
-    post_id, type, content_id, img_id, love_id, user_id, create_time, update_time, deleted
+    post_id, type, content, img_id, user_id, create_time, update_time, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select
+    select 
     <include refid="Base_Column_List" />
     from post
     where post_id = #{postId,jdbcType=VARCHAR}
@@ -26,14 +25,12 @@
     where post_id = #{postId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Post">
-    insert into post (post_id, type, content_id,
-      img_id, love_id, user_id,
-      create_time, update_time, deleted
-      )
-    values (#{postId,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{contentId,jdbcType=VARCHAR},
-      #{imgId,jdbcType=VARCHAR}, #{loveId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR},
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT}
-      )
+    insert into post (post_id, type, content, 
+      img_id, user_id, create_time, 
+      update_time, deleted)
+    values (#{postId,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{content,jdbcType=VARCHAR}, 
+      #{imgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Post">
     insert into post
@@ -44,14 +41,11 @@
       <if test="type != null">
         type,
       </if>
-      <if test="contentId != null">
-        content_id,
+      <if test="content != null">
+        content,
       </if>
       <if test="imgId != null">
         img_id,
-      </if>
-      <if test="loveId != null">
-        love_id,
       </if>
       <if test="userId != null">
         user_id,
@@ -73,14 +67,11 @@
       <if test="type != null">
         #{type,jdbcType=BIT},
       </if>
-      <if test="contentId != null">
-        #{contentId,jdbcType=VARCHAR},
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
       </if>
       <if test="imgId != null">
         #{imgId,jdbcType=VARCHAR},
-      </if>
-      <if test="loveId != null">
-        #{loveId,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
         #{userId,jdbcType=VARCHAR},
@@ -102,14 +93,11 @@
       <if test="type != null">
         type = #{type,jdbcType=BIT},
       </if>
-      <if test="contentId != null">
-        content_id = #{contentId,jdbcType=VARCHAR},
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
       </if>
       <if test="imgId != null">
         img_id = #{imgId,jdbcType=VARCHAR},
-      </if>
-      <if test="loveId != null">
-        love_id = #{loveId,jdbcType=VARCHAR},
       </if>
       <if test="userId != null">
         user_id = #{userId,jdbcType=VARCHAR},
@@ -129,14 +117,12 @@
   <update id="updateByPrimaryKey" parameterType="cn.seeumt.dataobject.Post">
     update post
     set type = #{type,jdbcType=BIT},
-      content_id = #{contentId,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
       img_id = #{imgId,jdbcType=VARCHAR},
-      love_id = #{loveId,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       deleted = #{deleted,jdbcType=BIT}
     where post_id = #{postId,jdbcType=VARCHAR}
   </update>
-
 </mapper>

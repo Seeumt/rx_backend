@@ -22,7 +22,7 @@ public class CommentController {
     private CommentService commentService;
 
     @GetMapping("/")
-    public int comment(String commentId,
+    public int commentForComment(String commentId,
                         String postId,
                         @RequestParam(value = "type",defaultValue ="6" ) Byte type,
                         String userId,String content) {
@@ -30,8 +30,4 @@ public class CommentController {
 
     }
 
-//    @GetMapping("/add")
-//    public void addLoveToComments(String userId,String contentId) {
-//
-//    }
 }

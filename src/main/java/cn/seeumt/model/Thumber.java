@@ -14,5 +14,9 @@ public class Thumber {
 
     private String faceIcon;
 
+    private Boolean status;
+
+    private Date createTime;
+
 
 }

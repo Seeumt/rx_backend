@@ -8,13 +8,13 @@
     <result column="face_icon" jdbcType="VARCHAR" property="faceIcon" />
     <result column="telephone" jdbcType="INTEGER" property="telephone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="enabled" jdbcType="TINYINT" property="enabled" />
+    <result column="status" jdbcType="BIT" property="status" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
     <result column="stu" jdbcType="BIT" property="stu" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, nickname, face_icon, telephone, email, enabled, create_time, update_time, 
+    id, username, nickname, face_icon, telephone, email, status, create_time, update_time, 
     stu
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -30,11 +30,11 @@
   <insert id="insert" parameterType="cn.seeumt.dataobject.UserInfo">
     insert into user_info (id, username, nickname, 
       face_icon, telephone, email, 
-      enabled, create_time, update_time, 
+      status, create_time, update_time, 
       stu)
     values (#{id,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
       #{faceIcon,jdbcType=VARCHAR}, #{telephone,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, 
-      #{enabled,jdbcType=TINYINT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=BIT}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
       #{stu,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.UserInfo">
@@ -58,8 +58,8 @@
       <if test="email != null">
         email,
       </if>
-      <if test="enabled != null">
-        enabled,
+      <if test="status != null">
+        status,
       </if>
       <if test="createTime != null">
         create_time,
@@ -90,8 +90,8 @@
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="enabled != null">
-        #{enabled,jdbcType=TINYINT},
+      <if test="status != null">
+        #{status,jdbcType=BIT},
       </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
@@ -122,8 +122,8 @@
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="enabled != null">
-        enabled = #{enabled,jdbcType=TINYINT},
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
       </if>
       <if test="createTime != null">
         create_time = #{createTime,jdbcType=TIMESTAMP},
@@ -144,7 +144,7 @@
       face_icon = #{faceIcon,jdbcType=VARCHAR},
       telephone = #{telephone,jdbcType=INTEGER},
       email = #{email,jdbcType=VARCHAR},
-      enabled = #{enabled,jdbcType=TINYINT},
+      status = #{status,jdbcType=BIT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       stu = #{stu,jdbcType=BIT}

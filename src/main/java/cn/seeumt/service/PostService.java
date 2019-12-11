@@ -1,24 +1,24 @@
 package cn.seeumt.service;
 
-import cn.seeumt.dto.PostCommentDTO;
-import cn.seeumt.model.PostComment;
 
-import java.util.List;
+import cn.seeumt.dto.PostDTO;
 
 public interface PostService {
+
+    /**
+     * 通过用户发布的动态的Id得到一个完整的动态详情
+     * @param postId 用户发布的动态的Id
+     * @return 将查询到的Post 转化为 PostDTO
+     */
+
+    PostDTO selectByPostId(String postId);
+
+    /**
+     * 发布动态
+     * @return int
+     */
     int sendPost();
 
-    int comment(String postId);
-
-
-
-//    PostCommentDTO findAllCommentsOfAPost(String postId, String replyId);
-
-    List<PostComment> findAllCommentsOfAPost(String postId, String replyId);
-
-//    List<PostComment> findAllCommentsByPostId(String postId);
-
-
-
-//    PostCommentDTO findAllCommentsOfAPost1(String postId, String replyId);
 }
+
+

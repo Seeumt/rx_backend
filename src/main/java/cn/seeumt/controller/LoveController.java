@@ -27,9 +27,9 @@ public class LoveController {
     @Autowired
     private LoveService loveService;
 
-    @PostMapping(value = "/post")
+    @PostMapping(value = "/")
     @ResponseBody
-    public int addLove(@RequestParam("postId") String apiRootId,
+    public int addLove(@RequestParam("uniqueId") String apiRootId,
                         @RequestParam("userId") String userId) {
         int i = loveService.addLove(apiRootId, userId);
         return i;

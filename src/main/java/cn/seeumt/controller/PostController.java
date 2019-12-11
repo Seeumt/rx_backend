@@ -1,14 +1,11 @@
 package cn.seeumt.controller;
 
-import cn.seeumt.dao.PostCommentMapper;
-import cn.seeumt.dto.PostCommentDTO;
-import cn.seeumt.enums.Tips;
+import cn.seeumt.dto.PostDTO;
 import cn.seeumt.model.Comment;
-import cn.seeumt.model.PostComment;
+import cn.seeumt.model.Thumber;
 import cn.seeumt.service.CommentService;
-import cn.seeumt.service.PostCommentService;
 import cn.seeumt.service.PostService;
-import cn.seeumt.utils.TreeNewUtil;
+import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,23 +21,12 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+
     @Autowired
     private CommentService commentService;
-    @Autowired
-    private PostCommentService postCommentService;
-
-    @GetMapping("/comments")
-    public List<PostComment> findAllComments(String postId) {
-        List<PostComment> allCommentsOfAPost = postCommentService.findAllCommentsByPostId(postId);
-        List<PostComment> postComments = TreeUtil.listToTree(allCommentsOfAPost,postId);
-        return postComments;
-    }
 
 
-    @GetMapping("/comment")
-    public int comment(String postId) {
-        return postService.comment(postId);
-    }
+
 
     @GetMapping("/comment01")
     public int comment01(String postId,
@@ -57,9 +43,23 @@ public class PostController {
     @GetMapping("/find")
     public List<Comment> findAllCommentsNew(String parentId) {
         List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(parentId);
-        List<Comment> comments = TreeNewUtil.listToTree(levelCommentsList, parentId);
+        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, parentId);
         return comments;
     }
+
+
+    @GetMapping("/findPost")
+    public PostDTO findAPost(String postId) {
+        PostDTO postDTO = postService.selectByPostId(postId);
+        List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(postId);
+        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, postId);
+        postDTO.setComments(comments);
+        List<Thumber> thumbers = ThumberUtil.allThumbers(postId);
+        postDTO.setThumbers(thumbers);
+        return postDTO;
+    }
+
+
 
 
 

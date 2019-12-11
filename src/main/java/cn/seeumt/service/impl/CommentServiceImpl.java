@@ -2,11 +2,8 @@ package cn.seeumt.service.impl;
 import java.util.Date;
 
 import cn.seeumt.dao.CommentMapper;
-import cn.seeumt.dataobject.Article;
 import cn.seeumt.dataobject.Comment;
-import cn.seeumt.dataobject.PostComment;
 import cn.seeumt.model.CommentContent;
-import cn.seeumt.service.ArticleService;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.UuidUtil;
 import org.springframework.beans.BeanUtils;
