@@ -2,61 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2b930e5f-2658-43c3-81fe-872ede893c2a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/ThumberUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/LoveController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/LoveController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostCommentController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dao/PostCommentMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dao/PostMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dao/UserInfoMapper.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Post.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/PostComment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/UserInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dto/PostCommentDTO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dto/PostDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/dto/PostDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/model/PostComment.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/model/Thumber.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/model/Thumber.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/LoveService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/LoveService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostCommentService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostCommentServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/TreeNewUtil.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/TreeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/TreeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ResultVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ResultVO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/PostCommentMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/PostMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapping/UserInfoMapper.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mybatis-generator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mybatis-generator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/META-INF/tips.kotlin_module" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/controller/LoveController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/controller/LoveController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/controller/PostCommentController.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/controller/PostController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/controller/PostController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dao/PostCommentMapper.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dao/PostMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/dao/PostMapper.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/Post.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/Post.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/PostComment.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/UserInfo.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/UserInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dto/PostCommentDTO.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dto/PostDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/dto/PostDTO.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/enums/TipsFlash.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/enums/TipsFlash.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/model/PostComment.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/model/Thumber.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/model/Thumber.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/service/PostCommentService.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/service/PostService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/service/PostService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/service/impl/PostCommentServiceImpl.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/service/impl/PostServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/service/impl/PostServiceImpl.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/utils/TreeUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/utils/TreeUtil.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/vo/ResultVO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/vo/ResultVO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/mapping/PostCommentMapper.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mapping/PostMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/PostMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mapping/UserInfoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mapping/UserInfoMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/mybatis-generator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/mybatis-generator.xml" afterDir="false" />
@@ -168,8 +127,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="168">
+              <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -469,7 +428,7 @@
       <workItem from="1575939726841" duration="12403000" />
       <workItem from="1575957774953" duration="10448000" />
       <workItem from="1575978585498" duration="12091000" />
-      <workItem from="1576062732258" duration="11094000" />
+      <workItem from="1576062732258" duration="11224000" />
     </task>
     <task id="LOCAL-00001" summary="测试mybatis-generator工具">
       <created>1574566954579</created>
@@ -513,11 +472,18 @@
       <option name="project" value="LOCAL" />
       <updated>1575996496837</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="封装方法到TumbersUtil PostDTO 部分接口注释">
+      <created>1576074913032</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1576074913033</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66124000" />
+    <option name="totallyTimeSpent" value="66254000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1484" height="878" extended-state="6" />
@@ -534,7 +500,7 @@
       <window_info id="Web" order="8" sideWeight="0.5013405" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3297587" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3458445" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3458445" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.12868632" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -606,7 +572,8 @@
     <MESSAGE value="发布动态的评论树状图" />
     <MESSAGE value="评论树状图及其点赞者" />
     <MESSAGE value="tips7.sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="tips7.sql" />
+    <MESSAGE value="封装方法到TumbersUtil PostDTO 部分接口注释" />
+    <option name="LAST_COMMIT_MESSAGE" value="封装方法到TumbersUtil PostDTO 部分接口注释" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1087,8 +1054,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="504">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="168">
+          <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
