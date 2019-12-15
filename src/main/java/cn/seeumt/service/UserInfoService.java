@@ -2,6 +2,7 @@ package cn.seeumt.service;
 
 
 import cn.seeumt.dataobject.UserInfo;
+import cn.seeumt.vo.ResultVO;
 
 /**
  * @author Seeumt
@@ -10,5 +11,7 @@ import cn.seeumt.dataobject.UserInfo;
 public interface UserInfoService {
 
     UserInfo selectByPrimaryKey(String userId);
+
+    ResultVO logIn(String userId, String password);
 
 }

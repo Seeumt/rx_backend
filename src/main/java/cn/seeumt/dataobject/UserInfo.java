@@ -1,8 +1,10 @@
 package cn.seeumt.dataobject;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserInfo {
+public class UserInfo implements Serializable {
+    private static final long serialVersionUID = 4978418084622768954L;
     private String id;
 
     private String username;

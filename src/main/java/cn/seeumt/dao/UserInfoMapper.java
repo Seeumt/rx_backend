@@ -1,8 +1,9 @@
 package cn.seeumt.dao;
 
 import cn.seeumt.dataobject.UserInfo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UserInfoMapper {
+public interface UserInfoMapper extends BaseMapper<UserInfo> {
     int deleteByPrimaryKey(String id);
 
     int insert(UserInfo record);
