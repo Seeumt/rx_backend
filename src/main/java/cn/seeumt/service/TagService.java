@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Tag;
+import cn.seeumt.vo.TagVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -14,6 +15,6 @@ import java.util.List;
  * @since 2019-12-21
  */
 public interface TagService{
-    List<Tag> findByTagIds(List<String> tagIds);
+    List<TagVO> findByTagIds(List<String> tagIds);
 
 }

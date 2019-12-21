@@ -37,10 +37,10 @@ public interface CommentService {
     int comment(String apiRootId,String userId,String content,Byte type,String commentId);
 
     /**
-     * 通过某parentId(父级Id 第一级评论的父级id都是postId)
-     * 找到其所有下一级的评论
+     * 通过某parentId(父级Id 第一级评论的父级id都是articleId,postId)
+     * 找到其所有下一级的评论    !!! 一般都是从第一级开始找）
      * 并对返回对象进行组装
-     * @param parentId
+     * @param parentId（第一级评论的父级id都是articleId,postId）
      * @return model Comment
      */
     List<cn.seeumt.model.Comment > findNextLevelCommentsByParentId(String parentId);

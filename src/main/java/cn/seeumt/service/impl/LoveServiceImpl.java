@@ -5,6 +5,7 @@ import cn.seeumt.dataobject.Love;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.service.LoveService;
 import cn.seeumt.utils.UuidUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,18 +27,44 @@ public class LoveServiceImpl implements LoveService {
     private LoveMapper loveMapper;
 
     @Override
-    public int addLove(String apiRootId, String userId) {
-        Love love = new Love();
-        love.setLoveId(UuidUtil.getUUID());
-        love.setType((byte)(Tips.POST_THUMB.getCode().intValue()));
-        love.setStatus(true);
-        love.setCreateTime(new Date());
-        love.setUpdateTime(new Date());
-        love.setEnabled(true);
-        love.setUserId(userId);
-        love.setApiRootId(apiRootId);
-        love.setContent(null);
-        return loveMapper.insert(love);
+    public Boolean addOrCancelLove(String apiRootId, String userId) {
+        Love aLove = selectByApiRootIdAndUserId(apiRootId, userId);
+        //如果没有点过赞 成功点赞
+        if (aLove==null) {
+            Love love = new Love();
+            love.setLoveId(UuidUtil.getUUID());
+            love.setType((byte)(Tips.POST_THUMB.getCode().intValue()));
+            love.setStatus(true);
+            love.setCreateTime(new Date());
+            love.setUpdateTime(new Date());
+            love.setEnabled(true);
+            love.setUserId(userId);
+            love.setApiRootId(apiRootId);
+            love.setContent(null);
+            loveMapper.insert(love);
+        }
+        //如果点过了赞，再点就是取消
+        else if (aLove != null && aLove.getStatus() == true) {
+            aLove.setStatus(false);
+            aLove.setUpdateTime(new Date());
+            int i = loveMapper.updateById(aLove);
+            if (i == 1) {
+                return true;
+            } else {
+                return null;
+            }
+        } else if (aLove != null && aLove.getStatus() == false) {
+            aLove.setStatus(true);
+            aLove.setUpdateTime(new Date());
+            int i = loveMapper.updateById(aLove);
+            if (i == 1) {
+                return true;
+            } else {
+                return null;
+            }
+
+        }
+        return null;
     }
 
     @Override
@@ -45,7 +72,22 @@ public class LoveServiceImpl implements LoveService {
         return loveMapper.selectByApiRootId(apiRootId);
     }
 
+    @Override
+    public Boolean isLoveExist(String apiRootId, String userId) {
+      Love love = selectByApiRootIdAndUserId(apiRootId, userId);
+        if (love==null) {
+            return true;
+        }
+        return false;
+    }
 
+    @Override
+    public Love selectByApiRootIdAndUserId(String apiRootId, String userId) {
+        QueryWrapper<Love> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("api_root_id", apiRootId).eq("user_id", userId);
+        Love love = loveMapper.selectOne(queryWrapper);
+        return love;
+    }
 
 
 //    public int addLove(String userId,String loveId) {

@@ -3,8 +3,12 @@ package cn.seeumt.dto;
 import cn.seeumt.dataobject.City;
 import cn.seeumt.dataobject.Tag;
 import cn.seeumt.dataobject.UserInfo;
+import cn.seeumt.model.Comment;
 import cn.seeumt.model.Commenter;
 import cn.seeumt.model.Thumber;
+import cn.seeumt.vo.CityVO;
+import cn.seeumt.vo.TagVO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.util.Date;
@@ -31,13 +35,15 @@ public class ArticleDTO {
 
     private String faceIcon;
 
-    private List<Tag> tags;
+    @JsonProperty("tags")
+    private List<TagVO> tagVOS;
 
     private String headPicture;
 
     private String coverPicture;
 
-    private List<City> viaCities;
+    @JsonProperty("viaCities")
+    private List<CityVO> viaCitiesVOS;
 
     private Date createTime;
 
@@ -46,6 +52,8 @@ public class ArticleDTO {
     private Boolean enabled;
 
     private Boolean deleted;
+
+    private List<Comment> comments;
 
     private List<Thumber> thumbers;
 

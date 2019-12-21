@@ -26,15 +26,6 @@ public class PostController {
     private CommentService commentService;
 
 
-
-
-    @GetMapping("/comment01")
-    public int comment01(String postId,
-                         @RequestParam(value = "type",defaultValue ="5" ) Byte type,
-                         String userId,String content) {
-        return commentService.commentForRoot(postId,userId,content,type);
-    }
-
     @GetMapping("/")
     public int send() {
         return postService.sendPost();

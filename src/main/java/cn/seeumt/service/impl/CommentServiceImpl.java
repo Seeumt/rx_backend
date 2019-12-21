@@ -41,13 +41,13 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<cn.seeumt.model.Comment> findNextLevelCommentsByParentId(String parentId) {
         List<Comment> commentsSomeLevel = commentMapper.findNextLevelCommentsByParentId(parentId);
-        List<cn.seeumt.model.Comment> postComments = new ArrayList<>();
+        List<cn.seeumt.model.Comment> comments = new ArrayList<>();
         for (Comment comment : commentsSomeLevel) {
             cn.seeumt.model.Comment commentModel = new cn.seeumt.model.Comment();
             BeanUtils.copyProperties(comment,commentModel);
-            postComments.add(commentModel);
+            comments.add(commentModel);
         }
-        return postComments;
+        return comments;
     }
 
     @Override

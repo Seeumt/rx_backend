@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
  Source Server Version : 50725
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 11/12/2019 22:35:43
+ Date: 22/12/2019 02:27:47
 */
 
 SET NAMES utf8mb4;
@@ -22,22 +22,63 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `article`;
 CREATE TABLE `article`  (
-  `article_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `md_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `html_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `owner_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `update_time` datetime(0) NOT NULL,
-  `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '默认为1表示通过',
-  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '默认为0表示为删除',
+  `article_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//文章id',
+  `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//标题',
+  `md_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//md内容',
+  `html_content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//html内容',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '//创建时间',
+  `update_time` datetime(0) NOT NULL COMMENT '//更新时间',
+  `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '//默认为1表示通过',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '//默认为0表示未删除',
+  `cover_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//封面图片',
+  `head_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//顶部图片',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//用户id',
   PRIMARY KEY (`article_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('123456789', 'RRRR', 'AAA', 'SSS', 'Seeumt', '2019-12-11 22:23:04', '2019-12-11 22:23:08', b'1', b'0');
+INSERT INTO `article` VALUES ('123456789', 'RRRR', 'AAA', 'SSS', '2019-12-11 22:23:04', '2019-12-11 22:23:08', b'1', b'0', NULL, NULL, 'Seeumt');
+
+-- ----------------------------
+-- Table structure for article_cities
+-- ----------------------------
+DROP TABLE IF EXISTS `article_cities`;
+CREATE TABLE `article_cities`  (
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '途径城市表',
+  `city_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '城市id',
+  `article_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '文章id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of article_cities
+-- ----------------------------
+INSERT INTO `article_cities` VALUES ('1', '1', '123456789');
+INSERT INTO `article_cities` VALUES ('2', '2', '123456789');
+INSERT INTO `article_cities` VALUES ('3', '5', '123456789');
+INSERT INTO `article_cities` VALUES ('4', '6', '123456789');
+INSERT INTO `article_cities` VALUES ('5', '1', '123456');
+
+-- ----------------------------
+-- Table structure for article_tags
+-- ----------------------------
+DROP TABLE IF EXISTS `article_tags`;
+CREATE TABLE `article_tags`  (
+  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//文章与标签桥接表id',
+  `tag_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//文章对应的标签的id',
+  `article_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//文章的id',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of article_tags
+-- ----------------------------
+INSERT INTO `article_tags` VALUES ('1', '1', '123456789');
+INSERT INTO `article_tags` VALUES ('2', '2', '123456789');
+INSERT INTO `article_tags` VALUES ('3', '3', '123456789');
+INSERT INTO `article_tags` VALUES ('4', '5', '123456789');
 
 -- ----------------------------
 -- Table structure for bonus
@@ -51,6 +92,28 @@ CREATE TABLE `bonus`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`bonus_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for city
+-- ----------------------------
+DROP TABLE IF EXISTS `city`;
+CREATE TABLE `city`  (
+  `city_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  `create_time` datetime(0) NULL DEFAULT NULL,
+  `update_time` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`city_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of city
+-- ----------------------------
+INSERT INTO `city` VALUES ('1', '北京', '2019-12-21 22:15:00', '2019-12-21 22:15:04');
+INSERT INTO `city` VALUES ('2', '上海', '2019-12-21 22:15:20', '2019-12-21 22:15:23');
+INSERT INTO `city` VALUES ('3', '广州', '2019-12-21 22:16:03', '2019-12-21 22:16:05');
+INSERT INTO `city` VALUES ('4', '深圳', '2019-12-21 22:16:22', '2019-12-21 22:16:25');
+INSERT INTO `city` VALUES ('5', '太原', '2019-12-21 22:16:36', '2019-12-21 22:16:39');
+INSERT INTO `city` VALUES ('6', '天津', '2019-12-21 22:17:06', '2019-12-21 22:17:09');
 
 -- ----------------------------
 -- Table structure for comment
@@ -75,12 +138,17 @@ CREATE TABLE `comment`  (
 INSERT INTO `comment` VALUES ('00b11e3531a0437490da508824e932cc', 6, 'test2', '这是第一条二级评论', '2019-12-11 11:40:00', '2019-12-11 11:40:00', b'1', '6aa4ba942c2f479bb39e8c309d5b8dcb', '227b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('023b5d2a91a940ada79f4f5c0be9e231', 6, 'test1', '这是第一条一级评论', '2019-12-11 21:48:21', '2019-12-11 21:48:21', b'1', '667b8b1afb43408897d1dbb81eaa2ab9', '667b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('0cc8af26505d41fab32f097623c5d805', 6, 'test2', '这是第三条二级评论', '2019-12-11 21:44:25', '2019-12-11 21:44:25', b'1', '4f318bca4e194797817efc93bef14225', '227b8b1afb43408897d1dbb81eaa2ab9');
+INSERT INTO `comment` VALUES ('2da7288ce6d94cd0a731baba62117d16', 1, 'test1', '这是第一篇文章的第一条一级评论', '2019-12-21 22:01:34', '2019-12-21 22:01:34', b'1', '123456789', '123456789');
+INSERT INTO `comment` VALUES ('4ab81b5ca780463e97e3f4c176db4ce5', 2, 'test2', '这是第一条二级评论', '2019-12-22 01:16:08', '2019-12-22 01:16:08', b'1', '2da7288ce6d94cd0a731baba62117d16', '123456789');
 INSERT INTO `comment` VALUES ('4f318bca4e194797817efc93bef14225', 5, 'test2', '这是第二条一级评论', '2019-12-11 11:42:46', '2019-12-11 11:42:46', b'1', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('54ee402f47d3466ca8d3ac749b1e3c59', 6, 'test3', '这是第一条三级评论', '2019-12-11 19:33:56', '2019-12-11 19:33:56', b'1', '00b11e3531a0437490da508824e932cc', '227b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('6aa4ba942c2f479bb39e8c309d5b8dcb', 5, 'test1', '这是第一条一级评论', '2019-12-11 11:25:14', '2019-12-11 11:25:14', b'1', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('79d409dc1d1046609719cea6ba085023', 6, 'test3', '这是第二条二级评论', '2019-12-11 11:41:52', '2019-12-11 11:41:52', b'1', '6aa4ba942c2f479bb39e8c309d5b8dcb', '227b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('85780f68123f4a37b4d4f969fb293b6c', 6, 'test2', '这是第二条一级评论', '2019-12-11 21:48:37', '2019-12-11 21:48:37', b'1', '667b8b1afb43408897d1dbb81eaa2ab9', '667b8b1afb43408897d1dbb81eaa2ab9');
 INSERT INTO `comment` VALUES ('b9234d7fc65a4c308bdc3211bcf803c2', 6, 'test3', '这是第一条四级评论', '2019-12-11 21:41:29', '2019-12-11 21:41:29', b'1', '54ee402f47d3466ca8d3ac749b1e3c59', '227b8b1afb43408897d1dbb81eaa2ab9');
+INSERT INTO `comment` VALUES ('d61c3a33a5654c1a8beec5b2f6276b2d', 2, 'test3', '这是第一条三级评论', '2019-12-22 01:16:30', '2019-12-22 01:16:30', b'1', 'f2831ce2991c45b69f66e1357be10b35', '123456789');
+INSERT INTO `comment` VALUES ('f2831ce2991c45b69f66e1357be10b35', 2, 'test4', '这是第二条二级评论', '2019-12-22 01:16:20', '2019-12-22 01:16:20', b'1', '2da7288ce6d94cd0a731baba62117d16', '123456789');
+INSERT INTO `comment` VALUES ('f90798ae85cc49b8ac0d34b5c437284f', 1, 'test2', '这是第一篇文章的第二条一级评论', '2019-12-21 22:01:47', '2019-12-21 22:01:47', b'1', '123456789', '123456789');
 
 -- ----------------------------
 -- Table structure for love
@@ -102,6 +170,7 @@ CREATE TABLE `love`  (
 -- ----------------------------
 -- Records of love
 -- ----------------------------
+INSERT INTO `love` VALUES ('0a92afcd8dea48339efee5b20107e333', 4, b'1', '2019-12-22 01:29:27', '2019-12-22 02:18:33', b'1', '666wx', '123456789', NULL);
 INSERT INTO `love` VALUES ('11a6648145414ceb8dc4f1e78c2c8a5c', 4, b'0', '2019-12-11 20:54:29', '2019-12-11 20:54:29', b'1', 'Beatuiful', '4f318bca4e194797817efc93bef14225', NULL);
 INSERT INTO `love` VALUES ('176d0181c9c94ed9b9c105b37a223118', 4, b'1', '2019-12-10 23:10:01', '2019-12-10 23:10:01', b'1', 'Seeumt', '227b8b1afb43408897d1dbb81eaa2ab9', NULL);
 INSERT INTO `love` VALUES ('1777ffa6c3e3418586ce5d3c2bad5300', 4, b'1', '2019-12-11 20:02:47', '2019-12-11 20:02:47', b'1', 'Tips', '6aa4ba942c2f479bb39e8c309d5b8dcb', NULL);
@@ -112,11 +181,13 @@ INSERT INTO `love` VALUES ('344f6bd091154496981e9c092446c808', 4, b'1', '2019-12
 INSERT INTO `love` VALUES ('3c5219a8e5024a0a9013cc42ae971ca7', 4, b'1', '2019-12-11 20:50:16', '2019-12-11 20:50:16', b'0', 'test3', '40d50cb4287f47359ee58451d923fe22', NULL);
 INSERT INTO `love` VALUES ('557e6fbd89554203be531bb1093d5355', 4, b'0', '2019-12-11 20:51:43', '2019-12-11 20:51:43', b'0', 'test3', '3bf9833b52854b25992d14e70e35c122', NULL);
 INSERT INTO `love` VALUES ('5b24c891cc65411eaf24a2b086cb0c76', 4, b'1', '2019-12-11 20:02:39', '2019-12-11 20:02:39', b'1', 'Seeumt', '6aa4ba942c2f479bb39e8c309d5b8dcb', NULL);
+INSERT INTO `love` VALUES ('68b2886ddce94921909e0bb774822072', 4, b'1', '2019-12-21 23:04:00', '2019-12-21 23:04:00', b'1', 'Seeumt', '123456789', NULL);
 INSERT INTO `love` VALUES ('7044c48b460649cc82ff263be28b3612', 4, b'1', '2019-12-11 19:42:31', '2019-12-11 19:42:31', b'1', 'Seeumt', '00b11e3531a0437490da508824e932cc', NULL);
 INSERT INTO `love` VALUES ('74b7d491ad944cbaa2418f443a786292', 4, b'1', '2019-12-11 21:18:23', '2019-12-11 21:18:23', b'1', 'Beatuiful', '227b8b1afb43408897d1dbb81eaa2ab9', NULL);
 INSERT INTO `love` VALUES ('92e6df2a500b4307a35ab46ae1591694', 4, b'1', '2019-12-10 23:52:49', '2019-12-10 23:52:49', b'1', 'test4', '40214d4cb9a047f4a8d4483145636672', NULL);
 INSERT INTO `love` VALUES ('99e5b3380e7147cf98d010a044bae21a', 4, b'0', '2019-12-11 20:51:45', '2019-12-11 20:51:45', b'1', 'test1', '40214d4cb9a047f4a8d4483145636672', NULL);
 INSERT INTO `love` VALUES ('9efbf2795eca4de7aef779f2b88cdaad', 4, b'1', '2019-12-11 20:50:19', '2019-12-11 20:50:19', b'0', 'test2', '3bf9833b52854b25992d14e70e35c122', NULL);
+INSERT INTO `love` VALUES ('a1070ff5437a45d1955f9b170b848131', 4, b'1', '2019-12-21 23:04:04', '2019-12-22 02:19:11', b'1', 'Tips', '123456789', NULL);
 INSERT INTO `love` VALUES ('a6a40b388add476bb5464c981560ffa4', 4, b'1', '2019-12-11 21:46:21', '2019-12-11 21:46:21', b'1', 'Tips', '667b8b1afb43408897d1dbb81eaa2ab9', NULL);
 INSERT INTO `love` VALUES ('a845827777204975883813bae5e259cb', 4, b'0', '2019-12-11 20:51:46', '2019-12-11 20:51:46', b'0', 'test1', '3bf9833b52854b25992d14e70e35c122', NULL);
 INSERT INTO `love` VALUES ('a9b52c07f00a42f5b363019074d6365d', 4, b'1', '2019-12-11 00:04:55', '2019-12-11 00:04:55', b'1', 'test4', '79c29537d66d4e9f919ec41b5c044bde', NULL);
@@ -148,40 +219,6 @@ CREATE TABLE `post`  (
 -- ----------------------------
 INSERT INTO `post` VALUES ('227b8b1afb43408897d1dbb81eaa2ab9', b'1', 'post....', '3', '4', '2019-12-11 20:31:57', '2019-12-10 22:45:28', b'0');
 INSERT INTO `post` VALUES ('667b8b1afb43408897d1dbb81eaa2ab9', b'1', '又一个post....', '3', '4', '2019-12-11 20:31:57', '2019-12-10 22:45:28', b'0');
-
--- ----------------------------
--- Table structure for post_comment
--- ----------------------------
-DROP TABLE IF EXISTS `post_comment`;
-CREATE TABLE `post_comment`  (
-  `id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `type` tinyint(2) NOT NULL COMMENT '//1代表文章的评论 2代表评论的评论',
-  `create_time` datetime(0) NOT NULL,
-  `update_time` datetime(0) NOT NULL,
-  `enabled` bit(1) NULL DEFAULT NULL COMMENT '//1为可用 2表示上级已删除',
-  `reply_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//跟其上级评论的id对应',
-  `post_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of post_comment
--- ----------------------------
-INSERT INTO `post_comment` VALUES ('27ae4c32ce3049d888e5f507250358d1', 6, '2019-12-10 18:31:07', '2019-12-10 18:31:07', b'0', '40214d4cb9a047f4a8d4483145636672', '227b8b1afb43408897d1dbb81eaa2ab9', 'HHHH');
-INSERT INTO `post_comment` VALUES ('3b5a37fd134e49fd915b9ce84aef9a26', 6, '2019-12-10 18:16:59', '2019-12-10 18:16:59', b'0', 'a9bbe61db6ff4ad0a51695b78c432318', '227b8b1afb43408897d1dbb81eaa2ab9', 'test5');
-INSERT INTO `post_comment` VALUES ('3bf9833b52854b25992d14e70e35c122', 6, '2019-12-10 18:11:47', '2019-12-10 18:11:47', b'0', 'bd5ca91ebd714b5c8b43b153f948d0b3', '227b8b1afb43408897d1dbb81eaa2ab9', 'test2');
-INSERT INTO `post_comment` VALUES ('3f6db8ba7dfc4ff8a342ad0b637004a5', 6, '2019-12-10 10:05:36', '2019-12-10 10:05:36', b'0', 'bd5ca91ebd714b5c8b43b153f948d0b3', '227b8b1afb43408897d1dbb81eaa2ab9', 'Tips');
-INSERT INTO `post_comment` VALUES ('40214d4cb9a047f4a8d4483145636672', 5, '2019-12-10 18:20:47', '2019-12-10 18:20:47', b'0', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9', 'RRRR');
-INSERT INTO `post_comment` VALUES ('40d50cb4287f47359ee58451d923fe22', 6, '2019-12-10 18:31:47', '2019-12-10 18:31:47', b'0', '27ae4c32ce3049d888e5f507250358d1', '227b8b1afb43408897d1dbb81eaa2ab9', 'AAAA');
-INSERT INTO `post_comment` VALUES ('79c29537d66d4e9f919ec41b5c044bde', 6, '2019-12-10 18:12:59', '2019-12-10 18:12:59', b'0', 'bd5ca91ebd714b5c8b43b153f948d0b3', '227b8b1afb43408897d1dbb81eaa2ab9', 'test3');
-INSERT INTO `post_comment` VALUES ('947f297885934839b8d3695c656f345f', 5, '2019-12-10 10:08:42', '2019-12-10 10:08:42', b'0', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9', 'seeumt');
-INSERT INTO `post_comment` VALUES ('a0206fd03fc74ddbbc7e8379ed3b1fcf', 6, '2019-12-10 18:17:23', '2019-12-10 18:17:23', b'0', 'a9bbe61db6ff4ad0a51695b78c432318', '227b8b1afb43408897d1dbb81eaa2ab9', 'test6');
-INSERT INTO `post_comment` VALUES ('a9bbe61db6ff4ad0a51695b78c432318', 6, '2019-12-10 18:16:37', '2019-12-10 18:16:37', b'0', '947f297885934839b8d3695c656f345f', '227b8b1afb43408897d1dbb81eaa2ab9', 'test4');
-INSERT INTO `post_comment` VALUES ('bd5ca91ebd714b5c8b43b153f948d0b3', 5, '2019-12-10 09:35:45', '2019-12-10 09:35:45', b'0', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9', 'Seeumt');
-INSERT INTO `post_comment` VALUES ('c74e0c1735d94bcb9f6f080f408f1eea', 5, '2019-12-10 20:42:48', '2019-12-10 20:42:48', b'0', '227b8b1afb43408897d1dbb81eaa2ab9', '227b8b1afb43408897d1dbb81eaa2ab9', 'Tips');
-INSERT INTO `post_comment` VALUES ('cff2548f4fc74f398c617c5cea8cc5a5', 6, '2019-12-10 10:09:23', '2019-12-10 10:09:23', b'0', 'bd5ca91ebd714b5c8b43b153f948d0b3', '227b8b1afb43408897d1dbb81eaa2ab9', 'test1');
-INSERT INTO `post_comment` VALUES ('dab28cbed9234bc4a89e980b6319ad6c', 6, '2019-12-10 10:06:35', '2019-12-10 10:06:35', b'0', 'bd5ca91ebd714b5c8b43b153f948d0b3', '227b8b1afb43408897d1dbb81eaa2ab9', 'Beautiful');
 
 -- ----------------------------
 -- Table structure for reward_point
@@ -243,6 +280,30 @@ CREATE TABLE `souvenir_order`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for tag
+-- ----------------------------
+DROP TABLE IF EXISTS `tag`;
+CREATE TABLE `tag`  (
+  `tag_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//标签id',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//标签名称',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '//创建时间',
+  `update_time` datetime(0) NOT NULL COMMENT '//更新时间',
+  `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '//是否可用',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '//是否删除',
+  `admin_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//添加此标签的管理员id',
+  PRIMARY KEY (`tag_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tag
+-- ----------------------------
+INSERT INTO `tag` VALUES ('1', '周末游', '2019-12-21 21:43:15', '2019-12-21 20:53:51', b'1', b'0', '100');
+INSERT INTO `tag` VALUES ('2', '骑行', '2019-12-21 20:54:36', '2019-12-21 20:54:39', b'1', b'0', '100');
+INSERT INTO `tag` VALUES ('3', '古镇', '2019-12-21 20:55:04', '2019-12-21 20:55:07', b'1', b'0', '200');
+INSERT INTO `tag` VALUES ('4', '毕业游', '2019-12-21 20:55:30', '2019-12-21 20:55:33', b'1', b'0', '200');
+INSERT INTO `tag` VALUES ('5', '一日游', '2019-12-21 20:56:59', '2019-12-21 20:57:02', b'1', b'0', '300');
+
+-- ----------------------------
 -- Table structure for user_info
 -- ----------------------------
 DROP TABLE IF EXISTS `user_info`;
@@ -286,6 +347,12 @@ CREATE TABLE `user_password`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Records of user_password
+-- ----------------------------
+INSERT INTO `user_password` VALUES ('1', '123', 'Seeumt');
+INSERT INTO `user_password` VALUES ('2', '666', 'Tips');
+
+-- ----------------------------
 -- Table structure for user_stu_auth
 -- ----------------------------
 DROP TABLE IF EXISTS `user_stu_auth`;
@@ -304,13 +371,14 @@ CREATE TABLE `user_stu_auth`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `user_tag`;
 CREATE TABLE `user_tag`  (
-  `id` int(32) NOT NULL AUTO_INCREMENT,
-  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `user_id` int(32) NOT NULL,
-  `admin_id` int(32) NOT NULL,
-  `enabled` tinyint(4) NOT NULL,
+  `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '//用户自定义标签id',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//标签名称',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '//创建时间',
+  `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '//更新时间',
+  `admin_id` int(32) NOT NULL COMMENT '//审核标签管理员id',
+  `enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '//是否可用',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '//是否删除',
+  `user_id` int(32) NOT NULL COMMENT '//所有者id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

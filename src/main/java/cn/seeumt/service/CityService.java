@@ -3,6 +3,7 @@ package cn.seeumt.service;
 
 
 import cn.seeumt.dataobject.City;
+import cn.seeumt.vo.CityVO;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ import java.util.List;
  */
 public interface CityService{
 
-    List<City> findByCityIds(List<String> cityIds);
+    List<CityVO> findByCityIds(List<String> cityIds);
 }

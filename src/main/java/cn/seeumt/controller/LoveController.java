@@ -13,17 +13,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @date 2019/12/8 13:12
  */
 @Controller
-@RequestMapping("/love")
+@RequestMapping("/loves")
 public class LoveController {
-
     @Autowired
     private LoveService loveService;
-
     @PostMapping(value = "/")
     @ResponseBody
-    public int addLove(@RequestParam("uniqueId") String apiRootId,
+    public boolean addLove(@RequestParam("apiRootId") String apiRootId,
                         @RequestParam("userId") String userId) {
-        int i = loveService.addLove(apiRootId, userId);
+        boolean i = loveService.addOrCancelLove(apiRootId, userId);
         return i;
     }
 }

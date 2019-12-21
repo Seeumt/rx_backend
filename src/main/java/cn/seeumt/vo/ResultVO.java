@@ -24,7 +24,6 @@ public class ResultVO implements Serializable {
     }
 
     public static ResultVO success() {
-
         return success(null);
     }
 

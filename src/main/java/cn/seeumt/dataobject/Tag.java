@@ -19,8 +19,8 @@ import lombok.experimental.Accessors;
 @Data
 public class Tag implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
+    private static final long serialVersionUID = -3311632248998935570L;
     /**
      * //标签id
      */

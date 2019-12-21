@@ -3,6 +3,7 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dataobject.Tag;
 import cn.seeumt.service.TagService;
 
+import cn.seeumt.vo.TagVO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class TagServiceImplTest {
     public void findByTagIds() {
         String[] tagIdsArr = {"1", "2", "3", "5"};
         List<String> tagIdsList = Arrays.asList(tagIdsArr);
-        List<Tag> tags = tagService.findByTagIds(tagIdsList);
-        System.out.println(tags);
+        List<TagVO> tagVOS = tagService.findByTagIds(tagIdsList);
+        System.out.println(tagVOS);
     }
 }

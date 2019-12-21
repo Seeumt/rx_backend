@@ -1,10 +1,16 @@
 package cn.seeumt.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class UserInfo implements Serializable {
     private static final long serialVersionUID = 4978418084622768954L;
+    @JsonProperty("userId")
+    /**
+     * 用户id，必须唯一
+     */
     private String id;
 
     private String username;

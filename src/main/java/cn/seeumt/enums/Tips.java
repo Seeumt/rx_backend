@@ -8,6 +8,9 @@ import lombok.Getter;
  */
 @Getter
 public enum Tips {
+    /**
+     *
+     */
     ARTICLE_THUMB(1,"文章点赞"),
     ARTICLE_TRANSFER(2,"文章转发"),
     COMMENT_THUMB(3,"评论点赞"),
@@ -18,9 +21,13 @@ public enum Tips {
     POST_COMMENT_COMMENT(6,"动态评论的评论"),
     ;
 
-
+    /**
+     * 标识码
+     */
     private Integer code;
-
+    /**
+     * 信息
+     */
     private String msg;
 
     Tips(Integer code, String msg) {

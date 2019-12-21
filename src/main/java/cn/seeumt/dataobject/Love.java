@@ -1,10 +1,14 @@
 package cn.seeumt.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 
 import java.util.Date;
-
+@Data
 public class Love {
+
+    @TableId
     private String loveId;
 
     private Byte type;
