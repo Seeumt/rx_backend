@@ -8,6 +8,10 @@ import java.util.Date;
 import java.util.List;
 @Data
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
+/**
+ * @author Seeumt
+ * @date 2019/12/8 14:51
+ */
 public class PostDTO {
 
     private String postId;
@@ -26,7 +30,7 @@ public class PostDTO {
 
     private Boolean deleted;
 
-    List<Comment> comments;
+    private List<Comment> comments;
 
-    List<Thumber> thumbers;
+    private List<Thumber> thumbers;
 }

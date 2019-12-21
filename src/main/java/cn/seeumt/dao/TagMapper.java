@@ -1,6 +1,6 @@
 package cn.seeumt.dao;
 
-import cn.seeumt.dataobject.UserTag;
+import cn.seeumt.dataobject.Tag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Seeumt
- * @since 2019-12-12
+ * @since 2019-12-21
  */
-public interface UserTagMapper extends BaseMapper<UserTag> {
+public interface TagMapper extends BaseMapper<Tag> {
 
 }

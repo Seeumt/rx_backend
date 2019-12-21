@@ -1,7 +1,9 @@
 package cn.seeumt.service;
 
-import cn.seeumt.dataobject.Article;
+import cn.seeumt.dataobject.ArticleTags;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Seeumt
  * @since 2019-12-21
  */
-public interface ArticleService extends IService<Article> {
+public interface ArticleTagsService{
 
+    List<String> findTagIdsByArticleId(String articleId);
 }

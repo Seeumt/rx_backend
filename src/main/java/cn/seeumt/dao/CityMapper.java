@@ -1,6 +1,6 @@
 package cn.seeumt.dao;
 
-import cn.seeumt.dataobject.Article;
+import cn.seeumt.dataobject.City;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author Seeumt
  * @since 2019-12-21
  */
-public interface ArticleMapper extends BaseMapper<Article> {
+public interface CityMapper extends BaseMapper<City> {
 
 }

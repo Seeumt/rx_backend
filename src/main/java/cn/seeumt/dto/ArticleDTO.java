@@ -1,6 +1,10 @@
 package cn.seeumt.dto;
 
+import cn.seeumt.dataobject.City;
+import cn.seeumt.dataobject.Tag;
+import cn.seeumt.dataobject.UserInfo;
 import cn.seeumt.model.Commenter;
+import cn.seeumt.model.Thumber;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,19 +16,28 @@ import java.util.List;
  */
 @Data
 public class ArticleDTO {
-    private String id;
+
+    private String articleId;
 
     private String title;
 
-    private String mdContent;
-
     private String htmlContent;
 
-    private String loveId;
-
-    private String commentId;
-
     private String userId;
+
+    private String username;
+
+    private String nickname;
+
+    private String faceIcon;
+
+    private List<Tag> tags;
+
+    private String headPicture;
+
+    private String coverPicture;
+
+    private List<City> viaCities;
 
     private Date createTime;
 
@@ -34,6 +47,6 @@ public class ArticleDTO {
 
     private Boolean deleted;
 
+    private List<Thumber> thumbers;
 
-    private List<Commenter> commenters;
 }

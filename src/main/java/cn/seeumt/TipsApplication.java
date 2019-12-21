@@ -7,7 +7,7 @@ import org.springframework.cache.annotation.EnableCaching;
 
 @SpringBootApplication
 @MapperScan("cn.seeumt.dao")
-@EnableCaching
+//@EnableCaching
 public class TipsApplication {
 
     public static void main(String[] args) {

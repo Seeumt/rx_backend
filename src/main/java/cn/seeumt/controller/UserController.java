@@ -1,7 +1,6 @@
 package cn.seeumt.controller;
 
 import cn.seeumt.model.CommentContent;
-import cn.seeumt.service.ArticleService;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.vo.ResultVO;
@@ -31,7 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    @Cacheable(cacheNames = "user_session",key = "123456")
+//    @Cacheable(cacheNames = "user_session",key = "123456")
     // 这是把这个resultVO放到了redis里？
     public ResultVO login(String userId, String password, HttpSession httpSession) {
         ResultVO resultVO = userInfoService.logIn(userId, password);

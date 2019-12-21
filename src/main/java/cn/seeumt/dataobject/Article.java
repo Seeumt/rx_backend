@@ -1,26 +1,74 @@
 package cn.seeumt.dataobject;
 
+import java.time.LocalDateTime;
+import java.io.Serializable;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
-import java.util.Date;
+/**
+ * @author Seeumt
+ * @since 2019-12-21
+ */
 @Data
-public class Article {
+public class Article implements Serializable {
+
+
+    private static final long serialVersionUID = 6694761945472397078L;
+    /**
+     * //文章id
+     */
     private String articleId;
 
+    /**
+     * //标题
+     */
     private String title;
 
+    /**
+     * //md内容
+     */
     private String mdContent;
 
+    /**
+     * //html内容
+     */
     private String htmlContent;
 
-    private String ownerId;
+    /**
+     * //创建时间
+     */
+    private LocalDateTime createTime;
 
-    private Date createTime;
+    /**
+     * //更新时间
+     */
+    private LocalDateTime updateTime;
 
-    private Date updateTime;
-
+    /**
+     * //默认为1表示通过
+     */
     private Boolean enabled;
 
+    /**
+     * //默认为0表示未删除
+     */
     private Boolean deleted;
+
+    /**
+     * //封面图片
+     */
+    private String coverPicture;
+
+    /**
+     * //顶部图片
+     */
+    private String headPicture;
+
+    /**
+     * //用户id
+     */
+    private String userId;
+
 
 }
