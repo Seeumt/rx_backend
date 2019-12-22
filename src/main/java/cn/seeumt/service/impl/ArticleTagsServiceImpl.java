@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Seeumt
@@ -25,10 +26,7 @@ public class ArticleTagsServiceImpl implements ArticleTagsService {
         QueryWrapper<ArticleTags> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         List<ArticleTags> articleTags = articleTagsMapper.selectList(queryWrapper);
-        List<String> tagIds = new ArrayList<>();
-        for (ArticleTags articleTag : articleTags) {
-            tagIds.add(articleTag.getTagId());
-        }
+        List<String> tagIds = articleTags.stream().map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
         return tagIds;
     }
 

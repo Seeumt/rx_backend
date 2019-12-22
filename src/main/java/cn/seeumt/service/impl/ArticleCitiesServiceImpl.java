@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -30,10 +31,7 @@ public class ArticleCitiesServiceImpl implements ArticleCitiesService {
         QueryWrapper<ArticleCities> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         List<ArticleCities> articleCities = articleCitiesMapper.selectList(queryWrapper);
-        List<String> cityIds = new ArrayList<>();
-        for (ArticleCities articleCity : articleCities) {
-            cityIds.add(articleCity.getCityId());
-        }
+        List<String> cityIds = articleCities.stream().map(articleCity -> articleCity.getCityId()).collect(Collectors.toList());
         return cityIds;
     }
 }
