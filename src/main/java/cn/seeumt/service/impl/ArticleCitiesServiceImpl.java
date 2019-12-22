@@ -31,7 +31,7 @@ public class ArticleCitiesServiceImpl implements ArticleCitiesService {
         QueryWrapper<ArticleCities> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         List<ArticleCities> articleCities = articleCitiesMapper.selectList(queryWrapper);
-        List<String> cityIds = articleCities.stream().map(articleCity -> articleCity.getCityId()).collect(Collectors.toList());
+        List<String> cityIds = articleCities.stream().map(ArticleCities::getCityId).collect(Collectors.toList());
         return cityIds;
     }
 }

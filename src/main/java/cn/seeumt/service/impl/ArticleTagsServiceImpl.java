@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,7 +27,8 @@ public class ArticleTagsServiceImpl implements ArticleTagsService {
         QueryWrapper<ArticleTags> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         List<ArticleTags> articleTags = articleTagsMapper.selectList(queryWrapper);
-        List<String> tagIds = articleTags.stream().map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
+//        List<String> tagIds = articleTags.stream().sorted((at1,at2)->Integer.parseInt(at1.getTagId())-Integer.parseInt(at2.getTagId())).map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
+        List<String> tagIds = articleTags.stream().sorted(Comparator.comparing(ArticleTags::getTagId)).map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
         return tagIds;
     }
 
