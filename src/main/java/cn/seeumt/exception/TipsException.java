@@ -6,12 +6,8 @@ import lombok.Getter;
 
 @Getter
 public class TipsException extends RuntimeException {
-    private Integer code;
 
-    public TipsException(ResultEnum resultEnum) {
-        super(resultEnum.getMsg());
-        this.code = resultEnum.getCode();
-    }
+    private Integer code;
 
     public TipsException(Integer code, String msg) {
         super(msg);
@@ -21,6 +17,11 @@ public class TipsException extends RuntimeException {
     public TipsException(TipsFlash tipsFlash) {
         super(tipsFlash.getMsg());
         this.code = tipsFlash.getCode();
+    }
+
+    public TipsException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        this.code = resultEnum.getCode();
     }
 
 
