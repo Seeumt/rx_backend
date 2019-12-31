@@ -2,7 +2,6 @@ package cn.seeumt.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
-
 import java.io.Serializable;
 @Data
 public class ResultVO implements Serializable {
@@ -28,10 +27,10 @@ public class ResultVO implements Serializable {
     }
 
     public static ResultVO error(Integer code, String msg) {
-        ResultVO resultvo = new ResultVO();
-        resultvo.setCode(code);
-        resultvo.setMsg(msg);
-        return resultvo;
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        return resultVO;
     }
 
 
