@@ -3,6 +3,8 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dao.LoveMapper;
 import cn.seeumt.dataobject.Love;
 import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.LoveService;
 import cn.seeumt.utils.UuidUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -52,7 +54,7 @@ public class LoveServiceImpl implements LoveService {
             if (i == 1) {
                 return true;
             } else {
-                return null;
+                throw new TipsException(TipsFlash.THUMB_FAILED);
             }
         } else if (aLove != null && aLove.getStatus() == false) {
             aLove.setStatus(true);
@@ -61,11 +63,11 @@ public class LoveServiceImpl implements LoveService {
             if (i == 1) {
                 return true;
             } else {
-                return null;
+                throw new TipsException(TipsFlash.THUMB_FAILED);
             }
 
         }
-        return null;
+        throw new TipsException(TipsFlash.THUMB_FAILED);
     }
 
     @Override
