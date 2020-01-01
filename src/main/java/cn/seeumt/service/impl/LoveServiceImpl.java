@@ -42,6 +42,7 @@ public class LoveServiceImpl implements LoveService {
             love.setApiRootId(apiRootId);
             love.setContent(null);
             loveMapper.insert(love);
+            return true;
         }
         //如果点过了赞，再点就是取消
         else if (aLove != null && aLove.getStatus() == true) {
