@@ -43,21 +43,22 @@ public class ThumberUtil {
         if (loves == null) {
             thumbers=null;
         }
-        Set set = new HashSet();
-        Set set1 = new HashSet();
+        List idList = new ArrayList();
+        List dateList = new ArrayList();
         List<Boolean> list = new ArrayList<>();
         for (Love love : loves) {
-            set.add(love.getUserId());
-            set1.add(love.getCreateTime());
+            idList.add(love.getUserId());
+            dateList.add(love.getCreateTime());
+            //作为点赞时间
             list.add(love.getStatus());
         }
-        for (int i = 0; i < set.toArray().length; i++) {
+        for (int i = 0; i < idList.toArray().length; i++) {
             Thumber thumber = new Thumber();
-            UserInfo userInfo = ThumberUtil.thumberUtil.userInfoService.selectByPrimaryKey(set.toArray()[i].toString());
+            UserInfo userInfo = ThumberUtil.thumberUtil.userInfoService.selectByPrimaryKey(idList.toArray()[i].toString());
             if (userInfo == null) {
                 throw new TipsException(TipsFlash.ABNORMAL_THUMB);
             }
-            userInfo.setCreateTime((Date) set1.toArray()[i]);
+            userInfo.setCreateTime((Date) dateList.toArray()[i]);
             userInfo.setStatus(list.get(i));
             BeanUtils.copyProperties(userInfo, thumber);
             thumbers.add(thumber);

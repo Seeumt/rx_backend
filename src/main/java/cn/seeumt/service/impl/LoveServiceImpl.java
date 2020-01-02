@@ -3,6 +3,8 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dao.LoveMapper;
 import cn.seeumt.dataobject.Love;
 import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.LoveService;
 import cn.seeumt.utils.UuidUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -18,10 +20,7 @@ import java.util.List;
  */
 @Service
 public class LoveServiceImpl implements LoveService {
-    /**
-     * @param loveId
-     * @return
-     */
+
 
     @Autowired
     private LoveMapper loveMapper;
@@ -42,29 +41,30 @@ public class LoveServiceImpl implements LoveService {
             love.setApiRootId(apiRootId);
             love.setContent(null);
             loveMapper.insert(love);
+            return true;
         }
         //如果点过了赞，再点就是取消
-        else if (aLove != null && aLove.getStatus() == true) {
+        else if (aLove.getStatus()) {
             aLove.setStatus(false);
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);
             if (i == 1) {
                 return true;
             } else {
-                return null;
+                throw new TipsException(TipsFlash.THUMB_FAILED);
             }
-        } else if (aLove != null && aLove.getStatus() == false) {
+        } else if (!aLove.getStatus()) {
             aLove.setStatus(true);
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);
             if (i == 1) {
                 return true;
             } else {
-                return null;
+                throw new TipsException(TipsFlash.THUMB_FAILED);
             }
 
         }
-        return null;
+        throw new TipsException(TipsFlash.THUMB_FAILED);
     }
 
     @Override
