@@ -1,6 +1,7 @@
 package cn.seeumt.controller;
 
 
+import cn.seeumt.dataobject.Article;
 import cn.seeumt.dataobject.City;
 import cn.seeumt.dataobject.Tag;
 import cn.seeumt.dto.ArticleDTO;
@@ -12,11 +13,11 @@ import cn.seeumt.utils.ThumberUtil;
 
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.CityVO;
+import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,7 +27,10 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/articles")
+@CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class ArticleController {
+    @Autowired
+    private ArticleService articleService;
     @Autowired
     private ArticleTagsService articleTagsService;
     @Autowired
@@ -53,6 +57,12 @@ public class ArticleController {
         List<Thumber> thumbers = ThumberUtil.allThumbers(articleId);
         articleDTO.setThumbers(thumbers);
         return articleDTO;
+    }
+
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO article(String userId) {
+        List<Article> articles = articleService.query(userId);
+        return ResultVO.success(articles);
     }
 
     }
