@@ -1,7 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Article;
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface ArticleService{
     List<Article> query(String userId);
+    PageInfo<Article> queryAll(int num, int size,String keywords);
 }

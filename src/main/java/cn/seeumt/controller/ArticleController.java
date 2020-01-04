@@ -15,6 +15,7 @@ import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.CityVO;
 import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,14 @@ public class ArticleController {
     public ResultVO article(String userId) {
         List<Article> articles = articleService.query(userId);
         return ResultVO.success(articles);
+    }
+
+    @PostMapping(value = "/no", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO article(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
+                            @RequestParam(value = "page",required = false,defaultValue = "1") int num,
+                            @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {
+        PageInfo<Article> articlePageInfo = articleService.queryAll(num, size,keywords);
+        return ResultVO.success(articlePageInfo);
     }
 
     }

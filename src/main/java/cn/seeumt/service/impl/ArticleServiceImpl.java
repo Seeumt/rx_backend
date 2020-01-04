@@ -4,7 +4,8 @@ import cn.seeumt.dataobject.Article;
 import cn.seeumt.dao.ArticleMapper;
 import cn.seeumt.service.ArticleService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,4 +30,20 @@ public class ArticleServiceImpl implements ArticleService {
         wrapper.eq("user_id", userId);
         return articleMapper.selectList(wrapper);
     }
+
+    @Override
+    public PageInfo<Article> queryAll(int num, int size,String keywords) {
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        PageHelper.startPage(num, size);
+        if (keywords.length() == 0) {
+            wrapper.orderByDesc("create_time");
+            List<Article> articles = articleMapper.selectList(wrapper);
+            return new PageInfo<>(articles);
+        }
+            wrapper.orderByDesc("create_time").like("md_content", keywords);
+            List<Article> articles = articleMapper.selectList(wrapper);
+            return new PageInfo<>(articles);
+     }
+
+
 }
