@@ -1,5 +1,7 @@
 package cn.seeumt.dataobject;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class Post {
@@ -12,9 +14,9 @@ public class Post {
     private String imgId;
 
     private String userId;
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date createTime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     private Date updateTime;
 
     private Boolean deleted;

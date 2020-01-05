@@ -1,9 +1,10 @@
 package cn.seeumt.service;
 
 
+import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 
-public interface PostService {
+public interface PostService{
 
     /**
      * 通过用户发布的动态的Id得到一个完整的动态详情
@@ -18,6 +19,9 @@ public interface PostService {
      * @return int
      */
     int sendPost();
+
+
+    Post selectByUserId(String userId);
 
 }
 

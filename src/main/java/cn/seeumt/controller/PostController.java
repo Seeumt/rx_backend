@@ -1,5 +1,6 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.model.Comment;
 import cn.seeumt.model.Thumber;
@@ -7,16 +8,15 @@ import cn.seeumt.service.CommentService;
 import cn.seeumt.service.PostService;
 import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
+import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
+@CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class PostController {
 
     @Autowired
@@ -26,9 +26,15 @@ public class PostController {
     private CommentService commentService;
 
 
-    @GetMapping("/")
+    @PostMapping("/")
     public int send() {
         return postService.sendPost();
+    }
+
+    @PostMapping("/detail")
+    public ResultVO find(String userId) {
+        Post post = postService.selectByUserId(userId);
+        return ResultVO.success(post);
     }
 
     @GetMapping("/find")
@@ -39,16 +45,19 @@ public class PostController {
     }
 
 
-    @GetMapping("/findPost")
-    public PostDTO findAPost(String postId) {
+    @PostMapping("/findPost")
+    public ResultVO findAPost(String postId) {
         PostDTO postDTO = postService.selectByPostId(postId);
         List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(postId);
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, postId);
         postDTO.setComments(comments);
         List<Thumber> thumbers = ThumberUtil.allThumbers(postId);
         postDTO.setThumbers(thumbers);
-        return postDTO;
+        return ResultVO.success(postDTO);
     }
+
+
+
 
 
 

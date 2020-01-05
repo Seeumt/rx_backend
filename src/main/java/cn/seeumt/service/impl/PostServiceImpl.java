@@ -6,6 +6,7 @@ import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.service.PostService;
 import cn.seeumt.utils.UuidUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,14 @@ public class PostServiceImpl implements PostService {
         post.setUpdateTime(new Date());
         post.setDeleted(false);
         return postMapper.insert(post);
+    }
+
+    @Override
+    public Post selectByUserId(String userId) {
+        QueryWrapper<Post> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        return postMapper.selectOne(wrapper);
+
     }
 
 }
