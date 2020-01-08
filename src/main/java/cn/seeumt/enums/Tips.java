@@ -19,6 +19,7 @@ public enum Tips {
     ARTICLE_COMMENT_COMMENT(2,"文章评论的评论"),
     POST_COMMENT(5,"动态的评论"),
     POST_COMMENT_COMMENT(6,"动态评论的评论"),
+    IMAGE(1,"图片")
     ;
 
     /**
