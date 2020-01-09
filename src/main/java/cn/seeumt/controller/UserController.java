@@ -1,14 +1,14 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.form.UserInfo;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -18,7 +18,8 @@ import java.util.List;
  * @date 2019/12/8 18:08
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
+@CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class UserController {
     @Autowired
     private UserInfoService userInfoService;
@@ -29,14 +30,11 @@ public class UserController {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
     }
 
-    @GetMapping("/login")
+    @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @Cacheable(cacheNames = "user_session",key = "123456")
     // 这是把这个resultVO放到了redis里？
-    public ResultVO login(String userId, String password, HttpSession httpSession) {
-        ResultVO resultVO = userInfoService.logIn(userId, password);
-        if (resultVO.getCode() == 0) {
-            httpSession.setAttribute(httpSession.getId(), resultVO.getData());
-        }
+    public ResultVO login(@RequestBody UserInfo userInfo) {
+        ResultVO resultVO = userInfoService.logIn(userInfo.getUserId(), userInfo.getPassword());
         return resultVO;
     }
 
@@ -46,6 +44,15 @@ public class UserController {
         httpSession.removeAttribute(httpSession.getId());
         return ResultVO.success();
     }
+//
+//    @GetMapping("/registerOrLogin")
+//    public ResultVO registerOrLogin(@RequestBody UserInfo userInfo) {
+//        ResultVO resultVO = userInfoService.logIn(userInfo.getUsername(), userInfo.getPassword());
+//        if (resultVO.getCode() == 0) {
+//            httpSession.setAttribute(httpSession.getId(), resultVO.getData());
+//        }
+//        return resultVO;
+//    }
 
 
 

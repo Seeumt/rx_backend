@@ -1,6 +1,7 @@
 package cn.seeumt.controller;
 
 
+import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.model.Img;
 import cn.seeumt.service.OssService;
 import cn.seeumt.utils.AliyunOssUtil;
@@ -28,7 +29,8 @@ import java.util.Map;
  * @since 2020-01-08
  */
 @RestController
-@RequestMapping("/seeumt/oss")
+@RequestMapping("/oss")
+@CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class OssController {
 
     @Autowired
@@ -46,6 +48,14 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
+    @ResponseBody
+    @PostMapping("/imgs/{parentId}")
+    public ResultVO getPicture(@PathVariable("parentId") String parentId) {
+        ImgDTO imgDTO = ossService.queryByParentId(parentId);
+        return ResultVO.success(imgDTO);
+    }
+
+}
 
 
 //    /**
@@ -69,14 +79,7 @@ public class OssController {
 //    }
 //
 
-    @ResponseBody
-    @GetMapping("/imgs/{parentId}")
-    public ResultVO getPicture(@PathVariable("parentId") String parentId) {
-        List<Img> imgs = ossService.queryByParentId(parentId);
-        return ResultVO.success(imgs);
-    }
 
-}
 //
 //    /**
 //     * 把文件保存到阿里云OSS，返回路径保存到数据库

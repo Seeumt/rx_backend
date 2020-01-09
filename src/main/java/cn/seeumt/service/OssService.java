@@ -1,10 +1,8 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Oss;
-import cn.seeumt.model.Img;
+import cn.seeumt.dto.ImgDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 
 /**
  * <p>
@@ -17,5 +15,5 @@ import java.util.List;
 public interface OssService extends IService<Oss> {
     String saveOss(String originUrl, String parentId);
 
-    List<Img> queryByParentId(String parentId);
+    ImgDTO queryByParentId(String parentId);
 }

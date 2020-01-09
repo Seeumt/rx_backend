@@ -14,4 +14,10 @@ public interface UserInfoService {
 
     ResultVO logIn(String userId, String password);
 
+    ResultVO register(String userId, String password);
+
+
+
+//    ResultVO registerOrLogin(String username, String password);
+
 }

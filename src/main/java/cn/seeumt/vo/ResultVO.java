@@ -22,6 +22,14 @@ public class ResultVO implements Serializable {
         return resultVO;
     }
 
+    public static ResultVO success(Object object,String msg) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(0);
+        resultVO.setMsg(msg);
+        resultVO.setData(object);
+        return resultVO;
+    }
+
     public static ResultVO success() {
         return success(null);
     }

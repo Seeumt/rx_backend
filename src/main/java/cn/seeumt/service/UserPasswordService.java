@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.UserPassword;
+import cn.seeumt.vo.ResultVO;
 
 /**
  * @author Seeumt
@@ -9,4 +10,6 @@ import cn.seeumt.dataobject.UserPassword;
 public interface UserPasswordService {
 
     UserPassword selectByUserId(String userId);
+
+    int insert(String userId, String password);
 }

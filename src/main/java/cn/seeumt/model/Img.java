@@ -15,10 +15,8 @@ import java.util.Date;
  * @author Seeumt
  * @since 2020-01-08
  */
-
+@Data
 public class Img {
-    @Autowired
-    private AliyunOssConfig aliyunOssConfig;
 
     /**
      * 图片id
@@ -38,27 +36,9 @@ public class Img {
      */
     private String parentId;
 
-    public String getOssId() {
-        return ossId;
-    }
 
-    public void setOssId(String ossId) {
-        this.ossId = ossId;
-    }
+    private Integer type;
 
-    public String getUrl() {
-        return url;
-    }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
 
-    public String getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(String parentId) {
-        this.parentId = parentId;
-    }
 }

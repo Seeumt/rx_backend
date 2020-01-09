@@ -1,4 +1,6 @@
 package cn.seeumt.service.impl;
+import com.google.common.collect.Lists;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -6,6 +8,7 @@ import java.util.stream.Collectors;
 import cn.seeumt.config.AliyunOssConfig;
 import cn.seeumt.dataobject.Oss;
 import cn.seeumt.dao.OssMapper;
+import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.model.Img;
 import cn.seeumt.service.OssService;
@@ -16,7 +19,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.dc.pr.PRError;
 
 /**
  * <p>
@@ -52,16 +54,24 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
         return AliyunOssUtil.cutSuffix(originUrl);
     }
     @Override
-    public List<Img> queryByParentId(String parentId) {
+    public ImgDTO queryByParentId(String parentId) {
         QueryWrapper<Oss> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_id", parentId);
         List<Oss> osses = ossMapper.selectList(wrapper);
+        List<String> urls = new ArrayList<>();
         List<Img> imgs = osses.stream().map(oss -> {
             Img img = new Img();
             BeanUtils.copyProperties(oss, img);
-            img.setUrl(aliyunOssConfig.getUrlPrefix()+oss.getUrl());
+            img.setUrl(aliyunOssConfig.getUrlPrefix() + oss.getUrl());
+            urls.add(aliyunOssConfig.getUrlPrefix() + oss.getUrl());
             return img;
         }).collect(Collectors.toList());
-        return imgs;
+        ImgDTO imgDTO = new ImgDTO();
+        imgDTO.setParentId(parentId);
+        imgDTO.setImgs(imgs);
+        String[] urlss=urls.toArray(new String[urls.size()]);
+        imgDTO.setUrls(urlss);
+
+        return imgDTO;
     }
 }

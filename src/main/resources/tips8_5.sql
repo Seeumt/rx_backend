@@ -11,7 +11,7 @@
  Target Server Version : 50725
  File Encoding         : 65001
 
- Date: 22/12/2019 02:27:47
+ Date: 09/01/2020 22:20:48
 */
 
 SET NAMES utf8mb4;
@@ -31,7 +31,7 @@ CREATE TABLE `article`  (
   `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '//默认为1表示通过',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '//默认为0表示未删除',
   `cover_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//封面图片',
-  `head_picture` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//顶部图片',
+  `head_picture` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '//顶部图片',
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//用户id',
   PRIMARY KEY (`article_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
@@ -39,7 +39,19 @@ CREATE TABLE `article`  (
 -- ----------------------------
 -- Records of article
 -- ----------------------------
-INSERT INTO `article` VALUES ('123456789', 'RRRR', 'AAA', 'SSS', '2019-12-11 22:23:04', '2019-12-11 22:23:08', b'1', b'0', NULL, NULL, 'Seeumt');
+INSERT INTO `article` VALUES ('1234567879', 'RRRR', 'AWAA', 'SSS', '2020-01-08 15:40:19', '2019-12-11 22:23:08', b'1', b'0', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/4e6a0efcb2774ddb896b10b6c6ed5b7a.jpg', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/6b398e08-805d-43b3-8496-f1a7ac049667.mp4', 'Tips');
+INSERT INTO `article` VALUES ('123456789', 'RRRR', 'WAAA', 'SSS', '2020-01-05 10:47:36', '2019-12-11 22:23:08', b'1', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/eebb144752612829e71d145befbd21b1.jpg_160x120x95_7b8e1bc7.jpg', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/d93969abcc034a9261d67d5329006a52.jpg_1000x562x90_fb37dc44.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('23112396', 'MMMM', 'FNWA', 'IJK', '2020-01-05 10:47:40', '2019-12-11 22:23:08', b'0', b'0', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'https://img1.qunarzz.com/travel/d2/1608/6c/7924e637e4dad8b5.jpg_617x370x95_7457a077.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('235639856355396', 'EEEE', 'WAAW', 'WW', '2020-01-04 22:08:07', '2019-12-11 22:23:08', b'0', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/a7dc899be9e9746df4dbcadfd131ca0c.jpg', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/4e7821c3ce9b49528612d77641035730.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('23575639856355396', 'EEEE', 'WAWWE', 'WW', '2020-01-05 08:37:23', '2019-12-11 22:23:08', b'0', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/8886a11c8a91d01a94a2978b78bfaab2.jpg_200x150x95_c8c79518.jpg', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/d26bcb85-bafe-47c6-9502-b6672b94b6bf.mp4', 'Tips');
+INSERT INTO `article` VALUES ('3219856355396', 'TTTT', 'FNWA', 'IJK', '2020-01-05 10:47:40', '2019-12-11 22:23:08', b'0', b'0', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'https://img1.qunarzz.com/travel/d2/1608/6c/7924e637e4dad8b5.jpg_617x370x95_7457a077.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('52093563558396', 'VVVV', 'FNWA', 'IJK', '2020-01-04 21:48:17', '2019-12-11 22:23:08', b'0', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/3762161aaaceae3bb1adf3e195edabe6.jpg_1000x562x90_18199570.jpg', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/d26bcb85-bafe-47c6-9502-b6672b94b6bf.mp4', 'Tips');
+INSERT INTO `article` VALUES ('86962326554216', 'HHHH', 'FNWA', 'aa', '2020-01-06 01:41:35', '2019-12-11 22:23:08', b'1', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/c269ed601422a478ea8b65fd9243a979.jpg_160x120x95_a19c09da.jpg', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/6b398e08-805d-43b3-8496-f1a7ac049667.mp4', 'Tips');
+INSERT INTO `article` VALUES ('96232654216', 'HHHH', 'aaaWA', 'aa', '2020-01-05 10:47:46', '2019-12-11 22:23:08', b'1', b'0', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-space/img/c269ed601422a478ea8b65fd9243a979.jpg_160x120x95_a19c09da.jpg', 'https://img1.qunarzz.com/travel/d0/1709/29/02f9854711dde6b5.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('96519856355396', 'TTTT', 'FNWA', 'IJK', '2020-01-05 10:47:40', '2019-12-11 22:23:08', b'0', b'0', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'https://img1.qunarzz.com/travel/d2/1608/6c/7924e637e4dad8b5.jpg_617x370x95_7457a077.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('965322555396', 'XXXX', 'XXWAE', 'nn', '2020-01-06 01:41:39', '2019-12-11 22:23:08', b'1', b'0', 'https://img1.qunarzz.com/travel/d0/1709/29/02f9854711dde6b5.jpg', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('9678335396', 'LLLL', 'FNWA', 'IJK', '2020-01-05 10:47:40', '2019-12-11 22:23:08', b'0', b'0', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'https://img1.qunarzz.com/travel/d2/1608/6c/7924e637e4dad8b5.jpg_617x370x95_7457a077.jpg', 'Seeumt');
+INSERT INTO `article` VALUES ('9856355396', 'SSSS', 'FNWA', 'IJK', '2020-01-05 10:50:58', '2019-12-11 22:23:08', b'0', b'0', 'https://img1.qunarzz.com/travel/d6/1508/5e/f1d10553a639cc.jpg', 'https://img1.qunarzz.com/travel/d2/1608/6c/7924e637e4dad8b5.jpg_617x370x95_7457a077.jpg', 'Seeumt');
 
 -- ----------------------------
 -- Table structure for article_cities
@@ -92,6 +104,30 @@ CREATE TABLE `bonus`  (
   `update_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`bonus_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for carousel
+-- ----------------------------
+DROP TABLE IF EXISTS `carousel`;
+CREATE TABLE `carousel`  (
+  `carousel_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '轮播图 id',
+  `article_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片所属图片 id\r',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户 id',
+  `img_url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `enabled` bit(1) NOT NULL DEFAULT b'1',
+  `deleted` bit(1) NOT NULL DEFAULT b'1',
+  `sort` int(1) NOT NULL COMMENT '展示排列顺序',
+  `create_time` datetime(0) NOT NULL COMMENT '创建时间\r',
+  `update_time` datetime(0) NOT NULL COMMENT '更新时间',
+  PRIMARY KEY (`carousel_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of carousel
+-- ----------------------------
+INSERT INTO `carousel` VALUES ('1', '2', '3', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/2712a47d58b6a87f4ff8a4c8397f3cf8.jpg', b'1', b'0', 1, '2020-01-02 14:29:41', '2020-01-02 14:29:43');
+INSERT INTO `carousel` VALUES ('2', '2', '3', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/9e186be1684b70e2e05566d7ce4a297a.jpg', b'1', b'0', 2, '2020-01-02 14:30:23', '2020-01-02 14:30:25');
+INSERT INTO `carousel` VALUES ('3', '2', '3', 'https://tr-osdcp.qunarzz.com/tr-osd-tr-manager/img/a611351b494cec6b5b0dc826f5384240.jpg', b'1', b'0', 3, '2020-01-02 14:30:45', '2020-01-02 14:30:48');
 
 -- ----------------------------
 -- Table structure for city
@@ -199,13 +235,39 @@ INSERT INTO `love` VALUES ('f8a1c97bc3bb48aeaf7e86941dac3912', 4, b'1', '2019-12
 INSERT INTO `love` VALUES ('fbfd983a8b5049808ddca97c239ed10e', 4, b'1', '2019-12-11 20:03:05', '2019-12-11 20:03:05', b'1', 'Beatuiful', '6aa4ba942c2f479bb39e8c309d5b8dcb', NULL);
 
 -- ----------------------------
+-- Table structure for oss
+-- ----------------------------
+DROP TABLE IF EXISTS `oss`;
+CREATE TABLE `oss`  (
+  `oss_id` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片id',
+  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '图片地址',
+  `type` int(2) NOT NULL COMMENT '类型',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NOT NULL COMMENT '更新时间',
+  `enabled` bit(1) NOT NULL DEFAULT b'1' COMMENT '默认为1表示通过',
+  `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '默认为0表示未删除',
+  `parent_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '父级id',
+  PRIMARY KEY (`oss_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of oss
+-- ----------------------------
+INSERT INTO `oss` VALUES ('023510d60b8149c9a39ec677cb9e8feb', 'c920f6aa865240d8ae8364032c19df72.jpg', 1, '2020-01-08 18:38:47', '2020-01-08 15:34:16', b'1', b'0', '965322555396');
+INSERT INTO `oss` VALUES ('05cae59d7e634d04a26290cde4400117', 'be1ce3ef6daa4cfabe5f1a4d188fc2ad.jpg', 1, '2020-01-08 18:39:00', '2020-01-08 15:31:51', b'1', b'0', '965322555396');
+INSERT INTO `oss` VALUES ('08f848aaad9d4faf836b64a8145f519a', '9d18bb15bfcd4e4aacfb31fea7ae9a01.jpg', 2, '2020-01-08 18:45:57', '2020-01-08 15:21:40', b'1', b'0', '965322555396');
+INSERT INTO `oss` VALUES ('0c1ca0439edf44fca91e9bb6f70f0f7e', 'f9878010267a4705bc7a92c8b9ea4127.jpg', 2, '2020-01-08 18:46:01', '2020-01-08 15:21:39', b'1', b'0', '965322555396');
+INSERT INTO `oss` VALUES ('1babcf84a3464067a6287e9dfc8512ae', '9cb23a96cf644f1cb56b2212374b5d27.png', 1, '2020-01-08 21:36:10', '2020-01-08 21:35:26', b'1', b'0', '965322555396');
+INSERT INTO `oss` VALUES ('dd53c6bc8b96486cbdf55dea4b01c8e1', 'e6aaac69a834483ebd09d39f42fb7800.jpg', 2, '2020-01-08 18:46:03', '2020-01-08 15:21:40', b'1', b'0', '965322555396');
+
+-- ----------------------------
 -- Table structure for post
 -- ----------------------------
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post`  (
   `post_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `type` bit(1) NULL DEFAULT NULL COMMENT '//1代表自己原创 2代表转发他人',
-  `content` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `img_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
@@ -217,8 +279,7 @@ CREATE TABLE `post`  (
 -- ----------------------------
 -- Records of post
 -- ----------------------------
-INSERT INTO `post` VALUES ('227b8b1afb43408897d1dbb81eaa2ab9', b'1', 'post....', '3', '4', '2019-12-11 20:31:57', '2019-12-10 22:45:28', b'0');
-INSERT INTO `post` VALUES ('667b8b1afb43408897d1dbb81eaa2ab9', b'1', '又一个post....', '3', '4', '2019-12-11 20:31:57', '2019-12-10 22:45:28', b'0');
+INSERT INTO `post` VALUES ('6666', b'1', 'https://seeumt.oss-cn-hangzhou.aliyuncs.com/6b398e08-805d-43b3-8496-f1a7ac049667.mp4', '66', '965322555396', '2020-01-08 21:32:42', '2020-01-08 21:32:46', b'0');
 
 -- ----------------------------
 -- Table structure for reward_point
@@ -249,34 +310,52 @@ CREATE TABLE `role`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `souvenir_info`;
 CREATE TABLE `souvenir_info`  (
-  `id` int(32) NOT NULL,
-  `title` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `summary` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `number` int(11) NOT NULL,
-  `scenic_id` int(32) NOT NULL,
-  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  PRIMARY KEY (`id`) USING BTREE
+  `souvenir_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '纪念品id',
+  `name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '纪念品名称',
+  `summary` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '纪念品摘要',
+  `price` decimal(10, 2) NULL DEFAULT NULL COMMENT '纪念品价格',
+  `stock` int(11) NOT NULL COMMENT '库存',
+  `scenic_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '景区id',
+  `create_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `update_time` datetime(0) NOT NULL ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '更新时间',
+  `deleted` bit(1) NOT NULL COMMENT '是否删除',
+  PRIMARY KEY (`souvenir_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for souvenir_order
+-- Table structure for souvenir_order_detail
 -- ----------------------------
-DROP TABLE IF EXISTS `souvenir_order`;
-CREATE TABLE `souvenir_order`  (
-  `id` int(32) NOT NULL,
-  `real_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `topic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+DROP TABLE IF EXISTS `souvenir_order_detail`;
+CREATE TABLE `souvenir_order_detail`  (
+  `detail_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `souvenir_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `telphone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `create_time` datetime(0) NOT NULL,
   `update_time` datetime(0) NOT NULL,
   `status` tinyint(2) NOT NULL,
   `express` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `waybill` int(32) NOT NULL,
   `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`detail_id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for souvenir_order_master
+-- ----------------------------
+DROP TABLE IF EXISTS `souvenir_order_master`;
+CREATE TABLE `souvenir_order_master`  (
+  `master_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `real_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `topic` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `telephone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `create_time` datetime(0) NOT NULL,
+  `update_time` datetime(0) NOT NULL,
+  `status` tinyint(2) NOT NULL,
+  `express` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `waybill` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`master_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -324,16 +403,23 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
+INSERT INTO `user_info` VALUES ('10', '9.8', 'RRRRS', 'HTTP://TIPS', 666, '666666@gmail.com', b'0', '2020-01-03 10:30:16', '2020-01-03 10:35:33', b'1');
 INSERT INTO `user_info` VALUES ('666wx', '666wx', '666WX', 'http://', 789, '789@163.com', b'1', '2019-12-08 15:33:21', '2019-12-08 15:42:18', b'1');
 INSERT INTO `user_info` VALUES ('Beatuiful', 'miss', 'miss', 'http://miss', 123, '1563@qq.com', b'1', '2019-12-11 20:04:29', '2019-12-11 20:04:32', b'0');
 INSERT INTO `user_info` VALUES ('Beautiful', 'pretty', 'cute', 'http://', 662, '662@gmail.com', b'1', '2019-12-08 15:41:40', '2019-12-08 15:42:26', b'1');
 INSERT INTO `user_info` VALUES ('pretty', 'fairy', 'pretty', 'http://', 666, '666@126.com', b'1', '2019-12-08 21:35:22', '2019-12-08 21:35:25', b'0');
-INSERT INTO `user_info` VALUES ('Seeumt', 'seeumt', 'Seeumt', 'http://', 123, '456@163.com', b'1', '2019-12-08 15:32:21', '2019-12-09 09:46:56', b'1');
+INSERT INTO `user_info` VALUES ('Seeumt', 'seeumt', 'Seeumt', 'http://img4.imgtn.bdimg.com/it/u=4134086847,3165816965&fm=26&gp=0.jpg', 123, '456@163.com', b'1', '2019-12-08 15:32:21', '2020-01-09 21:29:25', b'1');
 INSERT INTO `user_info` VALUES ('test1', 'test1', 'test001', 'http://test1', 100, '111', b'1', '2019-12-09 20:00:40', '2019-12-10 23:46:53', b'1');
 INSERT INTO `user_info` VALUES ('test2', 'test2', 'test002', 'http://test2', 200, '222', b'1', '2019-12-09 20:01:16', '2019-12-10 23:46:56', b'1');
 INSERT INTO `user_info` VALUES ('test3', 'test3', 'test003', 'http://test3', 300, '333', b'1', '2019-12-09 20:01:49', '2019-12-10 23:46:59', b'1');
 INSERT INTO `user_info` VALUES ('test4', 'test4', 'test004', 'http://test4', 400, '444', b'1', '2019-12-09 20:02:49', '2019-12-10 23:47:04', b'1');
-INSERT INTO `user_info` VALUES ('Tips', 'Tips', 'tips', 'http://', 123, '123@163.com', b'1', '2019-12-08 15:31:21', '2019-12-08 15:42:23', b'1');
+INSERT INTO `user_info` VALUES ('test5', 'test5', 'hhh', 'http://img1.imgtn.bdimg.com/it/u=2010748051,1812828348&fm=11&gp=0.jpg', 111, 'hh@qq.com', b'1', '2020-01-09 19:50:10', '2020-01-09 19:50:10', b'0');
+INSERT INTO `user_info` VALUES ('test6', 'test6', 'hhh', 'http://img5.imgtn.bdimg.com/it/u=4016333918,4269266815&fm=26&gp=0.jpg', 111, 'hh@qq.com', b'1', '2020-01-09 19:53:10', '2020-01-09 19:54:03', b'0');
+INSERT INTO `user_info` VALUES ('test6+666', 'test6+666', 'hhh', 'http://img1.imgtn.bdimg.com/it/u=2010748051,1812828348&fm=11&gp=0.jpg', 111, 'test6+666@gmail.com', b'1', '2020-01-09 22:02:35', '2020-01-09 22:02:35', b'0');
+INSERT INTO `user_info` VALUES ('test64', 'test64', 'hhh', 'http://img1.imgtn.bdimg.com/it/u=2010748051,1812828348&fm=11&gp=0.jpg', 111, 'test64@gmail.com', b'1', '2020-01-09 22:02:08', '2020-01-09 22:02:08', b'0');
+INSERT INTO `user_info` VALUES ('test66666', 'test66666', 'hhh', 'http://img1.imgtn.bdimg.com/it/u=2010748051,1812828348&fm=11&gp=0.jpg', 111, 'test66666@gmail.com', b'1', '2020-01-09 22:04:31', '2020-01-09 22:04:31', b'0');
+INSERT INTO `user_info` VALUES ('test666660999', 'test666660999', 'hhh', 'http://img1.imgtn.bdimg.com/it/u=2010748051,1812828348&fm=11&gp=0.jpg', 111, 'test666660999@gmail.com', b'1', '2020-01-09 22:06:26', '2020-01-09 22:06:26', b'0');
+INSERT INTO `user_info` VALUES ('Tips', 'Tips', 'tips', 'http://img4.imgtn.bdimg.com/it/u=480194109,2955193021&fm=26&gp=0.jpg', 123, '123@163.com', b'1', '2019-12-08 15:31:21', '2020-01-09 21:30:19', b'1');
 
 -- ----------------------------
 -- Table structure for user_password
@@ -351,6 +437,12 @@ CREATE TABLE `user_password`  (
 -- ----------------------------
 INSERT INTO `user_password` VALUES ('1', '123', 'Seeumt');
 INSERT INTO `user_password` VALUES ('2', '666', 'Tips');
+INSERT INTO `user_password` VALUES ('2fe246d2d06d4806a69e49978a6b27bd', '123456', 'test6');
+INSERT INTO `user_password` VALUES ('3652d9a2c3bb4a9ea17cb26eb6e9393e', '123456', 'test6+666');
+INSERT INTO `user_password` VALUES ('3ef61cd03b864d43ab282e16f7ccd074', '123456', 'test64');
+INSERT INTO `user_password` VALUES ('8ac58e58fedf41d9ad0ba68727ce96b0', '123456', 'test666660999');
+INSERT INTO `user_password` VALUES ('97c0326966fa44eca66206210bfaf24e', '123456', 'test5');
+INSERT INTO `user_password` VALUES ('99a1cf2615e74a9eba9ee790e7ef45f8', '123456', 'test66666');
 
 -- ----------------------------
 -- Table structure for user_stu_auth
@@ -378,7 +470,7 @@ CREATE TABLE `user_tag`  (
   `admin_id` int(32) NOT NULL COMMENT '//审核标签管理员id',
   `enabled` bit(1) NOT NULL DEFAULT b'0' COMMENT '//是否可用',
   `deleted` bit(1) NOT NULL DEFAULT b'0' COMMENT '//是否删除',
-  `user_id` int(32) NOT NULL COMMENT '//所有者id',
+  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '//所有者id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 

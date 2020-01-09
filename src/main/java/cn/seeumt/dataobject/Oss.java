@@ -9,10 +9,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
- *
- * </p>
- *
  * @author Seeumt
  * @since 2020-01-08
  */
