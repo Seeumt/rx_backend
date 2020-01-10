@@ -1,17 +1,20 @@
-package cn.seeumt.form;
+package cn.seeumt.dto;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.models.auth.In;
 import lombok.Data;
 
 @Data
-public class MPWXUserInfo {
+public class MPWXUserInfoDTO {
+    private String userId;
+    @JsonProperty("faceIcon")
     private String avatarUrl;
     private String city;
     private String country;
     private Integer gender;
     private String language;
+    @JsonProperty("nickname")
     private String nickName;
     private String province;
+    private String skey;
+    private String sessionKey;
 }

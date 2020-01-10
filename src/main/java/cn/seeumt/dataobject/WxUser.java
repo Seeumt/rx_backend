@@ -2,13 +2,17 @@ package cn.seeumt.dataobject;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Seeumt
@@ -24,6 +28,7 @@ public class WxUser implements Serializable {
     /**
      * 微信用户id
      */
+    @TableId
     private String userId;
 
     /**
@@ -72,14 +77,23 @@ public class WxUser implements Serializable {
     private Integer telephone;
 
     /**
+     * session_key
+     */
+    private String sessionKey;
+    /**
+     * skey
+     */
+    private String skey;
+
+    /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
+    private Date lastVisitTime;
 
 
 }

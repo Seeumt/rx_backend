@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.form.MPWXUserInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,5 +13,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-01-10
  */
 public interface WxUserService {
+    WxUser insert(MPWXUserInfo mpwxUserInfo,String openId,String sessionKey,String skey);
+
+    WxUser selectByOpenId(String openId);
+
+    int update(WxUser wxUser);
+
 
 }
