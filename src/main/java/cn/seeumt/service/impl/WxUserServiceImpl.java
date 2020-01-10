@@ -62,8 +62,7 @@ public class WxUserServiceImpl implements WxUserService {
 //        QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
 //        wrapper.eq("open_id", wxUser.getOpenId());
 //        wxUserMapper.update(wxUser, wrapper);
-        int i = wxUserMapper.updateById(wxUser);
-        return i;
+        return wxUserMapper.updateById(wxUser);
     }
 
 }

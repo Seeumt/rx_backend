@@ -20,7 +20,11 @@ public enum Tips {
     POST_COMMENT(5,"动态的评论"),
     POST_COMMENT_COMMENT(6,"动态评论的评论"),
     IMAGE(1,"图片"),
-    INSERT_FAIL(10001,"用户注册失败")
+    INSERT_FAIL(10001,"用户注册失败"),
+    THIRD_OAUTH_FAIL(10002, "第三方授权登录失败"),
+    WEIXIN(20001, "weixin"),
+    WEIBO(20002,"weibo"),
+    QQ(20003,"qq")
     ;
 
     /**

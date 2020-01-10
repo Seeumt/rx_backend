@@ -3,9 +3,11 @@ package cn.seeumt.controller;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.ThirdPartyUser;
 import cn.seeumt.form.UserInfo;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.service.CommentService;
+import cn.seeumt.service.ThirdPartyUserService;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.UuidUtil;
@@ -39,10 +41,19 @@ public class UserController {
     @Autowired
     private WxUserService wxUserService;
     @Autowired
+    private ThirdPartyUserService thirdPartyUserService;
+    @Autowired
     private CommentService commentService;
     @GetMapping(value = "/")
     public List<CommentContent> findMyCommentsOfAnArticle(String articleId,String userId) {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
+    }
+
+    @PostMapping(value = "/thirdPartyLogin/{logintype}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO thirdPartyLogin(@PathVariable("logintype") String loginType,
+                                    @RequestBody ThirdPartyUser thirdPartyUser) {
+        return thirdPartyUserService.actionByLoginTypeAndThreePartyId(loginType, thirdPartyUser);
+
     }
 
     @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
