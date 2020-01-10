@@ -1,5 +1,6 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.form.UserInfo;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.service.CommentService;
@@ -30,6 +31,16 @@ public class UserController {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
     }
 
+    @PostMapping(value = "/mpWXLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO login(@PathVariable String code,
+                          @RequestBody MPWXUserInfo mpwxUserInfo,
+                          @RequestParam("avatarUrl") String avatarUrl,
+                          @RequestParam("nickName") String nickName
+                          ) {
+        ResultVO resultVO = userInfoService.logIn(userInfo.getUserId(), userInfo.getPassword());
+        return resultVO;
+    }
+
     @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @Cacheable(cacheNames = "user_session",key = "123456")
     // 这是把这个resultVO放到了redis里？
@@ -39,10 +50,10 @@ public class UserController {
     }
 
 
-    @GetMapping("/logout")
-    public ResultVO logout(HttpSession httpSession) {
-        httpSession.removeAttribute(httpSession.getId());
-        return ResultVO.success();
+    @PostMapping("/logout")
+    public ResultVO logout(String userId) {
+//        httpSession.removeAttribute(httpSession.getId());
+        return ResultVO.success(0, userId+" 已成功退出！");
     }
 //
 //    @GetMapping("/registerOrLogin")
