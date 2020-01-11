@@ -16,6 +16,8 @@ public interface UserInfoService {
 
     ResultVO register(String userId, String password);
 
+    ResultVO uploadFaceIcon(String userId, String originUrl);
+
 
 
 //    ResultVO registerOrLogin(String username, String password);

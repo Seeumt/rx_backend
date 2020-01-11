@@ -14,6 +14,7 @@ import lombok.Data;
 @Data
 public class ThirdPartyUserDTO {
 
+    private String userId;
 
     private String faceIcon;
 

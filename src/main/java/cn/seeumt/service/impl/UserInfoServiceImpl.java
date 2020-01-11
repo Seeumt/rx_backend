@@ -3,16 +3,20 @@ import java.util.Date;
 
 import cn.seeumt.dao.UserInfoMapper;
 import cn.seeumt.dao.UserPasswordMapper;
+import cn.seeumt.dao.WxUserMapper;
 import cn.seeumt.dataobject.UserInfo;
 import cn.seeumt.dataobject.UserPassword;
+import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.enums.Tips;
-import cn.seeumt.response.ResultVOUtil;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.service.UserPasswordService;
+import cn.seeumt.utils.AliyunOssUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +32,8 @@ public class UserInfoServiceImpl implements UserInfoService {
     private UserInfoMapper userInfoMapper;
     @Autowired
     private UserPasswordService userPasswordService;
+    @Autowired
+    private WxUserMapper wxUserMapper;
 
     @Override
     public UserInfo selectByPrimaryKey(String userId) {
@@ -70,6 +76,21 @@ public class UserInfoServiceImpl implements UserInfoService {
             return ResultVO.error(Tips.INSERT_FAIL.getCode(), Tips.INSERT_FAIL.getMsg());
         }
         return ResultVO.error(Tips.INSERT_FAIL.getCode(), Tips.INSERT_FAIL.getMsg());
+    }
+
+    @Override
+    public ResultVO uploadFaceIcon(String userId, String originUrl) {
+        QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", userId);
+        WxUser wxUser = wxUserMapper.selectOne(wrapper);
+//        String dbUrl = AliyunOssUtil.getDBUrl(originUrl);
+//        wxUser.setAvatarUrl(dbUrl);
+        wxUser.setAvatarUrl(originUrl);
+        wxUserMapper.updateById(wxUser);
+        MPWXUserInfoDTO mpwxUserInfoDTO = new MPWXUserInfoDTO();
+        BeanUtils.copyProperties(wxUser,mpwxUserInfoDTO);
+//        mpwxUserInfoDTO.setAvatarUrl(originUrl);
+        return ResultVO.success(mpwxUserInfoDTO,"更新头像成功");
     }
 
 

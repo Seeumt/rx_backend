@@ -1,9 +1,15 @@
 package cn.seeumt.vo;
 
+import cn.seeumt.enums.ResultCode;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ResultVO implements Serializable {
 
     private static final long serialVersionUID = -6721853439167521929L;
@@ -55,5 +61,35 @@ public class ResultVO implements Serializable {
         resultVO.setMsg("是吧");
         resultVO.setData(object);
         return resultVO;
+    }
+
+    public static ResultVO ok() {
+        return ok("");
+    }
+
+    public static ResultVO ok(Object object) {
+        return new ResultVO(ResultCode.SUCCESS, object);
+    }
+
+    public static ResultVO failure(ResultCode code) {
+        return failure(code, "");
+    }
+
+    public static ResultVO failure(ResultCode code, Object o) {
+        return new ResultVO(code, o);
+    }
+
+    public ResultVO (ResultCode resultCode) {
+        setResultCode(resultCode);
+    }
+
+    public ResultVO (ResultCode resultCode,Object object) {
+        setResultCode(resultCode);
+        this.data = object;
+    }
+
+    public void setResultCode(ResultCode resultCode) {
+        this.code = resultCode.getCode();
+        this.msg = resultCode.getMsg();
     }
 }

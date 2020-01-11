@@ -10,6 +10,7 @@ import cn.seeumt.service.CommentService;
 import cn.seeumt.service.ThirdPartyUserService;
 import cn.seeumt.service.UserInfoService;
 import cn.seeumt.service.WxUserService;
+import cn.seeumt.utils.AliyunOssUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
@@ -23,8 +24,10 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +50,13 @@ public class UserController {
     @GetMapping(value = "/")
     public List<CommentContent> findMyCommentsOfAnArticle(String articleId,String userId) {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
+    }
+
+    @PostMapping(value = "/uploadFace", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResultVO uploadFace(String userId, @RequestPart("file") MultipartFile file) throws IOException {
+        String originUrl = AliyunOssUtil.getOriginUrl(file);
+        ResultVO resultVO = userInfoService.uploadFaceIcon(userId, originUrl);
+        return resultVO;
     }
 
     @PostMapping(value = "/thirdPartyLogin/{logintype}",consumes = MediaType.APPLICATION_JSON_VALUE)
