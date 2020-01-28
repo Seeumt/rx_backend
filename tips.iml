@@ -142,7 +142,6 @@
     <orderEntry type="library" name="Maven: io.springfox:springfox-core:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-schema:2.8.0" level="project" />
     <orderEntry type="library" name="Maven: io.springfox:springfox-swagger-common:2.8.0" level="project" />
-    <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml:classmate:1.4.0" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.28" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.plugin:spring-plugin-core:1.2.0.RELEASE" level="project" />
@@ -167,5 +166,6 @@
     <orderEntry type="library" name="Maven: cn.hutool:hutool-http:5.0.7" level="project" />
     <orderEntry type="library" name="Maven: cn.hutool:hutool-core:5.0.7" level="project" />
     <orderEntry type="library" name="Maven: cn.hutool:hutool-json:5.0.7" level="project" />
+    <orderEntry type="library" name="Maven: com.google.guava:guava:20.0" level="project" />
   </component>
 </module>

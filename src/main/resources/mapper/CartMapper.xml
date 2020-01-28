@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.seeumt.dao.CartMapper">
-
+    <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Cart" >
+        <constructor >
+            <idArg column="cart_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="user_id" jdbcType="VARCHAR" javaType="java.lang.String" />
+            <arg column="souvenir_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="quantity" jdbcType="INTEGER" javaType="java.lang.Integer" />
+            <arg column="checked" jdbcType="BIT" javaType="java.lang.Boolean" />
+            <arg column="create_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+            <arg column="update_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+        </constructor>
+    </resultMap>
+    <sql id="Base_Column_List" >
+        cart_id, user_id, souvenir_id, quantity, checked, create_time, update_time
+    </sql>
 </mapper>

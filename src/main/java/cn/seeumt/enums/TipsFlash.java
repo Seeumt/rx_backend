@@ -15,6 +15,8 @@ public enum TipsFlash {
     ARTICLE_THUMB_FAILED(10002, "文章点赞失败"),
     ABNORMAL_THUMB(10003, "刚刚好像有外星人给你点赞了"),
     THUMB_FAILED(10004, "点赞系统报错了哟"),
+    ADD_TO_CART_FAILED(70001,"添加到购物车失败"),
+    INVAILD_ARGUMENT(70002, "参数不合法"),
     ;
     /**
      * 返回码

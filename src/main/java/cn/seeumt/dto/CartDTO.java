@@ -10,126 +10,74 @@ public class CartDTO {
     /**
      * id
      */
-    private String cartId;
+    private Integer cartId;
     /**
      * userId
      */
     private String userId;
 
     /**
-     * productId
+     * souvenirId
      */
-    private String productId;
+    private Integer souvenirId;
 
     /**
-     * quantity
-     */
-    private Integer count;
-
-    /**
-     * productName
+     * souvenirName 要通过souvenir_id 查询后set
      */
     private String name;
 
     /**
-     * 产品摘要
+     * quantity
      */
-    private String summary;
-
-
-    /**
-     * 产品主图
-     */
-    private String productMainImg;
-
-    /**
-     * 该产品单价
-     */
-    private BigDecimal price;
-
-    /**
-     * 产品状态
-     */
-    private String status;
-
-    /**
-     * 总价
-     */
-    private BigDecimal totalPrice;
-
-    /**
-     * 库存
-     */
-    private Integer stock;
+    private Integer quantity;
 
     /**
      * 是否勾选
      */
     private Boolean checked;
 
-    /**
-     * id
+    /*
+     ========以下是Souvenir=======
      */
+    /**
+     * 纪念品副标题
+     */
+    private String subtitle;
 
     /**
-     * id
+     * 主图url相对地址
      */
+    private String mainImage;
 
     /**
-     * id
+     * 纪念品价格
      */
+    private BigDecimal price;
 
     /**
-     * id
+     * 商品状态.1-在售 2-下架 3-删除
      */
+    private Integer status;
 
     /**
-     * id
+     * 库存
      */
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
-
-    /**
-     * id
-     */
+    private Integer stock;
 
 
+    /*
+      ===========额外==============
+     */
+    /**
+     * 总价
+     */
+    private BigDecimal cartItemTotalPrice;
 
+
+    /**
+     * 限制数量的一个返回结果
+     */
+    private String limitQuantity;
 
 
 

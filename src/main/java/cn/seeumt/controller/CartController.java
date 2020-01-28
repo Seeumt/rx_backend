@@ -2,34 +2,78 @@ package cn.seeumt.controller;
 
 
 import cn.seeumt.dataobject.Article;
+import cn.seeumt.service.CartService;
+import cn.seeumt.vo.CartVO;
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
-
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
  * @author Seeumt
  * @since 2020-01-27
  */
-@RestController
+@Controller
 @RequestMapping("/cart")
+@Slf4j
 public class CartController {
-    /**
-     *
-     * @param userId
-     * @param souvenirId
-     * @return
-     */
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO add(String userId,String souvenirId,Integer count) {
-        return null;
+
+    @Autowired
+    private CartService cartService;
+
+    @GetMapping("/list")
+    @ResponseBody
+    public ResultVO list(String userId){
+        return cartService.list(userId);
     }
+
+    @PostMapping("/add")
+    @ResponseBody
+    public ResultVO add(String userId, Integer souvenirId,Integer count){
+        log.info("【添加到购物车】用户:user_id={} 添加商品:souvenir_id={} {}件到购物车",userId,souvenirId,count);
+        return cartService.add(userId,souvenirId,count);
+    }
+//
+//
+//
+    @PutMapping("/update")
+    @ResponseBody
+    public ResultVO update(String userId,Integer souvenirId, Integer count ){
+        return cartService.update(userId,souvenirId,count);
+    }
+
+    @DeleteMapping("/delete")
+    @ResponseBody
+    public ResultVO delete(String userId,String souvenirIds){
+
+        return cartService.delete(userId,souvenirIds);
+    }
+
+    @GetMapping("/isSelect")
+    @ResponseBody
+    public ResultVO isSelectAll(String userId,
+                                @RequestParam(value = "souvenirId",required = false) Integer souvenirId,
+                                Boolean isChecked){
+            return cartService.selectOrUnSelect(userId,souvenirId,isChecked);
+    }
+
+
+    @GetMapping("get_cart_souvenir_count")
+    @ResponseBody
+    public ResultVO getCartSouvenirCount(String userId){
+        return cartService.getCartSouvenirCount(userId);
+    }
+
+
+
+
+
+
 }

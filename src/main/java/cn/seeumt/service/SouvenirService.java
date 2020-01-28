@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Seeumt
  * @since 2020-01-28
  */
-public interface SouvenirService extends IService<Souvenir> {
+public interface SouvenirService{
+
 
 }

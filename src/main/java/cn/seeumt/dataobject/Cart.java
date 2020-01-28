@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -25,7 +27,8 @@ public class Cart implements Serializable {
     /**
      * 购物车id
      */
-    private String cartId;
+    @TableId(value = "cart_id", type = IdType.AUTO)
+    private Integer cartId;
 
     /**
      * 用户id
@@ -35,7 +38,7 @@ public class Cart implements Serializable {
     /**
      * 纪念品id
      */
-    private String souvenirId;
+    private Integer souvenirId;
 
     /**
      * 数量

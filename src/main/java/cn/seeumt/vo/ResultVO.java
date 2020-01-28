@@ -1,6 +1,7 @@
 package cn.seeumt.vo;
 
 import cn.seeumt.enums.ResultCode;
+import cn.seeumt.enums.TipsFlash;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -51,6 +52,13 @@ public class ResultVO implements Serializable {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(code);
         resultVO.setMsg(msg);
+        return resultVO;
+    }
+
+    public static ResultVO error(TipsFlash tipsFlash) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(tipsFlash.getCode());
+        resultVO.setMsg(tipsFlash.getMsg());
         return resultVO;
     }
 
