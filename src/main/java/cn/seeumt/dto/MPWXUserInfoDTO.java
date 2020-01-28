@@ -1,7 +1,10 @@
 package cn.seeumt.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+
+import java.util.Date;
 
 @Data
 public class MPWXUserInfoDTO {
@@ -17,4 +20,7 @@ public class MPWXUserInfoDTO {
     private String province;
     private String skey;
     private String sessionKey;
+    @JsonProperty("birthday")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date createTime;
 }

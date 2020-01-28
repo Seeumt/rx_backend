@@ -2,6 +2,7 @@ package cn.seeumt.dto;
 
 import cn.seeumt.model.Comment;
 import cn.seeumt.model.Thumber;
+import cn.seeumt.vo.UserVO;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 import java.util.Date;
@@ -20,15 +21,11 @@ public class PostDTO {
 
     private String content;
 
-    private String imgId;
+    private List<String> imgUrls;
 
-    private String userId;
+    private UserVO userVO;
 
     private Date createTime;
-
-    private Date updateTime;
-
-    private Boolean deleted;
 
     private List<Comment> comments;
 

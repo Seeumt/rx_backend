@@ -14,6 +14,7 @@ import cn.seeumt.service.UserPasswordService;
 import cn.seeumt.utils.AliyunOssUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.ResultVO;
+import cn.seeumt.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
@@ -91,6 +92,16 @@ public class UserInfoServiceImpl implements UserInfoService {
         BeanUtils.copyProperties(wxUser,mpwxUserInfoDTO);
 //        mpwxUserInfoDTO.setAvatarUrl(originUrl);
         return ResultVO.success(mpwxUserInfoDTO,"更新头像成功");
+    }
+
+    @Override
+    public UserVO selectByUserId(String userId) {
+        QueryWrapper<UserInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", userId);
+        UserInfo userInfo = userInfoMapper.selectOne(wrapper);
+        UserVO userVO = new UserVO();
+        BeanUtils.copyProperties(userInfo, userVO);
+        return userVO;
     }
 
 

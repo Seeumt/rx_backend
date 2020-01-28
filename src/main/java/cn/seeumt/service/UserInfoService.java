@@ -3,6 +3,7 @@ package cn.seeumt.service;
 
 import cn.seeumt.dataobject.UserInfo;
 import cn.seeumt.vo.ResultVO;
+import cn.seeumt.vo.UserVO;
 
 /**
  * @author Seeumt
@@ -17,6 +18,8 @@ public interface UserInfoService {
     ResultVO register(String userId, String password);
 
     ResultVO uploadFaceIcon(String userId, String originUrl);
+
+    UserVO selectByUserId(String userId);
 
 
 

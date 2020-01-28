@@ -1,6 +1,6 @@
 package cn.seeumt.dao;
 
-import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.dataobject.Souvenir;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,9 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Seeumt
- * @since 2020-01-10
+ * @since 2020-01-28
  */
-public interface WxUserMapper extends BaseMapper<WxUser> {
-
+public interface SouvenirMapper extends BaseMapper<Souvenir> {
 
 }

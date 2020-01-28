@@ -52,6 +52,12 @@ public class UserController {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
     }
 
+    @PostMapping(value = "/modifyUserInfo",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO modifyUserInfo(@RequestBody MPWXUserInfoDTO mpwxUserInfoDTO) {
+        ResultVO resultVO = wxUserService.modifyUserInfo(mpwxUserInfoDTO);
+        return resultVO;
+    }
+
     @PostMapping(value = "/uploadFace", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResultVO uploadFace(String userId, @RequestPart("file") MultipartFile file) throws IOException {
         String originUrl = AliyunOssUtil.getOriginUrl(file);

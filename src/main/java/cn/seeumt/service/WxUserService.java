@@ -1,7 +1,9 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -18,6 +20,9 @@ public interface WxUserService {
     WxUser selectByOpenId(String openId);
 
     int update(WxUser wxUser);
+
+    ResultVO modifyUserInfo(MPWXUserInfoDTO mpwxUserInfoDTO);
+
 
 
 }

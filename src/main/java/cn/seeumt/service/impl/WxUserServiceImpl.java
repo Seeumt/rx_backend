@@ -4,11 +4,14 @@ import java.util.Date;
 
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dao.WxUserMapper;
+import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.UuidUtil;
+import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -63,6 +66,18 @@ public class WxUserServiceImpl implements WxUserService {
 //        wrapper.eq("open_id", wxUser.getOpenId());
 //        wxUserMapper.update(wxUser, wrapper);
         return wxUserMapper.updateById(wxUser);
+    }
+
+    @Override
+    public ResultVO modifyUserInfo(MPWXUserInfoDTO mpwxUserInfoDTO) {
+        QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
+        wrapper.eq("user_id", mpwxUserInfoDTO.getUserId());
+        WxUser wxUser = wxUserMapper.selectOne(wrapper);
+//        String avatarUrl = wxUser.getAvatarUrl();
+        BeanUtils.copyProperties(mpwxUserInfoDTO, wxUser);
+//        wxUser.setAvatarUrl(avatarUrl);
+        wxUserMapper.updateById(wxUser);
+        return ResultVO.success(mpwxUserInfoDTO,"更新用户信息成功");
     }
 
 }

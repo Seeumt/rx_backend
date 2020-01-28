@@ -1,11 +1,17 @@
 package cn.seeumt.service.impl;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import cn.seeumt.dao.PostMapper;
 import cn.seeumt.dataobject.Post;
+import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.dto.PostDTO;
+import cn.seeumt.service.OssService;
 import cn.seeumt.service.PostService;
+import cn.seeumt.service.UserInfoService;
 import cn.seeumt.utils.UuidUtil;
+import cn.seeumt.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +22,10 @@ public class PostServiceImpl implements PostService {
 
     @Autowired
     private PostMapper postMapper;
+    @Autowired
+    private UserInfoService userInfoService;
+    @Autowired
+    private OssService ossService;
 
 
     @Override
@@ -23,6 +33,12 @@ public class PostServiceImpl implements PostService {
         Post post = postMapper.selectByPrimaryKey(postId);
         PostDTO postDTO = new PostDTO();
         BeanUtils.copyProperties(post,postDTO);
+        UserVO userVO = userInfoService.selectByUserId(post.getUserId());
+        ImgDTO imgDTO = ossService.queryByParentId(post.getUserId());
+        String[] urls = imgDTO.getUrls();
+        ArrayList<String> imgUrls = new ArrayList<>(Arrays.asList(urls));
+        postDTO.setImgUrls(imgUrls);
+        postDTO.setUserVO(userVO);
         return postDTO;
     }
 
