@@ -18,6 +18,7 @@ public enum TipsFlash implements CodeEnum {
     THUMB_FAILED(10004, "点赞系统报错了哟"),
     ADD_TO_CART_FAILED(70001,"添加到购物车失败"),
     ADD_TO_ORDER_MASTER_FAILED(60001,"添加到主订单失败"),
+    ADD_TO_ORDER_DETAIL_FAILED(60002,"添加到子订单失败"),
     INVAILD_ARGUMENT(70002, "参数不合法"),
     CLEAN_CART_FAILED(70004, "清空购物车失败"),
 

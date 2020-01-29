@@ -46,6 +46,8 @@ public interface OrderService {
      */
     ResultVO createOrder(String userId, Integer shippingId);
 
+    ResultVO createOrderNow(String userId, Integer shippingId, Integer souvenirId,Integer count);
+
     /**
      * 查询出数据库中所有订单列表
      * @return

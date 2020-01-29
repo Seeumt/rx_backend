@@ -31,6 +31,12 @@ public class OrderController {
         return orderService.createOrder(userId,shippingId);
     }
 
+    @PostMapping("/buyNow")
+    @ResponseBody
+    public ResultVO buyNow(String userId, Integer shippingId, Integer souvenirId,Integer count){
+        return orderService.createOrderNow(userId,shippingId,souvenirId,count);
+    }
+
     @GetMapping("/find")
     public OrderDTO findOne(Long orderId) {
         return orderService.findOne(orderId);

@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.sun.xml.internal.ws.api.message.Packet.State.ServerResponse;
 
 @Service
 @Slf4j
@@ -52,6 +51,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private CartMapper cartMapper;
 
+    /**
+     * 【结算购物车->生成订单】
+     * @param userId 用户id
+     * @param shippingId 快递id
+     * @return ResultVO
+     */
     @Override
     public ResultVO createOrder(String userId, Integer shippingId) {
         List<Cart> carts = cartService.selectByUserId(userId);
@@ -85,6 +90,47 @@ public class OrderServiceImpl implements OrderService {
         return ResultVO.success(findOne(orderMaster.getOrderId()));
     }
 
+    /**
+     *
+     * @param userId 用户id
+     * @param shippingId 快递id
+     * @param souvenirId 纪念品id
+     * @param count 商品数量
+     * @return ResultVO
+     */
+    @Override
+    public ResultVO createOrderNow(String userId, Integer shippingId, Integer souvenirId,Integer count) {
+        Souvenir souvenir = souvenirMapper.selectById(souvenirId);
+        if (souvenir != null) {
+            if (!souvenir.getStatus().equals(TipsBusiness.ON_SALE.getCode())) {
+                return ResultVO.error(TipsBusiness.NOT_ON_SALE);
+            }
+            if (souvenir.getStock() < count) {
+                return ResultVO.error(TipsBusiness.LOW_STOCKS);
+            }
+            BigDecimal payment = new BigDecimal("0");
+            payment = BigDecimalUtil.add(payment.doubleValue(), BigDecimalUtil.mul(souvenir.getPrice().doubleValue(), count.doubleValue()).doubleValue());
+            OrderMaster orderMaster = createOrderMaster(userId, shippingId, payment);
+            int insert = orderMasterMapper.insert(orderMaster);
+            if (insert < 0) {
+                throw new TipsException(TipsFlash.ADD_TO_ORDER_MASTER_FAILED);
+            }
+            OrderDetail orderDetail = createOrderDetail(userId, souvenir, orderMaster.getOrderId(), payment, count);
+            int insert1 = orderDetailMapper.insert(orderDetail);
+            if (insert1 < 0) {
+                throw new TipsException(TipsFlash.ADD_TO_ORDER_DETAIL_FAILED);
+            }
+            log.info("【订单-立即购买】用户user_id={}购买了souvenir_id={} {}件", userId, souvenirId, count);
+            return ResultVO.success(findOne(orderMaster.getOrderId()));
+        }
+        return ResultVO.error(TipsBusiness.SOUVENIR_NOT_EXIST);
+    }
+
+    /**
+     * 【结算购物车后->清空购物车】
+     * @param userId 用户id
+     * @param souvenirId 纪念品id
+     */
     private void cleanCart(String userId, Integer souvenirId) {
         int i = cartService.deleteByUserIdAndSouvenirId(userId, souvenirId);
         if (i < 0) {
@@ -92,13 +138,21 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
+    /**
+     * 【结算购物车后->减库存】
+     * @param orderDetail 子订单
+     */
     private void reduceSouvenirStock(OrderDetail orderDetail) {
         Souvenir souvenir = souvenirMapper.selectById(orderDetail.getSouvenirId());
         souvenir.setStock(souvenir.getStock() - orderDetail.getQuantity());
         souvenirMapper.updateById(souvenir);
     }
 
-
+    /**
+     * 【结算购物车-计算购物车总价（orderDetail叠加）】
+     * @param orderDetailList 用户
+     * @return
+     */
     private BigDecimal getOrderDetailListTotalPrice(List<OrderDetail> orderDetailList) {
         BigDecimal payment = new BigDecimal("0");
         for(OrderDetail orderDetail : orderDetailList){
@@ -108,10 +162,10 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 得到有效的购物车清单 并放入到一个子预订单列表里
+     *  【结算购物车->找出有效CartItem并放入到一个子预订单列表里List<OrderDetail>】
      * @param userId
      * @param carts
-     * @return ResultVO(技巧)
+     * @return ResultVO
      */
     // TODO: 2020/1/29 skills
     private ResultVO getVaildCartItem(String userId, List<Cart> carts) {
@@ -202,8 +256,31 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    /**
+     * 【复用】增加orderMaster记录
+     * @param userId 用户id
+     * @param shippingId 快递id
+     * @param payment 应付款
+     * @return OrderMaster
+     */
     @Override
     public OrderMaster insertOrderMaster(String userId, Integer shippingId, BigDecimal payment) {
+        OrderMaster orderMaster = createOrderMaster(userId, shippingId, payment);
+        int insert = orderMasterMapper.insert(orderMaster);
+        if (insert > 0) {
+            return orderMaster;
+        }
+        return null;
+    }
+
+    /**
+     *【复用】 创建orderMaster
+     * @param userId 用户id
+     * @param shippingId 快递id
+     * @param payment 应付款
+     * @return OrderMaster
+     */
+    private OrderMaster createOrderMaster(String userId, Integer shippingId, BigDecimal payment) {
         OrderMaster orderMaster = new OrderMaster();
         orderMaster.setOrderId(KeyUtil.genUniqueKey());
         orderMaster.setUserId(userId);
@@ -218,83 +295,37 @@ public class OrderServiceImpl implements OrderService {
         orderMaster.setCloseTime(null);
         orderMaster.setCreateTime(new Date());
         orderMaster.setUpdateTime(new Date());
-        int insert = orderMasterMapper.insert(orderMaster);
-        if (insert > 0) {
-            return orderMaster;
-        }
-        return null;
+        return orderMaster;
+    }
+
+    /**
+     * 【复用】创建orderDetail
+     * @param userId 用户id
+     * @param souvenir 纪念品
+     * @param orderId 订单id
+     * @param totalPrice 总价
+     * @param count 购买数量
+     * @return OrderDetail
+     */
+    private OrderDetail createOrderDetail(String userId,Souvenir souvenir, Long orderId,BigDecimal totalPrice,Integer count) {
+        OrderDetail orderDetail = new OrderDetail();
+        orderDetail.setDetailId(KeyUtil.genUniqueKey());
+        orderDetail.setUserId(userId);
+        orderDetail.setSouvenirId(souvenir.getSouvenirId());
+        orderDetail.setSouvenirName(souvenir.getName());
+        orderDetail.setSouvenirImage(souvenir.getMainImage());
+        orderDetail.setCurrentUnitPrice(souvenir.getPrice());
+        orderDetail.setQuantity(count);
+        orderDetail.setTotalPrice(totalPrice);
+        orderDetail.setCreateTime(new Date());
+        orderDetail.setUpdateTime(new Date());
+        orderDetail.setOrderId(orderId);
+        return orderDetail;
     }
 
 
 
 
-
-//    @Override
-//    @Transactional
-//    public OrderDTO create(OrderDTO orderDTO) {
-//        String orderId = KeyUtil.genUniqueKey();
-//        BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
-//
-//        //1.查询商品（数量、价格）判断库存
-//        List<OrderDetail> orderDetailList = orderDTO.getOrderDetailList();
-//        List<CartDTO> cartDTOList = new ArrayList<>();
-//        for (OrderDetail orderDetail : orderDetailList) {
-//            ProductInfo souvenirInfo = souvenirService.findOne(orderDetail.getProductId());
-//            if (souvenirInfo == null) {
-//                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
-////                throw new ResponseBankException();
-//            }
-//            //2.计算订单总价
-//            orderAmount = souvenirInfo.getProductPrice()
-//                    .multiply(new BigDecimal(orderDetail.getProductQuantity()))
-//                    .add(orderAmount);
-//
-//            orderDetail.setOrderId(orderId);
-//            orderDetail.setDetailId(KeyUtil.genUniqueKey());
-//            BeanUtils.copyProperties(souvenirInfo, orderDetail);
-//            //订单详情写入数据库
-//            orderDetailRepository.save(orderDetail);
-//            CartDTO cartDTO = new CartDTO(orderDetail.getProductId(), orderDetail.getProductQuantity());
-//            cartDTOList.add(cartDTO);
-//
-//            System.out.println(cartDTOList);
-//        }
-//
-//        //3.写入订单数据库
-//        OrderMaster orderMaster = new OrderMaster();
-//
-//        BeanUtils.copyProperties(orderDTO, orderMaster);
-//
-//        orderMaster.setOrderId(orderId);
-//
-//        orderMaster.setOrderAmount(orderAmount);
-//        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
-//        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
-//        orderMasterRepository.save(orderMaster);
-//
-//
-//        //4.扣库存
-//        souvenirService.decreaseStock(cartDTOList);
-//        return orderDTO;
-//    }
-//
-//    @Override
-//    public OrderDTO findOne(String orderId) {
-//        OrderMaster orderMaster = orderMasterRepository.findOne(orderId);
-//        if (orderMaster == null) {
-//            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
-//        }
-//        List<OrderDetail> orderDetailList = orderDetailRepository.findByOrderId(orderId);
-//        if (CollectionUtils.isEmpty(orderDetailList)) {
-//            throw new SellException(ResultEnum.ORDERDETAIL_NOT_EXIST);
-//        }
-//
-//        OrderDTO orderDTO = new OrderDTO();
-//        BeanUtils.copyProperties(orderMaster, orderDTO);
-//        orderDTO.setOrderDetailList(orderDetailList);
-//
-//        return orderDTO;
-//    }
 //
 //    /**
 //     * lamada表达式

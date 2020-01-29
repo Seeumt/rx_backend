@@ -22,7 +22,7 @@ public enum TipsBusiness implements CodeEnum {
 
     EMPTY_CART(70003, "购物车为空"),
 
-
+    SOUVENIR_NOT_EXIST(10004, "该纪念品不存在"),
     NOT_ON_SALE(10001,"不在出售状态"),
     ON_SALE(1,"在出售状态"),
     LOW_STOCKS(10003, "产品库存不足"),
