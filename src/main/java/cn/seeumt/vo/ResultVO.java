@@ -1,6 +1,7 @@
 package cn.seeumt.vo;
 
 import cn.seeumt.enums.ResultCode;
+import cn.seeumt.enums.TipsBusiness;
 import cn.seeumt.enums.TipsFlash;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
@@ -59,6 +60,13 @@ public class ResultVO implements Serializable {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(tipsFlash.getCode());
         resultVO.setMsg(tipsFlash.getMsg());
+        return resultVO;
+    }
+
+    public static ResultVO error(TipsBusiness tipsBusiness) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(tipsBusiness.getCode());
+        resultVO.setMsg(tipsBusiness.getMsg());
         return resultVO;
     }
 

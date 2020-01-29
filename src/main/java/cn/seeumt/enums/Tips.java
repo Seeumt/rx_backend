@@ -7,7 +7,7 @@ import lombok.Getter;
  * @date 2019/12/8 14:19
  */
 @Getter
-public enum Tips {
+public enum Tips implements CodeEnum {
     /**
      *
      */

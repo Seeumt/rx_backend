@@ -3,7 +3,7 @@ package cn.seeumt.enums;
 import lombok.Getter;
 
 @Getter
-public enum ResultEnum {
+public enum ResultEnum implements CodeEnum {
     SUCCESS(10000, "成功"),
     ;
 

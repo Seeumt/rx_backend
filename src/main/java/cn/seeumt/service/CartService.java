@@ -4,6 +4,8 @@ import cn.seeumt.dataobject.Cart;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
+import java.util.List;
+
 /**
  * @author Seeumt
  * @since 2020-01-27
@@ -15,4 +17,8 @@ public interface CartService{
     ResultVO list(String userId);
     ResultVO selectOrUnSelect (String userId,Integer souvenirId,Boolean isChecked);
     ResultVO getCartSouvenirCount(String userId);
+    List<Cart> selectByUserId(String userId);
+    Cart selectByUserIdAndSouvenirId(String userId, Integer souvenirId);
+
+    int deleteByUserIdAndSouvenirId(String userId, Integer souvenirId);
 }

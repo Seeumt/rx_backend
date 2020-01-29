@@ -10,10 +10,10 @@ public class KeyUtil {
      *
      * @return
      */
-    public static synchronized String genUniqueKey() {
+    public static synchronized Long genUniqueKey() {
         Random random = new Random();
-        Integer number = random.nextInt(900000) + 100000;
-        return System.currentTimeMillis() + String.valueOf(number);
+        Long number = random.nextInt(900000)+ 100000L;
+        return System.currentTimeMillis() + number;
     }
 
 }

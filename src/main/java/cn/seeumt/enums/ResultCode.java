@@ -1,11 +1,13 @@
 package cn.seeumt.enums;
 
+import lombok.Getter;
+
 /**
 
  * 状态码
  * Created by jt on 2018/3/8.
- */
-public enum ResultCode {
+ */@Getter
+public enum ResultCode implements CodeEnum {
     /*
     请求返回状态码和说明信息
      */

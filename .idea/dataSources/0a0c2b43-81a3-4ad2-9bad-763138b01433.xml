@@ -1391,7 +1391,7 @@
     </column>
     <column id="343" parent="267" name="article_id">
       <Position>2</Position>
-      <Comment>图片所属图片 id&#xd;</Comment>
+      <Comment>图片所属图片 id</Comment>
       <DataType>varchar(32)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
@@ -1432,7 +1432,7 @@
     </column>
     <column id="349" parent="267" name="create_time">
       <Position>8</Position>
-      <Comment>创建时间&#xd;</Comment>
+      <Comment>创建时间</Comment>
       <DataType>datetime|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>

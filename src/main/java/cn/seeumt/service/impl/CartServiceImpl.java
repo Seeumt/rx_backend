@@ -207,6 +207,7 @@ public class CartServiceImpl implements CartService {
      * @param userId 用户名
      * @return Cart
      */
+    @Override
     public List<Cart> selectByUserId(String userId) {
         QueryWrapper<Cart> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
@@ -218,10 +219,22 @@ public class CartServiceImpl implements CartService {
      * @param userId 用户名
      * @return Cart
      */
+    @Override
     public Cart selectByUserIdAndSouvenirId(String userId,Integer souvenirId) {
         QueryWrapper<Cart> addWrapper = new QueryWrapper<>();
         addWrapper.eq("user_id", userId).eq("souvenir_id", souvenirId);
         return cartMapper.selectOne(addWrapper);
+    }
+    /**
+     * 根据用户名找cartItems
+     * @param userId 用户名
+     * @return Cart
+     */
+    @Override
+    public int deleteByUserIdAndSouvenirId(String userId,Integer souvenirId) {
+        QueryWrapper<Cart> deleteWrapper = new QueryWrapper<>();
+        deleteWrapper.eq("user_id", userId).eq("souvenir_id", souvenirId);
+        return cartMapper.delete(deleteWrapper);
     }
 
 
