@@ -21,16 +21,16 @@ import java.util.List;
  * @since 2020-01-27
  */
 @Controller
-@RequestMapping("/cart")
+@RequestMapping("/carts")
 @Slf4j
 public class CartController {
 
     @Autowired
     private CartService cartService;
 
-    @GetMapping("/list")
+    @GetMapping("/{userId}")
     @ResponseBody
-    public ResultVO list(String userId){
+    public ResultVO list(@PathVariable String userId){
         return cartService.list(userId);
     }
 
