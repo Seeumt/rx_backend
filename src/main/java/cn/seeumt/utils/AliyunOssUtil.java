@@ -90,7 +90,8 @@ public class AliyunOssUtil {
 //        String s = AliyunOssUtil.cutSuffix("6b398e08-805d-43b3-8496-f1a7ac049667.mp4?Expires=4731621615&OSSAccessKeyId=LTAI4Fr8bs4fisHj6ycb3oxV&Signature=EjO0fMGBkPBF37EpsJvorMY6qpk%3D");
 //        System.out.println(s);
 
-        String url = AliyunOssUtil.getDBUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg?Expires=4724220220&OSSAccessKeyId=LTAI4Fr8bs4fisHj6ycb3oxV&Signature=U9SI8dNyroqato0Y5JtMQRoFk5A%3D");
+        String url = AliyunOssUtil.getDBUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg");
+//        String url = AliyunOssUtil.getDBUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg?Expires=4724220220&OSSAccessKeyId=LTAI4Fr8bs4fisHj6ycb3oxV&Signature=U9SI8dNyroqato0Y5JtMQRoFk5A%3D");
         System.out.println(url);
     }
 }

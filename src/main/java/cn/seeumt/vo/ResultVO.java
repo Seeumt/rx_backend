@@ -74,7 +74,7 @@ public class ResultVO implements Serializable {
     public static ResultVO error(Object object) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(1);
-        resultVO.setMsg("是吧");
+        resultVO.setMsg("操作失败");
         resultVO.setData(object);
         return resultVO;
     }

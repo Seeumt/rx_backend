@@ -50,6 +50,7 @@ public class TreeUtil {
         for (Comment tree : list) {
             if (tree.getParentId().equals(parentId)) {
                 //这个地方注意报空指针======
+                tree.setExpand(true);
                 treeList.add(findChildren(tree));
             }
         }

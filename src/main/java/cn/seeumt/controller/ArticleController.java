@@ -20,6 +20,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -43,8 +45,8 @@ public class ArticleController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/findArticle")
-    public ArticleDTO findAnArticle(String articleId) {
+    @GetMapping("/{articleId}")
+    public ArticleDTO findAnArticle(@PathVariable String articleId) {
         ArticleDTO articleDTO = new ArticleDTO();
         List<String> tagIds = articleTagsService.findTagIdsByArticleId(articleId);
         List<TagVO> tagVOS = tagService.findByTagIds(tagIds);

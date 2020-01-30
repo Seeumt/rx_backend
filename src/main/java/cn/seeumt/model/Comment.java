@@ -11,12 +11,13 @@ import java.util.List;
 //@JsonPropertyOrder("true")
 @JsonInclude(value = JsonInclude.Include.NON_EMPTY)
 public class Comment {
+    @JsonProperty("id")
     private String commentId;
 
     private Byte type;
 
     private String userId;
-
+    @JsonProperty("name")
     private String content;
 
     private Date createTime;
@@ -24,6 +25,8 @@ public class Comment {
     private Date updateTime;
 
     private Boolean enabled;
+
+    private Boolean expand = false;
 
     private String parentId;
 

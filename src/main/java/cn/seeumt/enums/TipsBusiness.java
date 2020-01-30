@@ -19,7 +19,7 @@ public enum TipsBusiness implements CodeEnum {
     ORDER_CLOSE(60,"订单关闭"),
     ONLINE_PAY(1,"在线支付"),
 
-
+    INVAILD_ARGUMENT(70002, "参数不合法"),
     EMPTY_CART(70003, "购物车为空"),
 
     SOUVENIR_NOT_EXIST(10004, "该纪念品不存在"),
