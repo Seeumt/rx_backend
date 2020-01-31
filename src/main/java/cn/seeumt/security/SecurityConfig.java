@@ -61,7 +61,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint());;
+                .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
+                //添加无权限时的处理
+                .accessDeniedHandler(new JWTAccessDeniedHandler());
+
     }
 
 

@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 无token情况
  * @author Seeumt
  * @version 1.0
  * @date 2020/1/31 22:14
@@ -26,7 +27,7 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-        ResultVO e = ResultVO.error(1, authException.getMessage());
-        response.getWriter().write(new ObjectMapper().writeValueAsString(e));
+        ResultVO resultVO = ResultVO.error(SecurityEnum.NOT_LOGIN);
+        response.getWriter().write(new ObjectMapper().writeValueAsString(resultVO));
     }
 }

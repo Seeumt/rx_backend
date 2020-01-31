@@ -12,8 +12,9 @@ public enum SecurityEnum implements CodeEnum {
     /**
      * SpringSecurity
      */
-    TOKEN_EXPIRED(30001, "Token已过期"),
-    ARTICLE_THUMB_FAILED(10002, "文章点赞失败"),
+    TOKEN_EXPIRED(30001, "Token已过期！"),
+    NOT_LOGIN(30002, "未登录，请登录！"),
+    LACK_OF_AUTHORITY(30003, "权限不足！"),
     ABNORMAL_THUMB(10003, "刚刚好像有外星人给你点赞了"),
     THUMB_FAILED(10004, "点赞系统报错了哟"),
     ADD_TO_CART_FAILED(70001,"添加到购物车失败"),

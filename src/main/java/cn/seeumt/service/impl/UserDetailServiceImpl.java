@@ -41,7 +41,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userDetail.setLocked(false);
         List<Role> roles = Lists.newArrayList();
         roles.add(new Role(1,"ROLE_USER"));
-//        roles.add(new Role(2,"ROLE_ADMIN"));
+        roles.add(new Role(2,"ROLE_ADMIN"));
         userDetail.setRoles(roles);
         return userDetail;
     }
