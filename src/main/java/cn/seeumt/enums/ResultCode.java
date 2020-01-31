@@ -6,7 +6,8 @@ import lombok.Getter;
 
  * 状态码
  * Created by jt on 2018/3/8.
- */@Getter
+ */
+@Getter
 public enum ResultCode implements CodeEnum {
     /*
     请求返回状态码和说明信息
@@ -29,14 +30,6 @@ public enum ResultCode implements CodeEnum {
     ResultCode(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public String getMsg() {
-        return msg;
     }
 
 }

@@ -1,6 +1,7 @@
 package cn.seeumt.utils;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +24,7 @@ public class JwtTokenUtils {
     private static final String ISS = "rx";
 
     // 过期时间是3600秒，即1个小时
-    private static final long EXPIRATION = 3600L;
+    private static final long EXPIRATION = 180L;
 
     // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 604800L;
@@ -72,8 +73,13 @@ public class JwtTokenUtils {
      * @param token token
      * @return
      */
-    public static boolean isExpiration(String token){
-        return getTokenBody(token).getExpiration().before(new Date());
+    // 是否已过期
+    public static boolean isExpiration(String token) {
+        try {
+            return getTokenBody(token).getExpiration().before(new Date());
+        } catch (ExpiredJwtException e) {
+            return true;
+        }
     }
 
     /**
