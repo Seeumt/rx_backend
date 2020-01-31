@@ -58,6 +58,7 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
         QueryWrapper<Oss> wrapper = new QueryWrapper<>();
         wrapper.eq("parent_id", parentId);
         List<Oss> osses = ossMapper.selectList(wrapper);
+        // TODO: 2020/1/31 List->Array
         List<String> urls = new ArrayList<>();
         List<Img> imgs = osses.stream().map(oss -> {
             Img img = new Img();

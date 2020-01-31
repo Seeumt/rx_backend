@@ -1,7 +1,7 @@
 //package cn.seeumt.dao;
 //
 //
-//import cn.seeumt.model.Role;
+//import cn.seeumt.dataobject.Role;
 //import cn.seeumt.model.UserDetail;
 //import org.apache.ibatis.annotations.Param;
 //

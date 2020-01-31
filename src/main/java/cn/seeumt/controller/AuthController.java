@@ -4,7 +4,7 @@
 //import cn.seeumt.api.User;
 //import cn.seeumt.enums.ResultCode;
 //import cn.seeumt.model.ResponseUserToken;
-//import cn.seeumt.model.Role;
+//import cn.seeumt.dataobject.Role;
 //import cn.seeumt.model.UserDetail;
 //import cn.seeumt.service.AuthService;
 //import cn.seeumt.vo.ResultVO;

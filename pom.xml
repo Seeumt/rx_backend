@@ -196,11 +196,6 @@
             <artifactId>bcprov-jdk16</artifactId>
             <version>1.46</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shiro</groupId>-->
-<!--            <artifactId>shiro-core</artifactId>-->
-<!--            <version>1.4.0</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>net.iharder</groupId>
             <artifactId>base64</artifactId>
@@ -240,6 +235,9 @@
 <!--            <version>0.6</version>-->
 <!--        </dependency>-->
 <!-- 整合SpringSecurity+JWT end-->
+
+
+
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
@@ -268,6 +266,26 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
         </dependency>
+        <!--        SpringSecurity start         -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--        SpringSecurity end          -->
+
+        <!--        Jwt start            -->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
+        </dependency>
+        <!--        Jwt end         -->
+
+
 
 
     </dependencies>

@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -54,6 +55,7 @@ public class SouvenirController {
         return souvenirService.saveOrUpdateProduct(souvenir,pics);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{souvenirId}")
     @ResponseBody
     public ResultVO delete(@PathVariable Integer souvenirId){
