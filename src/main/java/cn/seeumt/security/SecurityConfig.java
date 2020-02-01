@@ -1,12 +1,12 @@
 package cn.seeumt.security;
 
-import cn.seeumt.filter.JWTAuthenticationFilter;
 import cn.seeumt.filter.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -53,10 +53,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/articles/**").authenticated()
                 // 需要角色为ADMIN才能删除该资源
                 .antMatchers("/articles/**").hasAuthority("ROLE_ADMIN")
+                .antMatchers("/auth/login").permitAll()
                 // 其他都放行了
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
                 .and()
-                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
+//                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -65,7 +66,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //添加无权限时的处理
                 .accessDeniedHandler(new JWTAccessDeniedHandler());
 
+                http.headers().cacheControl();
+
     }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+
 
 
     @Bean
@@ -74,5 +85,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
     }
+
+
 }
 

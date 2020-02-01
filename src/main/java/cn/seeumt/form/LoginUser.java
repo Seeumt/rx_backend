@@ -1,5 +1,6 @@
 package cn.seeumt.form;
 
+import io.swagger.models.auth.In;
 import lombok.Data;
 
 /**
@@ -11,4 +12,5 @@ import lombok.Data;
 public class LoginUser {
     private String username;
     private String password;
+    private Integer loginType;
 }
