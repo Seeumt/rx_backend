@@ -1,15 +1,12 @@
 package cn.seeumt.security;
 
 import cn.seeumt.form.LoginUser;
-import cn.seeumt.model.ImageCode;
-import cn.seeumt.vo.ResultVO;
+import cn.seeumt.model.OtpCode;
+import cn.seeumt.security.loginmodel.Otp;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -18,8 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author Seeumt
@@ -34,7 +29,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     private AuthenticationFailureHandler authenticationFailureHandler;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/code/login", httpServletRequest.getRequestURI())
+        if (StringUtils.equals("/code/telephone", httpServletRequest.getRequestURI())
                 && StringUtils.equalsAnyIgnoreCase(httpServletRequest.getMethod(), "GET")) {
             try {
                 validate(httpServletRequest);
@@ -49,13 +44,17 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     }
 
     private void validate(HttpServletRequest httpServletRequest) throws IOException {
-        LoginUser loginUser = new ObjectMapper().readValue(httpServletRequest.getInputStream(), LoginUser.class);
-        ImageCode imageCode = (ImageCode) httpServletRequest.getSession().getAttribute(loginUser.getUsername());
-
-        if (imageCode.getExpireTime().after(new Date())) {
-            if (loginUser.getCode().equals(imageCode.getCode())) {
-                httpServletRequest.getSession().setAttribute("user",loginUser);
-            } else {
+        Otp otp = new ObjectMapper().readValue(httpServletRequest.getInputStream(), Otp.class);
+        OtpCode otpCode = (OtpCode) httpServletRequest.getSession().getAttribute(otp.getTelephone());
+        if (otpCode == null) {
+            throw new VaildCodeException("参数异常");
+        }
+        if (otpCode.getExpireTime().after(new Date())) {
+            if (otp.getVaildCode().equals(otpCode.getCode())) {
+                httpServletRequest.getSession().setAttribute("telephone", otp.getTelephone());
+                httpServletRequest.getSession().removeAttribute(otp.getTelephone());
+            }
+            else {
                 throw new VaildCodeException("验证码错误");
             }
         }else {

@@ -2,9 +2,11 @@ package cn.seeumt.service.impl;
 
 
 import cn.seeumt.dao.AuthMapper;
+import cn.seeumt.dataobject.Role;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
+import cn.seeumt.security.token.OtpAuthenticationToken;
 import cn.seeumt.service.AuthService;
 import cn.seeumt.utils.JwtTokenUtils;
 import cn.seeumt.vo.ResultVO;
@@ -12,19 +14,19 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.DisabledException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: JoeTao
@@ -78,6 +80,28 @@ public class AuthServiceImpl implements AuthService {
 
     }
 
+    @Override
+    public ResponseTokenUser OtpLogin(String telephone) {
+            try {
+                //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
+                Authentication authentication = authenticationManager.authenticate(new OtpAuthenticationToken(telephone));
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+                //生成token
+                UserDetail userDetail = (UserDetail) authentication.getPrincipal();
+                Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
+                String roles = StringUtils.join(authorities.toArray(), ",");
+                String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles, false);
+                return new ResponseTokenUser(token,userDetail);
+            } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
+                throw new TipsException(1,e.getMessage());
+            }
+
+
+
+
+        }
+
+
 //    @Override
 //    public void logout(String token) {
 //        token = token.substring(tokenHead.length());
@@ -108,8 +132,10 @@ public class AuthServiceImpl implements AuthService {
         try {
             //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException | BadCredentialsException e) {
+        } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
             throw new TipsException(1,e.getMessage());
         }
     }
+
+
 }

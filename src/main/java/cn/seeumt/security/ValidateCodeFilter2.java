@@ -1,7 +1,7 @@
 //package cn.seeumt.security;
 //
 //import cn.seeumt.form.LoginUser;
-//import cn.seeumt.model.ImageCode;
+//import cn.seeumt.model.OtpCode;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import lombok.Data;
 //import org.apache.commons.lang3.StringUtils;
@@ -47,7 +47,7 @@
 //
 //    private Boolean validate(HttpServletRequest httpServletRequest) throws IOException {
 //        LoginUser loginUser = new ObjectMapper().readValue(httpServletRequest.getInputStream(), LoginUser.class);
-//        ImageCode imageCode = (ImageCode) httpServletRequest.getSession().getAttribute(loginUser.getUsername());
+//        OtpCode imageCode = (OtpCode) httpServletRequest.getSession().getAttribute(loginUser.getUsername());
 //
 //        if (loginUser.getCode().equals(imageCode.getCode())) {
 ////            没用了的session记得移除掉

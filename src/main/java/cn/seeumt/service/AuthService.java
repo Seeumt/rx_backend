@@ -23,6 +23,9 @@ public interface AuthService {
      */
     ResponseTokenUser login(String username, String password);
 
+
+    ResponseTokenUser OtpLogin(String telephone);
+
     /**
      * 登出
      * @param token

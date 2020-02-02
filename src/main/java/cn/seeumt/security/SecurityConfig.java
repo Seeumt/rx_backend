@@ -1,6 +1,8 @@
 package cn.seeumt.security;
 
 import cn.seeumt.filter.JWTAuthorizationFilter;
+import cn.seeumt.security.config.OtpAuthenticationSecurityConfig;
+import cn.seeumt.service.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,9 +20,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import javax.sql.DataSource;
 
 /**
  * @author Seeumt
@@ -45,6 +51,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Autowired
+    private OtpAuthenticationSecurityConfig otpAuthenticationSecurityConfig;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
@@ -55,8 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
         validateCodeFilter.setAuthenticationFailureHandler(codeFailureHandler);
-        http.cors().and().csrf().disable()
-                .authorizeRequests()
+        http.authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/articles/**").authenticated()
                 // 需要角色为ADMIN才能删除该资源
@@ -72,6 +80,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(codeSuccessHandler)
                 .failureHandler(codeFailureHandler)
                 .and()
+                .rememberMe()
+                .tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(3600)
+                .userDetailsService(userDetailsService)
+                .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session
@@ -79,7 +92,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .and()
                 .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
                 //添加无权限时的处理
-                .accessDeniedHandler(new JWTAccessDeniedHandler());
+                .accessDeniedHandler(new JWTAccessDeniedHandler()).
+                and().cors().and().csrf().disable().apply(otpAuthenticationSecurityConfig);
 
                 http.headers().cacheControl();
 
@@ -99,6 +113,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
         return source;
+    }
+
+    // TODO: 2020/2/2 记住我功能开发
+    @Autowired
+    private DataSource dataSource;
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
+        tokenRepository.setDataSource(dataSource);
+//        tokenRepository.setCreateTableOnStartup(true);
+        return tokenRepository;
     }
 
 

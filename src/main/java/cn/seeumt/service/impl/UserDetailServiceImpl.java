@@ -1,5 +1,6 @@
 package cn.seeumt.service.impl;
 import cn.seeumt.dataobject.Role;
+import cn.seeumt.service.MyUserDetailService;
 import com.google.common.collect.Lists;
 
 import cn.seeumt.model.UserDetail;
@@ -20,7 +21,7 @@ import java.util.List;
  * @date 2020/1/31 17:01
  */
 @Service("userDetailServiceImpl")
-public class UserDetailServiceImpl implements UserDetailsService {
+public class UserDetailServiceImpl implements MyUserDetailService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -41,7 +42,27 @@ public class UserDetailServiceImpl implements UserDetailsService {
         userDetail.setLocked(false);
         List<Role> roles = Lists.newArrayList();
         roles.add(new Role(1,"ROLE_USER"));
-//        roles.add(new Role(2,"ROLE_ADMIN"));
+        roles.add(new Role(2,"ROLE_ADMIN"));
+        userDetail.setRoles(roles);
+        return userDetail;
+    }
+
+    @Override
+    public UserDetail findUserByTelephone(String telephone) {
+        UserDetail userDetail = new UserDetail();
+        userDetail.setUserId("67899");
+        userDetail.setPassword(bCryptPasswordEncoder.encode("123456"));
+        userDetail.setEnabled(true);
+        userDetail.setLocked(false);
+        List<Role> roles = Lists.newArrayList();
+        if (telephone.equals("15605221018")) {
+            userDetail.setUsername("Tips");
+            roles.add(new Role(1,"ROLE_USER"));
+            roles.add(new Role(2,"ROLE_ADMIN"));
+        }else {
+            userDetail.setUsername("Test");
+            roles.add(new Role(1,"ROLE_USER"));
+        }
         userDetail.setRoles(roles);
         return userDetail;
     }
