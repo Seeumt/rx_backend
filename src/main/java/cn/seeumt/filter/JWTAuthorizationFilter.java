@@ -60,7 +60,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         super.doFilterInternal(request, response, chain);
     }
 
-    // 这里从token中获取用户信息并新建一个token
+    // 这里从token中获取用户信息并新建一个token（UsernamePasswordAuthenticationToken）
     private UsernamePasswordAuthenticationToken getAuthentication(String tokenHeader) throws TokenIsExpiredException {
         String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
         if (JwtTokenUtils.isExpiration(token)) {
@@ -74,9 +74,10 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             for (String role : rolesList) {
                 authorities.add(new SimpleGrantedAuthority(role));
             }
+            // TODO: 2020/2/2 这个是不是单单在共享信息呢，一会儿放到SecurityContextHolder中
+            // TODO: 2020/2/2 authorities这个是在请求的时候进行校验即刻
             return new UsernamePasswordAuthenticationToken(username, null,authorities);
         }
         return null;
     }
 }
-

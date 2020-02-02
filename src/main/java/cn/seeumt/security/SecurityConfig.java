@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 需要角色为ADMIN才能删除该资源
                 .antMatchers("/articles/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/auth/login").permitAll()
-                // 其他都放行了
+                // 其他都XX(放行、需认证)了
                 .anyRequest().authenticated()
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
