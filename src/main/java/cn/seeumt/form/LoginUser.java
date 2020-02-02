@@ -13,4 +13,5 @@ public class LoginUser {
     private String username;
     private String password;
     private Integer loginType;
+    private Long code;
 }

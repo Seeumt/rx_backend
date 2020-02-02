@@ -15,6 +15,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -33,8 +36,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // 因为UserDetailsService的实现类实在太多啦，这里设置一下我们要注入的实现类
     @Qualifier("userDetailServiceImpl")
     private UserDetailsService userDetailsService;
-
-    // 加密密码的，安全第一嘛~
+    @Autowired
+    private AuthenticationSuccessHandler codeSuccessHandler;
+    @Autowired
+    private AuthenticationFailureHandler codeFailureHandler;
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
@@ -47,6 +52,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        ValidateCodeFilter validateCodeFilter = new ValidateCodeFilter();
+        validateCodeFilter.setAuthenticationFailureHandler(codeFailureHandler);
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
@@ -55,13 +63,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/articles/**").hasAuthority("ROLE_ADMIN")
                 .antMatchers("/auth/login").permitAll()
                 // 其他都XX(放行、需认证)了
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+                .and()
+                .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
+                .formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/code/login")
+                .successHandler(codeSuccessHandler)
+                .failureHandler(codeFailureHandler)
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
                 // 不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+//                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//                .and()
                 .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
                 //添加无权限时的处理
                 .accessDeniedHandler(new JWTAccessDeniedHandler());

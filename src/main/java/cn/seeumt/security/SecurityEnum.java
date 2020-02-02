@@ -14,6 +14,7 @@ public enum SecurityEnum implements CodeEnum {
      */
     TOKEN_EXPIRED(30001, "Token已过期！"),
     NOT_LOGIN(30002, "未登录，请登录！"),
+    LOGIN_SUCCESS(30003, "登陆成功！"),
     LACK_OF_AUTHORITY(30003, "权限不足！"),
     ABNORMAL_THUMB(10003, "刚刚好像有外星人给你点赞了"),
     THUMB_FAILED(10004, "点赞系统报错了哟"),
