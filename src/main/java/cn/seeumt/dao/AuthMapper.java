@@ -1,13 +1,10 @@
 package cn.seeumt.dao;
 
 
-import cn.seeumt.dataobject.Role;
-import cn.seeumt.dataobject.User;
 import cn.seeumt.model.UserDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-public interface AuthMapper extends BaseMapper<User> {
+
+public interface AuthMapper extends BaseMapper<Number> {
     /**
      * 根据用Id查找用户
      * @param userId

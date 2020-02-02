@@ -1,7 +1,6 @@
 package cn.seeumt.model;
 
 import cn.seeumt.dataobject.Role;
-import cn.seeumt.dataobject.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
