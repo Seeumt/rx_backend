@@ -1,13 +1,15 @@
 package cn.seeumt.security;
 
-import cn.seeumt.filter.JWTAuthorizationFilter;
+import cn.seeumt.security.config.MpAuthenticationSecurityConfig;
+import cn.seeumt.security.filter.ValidateCodeFilter;
 import cn.seeumt.security.config.OtpAuthenticationSecurityConfig;
-import cn.seeumt.service.MyUserDetailService;
+import cn.seeumt.security.jwt.JWTAccessDeniedHandler;
+import cn.seeumt.security.jwt.JWTAuthenticationEntryPoint;
+import cn.seeumt.security.jwt.JWTAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -53,6 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private OtpAuthenticationSecurityConfig otpAuthenticationSecurityConfig;
+    @Autowired
+    private MpAuthenticationSecurityConfig mpAuthenticationSecurityConfig;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -68,8 +72,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/articles/**").authenticated()
                 // 需要角色为ADMIN才能删除该资源
-                .antMatchers("/articles/**").hasAuthority("ROLE_ADMIN")
-                .antMatchers("/auth/login").permitAll()
+                .antMatchers("/articles/**").hasAuthority("ROLE_STU")
+                .antMatchers("/auth/**").permitAll()
                 // 其他都XX(放行、需认证)了
                 .anyRequest().permitAll()
                 .and()
@@ -93,8 +97,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
                 //添加无权限时的处理
                 .accessDeniedHandler(new JWTAccessDeniedHandler()).
-                and().cors().and().csrf().disable().apply(otpAuthenticationSecurityConfig);
-
+                and().cors().and().csrf().disable().apply(otpAuthenticationSecurityConfig).and().apply(mpAuthenticationSecurityConfig);
                 http.headers().cacheControl();
 
     }

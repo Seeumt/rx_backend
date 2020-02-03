@@ -1,4 +1,4 @@
-package cn.seeumt.security;
+package cn.seeumt.security.enums;
 
 import cn.seeumt.enums.CodeEnum;
 import lombok.Getter;

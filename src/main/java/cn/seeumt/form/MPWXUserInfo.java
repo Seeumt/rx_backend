@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class MPWXUserInfo {
+    private String openId;
     private String avatarUrl;
     private String city;
     private String country;

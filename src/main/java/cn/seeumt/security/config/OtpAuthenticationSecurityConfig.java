@@ -1,16 +1,14 @@
 package cn.seeumt.security.config;
 
-import cn.seeumt.security.ValidateCodeFilter;
+import cn.seeumt.security.filter.ValidateCodeFilter;
 import cn.seeumt.security.filter.OtpAuthenticationFilter;
 import cn.seeumt.security.provider.OtpAuthenticationProvider;
 import cn.seeumt.service.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;

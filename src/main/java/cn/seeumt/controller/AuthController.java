@@ -2,21 +2,32 @@ package cn.seeumt.controller;
 
 
 
+import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.form.LoginUser;
+import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.model.ResponseTokenUser;
+import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.AuthService;
+import cn.seeumt.utils.UuidUtil;
+import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Date;
 
 
 @RestController
@@ -31,8 +42,22 @@ public class AuthController {
     @ApiOperation(value = "登陆", notes = "登陆成功返回token,登陆之前请先注册账号")
     public ResultVO login(
             @Valid @RequestBody LoginUser loginUser){
-        ResponseTokenUser response = authService.login(loginUser.getUsername(), loginUser.getPassword());
-        return ResultVO.ok(response);
+        UserDetail userDetail = authService.login(loginUser.getUsername(), loginUser.getPassword());
+        return ResultVO.ok(userDetail);
+    }
+
+    @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
+    @PostMapping(value = "/mpLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO login(
+            @ApiParam(name = "code",value = "wx.login得到的code",required = true)
+            @PathVariable String code,
+            @RequestBody MPWXUserInfo mpwxUserInfo) {
+        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
+        String openId = SessionKeyAndOpenId.getString("openid");
+        mpwxUserInfo.setOpenId(openId);
+//        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+        UserDetail userDetail = authService.MpLogin(mpwxUserInfo);
+        return ResultVO.success(userDetail,"登录成功");
     }
 
 //    @GetMapping(value = "/logout")

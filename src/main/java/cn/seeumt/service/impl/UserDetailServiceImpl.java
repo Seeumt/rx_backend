@@ -1,16 +1,33 @@
 package cn.seeumt.service.impl;
+import java.time.LocalDateTime;
+import cn.seeumt.dao.UserMapper;
+import cn.seeumt.dao.UserRoleMapper;
 import cn.seeumt.dataobject.Role;
+import cn.seeumt.dataobject.User;
+import cn.seeumt.dataobject.UserRole;
+import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.exception.TipsException;
+import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.service.MyUserDetailService;
+import cn.seeumt.service.UserService;
+import cn.seeumt.service.WxUserService;
+import cn.seeumt.utils.KeyUtil;
+import cn.seeumt.utils.UuidUtil;
+import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 
 import cn.seeumt.model.UserDetail;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,12 +40,22 @@ public class UserDetailServiceImpl implements MyUserDetailService {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private UserRoleMapper userRoleMapper;
+    @Autowired
+    private WxUserService wxUserService;
     /**
      * 通过用户名查找实体类
+     *
      * @param s 用户名
      * @return UserDetails
      * @throws UsernameNotFoundException
      */
+
+    @Autowired
+    private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
 
@@ -47,21 +74,55 @@ public class UserDetailServiceImpl implements MyUserDetailService {
 
     @Override
     public UserDetail findUserByTelephone(String telephone) {
-        UserDetail userDetail = new UserDetail();
-        userDetail.setUserId("67899");
-        userDetail.setPassword(bCryptPasswordEncoder.encode("123456"));
-        userDetail.setEnabled(true);
-        userDetail.setLocked(false);
-        List<Role> roles = Lists.newArrayList();
-        if (telephone.equals("15605221018")) {
-            userDetail.setUsername("Tips");
-            roles.add(new Role(1,"ROLE_USER"));
-            roles.add(new Role(2,"ROLE_ADMIN"));
+      return userService.selectUserDetailByTelephone(telephone);
+    }
+
+    @Override
+    public UserDetail findUserByOpenId(MPWXUserInfo mpwxUserInfo) {
+        String openId = mpwxUserInfo.getOpenId();
+        String sessionKey = UuidUtil.getUUID();
+        WxUser wxUser = wxUserService.selectByOpenId(openId);
+        String skey = UuidUtil.getUUID();
+        if (wxUser == null) {
+            WxUser newWXUser = wxUserService.insert(mpwxUserInfo, openId, sessionKey, skey);
+            User user = new User();
+            String userId = UuidUtil.getUUID();
+            user.setUserId(userId);
+            user.setUsername(mpwxUserInfo.getNickName());
+            user.setNickname(mpwxUserInfo.getNickName());
+            user.setPassword(KeyUtil.genUniqueKey().toString());
+            user.setTelephone("");
+            user.setFaceIcon(mpwxUserInfo.getAvatarUrl());
+            user.setEnabled(true);
+            user.setLocked(false);
+            user.setCreateTime(new Date());
+            user.setLastVisitTime(new Date());
+            user.setIsRememberMe(false);
+            user.setOpenId(mpwxUserInfo.getOpenId());
+            int insert = userMapper.insert(user);
+            if (insert < 0) {
+                throw new TipsException(123, "微信登录异常");
+            }else {
+                UserDetail userDetail = new UserDetail();
+                BeanUtils.copyProperties(user, userDetail);
+                Role role = new Role(2, "ROLE_USER");
+                List<Role> roles = Lists.newArrayList();
+                UserRole userRole = new UserRole();
+                userRole.setUserId(userId);
+                userRole.setRoleId(2);
+                userRoleMapper.insert(userRole);
+                roles.add(role);
+                userDetail.setRoles(roles);
+                userDetail.setNickname(mpwxUserInfo.getNickName());
+                return userDetail;
+            }
+
         }else {
-            userDetail.setUsername("Test");
-            roles.add(new Role(1,"ROLE_USER"));
+            wxUser.setLastVisitTime(new Date());
+            wxUser.setSkey(skey);
+            wxUserService.update(wxUser);
+            return userService.selectUserDetailByOpenId(wxUser.getOpenId());
+
         }
-        userDetail.setRoles(roles);
-        return userDetail;
     }
 }

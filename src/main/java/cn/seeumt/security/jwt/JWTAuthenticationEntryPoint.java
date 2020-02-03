@@ -1,5 +1,6 @@
-package cn.seeumt.security;
+package cn.seeumt.security.jwt;
 
+import cn.seeumt.security.enums.SecurityEnum;
 import cn.seeumt.vo.ResultVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.core.AuthenticationException;
@@ -9,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 无token情况

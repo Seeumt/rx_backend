@@ -1,5 +1,6 @@
-package cn.seeumt.security;
+package cn.seeumt.security.jwt;
 
+import cn.seeumt.security.enums.SecurityEnum;
 import cn.seeumt.vo.ResultVO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.access.AccessDeniedException;

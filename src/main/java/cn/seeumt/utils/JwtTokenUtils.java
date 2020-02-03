@@ -24,7 +24,7 @@ public class JwtTokenUtils {
     private static final String ISS = "rx";
 
     // 过期时间是3600秒，即1个小时
-    private static final long EXPIRATION = 180L;
+    private static final long EXPIRATION = 3600L;
 
     // 选择了记住我之后的过期时间为7天
     private static final long EXPIRATION_REMEMBER = 604800L;
@@ -33,7 +33,7 @@ public class JwtTokenUtils {
     private static final String ROLE_CLAIMS = "roles";
 
     // 修改一下创建token的方法
-    public static String createToken(String username, String authorities, boolean isRememberMe) {
+    public static String createToken(String openId, String authorities, boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
         HashMap<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, authorities);
@@ -42,7 +42,7 @@ public class JwtTokenUtils {
                 // 这里要早set一点，放到后面会覆盖别的字段
                 .setClaims(map)
                 .setIssuer(ISS)
-                .setSubject(username)
+                .setSubject(openId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .compact();
@@ -63,7 +63,7 @@ public class JwtTokenUtils {
 //    }
 
     // 从token中获取用户名
-    public static String getUsername(String token){
+    public static String getOpenId(String token){
         return getTokenBody(token).getSubject();
     }
 

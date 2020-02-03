@@ -62,7 +62,7 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
         authRequest.setDetails(this.authenticationDetailsSource.buildDetails(request));
     }
 
-    public void setUsernameParameter(String telephoneParameter) {
+    public void setTelephoneParameter(String telephoneParameter) {
         Assert.hasText(telephoneParameter, "telephone 参数设置不能为空！");
         this.telephoneParameter = telephoneParameter;
     }

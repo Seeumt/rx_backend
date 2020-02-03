@@ -1,5 +1,6 @@
 package cn.seeumt.service;
 
+import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
 
@@ -21,10 +22,14 @@ public interface AuthService {
      * @param password
      * @return
      */
-    ResponseTokenUser login(String username, String password);
+    UserDetail login(String username, String password);
 
 
-    ResponseTokenUser OtpLogin(String telephone);
+    UserDetail OtpLogin(String telephone);
+
+    UserDetail MpLogin(MPWXUserInfo mpwxUserInfo);
+
+
 
     /**
      * 登出

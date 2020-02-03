@@ -1,4 +1,4 @@
-package cn.seeumt.security;
+package cn.seeumt.security.exception;
 
 import lombok.Getter;
 import org.springframework.security.core.AuthenticationException;

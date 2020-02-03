@@ -4,6 +4,7 @@ import cn.seeumt.exception.TipsException;
 import cn.seeumt.form.LoginUser;
 import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.ResponseTokenUser;
+import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.OtpAuthenticationToken;
 import cn.seeumt.service.AuthService;
 import cn.seeumt.vo.ResultVO;
@@ -51,7 +52,7 @@ public class ValidateCodeController {
     }
 
     @GetMapping("/code/telephone")
-    public ResponseTokenUser codeLogin(HttpServletRequest request, HttpServletResponse response, Integer code) throws IOException, ServletRequestBindingException {
+    public UserDetail codeLogin(HttpServletRequest request, HttpServletResponse response, Integer code) throws IOException, ServletRequestBindingException {
         // TODO: 2020/2/2 这方法厉害
 //        String telephone = ServletRequestUtils.(new ServletWebRequest(request).getRequest(), "telephone");
         String telephone = (String) request.getSession().getAttribute("telephone");

@@ -2,15 +2,23 @@ package cn.seeumt.service.impl;
 
 
 import cn.seeumt.dao.AuthMapper;
+import cn.seeumt.dao.WxUserMapper;
 import cn.seeumt.dataobject.Role;
+import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.exception.TipsException;
+import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
+import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.security.token.OtpAuthenticationToken;
 import cn.seeumt.service.AuthService;
+import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.JwtTokenUtils;
 import cn.seeumt.vo.ResultVO;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,6 +53,9 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthMapper authMapper;
 
+    @Autowired
+    private WxUserMapper wxUserMapper;
+
 
 
 //    @Override
@@ -66,7 +77,7 @@ public class AuthServiceImpl implements AuthService {
 //    }
 
     @Override
-    public ResponseTokenUser login(String username, String password) {
+    public UserDetail login(String username, String password) {
         //用户验证
         Authentication authentication = authenticate(username, password);
         //存储认证信息
@@ -75,31 +86,42 @@ public class AuthServiceImpl implements AuthService {
         UserDetail userDetail = (UserDetail) authentication.getPrincipal();
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
         String roles = StringUtils.join(authorities.toArray(), ",");
-        String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles,false);
-        return new ResponseTokenUser(token, userDetail);
+        String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles, false);
+        userDetail.setToken(token);
+        return userDetail;
 
     }
 
     @Override
-    public ResponseTokenUser OtpLogin(String telephone) {
-            try {
-                //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
-                Authentication authentication = authenticationManager.authenticate(new OtpAuthenticationToken(telephone));
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                //生成token
-                UserDetail userDetail = (UserDetail) authentication.getPrincipal();
-                Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
-                String roles = StringUtils.join(authorities.toArray(), ",");
-                String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles, false);
-                return new ResponseTokenUser(token,userDetail);
-            } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
-                throw new TipsException(1,e.getMessage());
-            }
+    public UserDetail OtpLogin(String telephone) {
+       return getAuthenticationToken(new OtpAuthenticationToken(telephone));
+    }
+
+    @Override
+    public UserDetail MpLogin(MPWXUserInfo mpwxUserInfo) {
+        return getAuthenticationToken(new MpAuthenticationToken(mpwxUserInfo));
+    }
 
 
-
-
+    public UserDetail getAuthenticationToken(Authentication authenticationToken) {
+        try {
+            //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
+            //返回一个AuthenticationToken
+            Authentication authentication = authenticationManager.authenticate(authenticationToken);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            //生成token
+            UserDetail userDetail = (UserDetail) authentication.getPrincipal();
+            Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
+            String roles = StringUtils.join(authorities.toArray(), ",");
+            String token = JwtTokenUtils.createToken(userDetail.getOpenId(), roles, false);
+            userDetail.setToken(token);
+            return userDetail;
+        } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
+            throw new TipsException(1,e.getMessage());
         }
+    }
+
+
 
 
 //    @Override

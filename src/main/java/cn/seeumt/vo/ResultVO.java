@@ -4,7 +4,6 @@ import cn.seeumt.enums.CodeEnum;
 import cn.seeumt.enums.ResultCode;
 import cn.seeumt.enums.TipsBusiness;
 import cn.seeumt.enums.TipsFlash;
-import cn.seeumt.security.SecurityEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,6 +1,6 @@
-package cn.seeumt.security;
+package cn.seeumt.security.exception;
 
-import io.jsonwebtoken.ExpiredJwtException;
+import cn.seeumt.security.enums.SecurityEnum;
 import lombok.Getter;
 
 /**

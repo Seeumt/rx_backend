@@ -16,6 +16,7 @@ import cn.seeumt.vo.CityVO;
 import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -64,12 +65,14 @@ public class ArticleController {
     }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasRole('ROLE_STU')")
     public ResultVO article(String userId) {
         List<Article> articles = articleService.query(userId);
         return ResultVO.success(articles);
     }
 
     @PostMapping(value = "/no", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasRole('ROLE_STU')")
     public ResultVO article(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
                             @RequestParam(value = "page",required = false,defaultValue = "1") int num,
                             @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {

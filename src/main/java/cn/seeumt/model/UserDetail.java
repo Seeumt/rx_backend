@@ -14,12 +14,24 @@ import java.util.List;
  */
 public class UserDetail implements UserDetails {
     private String userId;
+    private String nickname;
     private String username;
     private String password;
+    private String telephone;
+    private String faceIcon;
+    private String openId;
     private Boolean enabled;
     private Boolean locked;
+    private String token;
     private List<Role> roles;
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public List<Role> getRoles() {
         return roles;
@@ -97,6 +109,35 @@ public class UserDetail implements UserDetails {
         this.locked = locked;
     }
 
+    public String getTelephone() {
+        return telephone;
+    }
 
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
 
+    public String getFaceIcon() {
+        return faceIcon;
+    }
+
+    public void setFaceIcon(String faceIcon) {
+        this.faceIcon = faceIcon;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }
