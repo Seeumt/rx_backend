@@ -4,6 +4,7 @@ package cn.seeumt.controller;
 
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.enums.ResultCode;
 import cn.seeumt.form.LoginUser;
 import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.model.ResponseTokenUser;
@@ -13,6 +14,8 @@ import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSONObject;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.apache.commons.lang3.StringUtils;
@@ -34,7 +37,8 @@ import java.util.Date;
 @RequestMapping("/auth")
 public class AuthController {
 
-
+    public static final String TOKEN_HEADER = "Authorization";
+    public static final String TOKEN_PREFIX = "Bearer ";
     @Autowired
     private AuthService authService;
 
@@ -60,17 +64,17 @@ public class AuthController {
         return ResultVO.success(userDetail,"登录成功");
     }
 
-//    @GetMapping(value = "/logout")
-//    @ApiOperation(value = "登出", notes = "退出登陆")
-//    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
-//    public ResultVO logout(HttpServletRequest request){
-//        String token = request.getHeader(tokenHeader);
-//        if (token == null) {
-//            return ResultVO.failure(ResultCode.UNAUTHORIZED);
-//        }
-//        authService.logout(token);
-//        return ResultVO.ok();
-//    }
+    @GetMapping(value = "/logout")
+    @ApiOperation(value = "登出", notes = "退出登陆")
+    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
+    public ResultVO logout(HttpServletRequest request){
+        String token = request.getHeader(TOKEN_HEADER);
+        if (token == null) {
+            return ResultVO.failure(ResultCode.UNAUTHORIZED);
+        }
+        authService.logout(token);
+        return ResultVO.ok();
+    }
 //
 //    @GetMapping(value = "/user")
 //    @ApiOperation(value = "根据token获取用户信息", notes = "根据token获取用户信息")

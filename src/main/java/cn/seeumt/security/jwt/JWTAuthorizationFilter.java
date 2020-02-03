@@ -94,7 +94,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
         }
         //现在正在鉴权
-        String openId = JwtTokenUtils.getOpenId(token);
+        String openId = JwtTokenUtils.getvalidId(token);
         if (openId != null){
             String userRoles = JwtTokenUtils.getUserRoles(token);
             List<String> rolesList = Arrays.asList(userRoles.split(","));
@@ -122,7 +122,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
         }
         //现在正在鉴权
-            String telephone = JwtTokenUtils.getOpenId(token);
+            String telephone = JwtTokenUtils.getvalidId(token);
             if (telephone != null){
                 String userRoles = JwtTokenUtils.getUserRoles(token);
                 List<String> rolesList = Arrays.asList(userRoles.split(","));

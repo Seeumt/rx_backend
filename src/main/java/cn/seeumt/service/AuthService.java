@@ -29,6 +29,7 @@ public interface AuthService {
 
     UserDetail MpLogin(MPWXUserInfo mpwxUserInfo);
 
+    void logout(String token);
 
 
     /**

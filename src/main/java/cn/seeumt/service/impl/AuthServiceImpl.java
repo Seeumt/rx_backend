@@ -102,6 +102,11 @@ public class AuthServiceImpl implements AuthService {
         return getAuthenticationToken(new MpAuthenticationToken(mpwxUserInfo));
     }
 
+    @Override
+    public void logout(String token) {
+
+    }
+
 
     public UserDetail getAuthenticationToken(Authentication authenticationToken) {
         try {

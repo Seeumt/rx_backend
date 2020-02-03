@@ -33,7 +33,7 @@ public class JwtTokenUtils {
     private static final String ROLE_CLAIMS = "roles";
 
     // 修改一下创建token的方法
-    public static String createToken(String openId, String authorities, boolean isRememberMe) {
+    public static String createToken(String validId, String authorities, boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
         HashMap<String, Object> map = new HashMap<>();
         map.put(ROLE_CLAIMS, authorities);
@@ -42,7 +42,7 @@ public class JwtTokenUtils {
                 // 这里要早set一点，放到后面会覆盖别的字段
                 .setClaims(map)
                 .setIssuer(ISS)
-                .setSubject(openId)
+                .setSubject(validId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .compact();
@@ -63,7 +63,7 @@ public class JwtTokenUtils {
 //    }
 
     // 从token中获取用户名
-    public static String getOpenId(String token){
+    public static String getvalidId(String token){
         return getTokenBody(token).getSubject();
     }
 
