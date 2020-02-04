@@ -22,4 +22,8 @@ public interface UserService{
     UserDetail selectUserDetailByTelephone(String telephone);
 
     UserDetail selectUserDetailByOpenId(String openId);
+
+    void resetPwd(String telephone,String password);
+
+
 }

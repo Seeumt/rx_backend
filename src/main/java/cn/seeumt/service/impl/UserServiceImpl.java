@@ -4,6 +4,7 @@ import cn.seeumt.dao.RoleMapper;
 import cn.seeumt.dataobject.Role;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.dao.UserMapper;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.RoleService;
 import cn.seeumt.service.UserRoleService;
@@ -12,7 +13,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,6 +35,8 @@ public class UserServiceImpl implements UserService {
     private UserRoleService userRoleService;
     @Autowired
     private RoleMapper roleMapper;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public UserDetail selectUserDetailByUserId(String userId) {
         User user = userMapper.selectById(userId);
@@ -54,6 +59,20 @@ public class UserServiceImpl implements UserService {
         return createUserDetail(user);
     }
 
+    @Override
+    @Transactional
+    public void resetPwd(String telephone,String password) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("telephone", telephone);
+        User user = userMapper.selectOne(queryWrapper);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
+        int i = userMapper.updateById(user);
+        if (i < 1) {
+            throw new TipsException(200009, "更新操作失败");
+        }
+
+    }
+
 
     public UserDetail createUserDetail(User user) {
         UserDetail userDetail = new UserDetail();
@@ -63,4 +82,6 @@ public class UserServiceImpl implements UserService {
         userDetail.setRoles(roles);
         return userDetail;
     }
+
+
 }

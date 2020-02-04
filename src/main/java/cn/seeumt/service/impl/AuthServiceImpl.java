@@ -3,38 +3,24 @@ package cn.seeumt.service.impl;
 
 import cn.seeumt.dao.AuthMapper;
 import cn.seeumt.dao.WxUserMapper;
-import cn.seeumt.dataobject.Role;
-import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.form.MPWXUserInfo;
-import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.security.token.OtpAuthenticationToken;
 import cn.seeumt.service.AuthService;
-import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.JwtTokenUtils;
-import cn.seeumt.vo.ResultVO;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
-import java.util.List;
 
 /**
  * @author: JoeTao
@@ -55,26 +41,13 @@ public class AuthServiceImpl implements AuthService {
 
     @Autowired
     private WxUserMapper wxUserMapper;
+    @Autowired
+    private final JwtTokenUtils jwtTokenUtil;
 
+    public AuthServiceImpl(JwtTokenUtils jwtTokenUtil) {
+        this.jwtTokenUtil = jwtTokenUtil;
+    }
 
-
-//    @Override
-//    public UserDetail register(UserDetail userDetail) {
-//        final String username = userDetail.getUsername();
-//        if(authMapper.findByUsername(username)!=null) {
-//            throw new CustomException(ResultJson.failure(ResultCode.BAD_REQUEST, "用户已存在"));
-//        }
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        final String rawPassword = userDetail.getPassword();
-//        userDetail.setPassword(encoder.encode(rawPassword));
-//        userDetail.setLastPasswordResetDate(new Date());
-//        authMapper.insert(userDetail);
-//        long roleId = userDetail.getRole().getId();
-//        Role role = authMapper.findRoleById(roleId);
-//        userDetail.setRole(role);
-//        authMapper.insertRole(userDetail.getId(), roleId);
-//        return userDetail;
-//    }
 
     @Override
     public UserDetail login(String username, String password) {
@@ -103,8 +76,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void logout(String token) {
-
+    public void logout(String tokenHeader) {
+        String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+        jwtTokenUtil.removeToken(token);
     }
 
 

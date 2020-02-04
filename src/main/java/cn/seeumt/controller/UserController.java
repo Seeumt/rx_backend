@@ -3,14 +3,15 @@ package cn.seeumt.controller;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.TelLogin;
 import cn.seeumt.form.ThirdPartyUser;
 import cn.seeumt.form.UserInfo;
 import cn.seeumt.model.CommentContent;
-import cn.seeumt.service.CommentService;
-import cn.seeumt.service.ThirdPartyUserService;
-import cn.seeumt.service.UserInfoService;
-import cn.seeumt.service.WxUserService;
+import cn.seeumt.model.OtpCode;
+import cn.seeumt.model.UserDetail;
+import cn.seeumt.service.*;
 import cn.seeumt.utils.AliyunOssUtil;
+import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
@@ -23,9 +24,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.Date;
@@ -40,6 +44,8 @@ import java.util.List;
 @CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class UserController {
     @Autowired
+    private UserService userService;
+    @Autowired
     private UserInfoService userInfoService;
     @Autowired
     private WxUserService wxUserService;
@@ -47,10 +53,48 @@ public class UserController {
     private ThirdPartyUserService thirdPartyUserService;
     @Autowired
     private CommentService commentService;
+    @Autowired
+    private HttpSession httpSession;
+    @Autowired
+    private AuthService authService;
     @GetMapping(value = "/")
     public List<CommentContent> findMyCommentsOfAnArticle(String articleId,String userId) {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
     }
+
+
+
+    @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
+    @GetMapping(value = "/otp/{telephone}")
+    public ResultVO sendSms(
+            @ApiParam(name = "telephone", value = "手机号", required = true)
+            @PathVariable String telephone) {
+        OtpCode otpCode = OtpCode.createCode(60L);
+        httpSession.setAttribute(telephone, otpCode);
+        return ResultVO.success(otpCode);
+    }
+
+    @PutMapping("/reset/pwd")
+    @ApiOperation(value = "修改|找回密码",notes = "",httpMethod = "PUT")
+    public ResultVO resetPwd(@RequestBody TelLogin telLogin) {
+        OtpCode otpCode = (OtpCode) httpSession.getAttribute(telLogin.getTelephone());
+        if (otpCode.getCode().equals(telLogin.getCode()) ) {
+            userService.resetPwd(telLogin.getTelephone(), telLogin.getPassword());
+        }
+        return ResultVO.success(200008, "修改密码成功！");
+    }
+
+    @GetMapping("/telLogin")
+    @ApiOperation(value = "手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
+    public UserDetail codeLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
+        // TODO: 2020/2/2 这方法厉害
+//        String telephone = ServletRequestUtils.(new ServletWebRequest(request).getRequest(), "telephone");
+        String telephone = (String) httpSession.getAttribute("telephone");
+        return authService.OtpLogin(telephone);
+    }
+
+
+
 
     @PostMapping(value = "/modifyUserInfo",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO modifyUserInfo(@RequestBody MPWXUserInfoDTO mpwxUserInfoDTO) {
@@ -72,31 +116,6 @@ public class UserController {
 
     }
 
-    @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
-    @PostMapping(value = "/mpWXLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO login(
-                          @ApiParam(name = "code",value = "wx.login得到的code",required = true)
-                          @PathVariable String code,
-                          @RequestBody MPWXUserInfo mpwxUserInfo) {
-        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
-        String openId = SessionKeyAndOpenId.getString("openid");
-        String sessionKey = SessionKeyAndOpenId.getString("session_key");
-        WxUser wxUser = wxUserService.selectByOpenId(openId);
-        String skey = UuidUtil.getUUID();
-        if (wxUser == null) {
-            WxUser newWXUser = wxUserService.insert(mpwxUserInfo, openId, sessionKey, skey);
-            MPWXUserInfoDTO mpwxUserInfoDTO = new MPWXUserInfoDTO();
-            BeanUtils.copyProperties(newWXUser, mpwxUserInfoDTO);
-            return ResultVO.success(mpwxUserInfoDTO,"亲，你终于来了！");
-        }else {
-            wxUser.setLastVisitTime(new Date());
-            wxUser.setSkey(skey);
-            wxUserService.update(wxUser);
-        }
-        MPWXUserInfoDTO mpwxUserInfoDTO = new MPWXUserInfoDTO();
-        BeanUtils.copyProperties(wxUser, mpwxUserInfoDTO);
-        return ResultVO.success(mpwxUserInfoDTO,"登录成功");
-    }
 
     @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
 //    @Cacheable(cacheNames = "user_session",key = "123456")
@@ -112,16 +131,6 @@ public class UserController {
 //        httpSession.removeAttribute(httpSession.getId());
         return ResultVO.success(0, userId+" 已成功退出！");
     }
-//
-//    @GetMapping("/registerOrLogin")
-//    public ResultVO registerOrLogin(@RequestBody UserInfo userInfo) {
-//        ResultVO resultVO = userInfoService.logIn(userInfo.getUsername(), userInfo.getPassword());
-//        if (resultVO.getCode() == 0) {
-//            httpSession.setAttribute(httpSession.getId(), resultVO.getData());
-//        }
-//        return resultVO;
-//    }
-
 
 
 }

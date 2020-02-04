@@ -71,9 +71,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/articles/**").authenticated()
-                // 需要角色为ADMIN才能删除该资源
                 .antMatchers("/articles/**").hasAuthority("ROLE_STU")
                 .antMatchers("/auth/**").permitAll()
+                .antMatchers("http://localhost:8086/swagger-ui.html").permitAll()
                 // 其他都XX(放行、需认证)了
                 .anyRequest().permitAll()
                 .and()

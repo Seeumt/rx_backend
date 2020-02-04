@@ -5,16 +5,20 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Seeumt
  * @version 1.0
  * @date 2020/1/31 12:42
  */
+@Component
 public class JwtTokenUtils {
 
     public static final String TOKEN_HEADER = "Authorization";
@@ -32,6 +36,9 @@ public class JwtTokenUtils {
     // 添加角色的key
     private static final String ROLE_CLAIMS = "roles";
 
+    private Map<String, String> tokenMap = new ConcurrentHashMap<>(32);
+
+
     // 修改一下创建token的方法
     public static String createToken(String validId, String authorities, boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
@@ -46,6 +53,11 @@ public class JwtTokenUtils {
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .compact();
+    }
+
+    public void removeToken(String token) {
+        String validId = getTokenBody(token).getSubject();
+        tokenMap.remove(validId);
     }
 
 

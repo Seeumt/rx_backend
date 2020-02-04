@@ -7,9 +7,11 @@ import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.enums.ResultCode;
 import cn.seeumt.form.LoginUser;
 import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.AuthService;
+import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
@@ -24,11 +26,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Date;
 
@@ -64,10 +69,25 @@ public class AuthController {
         return ResultVO.success(userDetail,"登录成功");
     }
 
-    @GetMapping(value = "/logout")
+
+    @ApiOperation(value = "发送短信验证码", notes = "code需要通过wx.login获取", httpMethod = "POST")
+    @PutMapping(value = "/otp/{telephone}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO sendSms(
+            @ApiParam(name = "telephone", value = "短信验证码", required = true)
+            @PathVariable String telephone,
+            HttpSession session) {
+        Long otpCode = KeyUtil.genUniqueKey();
+        session.setAttribute(telephone, otpCode);
+        return ResultVO.success(0, "短信验证码已发送到您的手机！");
+    }
+
+
+
+
+    @GetMapping(value = "/logouty")
     @ApiOperation(value = "登出", notes = "退出登陆")
-    @ApiImplicitParams({@ApiImplicitParam(name = "Authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")})
-    public ResultVO logout(HttpServletRequest request){
+//    @PreAuthorize("hasAuthority('ROLE_USER')")
+    public ResultVO logoutt(HttpServletRequest request){
         String token = request.getHeader(TOKEN_HEADER);
         if (token == null) {
             return ResultVO.failure(ResultCode.UNAUTHORIZED);

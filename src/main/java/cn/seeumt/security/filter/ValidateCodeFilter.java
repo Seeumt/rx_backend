@@ -29,7 +29,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     private AuthenticationFailureHandler authenticationFailureHandler;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/code/telephone", httpServletRequest.getRequestURI())
+        if (StringUtils.equals("/users/telLogin", httpServletRequest.getRequestURI())
                 && StringUtils.equalsAnyIgnoreCase(httpServletRequest.getMethod(), "GET")) {
             try {
                 validate(httpServletRequest);

@@ -62,6 +62,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             wxUserMapper = (WxUserMapper) cxt.getBean("wxUserMapper");
         }
         String tokenHeader = request.getHeader(JwtTokenUtils.TOKEN_HEADER);
+        //判断类型
         String type = request.getHeader("type");
         // 如果请求头中没有Authorization信息则直接放行了
         if (tokenHeader == null || !tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)) {
@@ -70,7 +71,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
         // 如果请求头中有token，则进行解析，并且设置认证信息
         try {
-            if (type==null) {
+            if ("mp".equals(type)){
                 SecurityContextHolder.getContext().setAuthentication(getMpAuthentication(tokenHeader));
             } else if ("tel".equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getOtpAuthentication(tokenHeader));
