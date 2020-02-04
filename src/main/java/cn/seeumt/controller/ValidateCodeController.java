@@ -57,7 +57,7 @@ public class ValidateCodeController {
         // TODO: 2020/2/2 这方法厉害
 //        String telephone = ServletRequestUtils.(new ServletWebRequest(request).getRequest(), "telephone");
         String telephone = (String) request.getSession().getAttribute("telephone");
-        return authService.OtpLogin(telephone);
+        return authService.otpLogin(telephone);
     }
 
 

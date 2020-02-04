@@ -24,7 +24,7 @@ public class CommentContent {// TODO: 2019/12/9 Oops~~~
 
     private String loveId;
 
-//    private List<UserInfo> thumbers;
+//    private List<User> thumbers;
 
     private List<Commenter> commenters;
 

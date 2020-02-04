@@ -27,7 +27,7 @@ public class MpAuthenticationFilter extends AbstractAuthenticationProcessingFilt
     private boolean postOnly = true;
 
     public MpAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/auth/mpLogin", "POST"));
+        super(new AntPathRequestMatcher("/users/mpLogin", "POST"));
     }
 
     @Override

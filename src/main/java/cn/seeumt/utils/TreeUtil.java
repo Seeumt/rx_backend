@@ -1,17 +1,11 @@
 package cn.seeumt.utils;
 
 
-import cn.seeumt.dataobject.Love;
-import cn.seeumt.dataobject.UserInfo;
-import cn.seeumt.enums.TipsFlash;
-import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.Comment;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.service.LoveService;
 import cn.seeumt.service.CommentService;
-import cn.seeumt.service.UserInfoService;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,9 +20,6 @@ public class TreeUtil {
 
     @Autowired
     private LoveService loveService;
-    @Autowired
-    private UserInfoService userInfoService;
-
 
     private static TreeUtil treeUtil;
     @Autowired
@@ -39,7 +30,6 @@ public class TreeUtil {
         treeUtil = this;
         treeUtil.commentService = this.commentService;
         treeUtil.loveService = this.loveService;
-        treeUtil.userInfoService = this.userInfoService;
     }
 
     //将list集合转成树形结构的list集合

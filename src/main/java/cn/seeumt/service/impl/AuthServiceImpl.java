@@ -50,29 +50,36 @@ public class AuthServiceImpl implements AuthService {
 
 
     @Override
-    public UserDetail login(String username, String password) {
-        //用户验证
-        Authentication authentication = authenticate(username, password);
-        //存储认证信息
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        //生成token
-        UserDetail userDetail = (UserDetail) authentication.getPrincipal();
+    public UserDetail upLogin(String username, String password) {
+        UserDetail userDetail = getAuthenticationToken(new UsernamePasswordAuthenticationToken(username, password));
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
         String roles = StringUtils.join(authorities.toArray(), ",");
+//            最热乎的的角色在这放着呢
         String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles, false);
         userDetail.setToken(token);
         return userDetail;
-
     }
 
     @Override
-    public UserDetail OtpLogin(String telephone) {
-       return getAuthenticationToken(new OtpAuthenticationToken(telephone));
+    public UserDetail otpLogin(String telephone) {
+        UserDetail userDetail = getAuthenticationToken(new OtpAuthenticationToken(telephone));
+        Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
+        String roles = StringUtils.join(authorities.toArray(), ",");
+//            最热乎的的角色在这放着呢
+        String token = JwtTokenUtils.createToken(userDetail.getTelephone(), roles, false);
+        userDetail.setToken(token);
+        return userDetail;
     }
 
     @Override
-    public UserDetail MpLogin(MPWXUserInfo mpwxUserInfo) {
-        return getAuthenticationToken(new MpAuthenticationToken(mpwxUserInfo));
+    public UserDetail mpLogin(MPWXUserInfo mpwxUserInfo) {
+        UserDetail userDetail = getAuthenticationToken(new MpAuthenticationToken(mpwxUserInfo));
+        Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
+        String roles = StringUtils.join(authorities.toArray(), ",");
+//            最热乎的的角色在这放着呢
+        String token = JwtTokenUtils.createToken(userDetail.getOpenId(), roles, false);
+        userDetail.setToken(token);
+        return userDetail;
     }
 
     @Override
@@ -89,16 +96,24 @@ public class AuthServiceImpl implements AuthService {
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
             SecurityContextHolder.getContext().setAuthentication(authentication);
             //生成token
-            UserDetail userDetail = (UserDetail) authentication.getPrincipal();
-            Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
-            String roles = StringUtils.join(authorities.toArray(), ",");
-            String token = JwtTokenUtils.createToken(userDetail.getOpenId(), roles, false);
-            userDetail.setToken(token);
-            return userDetail;
+            return  (UserDetail) authentication.getPrincipal();
+
         } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
             throw new TipsException(1,e.getMessage());
         }
     }
+
+    private Authentication authenticate(String username, String password) {
+        try {
+            //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
+            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
+            throw new TipsException(1,e.getMessage());
+        }
+    }
+
+
+
 
 
 
@@ -129,14 +144,6 @@ public class AuthServiceImpl implements AuthService {
 //        return JwtTokenUtils.ge(token);
 //    }
 
-    private Authentication authenticate(String username, String password) {
-        try {
-            //该方法会去调用userDetailsService.loadUserByUsername()去验证用户名和密码，如果正确，则存储该用户名密码到“security 的 context中”
-            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-        } catch (DisabledException | BadCredentialsException | InternalAuthenticationServiceException e) {
-            throw new TipsException(1,e.getMessage());
-        }
-    }
 
 
 }

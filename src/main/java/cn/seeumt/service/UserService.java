@@ -1,11 +1,7 @@
 package cn.seeumt.service;
 
-import cn.seeumt.dataobject.Role;
-import cn.seeumt.dataobject.User;
 import cn.seeumt.model.UserDetail;
-import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import cn.seeumt.vo.ResultVO;
 
 /**
  * <p>
@@ -19,11 +15,17 @@ public interface UserService{
 
     UserDetail selectUserDetailByUserId(String userId);
 
+    UserDetail selectUserDetailByUsername(String username);
+
     UserDetail selectUserDetailByTelephone(String telephone);
 
     UserDetail selectUserDetailByOpenId(String openId);
 
-    void resetPwd(String telephone,String password);
+    int resetPwd(String telephone,String password);
+
+    // TODO: 2020/2/4 wx用户更新头像
+    ResultVO uploadFaceIcon(String userId, String originUrl);
 
 
+    int bindTel(String openId, String telephone);
 }

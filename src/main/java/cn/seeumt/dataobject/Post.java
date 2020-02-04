@@ -1,10 +1,13 @@
 package cn.seeumt.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.util.Date;
 
 public class Post {
+
+    @TableId
     private String postId;
 
     private Boolean type;

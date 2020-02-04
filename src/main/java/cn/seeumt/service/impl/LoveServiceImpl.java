@@ -28,7 +28,7 @@ public class LoveServiceImpl implements LoveService {
     @Override
     public Boolean addOrCancelLove(String apiRootId, String userId) {
         Love aLove = selectByApiRootIdAndUserId(apiRootId, userId);
-        //如果没有点过赞 成功点赞
+        //如果没有点过赞 成功点赞  改变love的status
         if (aLove==null) {
             Love love = new Love();
             love.setLoveId(UuidUtil.getUUID());

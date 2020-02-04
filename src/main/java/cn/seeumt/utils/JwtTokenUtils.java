@@ -75,7 +75,7 @@ public class JwtTokenUtils {
 //    }
 
     // 从token中获取用户名
-    public static String getvalidId(String token){
+    public static String getValidId(String token){
         return getTokenBody(token).getSubject();
     }
 

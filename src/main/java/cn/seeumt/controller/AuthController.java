@@ -51,35 +51,11 @@ public class AuthController {
     @ApiOperation(value = "登陆", notes = "登陆成功返回token,登陆之前请先注册账号")
     public ResultVO login(
             @Valid @RequestBody LoginUser loginUser){
-        UserDetail userDetail = authService.login(loginUser.getUsername(), loginUser.getPassword());
+        UserDetail userDetail = authService.upLogin(loginUser.getUsername(), loginUser.getPassword());
         return ResultVO.ok(userDetail);
     }
 
-    @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
-    @PostMapping(value = "/mpLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO login(
-            @ApiParam(name = "code",value = "wx.login得到的code",required = true)
-            @PathVariable String code,
-            @RequestBody MPWXUserInfo mpwxUserInfo) {
-        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
-        String openId = SessionKeyAndOpenId.getString("openid");
-        mpwxUserInfo.setOpenId(openId);
-//        String sessionKey = SessionKeyAndOpenId.getString("session_key");
-        UserDetail userDetail = authService.MpLogin(mpwxUserInfo);
-        return ResultVO.success(userDetail,"登录成功");
-    }
 
-
-    @ApiOperation(value = "发送短信验证码", notes = "code需要通过wx.login获取", httpMethod = "POST")
-    @PutMapping(value = "/otp/{telephone}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO sendSms(
-            @ApiParam(name = "telephone", value = "短信验证码", required = true)
-            @PathVariable String telephone,
-            HttpSession session) {
-        Long otpCode = KeyUtil.genUniqueKey();
-        session.setAttribute(telephone, otpCode);
-        return ResultVO.success(0, "短信验证码已发送到您的手机！");
-    }
 
 
 

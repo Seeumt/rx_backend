@@ -1,12 +1,10 @@
 package cn.seeumt.service.impl;
-import java.time.LocalDateTime;
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dao.UserRoleMapper;
 import cn.seeumt.dataobject.Role;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.dataobject.UserRole;
 import cn.seeumt.dataobject.WxUser;
-import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.service.MyUserDetailService;
@@ -14,7 +12,6 @@ import cn.seeumt.service.UserService;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.utils.UuidUtil;
-import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 
@@ -26,7 +23,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,18 +54,7 @@ public class UserDetailServiceImpl implements MyUserDetailService {
     private UserService userService;
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-
-        UserDetail userDetail = new UserDetail();
-        userDetail.setUserId("67899");
-        userDetail.setUsername("Tips");
-        userDetail.setPassword(bCryptPasswordEncoder.encode("123456"));
-        userDetail.setEnabled(true);
-        userDetail.setLocked(false);
-        List<Role> roles = Lists.newArrayList();
-        roles.add(new Role(1,"ROLE_USER"));
-        roles.add(new Role(2,"ROLE_ADMIN"));
-        userDetail.setRoles(roles);
-        return userDetail;
+        return userService.selectUserDetailByUsername(s);
     }
 
     @Override

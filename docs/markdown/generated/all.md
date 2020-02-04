@@ -2033,7 +2033,7 @@ POST /users/registerOrLogin
 
 |类型|名称|说明|类型|
 |---|---|---|---|
-|**Body**|**userInfo**  <br>*必填*|userInfo|[UserInfo](#userinfo)|
+|**Body**|**user**  <br>*必填*|user|[UserInfo](#userinfo)|
 
 
 ##### 响应

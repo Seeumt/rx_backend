@@ -74,7 +74,7 @@ public class WxUser implements Serializable {
     /**
      * 微信用户手机号
      */
-    private Integer telephone;
+    private String telephone;
 
     /**
      * session_key

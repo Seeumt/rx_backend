@@ -4,12 +4,13 @@ import java.util.Arrays;
 import java.util.Date;
 
 import cn.seeumt.dao.PostMapper;
+import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.Post;
+import cn.seeumt.dataobject.User;
 import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.service.OssService;
 import cn.seeumt.service.PostService;
-import cn.seeumt.service.UserInfoService;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,7 +24,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private PostMapper postMapper;
     @Autowired
-    private UserInfoService userInfoService;
+    private UserMapper userMapper;
     @Autowired
     private OssService ossService;
 
@@ -33,7 +34,9 @@ public class PostServiceImpl implements PostService {
         Post post = postMapper.selectByPrimaryKey(postId);
         PostDTO postDTO = new PostDTO();
         BeanUtils.copyProperties(post,postDTO);
-        UserVO userVO = userInfoService.selectByUserId(post.getUserId());
+        User user = userMapper.selectById(post.getUserId());
+        UserVO userVO= new UserVO();
+        BeanUtils.copyProperties(user, userVO);
         ImgDTO imgDTO = ossService.queryByParentId(post.getUserId());
         String[] urls = imgDTO.getUrls();
         ArrayList<String> imgUrls = new ArrayList<>(Arrays.asList(urls));

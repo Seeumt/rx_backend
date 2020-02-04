@@ -1,16 +1,10 @@
 package cn.seeumt.dto;
 
-import cn.seeumt.dataobject.City;
-import cn.seeumt.dataobject.Tag;
-import cn.seeumt.dataobject.UserInfo;
 import cn.seeumt.model.Comment;
-import cn.seeumt.model.Commenter;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.vo.CityVO;
 import cn.seeumt.vo.TagVO;
 import com.alibaba.fastjson.annotation.JSONField;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
 
 import java.util.Date;
 import java.util.List;

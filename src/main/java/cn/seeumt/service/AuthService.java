@@ -22,12 +22,12 @@ public interface AuthService {
      * @param password
      * @return
      */
-    UserDetail login(String username, String password);
+    UserDetail upLogin(String username, String password);
 
 
-    UserDetail OtpLogin(String telephone);
+    UserDetail otpLogin(String telephone);
 
-    UserDetail MpLogin(MPWXUserInfo mpwxUserInfo);
+    UserDetail mpLogin(MPWXUserInfo mpwxUserInfo);
 
     void logout(String token);
 

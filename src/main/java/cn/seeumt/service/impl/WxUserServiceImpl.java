@@ -39,7 +39,7 @@ public class WxUserServiceImpl implements WxUserService {
         wxUser.setAvatarUrl(mpwxUserInfo.getAvatarUrl());
         wxUser.setLanguage(mpwxUserInfo.getLanguage());
         wxUser.setMobile("");
-        wxUser.setTelephone(100000000);
+        wxUser.setTelephone("");
         wxUser.setSessionKey(sessionKey);
 //        设置会话skey
         wxUser.setSkey(skey);

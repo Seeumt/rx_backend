@@ -7,7 +7,6 @@ import cn.seeumt.security.enums.SecurityEnum;
 import cn.seeumt.security.exception.TokenIsExpiredException;
 import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.security.token.OtpAuthenticationToken;
-import cn.seeumt.service.UserInfoService;
 import cn.seeumt.utils.JwtTokenUtils;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -75,6 +74,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 SecurityContextHolder.getContext().setAuthentication(getMpAuthentication(tokenHeader));
             } else if ("tel".equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getOtpAuthentication(tokenHeader));
+            } else if ("up".equals(type)) {
+                SecurityContextHolder.getContext().setAuthentication(getUpAuthentication(tokenHeader));
             }
         } catch (TokenIsExpiredException e) {
             response.setCharacterEncoding("UTF-8");
@@ -95,7 +96,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
         }
         //现在正在鉴权
-        String openId = JwtTokenUtils.getvalidId(token);
+        String openId = JwtTokenUtils.getValidId(token);
         if (openId != null){
             String userRoles = JwtTokenUtils.getUserRoles(token);
             List<String> rolesList = Arrays.asList(userRoles.split(","));
@@ -123,7 +124,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
         }
         //现在正在鉴权
-            String telephone = JwtTokenUtils.getvalidId(token);
+            String telephone = JwtTokenUtils.getValidId(token);
             if (telephone != null){
                 String userRoles = JwtTokenUtils.getUserRoles(token);
                 List<String> rolesList = Arrays.asList(userRoles.split(","));
@@ -133,6 +134,26 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                 }
 
                 return new OtpAuthenticationToken(telephone,authorities);
+        }
+        return null;
+    }
+
+
+    private UsernamePasswordAuthenticationToken getUpAuthentication(String tokenHeader) throws TokenIsExpiredException {
+        String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+        if (JwtTokenUtils.isExpiration(token)) {
+            throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
+        }
+        //现在正在鉴权
+        String username = JwtTokenUtils.getValidId(token);
+        if (username != null){
+            String userRoles = JwtTokenUtils.getUserRoles(token);
+            List<String> rolesList = Arrays.asList(userRoles.split(","));
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            for (String role : rolesList) {
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
+            return new UsernamePasswordAuthenticationToken(username,"",authorities);
         }
         return null;
     }

@@ -22,6 +22,12 @@ public class OtpAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private MyUserDetailService userDetailsService;
 
+    /**
+     * 返回的是通过认证的Authentication 里面包含权限
+     * @param authentication
+     * @return
+     * @throws AuthenticationException
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 

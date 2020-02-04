@@ -2,10 +2,7 @@ package cn.seeumt.controller;
 
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
-import cn.seeumt.form.MPWXUserInfo;
-import cn.seeumt.form.TelLogin;
-import cn.seeumt.form.ThirdPartyUser;
-import cn.seeumt.form.UserInfo;
+import cn.seeumt.form.*;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.UserDetail;
@@ -31,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -39,14 +37,12 @@ import java.util.List;
  * @author Seeumt
  * @date 2019/12/8 18:08
  */
-@RestController
+@RestController("userController")
 @RequestMapping("/users")
 @CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class UserController {
     @Autowired
     private UserService userService;
-    @Autowired
-    private UserInfoService userInfoService;
     @Autowired
     private WxUserService wxUserService;
     @Autowired
@@ -62,14 +58,44 @@ public class UserController {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
     }
 
+    @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
+    @PostMapping(value = "/mpLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO mpLogin(
+            @ApiParam(name = "code",value = "wx.login得到的code",required = true)
+            @PathVariable String code,
+            @RequestBody MPWXUserInfo mpwxUserInfo) {
+        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
+        String openId = SessionKeyAndOpenId.getString("openid");
+        mpwxUserInfo.setOpenId(openId);
+//        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+        UserDetail userDetail = authService.mpLogin(mpwxUserInfo);
+        return ResultVO.success(userDetail,"登录成功");
+    }
 
+
+
+    @GetMapping("/telLogin")
+    @ApiOperation(value = "Otp 手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
+    public UserDetail otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
+        // TODO: 2020/2/2 这方法厉害
+        String telephone = (String) httpSession.getAttribute("telephone");
+        return authService.otpLogin(telephone);
+    }
+
+    @PostMapping(value = "/login")
+    @ApiOperation(value = "用户名密码登陆", notes = "")
+    public ResultVO upLogin(
+            @Valid @RequestBody LoginUser loginUser){
+        UserDetail userDetail = authService.upLogin(loginUser.getUsername(), loginUser.getPassword());
+        return ResultVO.ok(userDetail);
+    }
 
     @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
     @GetMapping(value = "/otp/{telephone}")
     public ResultVO sendSms(
             @ApiParam(name = "telephone", value = "手机号", required = true)
             @PathVariable String telephone) {
-        OtpCode otpCode = OtpCode.createCode(60L);
+        OtpCode otpCode = OtpCode.createCode(864000L);
         httpSession.setAttribute(telephone, otpCode);
         return ResultVO.success(otpCode);
     }
@@ -84,14 +110,21 @@ public class UserController {
         return ResultVO.success(200008, "修改密码成功！");
     }
 
-    @GetMapping("/telLogin")
-    @ApiOperation(value = "手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
-    public UserDetail codeLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
-        // TODO: 2020/2/2 这方法厉害
-//        String telephone = ServletRequestUtils.(new ServletWebRequest(request).getRequest(), "telephone");
-        String telephone = (String) httpSession.getAttribute("telephone");
-        return authService.OtpLogin(telephone);
+    @PostMapping("/bind")
+    @ApiOperation(value = "微信openId绑定手机号",notes = "附带Otp验证码",httpMethod = "POST")
+    public ResultVO bindTel(String openId,String telephone,Long code) {
+        OtpCode otpCode = (OtpCode) httpSession.getAttribute(telephone);
+        if (!otpCode.getCode().equals(code) ) {
+            return ResultVO.error(20006, "验证码错误");
+        }
+        int i = userService.bindTel(openId, telephone);
+        if (i > 0) {
+            return ResultVO.success(200005, "绑定手机成功！");
+        }
+        return ResultVO.error(20007, "手机号绑定异常");
     }
+
+
 
 
 
@@ -105,7 +138,7 @@ public class UserController {
     @PostMapping(value = "/uploadFace", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResultVO uploadFace(String userId, @RequestPart("file") MultipartFile file) throws IOException {
         String originUrl = AliyunOssUtil.getOriginUrl(file);
-        ResultVO resultVO = userInfoService.uploadFaceIcon(userId, originUrl);
+        ResultVO resultVO = userService.uploadFaceIcon(userId, originUrl);
         return resultVO;
     }
 
@@ -117,13 +150,13 @@ public class UserController {
     }
 
 
-    @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
-//    @Cacheable(cacheNames = "user_session",key = "123456")
-    // 这是把这个resultVO放到了redis里？
-    public ResultVO login(@RequestBody UserInfo userInfo) {
-        ResultVO resultVO = userInfoService.logIn(userInfo.getUserId(), userInfo.getPassword());
-        return resultVO;
-    }
+//    @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
+////    @Cacheable(cacheNames = "user_session",key = "123456")
+//    // 这是把这个resultVO放到了redis里？
+//    public ResultVO login(@RequestBody UserInfo userInfo) {
+//        ResultVO resultVO = userInfoService.logIn(userInfo.getUserId(), userInfo.getPassword());
+//        return resultVO;
+//    }
 
 
     @PostMapping("/logout")

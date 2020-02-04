@@ -1,12 +1,12 @@
 package cn.seeumt.utils;
 
+import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.Love;
-import cn.seeumt.dataobject.UserInfo;
+import cn.seeumt.dataobject.User;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.service.LoveService;
-import cn.seeumt.service.UserInfoService;
 import lombok.Data;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +25,9 @@ public class ThumberUtil {
 
     private static ThumberUtil thumberUtil;
 
+
     @Autowired
-    private UserInfoService userInfoService;
+    private UserMapper userMapper;
 
     @Autowired
     private LoveService loveService;
@@ -34,7 +35,7 @@ public class ThumberUtil {
     @PostConstruct
     public void init() {
         thumberUtil = this;
-        thumberUtil.userInfoService = userInfoService;
+        thumberUtil.userMapper = userMapper;
         thumberUtil.loveService = this.loveService;
     }
     public static List<Thumber> allThumbers(String apiRootId) {
@@ -42,7 +43,7 @@ public class ThumberUtil {
         List<Love> loves = ThumberUtil.thumberUtil.loveService.selectByApiRootId(apiRootId);
         if (loves == null) {
             thumbers=null;
-        }
+        }else {
         List idList = new ArrayList();
         List dateList = new ArrayList();
         List<Boolean> list = new ArrayList<>();
@@ -54,14 +55,14 @@ public class ThumberUtil {
         }
         for (int i = 0; i < idList.toArray().length; i++) {
             Thumber thumber = new Thumber();
-            UserInfo userInfo = ThumberUtil.thumberUtil.userInfoService.selectByPrimaryKey(idList.toArray()[i].toString());
-            if (userInfo == null) {
+            User user = ThumberUtil.thumberUtil.userMapper.selectById(idList.toArray()[i].toString());
+            if (user == null) {
                 throw new TipsException(TipsFlash.ABNORMAL_THUMB);
             }
-            userInfo.setCreateTime((Date) dateList.toArray()[i]);
-            userInfo.setStatus(list.get(i));
-            BeanUtils.copyProperties(userInfo, thumber);
+            user.setCreateTime((Date) dateList.toArray()[i]);
+            BeanUtils.copyProperties(user, thumber);
             thumbers.add(thumber);
+        }
     }
         return thumbers;
 
