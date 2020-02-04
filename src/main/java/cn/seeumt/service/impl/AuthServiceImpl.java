@@ -8,6 +8,7 @@ import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.security.token.OtpAuthenticationToken;
+import cn.seeumt.security.token.TpAuthenticationToken;
 import cn.seeumt.service.AuthService;
 import cn.seeumt.utils.JwtTokenUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -57,6 +58,7 @@ public class AuthServiceImpl implements AuthService {
 //            最热乎的的角色在这放着呢
         String token = JwtTokenUtils.createToken(userDetail.getUsername(), roles, false);
         userDetail.setToken(token);
+        userDetail.setTokenType("up");
         return userDetail;
     }
 
@@ -68,6 +70,18 @@ public class AuthServiceImpl implements AuthService {
 //            最热乎的的角色在这放着呢
         String token = JwtTokenUtils.createToken(userDetail.getTelephone(), roles, false);
         userDetail.setToken(token);
+        userDetail.setTokenType("otp");
+        return userDetail;
+    }
+
+    @Override
+    public UserDetail tpLogin(String telephone, String password) {
+        UserDetail userDetail = getAuthenticationToken(new TpAuthenticationToken(telephone, password));
+        Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
+        String roles = StringUtils.join(authorities.toArray(), ",");
+        String token = JwtTokenUtils.createToken(userDetail.getTelephone()+"0", roles, false);
+        userDetail.setToken(token);
+        userDetail.setTokenType("tp");
         return userDetail;
     }
 
@@ -79,8 +93,10 @@ public class AuthServiceImpl implements AuthService {
 //            最热乎的的角色在这放着呢
         String token = JwtTokenUtils.createToken(userDetail.getOpenId(), roles, false);
         userDetail.setToken(token);
+        userDetail.setTokenType("mp");
         return userDetail;
     }
+
 
     @Override
     public void logout(String tokenHeader) {

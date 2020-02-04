@@ -26,7 +26,7 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
     private boolean postOnly = true;
 
     public OtpAuthenticationFilter() {
-        super(new AntPathRequestMatcher("/auth/telephone", "POST"));
+        super(new AntPathRequestMatcher("/users/otpLoginn", "POST"));
     }
 
     @Override

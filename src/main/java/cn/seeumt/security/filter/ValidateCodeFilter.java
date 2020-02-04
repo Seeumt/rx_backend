@@ -29,8 +29,8 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     private AuthenticationFailureHandler authenticationFailureHandler;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/users/telLogin", httpServletRequest.getRequestURI())
-                && StringUtils.equalsAnyIgnoreCase(httpServletRequest.getMethod(), "GET")) {
+        if (StringUtils.equals("/users/otpLogin", httpServletRequest.getRequestURI())
+                && StringUtils.equalsAnyIgnoreCase(httpServletRequest.getMethod(), "POST")) {
             try {
                 validate(httpServletRequest);
 

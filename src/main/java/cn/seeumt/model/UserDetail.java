@@ -23,6 +23,16 @@ public class UserDetail implements UserDetails {
     private Boolean enabled;
     private Boolean locked;
     private String token;
+    private String tokenType;
+
+    public String getTokenType() {
+        return tokenType;
+    }
+
+    public void setTokenType(String tokenType) {
+        this.tokenType = tokenType;
+    }
+
     private List<Role> roles;
 
     public String getToken() {

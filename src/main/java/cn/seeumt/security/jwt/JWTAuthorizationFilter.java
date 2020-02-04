@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -72,10 +73,12 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         try {
             if ("mp".equals(type)){
                 SecurityContextHolder.getContext().setAuthentication(getMpAuthentication(tokenHeader));
-            } else if ("tel".equals(type)) {
+            } else if ("otp".equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getOtpAuthentication(tokenHeader));
             } else if ("up".equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getUpAuthentication(tokenHeader));
+            } else if ("tp".equals(type)) {
+                SecurityContextHolder.getContext().setAuthentication(getTpAuthentication(tokenHeader));
             }
         } catch (TokenIsExpiredException e) {
             response.setCharacterEncoding("UTF-8");
@@ -88,6 +91,8 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
         super.doFilterInternal(request, response, chain);
     }
+
+
 
     // 这里从token中获取用户信息并新建一个token（XXXAuthenticationToken）
     private MpAuthenticationToken getMpAuthentication(String tokenHeader) throws TokenIsExpiredException {
@@ -156,6 +161,27 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             return new UsernamePasswordAuthenticationToken(username,"",authorities);
         }
         return null;
+    }
+
+    private Authentication getTpAuthentication(String tokenHeader) throws TokenIsExpiredException {
+        String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
+        if (JwtTokenUtils.isExpiration(token)) {
+            throw new TokenIsExpiredException(SecurityEnum.TOKEN_EXPIRED);
+        }
+        //现在正在鉴权
+        String telephone = JwtTokenUtils.getValidId(token);
+        if (telephone != null){
+            telephone  = telephone.substring(0, telephone.length() - 1);
+            String userRoles = JwtTokenUtils.getUserRoles(token);
+            List<String> rolesList = Arrays.asList(userRoles.split(","));
+            List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+            for (String role : rolesList) {
+                authorities.add(new SimpleGrantedAuthority(role));
+            }
+            return new UsernamePasswordAuthenticationToken(telephone,"",authorities);
+        }
+        return null;
+
     }
 
 

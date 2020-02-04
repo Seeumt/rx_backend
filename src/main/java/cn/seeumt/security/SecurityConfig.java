@@ -1,6 +1,7 @@
 package cn.seeumt.security;
 
 import cn.seeumt.security.config.MpAuthenticationSecurityConfig;
+import cn.seeumt.security.config.TpAuthenticationSecurityConfig;
 import cn.seeumt.security.filter.ValidateCodeFilter;
 import cn.seeumt.security.config.OtpAuthenticationSecurityConfig;
 import cn.seeumt.security.jwt.JWTAccessDeniedHandler;
@@ -57,6 +58,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private OtpAuthenticationSecurityConfig otpAuthenticationSecurityConfig;
     @Autowired
     private MpAuthenticationSecurityConfig mpAuthenticationSecurityConfig;
+    @Autowired
+    private TpAuthenticationSecurityConfig tpAuthenticationSecurityConfig;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -97,7 +100,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
                 //添加无权限时的处理
                 .accessDeniedHandler(new JWTAccessDeniedHandler()).
-                and().cors().and().csrf().disable().apply(otpAuthenticationSecurityConfig).and().apply(mpAuthenticationSecurityConfig);
+                and()
+                .cors().and().csrf().disable()
+                .apply(otpAuthenticationSecurityConfig).
+                and()
+                .apply(mpAuthenticationSecurityConfig)
+                .and()
+                .apply(tpAuthenticationSecurityConfig);
                 http.headers().cacheControl();
 
     }

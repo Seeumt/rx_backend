@@ -14,4 +14,5 @@ public interface MyUserDetailService extends UserDetailsService {
     UserDetail findUserByTelephone(String telephone);
 
     UserDetail findUserByOpenId(MPWXUserInfo mpwxUserInfo);
+
 }

@@ -24,10 +24,11 @@ public interface AuthService {
      */
     UserDetail upLogin(String username, String password);
 
-
     UserDetail otpLogin(String telephone);
 
     UserDetail mpLogin(MPWXUserInfo mpwxUserInfo);
+
+    UserDetail tpLogin(String telephone, String password);
 
     void logout(String token);
 

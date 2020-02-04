@@ -74,7 +74,7 @@ public class UserController {
 
 
 
-    @GetMapping("/telLogin")
+    @PostMapping("/otpLogin")
     @ApiOperation(value = "Otp 手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
     public UserDetail otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
         // TODO: 2020/2/2 这方法厉害
@@ -82,12 +82,19 @@ public class UserController {
         return authService.otpLogin(telephone);
     }
 
-    @PostMapping(value = "/login")
-    @ApiOperation(value = "用户名密码登陆", notes = "")
+    @PostMapping("/tpLogin")
+    @ApiOperation(value = "手机号密码登录",notes = "",httpMethod = "GET")
+    public ResultVO otpLogin(@Valid @RequestBody LoginUser loginUser) throws IOException, ServletRequestBindingException {
+        UserDetail userDetail = authService.tpLogin(loginUser.getTelephone(), loginUser.getPassword());
+        return ResultVO.success(userDetail);
+    }
+
+    @PostMapping(value = "/upLogin")
+    @ApiOperation(value = "用户名密码登录", notes = "")
     public ResultVO upLogin(
             @Valid @RequestBody LoginUser loginUser){
         UserDetail userDetail = authService.upLogin(loginUser.getUsername(), loginUser.getPassword());
-        return ResultVO.ok(userDetail);
+        return ResultVO.success(userDetail);
     }
 
     @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
