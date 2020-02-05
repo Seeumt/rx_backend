@@ -9,10 +9,13 @@ import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
+/**
+ * @author Seeumt
+ * @version v1
+ */
 @Data
 @Component
 @ConfigurationProperties(prefix = "oss")
-//@PropertySource(value = "classpath:aliyun.properties")
 public class AliyunOssConfig {
 
     private String endpoint;
