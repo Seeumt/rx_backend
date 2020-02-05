@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * 无token情况
+ * 无token情况 处理所有403响应
  * @author Seeumt
  * @version 1.0
  * @date 2020/1/31 22:14
