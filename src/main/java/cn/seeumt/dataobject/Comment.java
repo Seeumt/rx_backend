@@ -1,8 +1,11 @@
 package cn.seeumt.dataobject;
 
+import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.util.Date;
 
 public class Comment {
+    @TableId
     private String commentId;
 
     private Byte type;

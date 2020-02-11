@@ -1,10 +1,11 @@
 package cn.seeumt.dao;
 
 import cn.seeumt.dataobject.Comment;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 
-public interface CommentMapper {
+public interface CommentMapper extends BaseMapper<Comment> {
     int deleteByPrimaryKey(String commentId);
 
     int insert(Comment record);

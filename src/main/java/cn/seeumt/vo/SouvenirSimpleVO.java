@@ -17,4 +17,5 @@ public class SouvenirSimpleVO {
     private String mainImage;
     private BigDecimal price;
     private Integer status;
+    private Integer sales;
 }

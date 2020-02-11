@@ -2,6 +2,7 @@ package cn.seeumt.controller;
 
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
+import cn.seeumt.dto.PostListDataItem;
 import cn.seeumt.model.Comment;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.service.CommentService;
@@ -12,6 +13,7 @@ import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -24,6 +26,20 @@ public class PostController {
 
     @Autowired
     private CommentService commentService;
+
+
+    @GetMapping("/")
+    public ResultVO list(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId) {
+
+//        PostListDataItem followList = postService.listFollowList(userId);
+//        PostListDataItem recommendList = postService.listRecommendList(userId);
+//        List<PostListDataItem> postListDataItems = new ArrayList<>();
+//        postListDataItems.add(followList);
+//        postListDataItems.add(recommendList);
+        List<PostListDataItem> postListDataItems = postService.listFollowAndRecommendData(userId);
+        return ResultVO.success(postListDataItems);
+    }
+
 
 
     @PostMapping("/")

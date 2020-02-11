@@ -2,8 +2,6 @@ package cn.seeumt.controller;
 
 
 import cn.seeumt.dataobject.Article;
-import cn.seeumt.dataobject.City;
-import cn.seeumt.dataobject.Tag;
 import cn.seeumt.dto.ArticleDTO;
 
 import cn.seeumt.model.Comment;
@@ -16,14 +14,10 @@ import cn.seeumt.vo.CityVO;
 import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -37,7 +31,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
     @Autowired
-    private ArticleTagsService articleTagsService;
+    private MediaTagsService mediaTagsService;
     @Autowired
     private TagService tagService;
     @Autowired
@@ -50,7 +44,7 @@ public class ArticleController {
     @GetMapping("/{articleId}")
     public ArticleDTO findAnArticle(@PathVariable String articleId) {
         ArticleDTO articleDTO = new ArticleDTO();
-        List<String> tagIds = articleTagsService.findTagIdsByArticleId(articleId);
+        List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
         List<TagVO> tagVOS = tagService.findByTagIds(tagIds);
         articleDTO.setTagVOS(tagVOS);
         List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);

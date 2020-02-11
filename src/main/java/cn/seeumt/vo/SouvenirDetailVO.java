@@ -19,6 +19,7 @@ public class SouvenirDetailVO {
     private String subImages;
     private String detail;
     private BigDecimal price;
+    private Integer sales;
     private Integer stock;
     private Integer status;
     private String createTime;

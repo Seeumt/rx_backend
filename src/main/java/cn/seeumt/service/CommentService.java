@@ -45,5 +45,14 @@ public interface CommentService {
      */
     List<cn.seeumt.model.Comment > findNextLevelCommentsByParentId(String parentId);
 
+
+    /**
+     * 通过根id 找到属于其的子评论数字
+     * @param rootId
+     * @param type
+     * @return
+     */
+    List<Comment> selectCommentCountByRootIdAndType(String rootId, Byte type);
+
 }
 

@@ -2,6 +2,7 @@ package cn.seeumt.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -25,6 +26,7 @@ public class SouvenirDTO implements Serializable {
      * 纪念品id
      */
     @TableId(value = "souvenir_id", type = IdType.AUTO)
+    @JsonProperty("goods_id")
     private Integer souvenirId;
 
     /**
@@ -45,6 +47,7 @@ public class SouvenirDTO implements Serializable {
     /**
      * 主图url相对地址
      */
+    @JsonProperty("img")
     private String mainImage;
 
     /**
@@ -65,7 +68,14 @@ public class SouvenirDTO implements Serializable {
     /**
      * 库存
      */
+    @JsonProperty("slogan")
     private Integer stock;
+
+    /**
+     * 销量
+     */
+    private Integer sales;
+
 
     /**
      * 景区id

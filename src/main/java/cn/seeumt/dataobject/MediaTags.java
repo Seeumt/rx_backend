@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
  * @since 2019-12-21
  */
 @Data
-public class ArticleTags implements Serializable {
+public class MediaTags implements Serializable {
 
     private static final long serialVersionUID = 6664434480377854121L;
 
@@ -27,14 +27,14 @@ public class ArticleTags implements Serializable {
     private String id;
 
     /**
-     * //文章对应的标签的id
+     * //对应的标签的id
      */
     private String tagId;
 
     /**
-     * //文章的id
+     * //父id
      */
-    private String articleId;
+    private String parentId;
 
 
 }

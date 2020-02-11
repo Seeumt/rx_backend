@@ -1,6 +1,6 @@
 package cn.seeumt.service;
 
-import cn.seeumt.dataobject.ArticleTags;
+import cn.seeumt.dataobject.Follow;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -11,9 +11,8 @@ import java.util.List;
  * </p>
  *
  * @author Seeumt
- * @since 2019-12-21
+ * @since 2020-02-10
  */
-public interface ArticleTagsService{
-
-    List<String> findTagIdsByArticleId(String articleId);
+public interface FollowService extends IService<Follow> {
+    List<Follow> getAllLiker(String userId);
 }

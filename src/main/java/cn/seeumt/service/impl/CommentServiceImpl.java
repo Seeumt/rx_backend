@@ -6,6 +6,7 @@ import cn.seeumt.dataobject.Comment;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.UuidUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +49,13 @@ public class CommentServiceImpl implements CommentService {
             comments.add(commentModel);
         }
         return comments;
+    }
+
+    @Override
+    public List<Comment> selectCommentCountByRootIdAndType(String rootId, Byte type) {
+        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        wrapper.eq("api_root_id", rootId).eq("type", type);
+        return commentMapper.selectList(wrapper);
     }
 
     @Override

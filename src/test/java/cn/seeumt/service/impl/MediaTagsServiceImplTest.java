@@ -1,8 +1,7 @@
 package cn.seeumt.service.impl;
 
 
-import cn.seeumt.dao.ArticleTagsMapper;
-import cn.seeumt.service.ArticleTagsService;
+import cn.seeumt.service.MediaTagsService;
 import com.alibaba.fastjson.JSONArray;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -21,15 +20,15 @@ import java.util.List;
  */
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class ArticleTagsServiceImplTest {
+public class MediaTagsServiceImplTest {
     @Autowired
 
-    private ArticleTagsService articleTagsService;
+    private MediaTagsService mediaTagsService;
     @Test
-    public void findTagIdsByArticleId() {
+    public void findTagIdsByParentId() {
 
-        List<String> tagIdsByArticleId = articleTagsService.findTagIdsByArticleId("123456789");
-        System.out.println(tagIdsByArticleId);
+        List<String> tagIdsByParentId = mediaTagsService.findTagIdsByParentId("227b8b1afb43408897d1dbb81eaa2ab9");
+        System.out.println(tagIdsByParentId);
     }
     @Test
     public void TestString(){

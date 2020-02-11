@@ -37,8 +37,7 @@ public class OssController {
     private OssService ossService;
 
     @PostMapping("/insert")
-    @ResponseBody
-    public ResultVO fileUpload(@RequestPart("oss") MultipartFile[] files, String parentId) throws IOException {
+    public ResultVO fileUpload(@RequestPart("file") MultipartFile[] files, String parentId) throws IOException {
         List<String> urlList = new ArrayList<>();
         for (MultipartFile file : files) {
             String originUrl = AliyunOssUtil.getOriginUrl(file);

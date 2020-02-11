@@ -71,6 +71,11 @@ public class Souvenir implements Serializable {
     private Integer stock;
 
     /**
+     * 销量
+     */
+    private Integer sales;
+
+    /**
      * 景区id
      */
     private String scenicId;

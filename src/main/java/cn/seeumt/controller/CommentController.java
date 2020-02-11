@@ -23,7 +23,7 @@ public class CommentController {
     @GetMapping("/")
     public int commentForComment(String commentId,
                         String apiRootId,
-                        @RequestParam(value = "type",defaultValue ="6" ) Byte type,
+                        @RequestParam(value = "type",defaultValue ="3" ) Byte type,
                         String userId,String content) {
        return commentService.comment(apiRootId, userId, content, type, commentId);
     }
@@ -31,7 +31,7 @@ public class CommentController {
 
     @GetMapping("/root")
     public int commentForRoot(String apiRootId,
-                              @RequestParam(value = "type",defaultValue ="6" ) Byte type,
+                              @RequestParam(value = "type",defaultValue ="3" ) Byte type,
                               String userId,String content) {
         return commentService.commentForRoot(apiRootId, userId, content, type);
 

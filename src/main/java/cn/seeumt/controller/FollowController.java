@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author Seeumt
- * @since 2019-12-21
+ * @since 2020-02-10
  */
 @RestController
-@RequestMapping("/seeumt/article-tags")
-public class ArticleTagsController {
+@RequestMapping("/seeumt/follow")
+public class FollowController {
 
 }

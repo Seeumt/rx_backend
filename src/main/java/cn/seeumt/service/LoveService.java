@@ -1,5 +1,6 @@
 package cn.seeumt.service;
 
+import cn.seeumt.dataobject.Comment;
 import cn.seeumt.dataobject.Love;
 
 import java.util.List;
@@ -33,6 +34,8 @@ public interface LoveService {
      * @return 一条love记录
      */
     Love selectByApiRootIdAndUserId(String apiRootId, String userId);
+
+    List<Love> selectThumbCountByRootIdAndType(String rootId, Byte type);
 
 
 

@@ -89,6 +89,13 @@ public class LoveServiceImpl implements LoveService {
         return love;
     }
 
+    @Override
+    public List<Love> selectThumbCountByRootIdAndType(String rootId, Byte type) {
+        QueryWrapper<Love> wrapper = new QueryWrapper<>();
+        wrapper.eq("api_root_id", rootId).eq("type", type);
+        return loveMapper.selectList(wrapper);
+    }
+
 
 //    public int addLove(String userId,String loveId) {
 //        Love love = loveMapper.selectByLoveId(loveId);

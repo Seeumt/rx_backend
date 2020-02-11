@@ -1,6 +1,6 @@
 package cn.seeumt.dao;
 
-import cn.seeumt.dataobject.ArticleTags;
+import cn.seeumt.dataobject.Follow;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author Seeumt
- * @since 2019-12-21
+ * @since 2020-02-10
  */
-public interface ArticleTagsMapper extends BaseMapper<ArticleTags> {
+public interface FollowMapper extends BaseMapper<Follow> {
 
 }

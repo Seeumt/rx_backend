@@ -39,16 +39,6 @@ public class SouvenirController {
     }
 
 
-//    @GetMapping("/")
-//    @ResponseBody
-//    public ResultVO query(@RequestParam(value = "keywords",required = false)String keywords,
-//                                   @RequestParam(value = "categoryId",required = false)Integer categoryId,
-//                                   @RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-//                                   @RequestParam(value = "pageSize",defaultValue = "12") int pageSize,
-//                                   @RequestParam(value = "orderBy",defaultValue = "") String orderBy){
-//        return souvenirService.getProductByKeywordCategory(keywords,categoryId,pageNum,pageSize,orderBy);
-//    }
-
     @PostMapping("/")
     @ResponseBody
     public ResultVO saveOrUpdate(Souvenir souvenir, @RequestPart("pics") MultipartFile[] pics){
