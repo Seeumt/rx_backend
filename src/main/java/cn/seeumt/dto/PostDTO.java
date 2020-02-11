@@ -33,7 +33,7 @@ public class PostDTO {
 //    private Integer commentCount;
 //    @JsonProperty("collectCount")
 //    private Integer treasureCount;
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
 
     private LoveVO love;

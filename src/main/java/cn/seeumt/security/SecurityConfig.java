@@ -75,6 +75,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 测试用资源，需要验证了的用户才能访问
                 .antMatchers("/articles/**").authenticated()
                 .antMatchers("/articles/**").hasAuthority("ROLE_STU")
+//                .antMatchers("/follows/**").authenticated()
+//                .antMatchers("/follows/**").hasAuthority("ROLE_STU")
                 .antMatchers("http://localhost:8086/swagger-ui.html").permitAll()
                 // 其他都XX(放行、需认证)了
                 .anyRequest().permitAll()

@@ -15,6 +15,6 @@ import java.util.List;
  * @since 2019-12-21
  */
 public interface TagService{
-    List<TagVO> findByTagIds(List<String> tagIds);
+    List<TagVO> findTagVOByTagIds(List<String> tagIds);
 
 }

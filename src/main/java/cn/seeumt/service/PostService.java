@@ -4,6 +4,7 @@ package cn.seeumt.service;
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
+import cn.seeumt.vo.ResultVO;
 
 import java.util.List;
 
@@ -11,7 +12,9 @@ public interface PostService{
 
     List<PostListDataItem> listFollowAndRecommendData(String userId);
 
-    PostListDataItem listFollowList(String userId);
+    ResultVO listFollowList(String userId);
+
+    ResultVO listNotFollowList(String userId);
 
     PostListDataItem listRecommendList(String userId);
 
@@ -31,7 +34,6 @@ public interface PostService{
 
 
     Post selectByUserId(String userId);
-
 }
 
 

@@ -1,5 +1,6 @@
 package cn.seeumt.dto;
 
+import com.github.pagehelper.PageInfo;
 import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,4 +21,15 @@ public class PostListDataItem {
      */
     private Integer id;
     private Set<PostDTO> posts;
+    private PageInfo pageInfo;
+
+    public PostListDataItem(Integer id, Set<PostDTO> posts) {
+        this.id = id;
+        this.posts = posts;
+    }
+
+    public PostListDataItem(Integer id, PageInfo pageInfo) {
+        this.id = id;
+        this.pageInfo = pageInfo;
+    }
 }

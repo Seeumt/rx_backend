@@ -28,7 +28,7 @@ public class TagServiceImpl implements TagService {
     private TagMapper tagMapper;
 
     @Override
-    public List<TagVO> findByTagIds(List<String> tagIds) {
+    public List<TagVO> findTagVOByTagIds(List<String> tagIds) {
         List<Tag> tags = tagMapper.selectBatchIds(tagIds);
         List<TagVO> tagVOS = new ArrayList<>();
         for (Tag tag : tags) {

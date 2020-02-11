@@ -21,6 +21,6 @@ public class FollowServiceImplTest {
     private FollowService followService;
     @Test
     public void getAllLiker() {
-        System.out.println(followService.getAllLiker("seeumt").size());
+        System.out.println(followService.getAllIdol("seeumt").size());
     }
 }

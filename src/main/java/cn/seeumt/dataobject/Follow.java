@@ -35,7 +35,7 @@ public class Follow implements Serializable {
     /**
      * 关注者id
      */
-    private String followerId;
+    private String idolId;
 
     /**
      * 正在关注

@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Follow;
+import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -14,5 +15,7 @@ import java.util.List;
  * @since 2020-02-10
  */
 public interface FollowService extends IService<Follow> {
-    List<Follow> getAllLiker(String userId);
+    List<Follow> getAllIdol(String userId);
+
+    ResultVO add(String userId, String idolId);
 }

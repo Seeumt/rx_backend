@@ -28,7 +28,7 @@ public class TagServiceImplTest {
     public void findByTagIds() {
         String[] tagIdsArr = {"1", "2", "3", "5"};
         List<String> tagIdsList = Arrays.asList(tagIdsArr);
-        List<TagVO> tagVOS = tagService.findByTagIds(tagIdsList);
+        List<TagVO> tagVOS = tagService.findTagVOByTagIds(tagIdsList);
         System.out.println(tagVOS);
     }
 }

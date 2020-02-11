@@ -30,16 +30,22 @@ public class PostController {
 
     @GetMapping("/")
     public ResultVO list(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId) {
-
-//        PostListDataItem followList = postService.listFollowList(userId);
-//        PostListDataItem recommendList = postService.listRecommendList(userId);
-//        List<PostListDataItem> postListDataItems = new ArrayList<>();
-//        postListDataItems.add(followList);
-//        postListDataItems.add(recommendList);
         List<PostListDataItem> postListDataItems = postService.listFollowAndRecommendData(userId);
         return ResultVO.success(postListDataItems);
     }
 
+    @GetMapping("/{type}/{userId}")
+    public ResultVO listAlone(@PathVariable("type") Integer type, @PathVariable("userId") String userId) {
+        if (!"".equals(userId)) {
+            if (type == 0) {
+                return postService.listFollowList(userId);
+            } else if (type == 1) {
+                return postService.listNotFollowList(userId);
+            }
+            return ResultVO.error(0, "参数错误！");
+        }
+        return ResultVO.error(0, "用户id不能为空！");
+    }
 
 
     @PostMapping("/")
