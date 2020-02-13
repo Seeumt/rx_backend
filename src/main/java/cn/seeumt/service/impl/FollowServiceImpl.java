@@ -49,4 +49,15 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
         }
         return ResultVO.success(123, "关注成功！");
     }
+
+    @Override
+    public ResultVO isIdol(String idolId, String userId) {
+        QueryWrapper<Follow> wrapper = new QueryWrapper<>();
+        wrapper.eq("idol_id", idolId).eq("user_id", userId);
+        Follow follow = followMapper.selectOne(wrapper);
+        if (follow == null) {
+            return ResultVO.success(false);
+        }
+        return ResultVO.success(true);
+    }
 }

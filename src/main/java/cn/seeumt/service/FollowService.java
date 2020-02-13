@@ -18,4 +18,6 @@ public interface FollowService extends IService<Follow> {
     List<Follow> getAllIdol(String userId);
 
     ResultVO add(String userId, String idolId);
+
+    ResultVO isIdol(String idolId, String userId);
 }

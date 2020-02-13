@@ -20,6 +20,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -43,6 +44,12 @@ public class PostServiceImpl implements PostService {
     private MediaTagsService mediaTagsService;
 
 
+    @Override
+    public ResultVO get(String postId) {
+        Post post = postMapper.selectById(postId);
+        PostDTO postDTO = assemblePostDTO(post);
+        return ResultVO.success(postDTO);
+    }
 
     @Override
     public List<PostListDataItem> listFollowAndRecommendData(String userId) {

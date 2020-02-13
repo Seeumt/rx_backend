@@ -1,6 +1,7 @@
 package cn.seeumt.controller;
 
 
+import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.form.Follow;
 import cn.seeumt.service.FollowService;
 import cn.seeumt.vo.ResultVO;
@@ -26,6 +27,19 @@ public class FollowController {
     @PostMapping("/")
     public ResultVO follow(@RequestBody Follow follow) {
         return followService.add(follow.getUserId(), follow.getIdolId());
+    }
+
+    @GetMapping("/{idolId}")
+    public ResultVO isIdol(@PathVariable("idolId") String idolId,
+                            String userId) {
+        if ("".equals(idolId)) {
+            return ResultVO.error(TipsFlash.NULL_ARGUMENT);
+        }else{
+            if ("".equals(userId)) {
+                return ResultVO.success(false);
+            }
+            return followService.isIdol(idolId, userId);
+        }
     }
 
 

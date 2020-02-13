@@ -10,6 +10,8 @@ import java.util.List;
 
 public interface PostService{
 
+    ResultVO get(String postId);
+
     List<PostListDataItem> listFollowAndRecommendData(String userId);
 
     ResultVO listFollowList(String userId);
