@@ -1,4 +1,5 @@
 package cn.seeumt.service.impl;
+import java.util.Date;
 import java.util.*;
 
 import cn.seeumt.dao.PostMapper;
@@ -9,6 +10,8 @@ import cn.seeumt.dataobject.User;
 import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
+import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.*;
 import cn.seeumt.utils.UuidUtil;
@@ -18,10 +21,12 @@ import cn.seeumt.vo.UserVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.base.Splitter;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -228,16 +233,35 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public int sendPost() {
+    @Transactional(rollbackFor = TipsException.class)
+    public ResultVO send(cn.seeumt.form.Post formPost) {
+        String tagIds = formPost.getTagIds();
+        String postId = UuidUtil.getUUID();
+        List<String> tagIdList = Splitter.on(",").splitToList(tagIds);
+        if (CollectionUtils.isEmpty(tagIdList)) {
+            insertPost(formPost, postId);
+        } else {
+            insertPost(formPost,postId);
+            mediaTagsService.insert(tagIdList,postId);
+        }
+        return ResultVO.success(postId);
+    }
+
+    public void insertPost(cn.seeumt.form.Post formPost,String postId) {
         Post post = new Post();
-        post.setPostId(UuidUtil.getUUID());
-        post.setType(true);
-        post.setImgId(UuidUtil.getUUID());
-        post.setUserId("Seeumt");
+        post.setPostId(postId);
+        post.setType(formPost.getType());
+        post.setContent(formPost.getContent());
+        post.setImgId("66");
+        post.setUserId(formPost.getUserId());
         post.setCreateTime(new Date());
         post.setUpdateTime(new Date());
         post.setDeleted(false);
-        return postMapper.insert(post);
+        int insert = postMapper.insert(post);
+        if (insert < 1) {
+            throw new TipsException(TipsFlash.INSERT_POST_FAILED);
+        }
+
     }
 
     @Override
@@ -246,6 +270,15 @@ public class PostServiceImpl implements PostService {
         wrapper.eq("user_id", userId);
         return postMapper.selectOne(wrapper);
 
+    }
+
+    @Override
+    public ResultVO delete(String postId) {
+        int i = postMapper.deleteById(postId);
+        if (i < 1) {
+           throw new TipsException(TipsFlash.DELETED_FAILED);
+        }
+        return ResultVO.success(Tips.DELETED_SUCCESS);
     }
 
     public PostDTO assemblePostDTO(Post post) {

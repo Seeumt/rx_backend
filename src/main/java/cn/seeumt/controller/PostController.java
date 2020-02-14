@@ -20,7 +20,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/posts")
-@CrossOrigin(origins = {"*"},allowCredentials = "true")
+@CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
 public class PostController {
 
     @Autowired
@@ -30,6 +30,10 @@ public class PostController {
     @Autowired
     private FollowService followService;
 
+    @PostMapping("/")
+    public ResultVO send(@RequestBody cn.seeumt.form.Post post) {
+        return postService.send(post);
+    }
 
     @GetMapping("/{postId}")
     public ResultVO get(@PathVariable("postId") String postId) {
@@ -38,6 +42,16 @@ public class PostController {
         }
         return postService.get(postId);
     }
+
+    @DeleteMapping("/{postId}")
+    public ResultVO delete(@PathVariable("postId") String postId) {
+        if ("".equals(postId)) {
+            return ResultVO.error(TipsFlash.NULL_ARGUMENT);
+        }
+        return postService.delete(postId);
+    }
+
+
 
     @GetMapping("/")
     public ResultVO list(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId) {
@@ -60,10 +74,10 @@ public class PostController {
 
 
 
-    @PostMapping("/")
-    public int send() {
-        return postService.sendPost();
-    }
+//    @PostMapping("/")
+//    public int send() {
+//        return postService.sendPost();
+//    }
 
     @PostMapping("/detail")
     public ResultVO find(String userId) {

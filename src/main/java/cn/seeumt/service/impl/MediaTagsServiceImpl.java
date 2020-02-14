@@ -2,7 +2,10 @@ package cn.seeumt.service.impl;
 
 import cn.seeumt.dataobject.MediaTags;
 import cn.seeumt.dao.MediaTagsMapper;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.MediaTagsService;
+import cn.seeumt.utils.UuidUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +33,17 @@ public class MediaTagsServiceImpl implements MediaTagsService {
         return tagIds;
     }
 
+    @Override
+    public void insert(List<String> tagIdList, String parentId) {
+        for (String tagId : tagIdList) {
+            String id = UuidUtil.getUUID();
+            MediaTags mediaTags = new MediaTags(id, tagId, parentId);
+            int insert = mediaTagsMapper.insert(mediaTags);
+            if (insert < 1) {
+                throw new TipsException(TipsFlash.INSERT_MEDIA_TAGS_FAILED);
+            }
+        }
+    }
 
 
 }

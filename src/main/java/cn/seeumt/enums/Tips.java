@@ -24,7 +24,8 @@ public enum Tips implements CodeEnum {
     THIRD_OAUTH_FAIL(10002, "第三方授权登录失败"),
     WEIXIN(20001, "weixin"),
     WEIBO(20002,"weibo"),
-    QQ(20003,"qq")
+    QQ(20003,"qq"),
+    DELETED_SUCCESS(10007, "删除成功"),
     ;
 
     /**

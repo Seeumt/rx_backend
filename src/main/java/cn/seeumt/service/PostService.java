@@ -32,10 +32,13 @@ public interface PostService{
      * 发布动态
      * @return int
      */
-    int sendPost();
+    ResultVO send(cn.seeumt.form.Post post);
 
 
     Post selectByUserId(String userId);
+
+    ResultVO delete(String postId);
+
 }
 
 

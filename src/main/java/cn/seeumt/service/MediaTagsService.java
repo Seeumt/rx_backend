@@ -13,4 +13,6 @@ import java.util.List;
 public interface MediaTagsService {
 
     List<String> findTagIdsByParentId(String parentId);
+
+    void insert(List<String> tagIdList,String parentId);
 }

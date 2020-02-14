@@ -23,6 +23,11 @@ public enum TipsFlash implements CodeEnum {
     NULL_ARGUMENT(70003, "参数为空"),
     CLEAN_CART_FAILED(70004, "清空购物车失败"),
     CATEGORY_QUERY_FAILED(80001, "目录查询失败"),
+    DELETED_FAILED(10008, "删除失败"),
+    INSERT_MEDIA_TAGS_FAILED(5001, "插入标签失败"),
+    INSERT_POST_FAILED(30001, "新建动态失败"),
+
+
 
 
 

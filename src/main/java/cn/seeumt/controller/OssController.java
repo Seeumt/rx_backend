@@ -47,7 +47,6 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
-    @ResponseBody
     @PostMapping("/imgs/{parentId}")
     public ResultVO getPicture(@PathVariable("parentId") String parentId) {
         ImgDTO imgDTO = ossService.queryByParentId(parentId);
