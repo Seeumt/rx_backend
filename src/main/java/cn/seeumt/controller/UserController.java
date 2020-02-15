@@ -1,11 +1,15 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.dataobject.User;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.form.*;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.UserDetail;
+import cn.seeumt.security.exception.VaildCodeException;
+import cn.seeumt.security.loginmodel.Otp;
 import cn.seeumt.service.*;
 import cn.seeumt.utils.*;
 import cn.seeumt.vo.ResultVO;
@@ -65,25 +69,25 @@ public class UserController {
         JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
         String openId = SessionKeyAndOpenId.getString("openid");
         mpwxUserInfo.setOpenId(openId);
-//        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+        String sessionKey = SessionKeyAndOpenId.getString("session_key");
         UserDetail userDetail = authService.mpLogin(mpwxUserInfo);
         return ResultVO.success(userDetail,"登录成功");
     }
 
 
-
     @PostMapping("/otpLogin")
-    @ApiOperation(value = "Otp 手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
-    public UserDetail otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
+    @ApiOperation(value = "Otp 手机验证码登录", notes = "在过滤器中进行校验otpCode是否合法", httpMethod = "GET")
+    public ResultVO otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
         String telephone = (String) httpSession.getAttribute("telephone");
-        return authService.otpLogin(telephone);
+        UserDetail userDetail = authService.otpLogin(telephone);
+        return ResultVO.success(userDetail, "登录成功");
     }
 
     @PostMapping("/tpLogin")
-    @ApiOperation(value = "手机号密码登录",notes = "",httpMethod = "GET")
+    @ApiOperation(value = "手机号密码登录",notes = "",httpMethod = "POST")
     public ResultVO otpLogin(@Valid @RequestBody LoginUser loginUser) throws IOException, ServletRequestBindingException {
         UserDetail userDetail = authService.tpLogin(loginUser.getTelephone(), loginUser.getPassword());
-        return ResultVO.success(userDetail);
+        return ResultVO.success(userDetail,"登录成功");
     }
 
     @PostMapping(value = "/upLogin")
@@ -95,14 +99,22 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
-    @GetMapping(value = "/otp/{telephone}")
+    @GetMapping(value = "/otp/{telephone}/{code}")
     public ResultVO sendSms(
             @ApiParam(name = "telephone", value = "手机号", required = true)
-            @PathVariable String telephone) throws ClientException {
+            @PathVariable String telephone,
+            @PathVariable String code, HttpServletRequest httpServletRequest) throws ClientException {
+        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
+        String openId = SessionKeyAndOpenId.getString("openid");
+        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+        User user = userService.selectByTelephone(telephone);
+        if (user == null) {
+            return ResultVO.error(TipsFlash.TELEPHOEN_NOT_BINDED);
+        }
         OtpCode otpCode = OtpCode.createCode(600L);
-        httpSession.setAttribute(telephone, otpCode);
-        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
-        return ResultVO.success("验证码已发送!");
+        httpServletRequest.getSession().setAttribute(telephone, otpCode);
+//        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
+        return ResultVO.success(openId,"成功");
     }
 
     @PutMapping("/reset/pwd")
@@ -112,7 +124,7 @@ public class UserController {
         if (otpCode.getCode().equals(telLogin.getCode()) ) {
             userService.resetPwd(telLogin.getTelephone(), telLogin.getPassword());
         }
-        return ResultVO.success(200008, "修改密码成功！");
+        return ResultVO.success(20008, "修改密码成功！");
     }
 
     @PostMapping("/bind")

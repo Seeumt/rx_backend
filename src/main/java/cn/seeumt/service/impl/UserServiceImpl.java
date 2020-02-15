@@ -112,6 +112,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User selectByTelephone(String telephone) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("telephone", telephone);
+        return userMapper.selectOne(queryWrapper);
+    }
+
+    @Override
     public int bindTel(String openId, String telephone) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("open_id", openId);

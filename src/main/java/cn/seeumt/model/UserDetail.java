@@ -22,8 +22,17 @@ public class UserDetail implements UserDetails {
     private String openId;
     private Boolean enabled;
     private Boolean locked;
+    private Boolean reseted;
     private String token;
     private String tokenType;
+
+    public Boolean getReseted() {
+        return reseted;
+    }
+
+    public void setReseted(Boolean reseted) {
+        this.reseted = reseted;
+    }
 
     public String getTokenType() {
         return tokenType;

@@ -16,9 +16,9 @@ public enum TipsFlash implements CodeEnum {
     ARTICLE_THUMB_FAILED(10002, "文章点赞失败"),
     ABNORMAL_THUMB(10003, "刚刚好像有外星人给你点赞了"),
     THUMB_FAILED(10004, "点赞系统报错了哟"),
-    ADD_TO_CART_FAILED(70001,"添加到购物车失败"),
-    ADD_TO_ORDER_MASTER_FAILED(60001,"添加到主订单失败"),
-    ADD_TO_ORDER_DETAIL_FAILED(60002,"添加到子订单失败"),
+    ADD_TO_CART_FAILED(70001, "添加到购物车失败"),
+    ADD_TO_ORDER_MASTER_FAILED(60001, "添加到主订单失败"),
+    ADD_TO_ORDER_DETAIL_FAILED(60002, "添加到子订单失败"),
     INVAILD_ARGUMENT(70002, "参数不合法"),
     NULL_ARGUMENT(70003, "参数为空"),
     CLEAN_CART_FAILED(70004, "清空购物车失败"),
@@ -26,9 +26,7 @@ public enum TipsFlash implements CodeEnum {
     DELETED_FAILED(10008, "删除失败"),
     INSERT_MEDIA_TAGS_FAILED(5001, "插入标签失败"),
     INSERT_POST_FAILED(30001, "新建动态失败"),
-
-
-
+    TELEPHOEN_NOT_BINDED(10009, "您尚未绑定该手机号"),
 
 
     ;

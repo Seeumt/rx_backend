@@ -46,6 +46,8 @@ public class User implements Serializable {
 
     private Boolean isRememberMe;
 
+    private Boolean reseted;
+
     private String openId;
 
 

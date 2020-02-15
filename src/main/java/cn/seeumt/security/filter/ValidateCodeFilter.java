@@ -45,14 +45,18 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
 
     private void validate(HttpServletRequest httpServletRequest) throws IOException {
         Otp otp = new ObjectMapper().readValue(httpServletRequest.getInputStream(), Otp.class);
-        OtpCode otpCode = (OtpCode) httpServletRequest.getSession().getAttribute(otp.getTelephone());
+        String telephone = otp.getTelephone();
+        System.out.println(telephone);
+        String validCode = otp.getValidCode();
+        System.out.println(validCode);
+        OtpCode otpCode = (OtpCode) httpServletRequest.getSession().getAttribute(telephone);
+        System.out.println(otpCode);
         if (otpCode == null) {
             throw new VaildCodeException("参数异常");
         }
         if (otpCode.getExpireTime().after(new Date())) {
-            if (otp.getVaildCode().equals(otpCode.getCode())) {
+            if (otp.getValidCode().equals(otpCode.getCode().toString())) {
                 httpServletRequest.getSession().setAttribute("telephone", otp.getTelephone());
-                httpServletRequest.getSession().removeAttribute(otp.getTelephone());
             }
             else {
                 throw new VaildCodeException("验证码错误");
