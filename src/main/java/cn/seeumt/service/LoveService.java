@@ -2,6 +2,7 @@ package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Comment;
 import cn.seeumt.dataobject.Love;
+import cn.seeumt.vo.ResultVO;
 
 import java.util.List;
 
@@ -11,12 +12,13 @@ import java.util.List;
  */
 public interface LoveService {
     /**
-     * 点赞功能 给article，post、comment点赞
+     * 点赞点踩功能 给article，post、comment点赞
      * @param apiRootId  articleId postId commentId
      * @param userId 点赞者的Id
-     * @return int
+     * @param type  点赞/点踩
+     * @return T/F
      */
-    Boolean addOrCancelLove(String apiRootId,String userId);
+    ResultVO addOrCancelLove(String apiRootId, String userId, Integer type);
 
     /**
      * 查询所有点赞者
@@ -33,9 +35,11 @@ public interface LoveService {
      * @param userId 用户id
      * @return 一条love记录
      */
-    Love selectByApiRootIdAndUserId(String apiRootId, String userId);
+    Love selectByApiRootIdAndUserIdAndType(String apiRootId, String userId,Byte type);
 
     List<Love> selectThumbCountByRootIdAndType(String rootId, Byte type);
+
+    List<Love> selectHateCountByRootIdAndType(String rootId, Byte type);
 
 
 

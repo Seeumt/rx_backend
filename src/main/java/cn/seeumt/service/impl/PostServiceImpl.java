@@ -5,6 +5,7 @@ import java.util.*;
 import cn.seeumt.dao.PostMapper;
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.Follow;
+import cn.seeumt.dataobject.Love;
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.dto.ImgDTO;
@@ -52,7 +53,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public ResultVO get(String postId) {
         Post post = postMapper.selectById(postId);
-        PostDTO postDTO = assemblePostDTO(post);
+        PostDTO postDTO = assemblePostDTO(post,null);
         return ResultVO.success(postDTO);
     }
 
@@ -74,7 +75,7 @@ public class PostServiceImpl implements PostService {
              for (Post post : posts) {
                 List<Boolean> trues = new ArrayList<>();
                 List<Boolean> falses = new ArrayList<>();
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
                   for (Follow idol : allIdol) {
                     if (idol.getIdolId().equals(post.getUserId())) {
                         trues.add(!isIdol);
@@ -93,7 +94,7 @@ public class PostServiceImpl implements PostService {
             }
         }else {
             for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
                 postDTO.setIsFollow(false);
                 notFollowSet.add(postDTO);
             }
@@ -133,7 +134,7 @@ public class PostServiceImpl implements PostService {
             for (Post post : posts) {
                 List<Boolean> trues = new ArrayList<>();
                 List<Boolean> falses = new ArrayList<>();
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
                 for (Follow idol : allIdol) {
                     if (idol.getIdolId().equals(post.getUserId())) {
                         trues.add(!isIdol);
@@ -152,7 +153,7 @@ public class PostServiceImpl implements PostService {
             }
         }else {
             for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
                 postDTO.setIsFollow(false);
                 notFollowSet.add(postDTO);
             }
@@ -174,7 +175,7 @@ public class PostServiceImpl implements PostService {
         if (!"".equals(userId)) {
             List<Follow> allIdol = followService.getAllIdol(userId);
             for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
               for (Follow idol : allIdol) {
                     if (!idol.getIdolId().equals(post.getUserId())) {
                         postDTO.setIsFollow(false);
@@ -189,7 +190,7 @@ public class PostServiceImpl implements PostService {
             recommendSet.addAll(followSet);
         }else {
             for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post);
+                PostDTO postDTO = assemblePostDTO(post,userId);
                         postDTO.setIsFollow(false);
                         recommendSet.add(postDTO);
             }
@@ -203,7 +204,7 @@ public class PostServiceImpl implements PostService {
         List<Follow> allIdol = followService.getAllIdol(userId);
         List<Post> posts = postMapper.selectList(null);
          for (Post post : posts) {
-            PostDTO postDTO = assemblePostDTO(post);
+            PostDTO postDTO = assemblePostDTO(post,userId);
             for (Follow idol : allIdol) {
                 if (idol.getIdolId().equals(post.getUserId())||post.getUserId().equals(userId)) {
                     postDTO.setIsFollow(true);
@@ -281,7 +282,16 @@ public class PostServiceImpl implements PostService {
         return ResultVO.success(Tips.DELETED_SUCCESS);
     }
 
-    public PostDTO assemblePostDTO(Post post) {
+    public PostDTO assemblePostDTO(Post post,String userId) {
+        LoveVO loveVO = new LoveVO();
+        if (userId != null) {
+            Love love = loveService.selectByApiRootIdAndUserIdAndType(post.getPostId(), userId, (byte) 3);
+            if (love == null) {
+                loveVO.setType("");
+            }else {
+                loveVO.setType(love.getLoginType());
+            }
+        }
         PostDTO postDTO = new PostDTO();
         BeanUtils.copyProperties(post, postDTO);
         User user = userMapper.selectById(post.getUserId());
@@ -303,11 +313,11 @@ public class PostServiceImpl implements PostService {
 
         }
         postDTO.setImgUrls(imgDTO.getUrls());
-        LoveVO loveVO = new LoveVO();
-        loveVO.setType("");
+
         loveVO.setLikeCount(loveService.selectThumbCountByRootIdAndType(post.getPostId(), (byte) 3).size());
-        loveVO.setHateCount(commentService.selectCommentCountByRootIdAndType(post.getPostId(), (byte) 3).size());
+        loveVO.setHateCount(loveService.selectHateCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         postDTO.setLove(loveVO);
+        postDTO.setCommentCount(commentService.selectCommentCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         List<String> tagsIds = mediaTagsService.findTagIdsByParentId(post.getPostId());
         if (tagsIds.size() == 0) {
             postDTO.setTags(null);

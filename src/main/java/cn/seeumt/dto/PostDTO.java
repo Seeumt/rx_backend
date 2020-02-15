@@ -37,7 +37,7 @@ public class PostDTO {
     private Date createTime;
 
     private LoveVO love;
-
+    private Integer commentCount;
     private List<Comment> comments;
     private List<Thumber> thumbers;
 }
