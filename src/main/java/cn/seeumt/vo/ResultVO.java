@@ -25,7 +25,7 @@ public class ResultVO implements Serializable {
     public static ResultVO success(Object object) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(0);
-        resultVO.setMsg("成-功");
+        resultVO.setMsg("成功");
         resultVO.setData(object);
         return resultVO;
     }

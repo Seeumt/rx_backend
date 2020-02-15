@@ -7,12 +7,10 @@ import cn.seeumt.model.CommentContent;
 import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.*;
-import cn.seeumt.utils.AliyunOssUtil;
-import cn.seeumt.utils.KeyUtil;
-import cn.seeumt.utils.UuidUtil;
-import cn.seeumt.utils.WechatUtil;
+import cn.seeumt.utils.*;
 import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSONObject;
+import com.aliyuncs.exceptions.ClientException;
 import com.sun.org.apache.bcel.internal.generic.DADD;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -77,7 +75,6 @@ public class UserController {
     @PostMapping("/otpLogin")
     @ApiOperation(value = "Otp 手机验证码登录",notes = "在过滤器中进行校验otpCode是否合法",httpMethod = "GET")
     public UserDetail otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
-        // TODO: 2020/2/2 这方法厉害
         String telephone = (String) httpSession.getAttribute("telephone");
         return authService.otpLogin(telephone);
     }
@@ -101,10 +98,11 @@ public class UserController {
     @GetMapping(value = "/otp/{telephone}")
     public ResultVO sendSms(
             @ApiParam(name = "telephone", value = "手机号", required = true)
-            @PathVariable String telephone) {
-        OtpCode otpCode = OtpCode.createCode(864000L);
+            @PathVariable String telephone) throws ClientException {
+        OtpCode otpCode = OtpCode.createCode(600L);
         httpSession.setAttribute(telephone, otpCode);
-        return ResultVO.success(otpCode);
+        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
+        return ResultVO.success("验证码已发送!");
     }
 
     @PutMapping("/reset/pwd")
