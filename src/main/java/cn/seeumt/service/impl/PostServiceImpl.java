@@ -289,7 +289,7 @@ public class PostServiceImpl implements PostService {
             if (love == null) {
                 loveVO.setType("");
             }else {
-                loveVO.setType(love.getLoginType());
+                loveVO.setType(love.getLoveType());
             }
         }
         PostDTO postDTO = new PostDTO();

@@ -29,5 +29,5 @@ public class Love {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String content;
 
-    private String loginType;
+    private String loveType;
 }

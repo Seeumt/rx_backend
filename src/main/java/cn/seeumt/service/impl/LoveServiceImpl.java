@@ -29,7 +29,7 @@ public class LoveServiceImpl implements LoveService {
     @Override
     public ResultVO addOrCancelLove(String apiRootId, String userId, Integer type) {
         Love aLove = selectByApiRootIdAndUserIdAndType(apiRootId, userId, (byte) 3);
-        //如果没有点过赞 成功点赞  改变love的status
+        //如果没有点过赞 成功啦！点赞  改变love的status
         if (aLove==null) {
             Love love = new Love();
             love.setLoveId(UuidUtil.getUUID());
@@ -42,18 +42,18 @@ public class LoveServiceImpl implements LoveService {
             if (Tips.POST_THUMB.getCode().equals(type)) {
                 love.setType((byte)(Tips.POST_THUMB.getCode().intValue()));
                 love.setEnabled(true);
-                love.setLoginType(Tips.POST_THUMB.getMsg());
+                love.setLoveType(Tips.POST_THUMB.getMsg());
             }else {
                 love.setType((byte)(Tips.POST_HATE.getCode().intValue()));
                 love.setEnabled(false);
-                love.setLoginType(Tips.POST_HATE.getMsg());
+                love.setLoveType(Tips.POST_HATE.getMsg());
             }
-            System.out.println(love.getLoginType());
+            System.out.println(love.getLoveType());
             int insert = loveMapper.insert(love);
             if (insert < 1) {
                 throw new TipsException(TipsFlash.TH_FAILED);
             }
-            return ResultVO.success("成功");
+            return ResultVO.success("成功啦！");
         }
         //如果点过了赞，再点就是取消
         else if (aLove.getStatus()) {
@@ -61,7 +61,7 @@ public class LoveServiceImpl implements LoveService {
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);
             if (i == 1) {
-                return ResultVO.success("成功");
+                return ResultVO.success("成功啦！");
             } else {
                 throw new TipsException(TipsFlash.TH_FAILED);
             }
@@ -70,7 +70,7 @@ public class LoveServiceImpl implements LoveService {
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);
             if (i == 1) {
-                return ResultVO.success("成功");
+                return ResultVO.success("成功啦！");
             } else {
                 throw new TipsException(TipsFlash.TH_FAILED);
             }
@@ -106,7 +106,7 @@ public class LoveServiceImpl implements LoveService {
     public List<Love> selectThumbCountByRootIdAndType(String rootId, Byte type) {
         QueryWrapper<Love> wrapper = new QueryWrapper<>();
         wrapper.eq("api_root_id", rootId).eq("type", type)
-        .eq("status",true).eq("enabled",true);
+        .eq("status",true).eq("love_type",Tips.POST_THUMB.getMsg());
         return loveMapper.selectList(wrapper);
     }
 
@@ -114,8 +114,31 @@ public class LoveServiceImpl implements LoveService {
     public List<Love> selectHateCountByRootIdAndType(String rootId, Byte type) {
         QueryWrapper<Love> wrapper = new QueryWrapper<>();
         wrapper.eq("api_root_id", rootId).eq("type", type)
-                .eq("status",true).eq("enabled",false);
+                .eq("status",true).eq("love_type",Tips.POST_HATE.getMsg());
         return loveMapper.selectList(wrapper);
+    }
+
+    @Override
+    public ResultVO changeLoveType(String apiRootId, String userId, Byte type) {
+        Love love = selectByApiRootIdAndUserIdAndType(apiRootId, userId, type);
+        String loveType = love.getLoveType();
+        if (Tips.POST_THUMB.getMsg().equals(loveType)) {
+            love.setLoveType(Tips.POST_HATE.getMsg());
+            int i = loveMapper.updateById(love);
+            if (i < 1) {
+                throw new TipsException(TipsFlash.TH_FAILED);
+            }
+            return ResultVO.success("成功啦");
+        }else if (Tips.POST_HATE.getMsg().equals(loveType)){
+            love.setLoveType(Tips.POST_THUMB.getMsg());
+            int i = loveMapper.updateById(love);
+            if (i < 1) {
+                throw new TipsException(TipsFlash.TH_FAILED);
+            }
+            return ResultVO.success("成功啦");
+
+        }
+        throw new TipsException(TipsFlash.TH_FAILED);
     }
 
 

@@ -42,6 +42,5 @@ public interface LoveService {
     List<Love> selectHateCountByRootIdAndType(String rootId, Byte type);
 
 
-
-
+    ResultVO changeLoveType(String apiRootId, String userId, Byte type);
 }

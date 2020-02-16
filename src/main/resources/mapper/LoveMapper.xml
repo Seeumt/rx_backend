@@ -11,10 +11,10 @@
     <result column="user_id" jdbcType="VARCHAR" property="userId" />
     <result column="api_root_id" jdbcType="VARCHAR" property="apiRootId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="login_type" jdbcType="VARCHAR" property="loginType" />
+    <result column="love_type" jdbcType="VARCHAR" property="loveType" />
   </resultMap>
   <sql id="Base_Column_List">
-    love_id, type, status, create_time, update_time, enabled, user_id, api_root_id, content,login_type
+    love_id, type, status, create_time, update_time, enabled, user_id, api_root_id, content,love_type
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select
@@ -29,11 +29,11 @@
   <insert id="insert" parameterType="cn.seeumt.dataobject.Love">
     insert into love (love_id, type, status,
       create_time, update_time, enabled,
-      user_id, api_root_id, content,login_type
+      user_id, api_root_id, content,love_type
       )
     values (#{loveId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{status,jdbcType=BIT},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT},
-      #{userId,jdbcType=VARCHAR}, #{apiRootId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{loginType,jdbcType=VARCHAR}
+      #{userId,jdbcType=VARCHAR}, #{apiRootId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{loveType,jdbcType=VARCHAR}
       )
   </insert>
   <select id="selectByApiRootId" parameterType="java.lang.String" resultMap="BaseResultMap">
