@@ -20,4 +20,6 @@ public interface CarouselService {
      * @return
      */
     List<Carousel> getCarousels();
+
+    List<Carousel> getCarouselsByParentId(String parentId);
 }

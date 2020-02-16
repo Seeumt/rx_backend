@@ -31,23 +31,18 @@ public class SouvenirController {
     private SouvenirService souvenirService;
 
     @GetMapping("/")
-    @ResponseBody
-    public ResultVO list(@RequestParam(value = "pageNum",defaultValue = "1") int pageNum,
-                                           @RequestParam(value = "pageSize",defaultValue = "3")int pageSize) {
-        PageHelper.startPage(pageNum, pageSize);
-        return ResultVO.success(new PageInfo<>(souvenirService.listSimpleVO()));
+    public ResultVO list() {
+        return ResultVO.success(souvenirService.listSimpleVO());
     }
 
 
     @PostMapping("/")
-    @ResponseBody
     public ResultVO saveOrUpdate(Souvenir souvenir, @RequestPart("pics") MultipartFile[] pics){
         return souvenirService.saveOrUpdateProduct(souvenir,pics);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{souvenirId}")
-    @ResponseBody
     public ResultVO delete(@PathVariable Integer souvenirId){
         if (souvenirId == null) {
             ResultVO.error("参数不能为空");

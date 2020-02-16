@@ -28,10 +28,10 @@ public class Carousel implements Serializable {
     private String carouselId;
 
     /**
-     * 图片所属图片 id
+     * 所属id
 
      */
-    private String articleId;
+    private String parentId;
 
     /**
      * 用户 id

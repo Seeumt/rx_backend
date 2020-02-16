@@ -29,4 +29,11 @@ public class CarouselServiceImpl implements CarouselService {
         wrapper.eq("deleted",0);
         return carouselMapper.selectList(wrapper);
     }
+
+    @Override
+    public List<Carousel> getCarouselsByParentId(String parentId) {
+        QueryWrapper<Carousel> wrapper = new QueryWrapper<>();
+        wrapper.eq("deleted",0).eq("parent_id",parentId);
+        return carouselMapper.selectList(wrapper);
+    }
 }

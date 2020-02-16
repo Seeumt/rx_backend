@@ -86,6 +86,7 @@ public class SouvenirServiceImpl extends ServiceImpl<SouvenirMapper, Souvenir> i
         return souvenirList.stream().map(souvenir -> {
             SouvenirSimpleVO souvenirSimpleVO = new SouvenirSimpleVO();
             BeanUtils.copyProperties(souvenir, souvenirSimpleVO);
+            souvenirSimpleVO.setNumber(1);
             return souvenirSimpleVO;
         }).collect(Collectors.toList());
     }
