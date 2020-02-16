@@ -1,4 +1,7 @@
 package cn.seeumt.service.impl;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
+import cn.seeumt.vo.ResultVO;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,5 +77,14 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
         imgDTO.setUrls(urlss);
 
         return imgDTO;
+    }
+
+    @Override
+    public ResultVO deleteByOssId(String ossId) {
+        int i = ossMapper.deleteById(ossId);
+        if (i < 1) {
+            throw new TipsException(TipsFlash.DELETE_OSS_FAILED);
+        }
+        return ResultVO.success("跟你说了再见");
     }
 }

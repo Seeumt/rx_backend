@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
 
 
     @Override
-    public ResultVO get(String postId) {
+    public ResultVO getDto(String postId) {
         Post post = postMapper.selectById(postId);
         PostDTO postDTO = assemblePostDTO(post,null);
         return ResultVO.success(postDTO);
@@ -280,6 +280,36 @@ public class PostServiceImpl implements PostService {
            throw new TipsException(TipsFlash.DELETED_FAILED);
         }
         return ResultVO.success(Tips.DELETED_SUCCESS);
+    }
+
+    @Override
+    public ResultVO get(String postId) {
+        Post post = postMapper.selectById(postId);
+        if (post == null) {
+            return ResultVO.error("无结果");
+        }
+        return ResultVO.success(post);
+    }
+
+    @Override
+    public ResultVO updateContent(String postId, String content) {
+        Post post = postMapper.selectById(postId);
+        if (post == null) {
+            return ResultVO.error("无结果");
+        }
+        if (content.equals(post.getContent())) {
+            postMapper.updateById(post);
+            return ResultVO.success("更新动态内容成功");
+        }else {
+            post.setContent(content);
+            int i = postMapper.updateById(post);
+            // TODO: 2020/2/16 更新同样的内容 影响行数
+            if (i < 1) {
+                throw new TipsException(TipsFlash.ADD_TO_ORDER_MASTER_FAILED);
+            }
+        }
+
+        return ResultVO.success("更新动态内容成功！！！");
     }
 
     public PostDTO assemblePostDTO(Post post,String userId) {

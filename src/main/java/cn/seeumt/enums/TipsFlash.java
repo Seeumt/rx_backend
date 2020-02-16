@@ -26,7 +26,9 @@ public enum TipsFlash implements CodeEnum {
     DELETED_FAILED(10008, "删除失败"),
     INSERT_MEDIA_TAGS_FAILED(5001, "插入标签失败"),
     INSERT_POST_FAILED(30001, "新建动态失败"),
+    DELETE_OSS_FAILED(30002, "删除OSS失败"),
     TELEPHOEN_NOT_BINDED(10009, "您尚未绑定该手机号"),
+    UPDATE_POST_CONTENT(30003, "更新评论内容失败"),
 
 
     ;

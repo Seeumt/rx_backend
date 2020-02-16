@@ -1,5 +1,7 @@
 package cn.seeumt.service;
 
+import cn.seeumt.vo.ResultVO;
+
 import java.util.List;
 
 /**
@@ -15,4 +17,6 @@ public interface MediaTagsService {
     List<String> findTagIdsByParentId(String parentId);
 
     void insert(List<String> tagIdList,String parentId);
+
+
 }

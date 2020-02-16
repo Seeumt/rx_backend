@@ -36,19 +36,34 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResultVO get(@PathVariable("postId") String postId) {
+    public ResultVO getDto(@PathVariable("postId") String postId) {
+        if ("".equals(postId)) {
+            return ResultVO.error(TipsFlash.NULL_ARGUMENT);
+        }
+        return postService.getDto(postId);
+    }
+
+    @GetMapping("/one")
+    public ResultVO get(String postId) {
         if ("".equals(postId)) {
             return ResultVO.error(TipsFlash.NULL_ARGUMENT);
         }
         return postService.get(postId);
     }
-
     @DeleteMapping("/{postId}")
     public ResultVO delete(@PathVariable("postId") String postId) {
         if ("".equals(postId)) {
             return ResultVO.error(TipsFlash.NULL_ARGUMENT);
         }
         return postService.delete(postId);
+    }
+
+    @PutMapping("/one")
+    public ResultVO updateContent(String postId,String content) {
+        if ("".equals(postId)) {
+            return ResultVO.error(TipsFlash.NULL_ARGUMENT);
+        }
+        return postService.updateContent(postId,content);
     }
 
 

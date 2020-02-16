@@ -1,6 +1,7 @@
 package cn.seeumt.model;
 
 import cn.seeumt.config.AliyunOssConfig;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,10 @@ public class Img {
     /**
      * 父级id
      */
+    @JsonIgnore
     private String parentId;
 
-
+    @JsonIgnore
     private Integer type;
 
 

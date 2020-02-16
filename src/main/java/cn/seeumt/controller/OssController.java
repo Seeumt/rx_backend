@@ -47,10 +47,16 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
-    @PostMapping("/imgs/{parentId}")
+    @GetMapping("/imgs/{parentId}")
     public ResultVO getPicture(@PathVariable("parentId") String parentId) {
         ImgDTO imgDTO = ossService.queryByParentId(parentId);
         return ResultVO.success(imgDTO);
+    }
+
+    @DeleteMapping("/imgs/{ossId}")
+    public ResultVO delPicture(@PathVariable("ossId") String ossId) {
+        return  ossService.deleteByOssId(ossId);
+
     }
 
 }

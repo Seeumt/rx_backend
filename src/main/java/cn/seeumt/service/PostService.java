@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface PostService{
 
-    ResultVO get(String postId);
+
+    ResultVO getDto(String postId);
 
     List<PostListDataItem> listFollowAndRecommendData(String userId);
 
@@ -39,6 +40,9 @@ public interface PostService{
 
     ResultVO delete(String postId);
 
+    ResultVO get(String postId);
+
+    ResultVO updateContent(String postId, String content);
 }
 
 
