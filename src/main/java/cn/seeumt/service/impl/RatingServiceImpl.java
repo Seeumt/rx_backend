@@ -76,7 +76,6 @@ public class RatingServiceImpl extends ServiceImpl<RatingMapper, Rating> impleme
             } else {
                 throw new TipsException(TipsFlash.COLLECT_FAILED);
             }
-
         }
         throw new TipsException(TipsFlash.COLLECT_FAILED);
     }
