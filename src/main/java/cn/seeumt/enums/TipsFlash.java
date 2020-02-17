@@ -30,6 +30,7 @@ public enum TipsFlash implements CodeEnum {
     TELEPHOEN_NOT_BINDED(10009, "您尚未绑定该手机号"),
     UPDATE_POST_CONTENT(30003, "更新评论内容失败"),
     COLLECT_FAILED(40003, "收藏失败"),
+    RATING_FAILED(40005, "评分失败"),
 
 
     ;

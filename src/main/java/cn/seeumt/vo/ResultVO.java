@@ -30,7 +30,15 @@ public class ResultVO implements Serializable {
         return resultVO;
     }
 
-    public static ResultVO success(Object object,String msg) {
+    public static ResultVO success(Integer code, String msg, Object data) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        resultVO.setData(data);
+        return resultVO;
+    }
+
+    public static ResultVO success(Object object, String msg) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(0);
         resultVO.setMsg(msg);
