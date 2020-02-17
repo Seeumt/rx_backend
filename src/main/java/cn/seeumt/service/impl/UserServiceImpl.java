@@ -10,6 +10,7 @@ import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.UserRoleService;
 import cn.seeumt.service.UserService;
+import cn.seeumt.utils.DateUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -143,5 +145,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public ResultVO onlineUser(Long gap) {
+        Long nowTime = System.currentTimeMillis();
+        Date nowDate = new Date(nowTime);
+        Date validDate = new Date(nowTime-gap);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.between("last_visit_time", validDate, nowDate);
+        Integer count = userMapper.selectCount(queryWrapper);
+        return ResultVO.success(count);
+    }
 
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -51,13 +53,25 @@ public class UserServiceImplTest {
 
     @Test
     public void selectByTelephone() {
+        Long nowTime = System.currentTimeMillis();
+        Date nowDate = new Date(nowTime);
+        Date validDate = new Date(nowTime-100000);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("telephone", "53");
-        User user = userMapper.selectOne(queryWrapper);
-        System.out.println(user);
+        queryWrapper.between("last_visit_time", validDate, nowDate);
+        Integer integer = userMapper.selectCount(queryWrapper);
     }
 
     @Test
     public void bindTel() {
+    }
+
+    @Test
+    public void online() {
+        Long nowTime = System.currentTimeMillis();
+        Date nowDate = new Date(nowTime);
+        Date validDate = new Date(nowTime-300000L);
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.between("last_visit_time", validDate, nowDate);
+        System.out.println(userMapper.selectCount(queryWrapper));
     }
 }

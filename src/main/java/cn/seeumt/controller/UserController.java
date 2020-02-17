@@ -182,5 +182,10 @@ public class UserController {
         return ResultVO.success(0, userId+" 已成功退出！");
     }
 
+    @GetMapping("/online")
+    public ResultVO online(@RequestParam(value = "gap", required = false, defaultValue = "600000") Integer gap) {
+        return userService.onlineUser(gap.longValue());
+    }
+
 
 }

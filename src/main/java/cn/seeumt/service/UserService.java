@@ -29,6 +29,8 @@ public interface UserService{
 
     User selectByTelephone(String telephone);
 
+    ResultVO onlineUser(Long gap);
+
 
     int bindTel(String openId, String telephone);
 }
