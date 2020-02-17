@@ -31,7 +31,6 @@ public class CollectController {
     @GetMapping("/{apiRootId}")
     public ResultVO isCollect(@PathVariable("apiRootId") String apiRootId,
                                        @RequestParam("userId") String userId) {
-        OnlineUtil.setLastOperateTime(userId);
         Collect collect = collectService.selectByApiRootIdAndUserId(apiRootId, userId);
         if (collect == null) {
             return ResultVO.success(true);

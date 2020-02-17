@@ -94,6 +94,7 @@ public class UserController {
     @ApiOperation(value = "用户名密码登录", notes = "")
     public ResultVO upLogin(
             @Valid @RequestBody LoginUser loginUser){
+        OnlineUtil.setLastOperateTimeByUsername(loginUser.getUsername());
         UserDetail userDetail = authService.upLogin(loginUser.getUsername(), loginUser.getPassword());
         return ResultVO.success(userDetail);
     }

@@ -1,5 +1,6 @@
 package cn.seeumt.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.org.apache.xpath.internal.operations.Bool;
 import lombok.Data;
 
@@ -19,6 +20,7 @@ public class CartDTO {
     /**
      * souvenirId
      */
+    @JsonProperty("goods_id")
     private Integer souvenirId;
 
     /**
@@ -29,6 +31,7 @@ public class CartDTO {
     /**
      * quantity
      */
+    @JsonProperty("number")
     private Integer quantity;
 
     /**
@@ -47,6 +50,7 @@ public class CartDTO {
     /**
      * 主图url相对地址
      */
+    @JsonProperty("img")
     private String mainImage;
 
     /**

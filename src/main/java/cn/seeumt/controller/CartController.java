@@ -7,6 +7,7 @@ import cn.seeumt.vo.CartVO;
 import cn.seeumt.vo.ResultVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.models.auth.In;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -20,7 +21,7 @@ import java.util.List;
  * @author Seeumt
  * @since 2020-01-27
  */
-@Controller
+@RestController
 @RequestMapping("/carts")
 @Slf4j
 public class CartController {
@@ -34,18 +35,16 @@ public class CartController {
         return cartService.list(userId);
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    public ResultVO add(String userId, Integer souvenirId,Integer count){
+    @PostMapping("/{souvenirId}")
+    public ResultVO add(@PathVariable("souvenirId") Integer souvenirId, String userId,Integer count){
         log.info("【添加到购物车】用户:user_id={} 添加商品:souvenir_id={} {}件到购物车",userId,souvenirId,count);
         return cartService.add(userId,souvenirId,count);
     }
 //
 //
 //
-    @PutMapping("/update")
-    @ResponseBody
-    public ResultVO update(String userId,Integer souvenirId, Integer count ){
+    @PutMapping("/{souvenirId}")
+    public ResultVO update(String userId,@PathVariable Integer souvenirId, Integer count ){
         return cartService.update(userId,souvenirId,count);
     }
 
