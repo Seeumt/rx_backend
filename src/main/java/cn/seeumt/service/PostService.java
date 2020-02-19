@@ -4,6 +4,7 @@ package cn.seeumt.service;
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
+import cn.seeumt.vo.PostVO;
 import cn.seeumt.vo.ResultVO;
 
 import java.util.List;
@@ -43,6 +44,8 @@ public interface PostService{
     ResultVO get(String postId);
 
     ResultVO updateContent(String postId, String content);
+
+    List<PostVO> search(String keywords);
 }
 
 

@@ -5,16 +5,19 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Seeumt
  * @version 1.0
- * @date 2020/2/17 17:03
+ * @date 2020/2/19 19:20
  */
 @Data
-public class CommentVO implements Serializable {
-    private static final long serialVersionUID = -8090542044732428414L;
-    @JsonProperty("cid")
+public class CommentMO implements Serializable {
+
+    private static final long serialVersionUID = -2903316850655341905L;
+
+    @JsonProperty("cenId")
     private String commentId;
 
     private Byte type;
@@ -26,11 +29,6 @@ public class CommentVO implements Serializable {
 
     @JsonProperty("headImgSrc")
     private String faceIcon;
-
-    private String targetUserId;
-
-    @JsonProperty("targetUserName")
-    private String targetUsername;
 
     @JsonProperty("sendMsg")
     private String content;
@@ -45,6 +43,9 @@ public class CommentVO implements Serializable {
 
     private String apiRootId;
 
+    @JsonProperty("reviewNum")
     private Integer childrenCount;
 
+    @JsonProperty("reviewLess")
+    List<CommentVO> commentVOS;
 }

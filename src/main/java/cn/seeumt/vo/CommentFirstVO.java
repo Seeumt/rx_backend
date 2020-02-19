@@ -1,10 +1,13 @@
 package cn.seeumt.vo;
 
+import cn.seeumt.model.Comment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Seeumt
@@ -12,12 +15,10 @@ import java.util.Date;
  * @date 2020/2/17 17:03
  */
 @Data
-public class CommentVO implements Serializable {
+public class CommentFirstVO implements Serializable {
     private static final long serialVersionUID = -8090542044732428414L;
-    @JsonProperty("cid")
+    @JsonProperty("id")
     private String commentId;
-
-    private Byte type;
 
     private String userId;
 
@@ -27,24 +28,28 @@ public class CommentVO implements Serializable {
     @JsonProperty("headImgSrc")
     private String faceIcon;
 
-    private String targetUserId;
-
-    @JsonProperty("targetUserName")
-    private String targetUsername;
-
     @JsonProperty("sendMsg")
     private String content;
 
+    @JsonProperty("sendTime")
     private Date createTime;
-
-    private Boolean enabled;
 
     private Boolean expand = false;
 
     private String parentId;
 
+    @JsonProperty("cenId")
     private String apiRootId;
 
-    private Integer childrenCount;
+    @JsonProperty("reviewLess")
+    private List<CommentVO> commentVOS1;
+
+    @JsonProperty("reviewLessss")
+    private List<Comment> commentVOS;
+
+    @JsonProperty("reviewNum")
+    private Integer commentCount;
+
+    private List<CommentVO> children;
 
 }

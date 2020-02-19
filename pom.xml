@@ -8,6 +8,7 @@
         <version>2.0.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+<!--    <packaging>war</packaging>-->
     <groupId>cn.seeumt</groupId>
     <artifactId>tips</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -280,8 +281,14 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-jwt</artifactId>
+            <version>1.0.6.RELEASE</version>
         </dependency>
         <!--        Jwt end         -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
 
 
 
@@ -290,6 +297,10 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>io.github.swagger2markup</groupId>
                 <artifactId>swagger2markup-maven-plugin</artifactId>

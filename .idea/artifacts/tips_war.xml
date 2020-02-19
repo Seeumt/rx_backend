@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="tips:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>tips</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="tips-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="tips:war exploded" />
+    </root>
+  </artifact>
+</component>

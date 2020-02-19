@@ -31,7 +31,9 @@ public enum TipsFlash implements CodeEnum {
     UPDATE_POST_CONTENT(30003, "更新评论内容失败"),
     COLLECT_FAILED(40003, "收藏失败"),
     RATING_FAILED(40005, "评分失败"),
-    UPDATE_LAST_VISIT_TIME_FAILED(10009, "更新用户最近访问时间失效"),
+    UPDATE_LAST_VISIT_TIME_FAILED(10009, "更新用户最近访问时间失败"),
+    QUERY_USER_FAILED(10010, "查询用户失败"),
+    QUERY_TARGET_COMMENT_FAILED(50009, "查询父级评论失败"),
 
 
     ;

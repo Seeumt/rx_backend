@@ -50,6 +50,7 @@ public class ArticleController {
         List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
         List<CityVO> cityVOS = cityService.findByCityIds(cityIds);
         articleDTO.setViaCitiesVOS(cityVOS);
+        //找到根评论
         List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(articleId);
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, articleId);
         articleDTO.setComments(comments);
@@ -58,6 +59,13 @@ public class ArticleController {
         return articleDTO;
     }
 
+    @PostMapping("/test")
+    public List<Comment> tree(String apiRootId) {
+        //找到根评论
+        List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(apiRootId);
+        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, apiRootId);
+        return comments;
+    }
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
 //    @PreAuthorize("hasRole('ROLE_STU')")
     public ResultVO article(String userId) {

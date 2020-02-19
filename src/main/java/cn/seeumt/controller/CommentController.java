@@ -4,6 +4,7 @@ import java.util.List;
 import cn.seeumt.model.Comment;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.OnlineUtil;
+import cn.seeumt.vo.CommentVO;
 import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +20,31 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("/{parentId}")
-    public ResultVO queryComment(@PathVariable String parentId) {
-        List<Comment> comments = commentService.findNextLevelCommentsByParentId(parentId);
-        return ResultVO.success(comments);
+    @GetMapping("/child")
+    public ResultVO queryChildComment(String parentId) {
+        return commentService.listByParentId(parentId);
     }
 
+//    @GetMapping("/{apiRootId}")
+//    public ResultVO queryAllComment(@PathVariable String apiRootId) {
+//        return commentService.findAllLevelCommentsByApiRootId(apiRootId);
+//    }
+
     @GetMapping("/")
+    public ResultVO queryHomeComments(String apiRootId) {
+//        return ResultVO.success(commentService.queryHomeComments(apiRootId));
+        return ResultVO.success(commentService.getLuckyCommentsAndChildren(apiRootId));
+    }
+
+
+    @GetMapping("/{apiRootId}")
+    public ResultVO getLuckyDetail(@PathVariable String apiRootId) {
+        return ResultVO.success(commentService.getLuckyChildData(apiRootId));
+    }
+
+
+
+    @PostMapping("/")
     public int commentForComment(String commentId,
                         String apiRootId,
                         @RequestParam(value = "type",defaultValue ="3" ) Byte type,

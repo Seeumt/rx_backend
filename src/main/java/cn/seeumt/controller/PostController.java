@@ -1,5 +1,6 @@
 package cn.seeumt.controller;
 
+import cn.seeumt.dataobject.Article;
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
@@ -12,7 +13,9 @@ import cn.seeumt.service.PostService;
 import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -117,6 +120,12 @@ public class PostController {
         List<Thumber> thumbers = ThumberUtil.allThumbers(postId);
         postDTO.setThumbers(thumbers);
         return ResultVO.success(postDTO);
+    }
+
+
+    @PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO search(@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords) {
+        return ResultVO.success( postService.search(keywords));
     }
 
 

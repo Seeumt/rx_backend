@@ -2,6 +2,7 @@ package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Comment;
 import cn.seeumt.model.CommentContent;
+import cn.seeumt.vo.*;
 
 import java.util.List;
 
@@ -10,6 +11,12 @@ import java.util.List;
  * @date 2019/12/8 16:17
  */
 public interface CommentService {
+
+    List<Comment> getAllLuckyComments(String apiRootId);
+
+    ResultVO listByParentId(String parentId);
+
+
     Comment selectByCommentId(String commentId);
     List<CommentContent> findUserCommentsOfAnArticle(String articleId, String userId);
     List<CommentContent> findUserCommentsOfAnComments(String userId,String commentId);
@@ -36,6 +43,8 @@ public interface CommentService {
      */
     int comment(String apiRootId,String userId,String content,Byte type,String commentId);
 
+    CommentFirstMO getLuckyCommentsAndChildren(String apiRootId);
+
     /**
      * 通过某parentId(父级Id 第一级评论的父级id都是articleId,postId)
      * 找到其所有下一级的评论    !!! 一般都是从第一级开始找）
@@ -43,7 +52,11 @@ public interface CommentService {
      * @param parentId（第一级评论的父级id都是articleId,postId）
      * @return model Comment
      */
-    List<cn.seeumt.model.Comment > findNextLevelCommentsByParentId(String parentId);
+    List<cn.seeumt.model.Comment> findNextLevelCommentsByParentId(String parentId);
+
+
+
+    List<CommentVO> findAllLevelCommentsByApiRootId(String apiRootId);
 
 
     /**
@@ -54,5 +67,14 @@ public interface CommentService {
      */
     List<Comment> selectCommentCountByRootIdAndType(String rootId, Byte type);
 
+    List<Comment> selectCommentCountByParentIdAndType(String parentId, Byte type);
+
+    List<CommentFirstVO> queryHomeComments(String apiRootId);
+
+    List<Comment> queryOneLevelComments(String apiRootId);
+
+    List<CommentFirstVO> queryHomeAndAllComments(String apiRootId);
+
+    List<CommentVO> getLuckyChildData(String apiRootId);
 }
 

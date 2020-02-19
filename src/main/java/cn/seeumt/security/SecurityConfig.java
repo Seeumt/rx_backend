@@ -74,8 +74,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setAuthenticationFailureHandler(codeFailureHandler);
         http.authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
-                .antMatchers("/articles/**").authenticated()
-                .antMatchers("/articles/**").hasAuthority("ROLE_STU")
+//                .antMatchers("/articles/**").authenticated()
+//                .antMatchers("/articles/**").hasAuthority("ROLE_STU")
                 .antMatchers("/follows/**").authenticated()
                 .antMatchers("/follows/**").hasAuthority("ROLE_STU")
 //                .antMatchers(HttpMethod.GET,"/posts/**").permitAll()

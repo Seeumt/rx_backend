@@ -1,13 +1,11 @@
 package cn.seeumt.service.impl;
 import java.util.Date;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import cn.seeumt.dao.PostMapper;
 import cn.seeumt.dao.UserMapper;
-import cn.seeumt.dataobject.Follow;
-import cn.seeumt.dataobject.Love;
-import cn.seeumt.dataobject.Post;
-import cn.seeumt.dataobject.User;
+import cn.seeumt.dataobject.*;
 import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
@@ -16,9 +14,7 @@ import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.*;
 import cn.seeumt.utils.UuidUtil;
-import cn.seeumt.vo.LoveVO;
-import cn.seeumt.vo.ResultVO;
-import cn.seeumt.vo.UserVO;
+import cn.seeumt.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -312,6 +308,19 @@ public class PostServiceImpl implements PostService {
         return ResultVO.success("更新动态内容成功！！！");
     }
 
+    @Override
+    public List<PostVO> search(String keywords) {
+        QueryWrapper<Post> wrapper = new QueryWrapper<>();
+        if ("".equals(keywords)) {
+            wrapper.orderByDesc("create_time");
+
+            List<Post> posts = postMapper.selectList(wrapper);
+            return assemblePostVO(posts);
+        }
+        wrapper.orderByDesc("create_time").like("content", keywords);
+        return assemblePostVO(postMapper.selectList(wrapper));
+    }
+
     public PostDTO assemblePostDTO(Post post,String userId) {
         LoveVO loveVO = new LoveVO();
         if (userId != null) {
@@ -356,5 +365,30 @@ public class PostServiceImpl implements PostService {
         }
         return postDTO;
     }
+
+    public List<PostVO> assemblePostVO(List<Post> posts) {
+            return  posts.stream().map(post -> {
+            PostVO postVO = new PostVO();
+            User user = userMapper.selectById(post.getUserId());
+            if (user == null) {
+                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+            }
+            postVO.setUsername(user.getUsername());
+            postVO.setFaceIcon(user.getFaceIcon());
+            BeanUtils.copyProperties(post, postVO);
+            postVO.setThumbCount(commentService.selectCommentCountByRootIdAndType(post.getPostId(), (byte) 3).size());
+            ImgDTO imgDTO = ossService.queryByParentId(post.getPostId());
+           if (imgDTO.getUrls().length == 0) {
+                 postVO.setCover("http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg");
+           }
+           else {
+                String[] urls = imgDTO.getUrls();
+                postVO.setCover(urls[0]);
+            }
+            return postVO;
+        }).collect(Collectors.toList());
+
+    }
+
 
 }
