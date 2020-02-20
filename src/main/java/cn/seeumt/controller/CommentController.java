@@ -1,7 +1,9 @@
 package cn.seeumt.controller;
 import java.util.List;
 
-import cn.seeumt.model.Comment;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
+import cn.seeumt.form.Comment;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.CommentVO;
@@ -43,13 +45,9 @@ public class CommentController {
     }
 
 
-
     @PostMapping("/")
-    public int commentForComment(String commentId,
-                        String apiRootId,
-                        @RequestParam(value = "type",defaultValue ="3" ) Byte type,
-                        String userId,String content) {
-       return commentService.comment(apiRootId, userId, content, type, commentId);
+    public ResultVO commentForComment(@RequestBody Comment comment) {
+        return commentService.comment(comment.getApiRootId(), comment.getUserId(), comment.getContent(), comment.getType(),comment.getParentId());
     }
 
 

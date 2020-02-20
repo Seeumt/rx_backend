@@ -38,10 +38,11 @@ public interface CommentService {
      * @param userId 评论者的user_id
      * @param content 评论者的评论内容
      * @param type 评论的类型 文章的评论 文章评论的评论 动态的评论 动态评论的评论
-     * @param commentId 要评论的评论的id 作为其子评论的parentId
+     * @param parentId 要评论的评论的id 作为其子评论的parentId
      * @return 1
      */
-    int comment(String apiRootId,String userId,String content,Byte type,String commentId);
+    ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId);
+//    ResultVO comment( String userId, String content, Byte type, String commentId,String parentId);
 
     CommentFirstMO getLuckyCommentsAndChildren(String apiRootId);
 

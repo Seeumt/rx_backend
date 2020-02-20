@@ -246,9 +246,13 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public int comment(String apiRootId, String userId, String content, Byte type,String commentId) {
-        Comment comment = CommentServiceImpl.createComment(apiRootId, userId, content, type, commentId);
-        return commentMapper.insert(comment);
+    public ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId) {
+        Comment comment = CommentServiceImpl.createComment(apiRootId, userId, content, type, parentId);
+        int i = commentMapper.insert(comment);
+        if (i < 1) {
+            throw new TipsException(TipsFlash.INSERT_COMMENT_FAILED);
+        }
+        return ResultVO.success(0,"评论成功啦");
     }
 
 

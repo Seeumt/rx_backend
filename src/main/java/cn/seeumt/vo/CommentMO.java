@@ -1,5 +1,6 @@
 package cn.seeumt.vo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -33,6 +34,8 @@ public class CommentMO implements Serializable {
     @JsonProperty("sendMsg")
     private String content;
 
+    @JsonProperty("sendTime")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
 
     private Boolean enabled;
