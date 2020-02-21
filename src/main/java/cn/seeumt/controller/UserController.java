@@ -100,22 +100,19 @@ public class UserController {
     }
 
     @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
-    @GetMapping(value = "/otp/{telephone}/{code}")
+    @GetMapping(value = "/otp/{telephone}")
     public ResultVO sendSms(
             @ApiParam(name = "telephone", value = "手机号", required = true)
             @PathVariable String telephone,
-            @PathVariable String code, HttpServletRequest httpServletRequest) throws ClientException {
-        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
-        String openId = SessionKeyAndOpenId.getString("openid");
-        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+            HttpServletRequest httpServletRequest) throws ClientException {
         User user = userService.selectByTelephone(telephone);
-        if (user == null) {
-            return ResultVO.error(TipsFlash.TELEPHOEN_NOT_BINDED);
+        if (user != null) {
+            return ResultVO.error(TipsFlash.TELEPHOEN_HAS_BINDED);
         }
         OtpCode otpCode = OtpCode.createCode(600L);
         httpServletRequest.getSession().setAttribute(telephone, otpCode);
-//        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
-        return ResultVO.success(openId,"成功");
+        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
+        return ResultVO.success("验证码已发送至您的手机");
     }
 
     @PutMapping("/reset/pwd")

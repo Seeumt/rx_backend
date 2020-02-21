@@ -356,7 +356,7 @@ public class PostServiceImpl implements PostService {
         loveVO.setLikeCount(loveService.selectThumbCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         loveVO.setHateCount(loveService.selectHateCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         postDTO.setLove(loveVO);
-        postDTO.setCommentCount(commentService.selectCommentCountByRootIdAndType(post.getPostId(), (byte) 3).size());
+        postDTO.setCommentCount(commentService.getAllCommentCount(post.getPostId())+commentService.selectCommentCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         List<String> tagsIds = mediaTagsService.findTagIdsByParentId(post.getPostId());
         if (tagsIds.size() == 0) {
             postDTO.setTags(null);

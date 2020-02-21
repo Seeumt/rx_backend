@@ -76,6 +76,8 @@ public interface CommentService {
 
     List<CommentFirstVO> queryHomeAndAllComments(String apiRootId);
 
+    Integer getAllCommentCount(String apiRootId);
+
     List<CommentVO> getLuckyChildData(String apiRootId);
 }
 

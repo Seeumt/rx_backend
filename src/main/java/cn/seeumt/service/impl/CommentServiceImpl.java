@@ -13,6 +13,7 @@ import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,18 @@ public class CommentServiceImpl implements CommentService {
         }
         return new CommentFirstMO(commentMOS,n);
 
+    }
+
+    @Override
+    public Integer getAllCommentCount(String apiRootId) {
+        List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
+        //找到所有0级评论
+        List<CommentMO> commentMOS = assemblecCommentMOList(allLuckyComments);
+        Integer n = 0;
+        for (Comment allLuckyComment : allLuckyComments) {
+            n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
+        }
+        return n;
     }
 
     public List<CommentMO> assemblecCommentMOList(List<Comment> comments) {
