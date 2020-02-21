@@ -47,11 +47,20 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
+    @PostMapping("/")
+    public ResultVO commentPic(@RequestPart("file") MultipartFile file, String parentId) throws IOException {
+        String originUrl = AliyunOssUtil.getOriginUrl(file);
+        ossService.saveOssForComment(originUrl, parentId);
+        return ResultVO.success(originUrl);
+    }
+
     @GetMapping("/imgs/{parentId}")
     public ResultVO getPicture(@PathVariable("parentId") String parentId) {
         ImgDTO imgDTO = ossService.queryByParentId(parentId);
         return ResultVO.success(imgDTO);
     }
+
+
 
     @DeleteMapping("/imgs/{ossId}")
     public ResultVO delPicture(@PathVariable("ossId") String ossId) {

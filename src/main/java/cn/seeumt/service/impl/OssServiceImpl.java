@@ -1,4 +1,6 @@
 package cn.seeumt.service.impl;
+import cn.seeumt.dao.CommentMapper;
+import cn.seeumt.dataobject.Comment;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.vo.ResultVO;
@@ -39,6 +41,8 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     @Autowired
     private OssMapper ossMapper;
     @Autowired
+    private CommentMapper commentMapper;
+    @Autowired
     private AliyunOssConfig aliyunOssConfig;
     @Override
     public String saveOss(String originUrl,String parentId) {
@@ -56,6 +60,18 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
         ossService.save(oss);
         return AliyunOssUtil.cutSuffix(originUrl);
     }
+
+    @Override
+    public void saveOssForComment(String originUrl, String parentId) {
+        saveOss(originUrl, parentId);
+        Comment comment = commentMapper.selectById(parentId);
+        comment.setCommentPic(originUrl);
+        int i = commentMapper.updateById(comment);
+        if (i < 1) {
+            throw new TipsException(TipsFlash.INSERT_COMMENT_PIC_FAILED);
+        }
+    }
+
     @Override
     public ImgDTO queryByParentId(String parentId) {
         QueryWrapper<Oss> wrapper = new QueryWrapper<>();

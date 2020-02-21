@@ -36,6 +36,8 @@ public class CommentVO implements Serializable {
     @JsonProperty("sendMsg")
     private String content;
 
+    private String commentPic;
+
     @JsonProperty("sendTime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;

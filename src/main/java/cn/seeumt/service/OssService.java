@@ -16,6 +16,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 public interface OssService extends IService<Oss> {
     String saveOss(String originUrl, String parentId);
 
+    void saveOssForComment(String originUrl, String parentId);
+
     ImgDTO queryByParentId(String parentId);
 
     ResultVO deleteByOssId(String ossId);

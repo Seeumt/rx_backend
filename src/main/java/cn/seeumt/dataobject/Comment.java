@@ -15,6 +15,8 @@ public class Comment {
 
     private String content;
 
+    private String commentPic;
+
     private Date createTime;
 
     private Date updateTime;

@@ -37,6 +37,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentFirstMO getLuckyCommentsAndChildren(String apiRootId) {
 
         List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
+        //找到所有0级评论
         List<CommentMO> commentMOS = assemblecCommentMOList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
@@ -51,7 +52,8 @@ public class CommentServiceImpl implements CommentService {
                     CommentMO commentMO = new CommentMO();
                     BeanUtils.copyProperties(comment, commentMO);
                     List<Comment> comment1s = selectCommentCountByRootIdAndType(comment.getCommentId(), (byte) 3);
-                    commentMO.setCommentVOS(assembleCommentVOList(comment1s));
+                    List<Comment> commentLess = selectCommentLessByRootIdAndType(comment.getCommentId(), (byte) 3);
+                    commentMO.setCommentVOS(assembleCommentVOList(commentLess));
                     commentMO.setChildrenCount(assembleCommentVOList(comment1s).size());
                     User user = userMapper.selectById(comment.getUserId());
                     if (user == null) {
@@ -173,6 +175,12 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.selectList(wrapper);
     }
 
+    public List<Comment> selectCommentLessByRootIdAndType(String rootId, Byte type) {
+        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        wrapper.eq("api_root_id", rootId).eq("type", type).last("limit 3");
+        return commentMapper.selectList(wrapper);
+    }
+
     @Override
     public List<Comment> selectCommentCountByParentIdAndType(String parentId, Byte type) {
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
@@ -252,7 +260,7 @@ public class CommentServiceImpl implements CommentService {
         if (i < 1) {
             throw new TipsException(TipsFlash.INSERT_COMMENT_FAILED);
         }
-        return ResultVO.success(0,"评论成功啦");
+        return ResultVO.success(comment.getCommentId());
     }
 
 
