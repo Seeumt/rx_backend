@@ -27,7 +27,7 @@ public class ValidateCodeFilter extends OncePerRequestFilter {
     /**
      * 请求路径
      */
-    public static final String PATH = "/users/otpLogin";
+    public static final String PATH = "/userss/otpLogin";
 
 
     private AuthenticationFailureHandler authenticationFailureHandler;

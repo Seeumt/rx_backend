@@ -49,6 +49,7 @@ public class UserController {
 
 
     public static final String PASSWORD = "password";
+    public static final String TEL_LOGIN = "tp";
 
 
     @GetMapping(value = "/")
@@ -73,9 +74,12 @@ public class UserController {
 
     @PostMapping("/otpLogin")
     @ApiOperation(value = "Otp 手机验证码登录", notes = "在过滤器中进行校验otpCode是否合法", httpMethod = "GET")
-    public ResultVO otpLogin(HttpSession httpSession) throws IOException, ServletRequestBindingException {
-        String telephone = (String) httpSession.getAttribute("telephone");
-        UserDetail userDetail = authService.otpLogin(telephone);
+    public ResultVO otpLogin(@RequestBody TelLogin telLogin){
+        ResultVO resultVO = userService.validCode(telLogin.getTelephone(), telLogin.getCode());
+        if (!(Boolean) resultVO.getData()){
+            return ResultVO.error(resultVO.getCode(), resultVO.getMsg());
+        }
+        UserDetail userDetail = authService.otpLogin(telLogin.getTelephone());
         return ResultVO.success(userDetail, "登录成功");
     }
 
@@ -106,19 +110,22 @@ public class UserController {
             if (user != null) {
                 return ResultVO.error(TipsFlash.TELEPHONE_HAS_BINDED);
             }
-        }
-        if (PASSWORD.equals(type)) {
+            return sendOtpCode(telephone);
+
+        }else if (PASSWORD.equals(type)) {
             User user = userService.selectByTelephone(telephone);
             if (user == null) {
-                return ResultVO.error(TipsFlash.TELEPHONE_NOT_BINDED);
+                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORED);
             }
+            return sendOtpCode(telephone);
+        }else if (TEL_LOGIN.equals(type)) {
+            User user = userService.selectByTelephone(telephone);
+            if (user == null) {
+                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORED);
+            }
+            return sendOtpCode(telephone);
         }
-        OtpCode otpCode = OtpCode.createCode(600L);
-        userService.addCache(telephone, otpCode.getCode().toString());
-        // TODO: 2020/2/22  AliyunMessageUtil.sendSms(null, otpCode.getCode().toString());
-        // TODO: 2020/2/22  AliyunMessageUtil.sendSmsWel(telephone, "aa", "xx");
-        System.out.println(otpCode.getCode());
-        return ResultVO.success("验证码已发送!");
+        return ResultVO.error(TipsFlash.INVAILD_ARGUMENT);
     }
 
     @PutMapping("/pwd")
@@ -195,6 +202,16 @@ public class UserController {
             return ResultVO.error(resultVO.getCode(), resultVO.getMsg());
         }
         return ResultVO.success(TipsFlash.VALID_OTPCODE_SUCCESS.getCode(),TipsFlash.VALID_OTPCODE_SUCCESS.getMsg());
+    }
+
+
+    public ResultVO sendOtpCode(String telephone){
+        OtpCode otpCode = OtpCode.createCode(600L);
+        userService.addCache(telephone, otpCode.getCode().toString());
+        // TODO: 2020/2/22  AliyunMessageUtil.sendSms(null, otpCode.getCode().toString());
+        // TODO: 2020/2/22  AliyunMessageUtil.sendSmsWel(telephone, "aa", "xx");
+        System.out.println(otpCode.getCode());
+        return ResultVO.success("验证码已发送!");
     }
 
 

@@ -10,6 +10,7 @@ import cn.seeumt.model.Thumber;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.service.FollowService;
 import cn.seeumt.service.PostService;
+import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
@@ -39,6 +40,7 @@ public class PostController {
 
     @PostMapping("/")
     public ResultVO send(@RequestBody cn.seeumt.form.Post post) {
+        OnlineUtil.setLastOperateTimeByUserId(post.getUserId());
         return postService.send(post);
     }
 

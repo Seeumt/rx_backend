@@ -51,5 +51,16 @@ public class OnlineUtil {
         }
     }
 
+    public static void setLastOperateTimeByUserId(String userId) {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        User user = OnlineUtil.onlineUtil.userMapper.selectOne(queryWrapper);
+        user.setLastVisitTime(new Date());
+        int i = OnlineUtil.onlineUtil.userMapper.updateById(user);
+        if (i < 1) {
+            throw new TipsException(TipsFlash.UPDATE_LAST_VISIT_TIME_FAILED);
+        }
+    }
+
 
 }
