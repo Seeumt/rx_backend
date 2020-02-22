@@ -12,7 +12,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
-public class CustomCORSConfig {
+public class CustomCorsConfig {
     private CorsConfiguration buildConfig(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         // 允许任何的head头部
@@ -25,7 +25,10 @@ public class CustomCORSConfig {
         return corsConfiguration;
     }
 
-    // 添加CorsFilter拦截器，对任意的请求使用
+    /**
+     * 添加CorsFilter拦截器，对任意的请求使用
+     * @return CorsFilter
+     */
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

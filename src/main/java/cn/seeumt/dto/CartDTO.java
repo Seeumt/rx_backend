@@ -6,6 +6,9 @@ import lombok.Data;
 
 import java.math.BigDecimal;
 
+/**
+ * @author Seeumt
+ */
 @Data
 public class CartDTO {
     /**

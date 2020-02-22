@@ -8,6 +8,7 @@ import java.util.List;
 public interface CommentMapper extends BaseMapper<Comment> {
     int deleteByPrimaryKey(String commentId);
 
+    @Override
     int insert(Comment record);
 
     int insertSelective(Comment record);

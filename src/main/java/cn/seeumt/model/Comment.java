@@ -8,6 +8,9 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Seeumt
+ */
 @Data
 @JsonPropertyOrder("true")
 public class Comment {

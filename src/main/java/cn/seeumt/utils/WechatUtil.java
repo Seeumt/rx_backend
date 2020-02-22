@@ -15,16 +15,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author Seeumt
+ */
 public class WechatUtil {
     public static JSONObject getSessionKeyOrOpenId(String code) {
         String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
-        Map<String, String> requestUrlParam = new HashMap<>();
+        Map<String, String> requestUrlParam = new HashMap<>(20);
         // https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=164113089&lang=zh_CN
         //小程序appId
-//        requestUrlParam.put("appid", "wx089fa3c4c3dd75d0");
         requestUrlParam.put("appid", "wx24d570065aeb53e2");
         //小程序secret
-//        requestUrlParam.put("secret", "d2e37b2b54d8bc19b20115e44cc6b137");
         requestUrlParam.put("secret", "7b2e218c4a0725372bbdcfb3e7d93171");
         //小程序端返回的code
         requestUrlParam.put("js_code", code);
@@ -58,7 +59,8 @@ public class WechatUtil {
             SecretKeySpec spec = new SecretKeySpec(keyByte, "AES");
             AlgorithmParameters parameters = AlgorithmParameters.getInstance("AES");
             parameters.init(new IvParameterSpec(ivByte));
-            cipher.init(Cipher.DECRYPT_MODE, spec, parameters);// 初始化
+            cipher.init(Cipher.DECRYPT_MODE, spec, parameters);
+            // 初始化
             byte[] resultByte = cipher.doFinal(dataByte);
             if (null != resultByte && resultByte.length > 0) {
                 String result = new String(resultByte, "UTF-8");

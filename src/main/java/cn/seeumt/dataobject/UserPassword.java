@@ -1,5 +1,8 @@
 package cn.seeumt.dataobject;
 
+/**
+ * @author Seeumt
+ */
 public class UserPassword {
     private String id;
 

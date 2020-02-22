@@ -17,7 +17,7 @@ import java.io.IOException;
  * @version 1.0
  * @date 2020/1/31 22:14
  */
-public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
+public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request,
                          HttpServletResponse response,

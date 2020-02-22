@@ -16,7 +16,7 @@ public class Refer {
      * pubDate : 2019-08-12 10:16:40
      */
 
-    private String author;//这个是用户名字
+    private String author;
     private CommentAuthor commentAuthor;
     private String content;
     private String pubDate;

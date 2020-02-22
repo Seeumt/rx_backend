@@ -7,13 +7,12 @@ import cn.seeumt.dataobject.UserRole;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.exception.TipsException;
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.service.MyUserDetailService;
 import cn.seeumt.service.UserService;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.utils.UuidUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
 
 import cn.seeumt.model.UserDetail;
@@ -64,15 +63,15 @@ public class UserDetailServiceImpl implements MyUserDetailService {
     }
 
     @Override
-    public UserDetail findUserByOpenId(MPWXUserInfo mpwxUserInfo) {
+    public UserDetail findUserByOpenId(MpWxUserInfo mpwxUserInfo) {
         String openId = mpwxUserInfo.getOpenId();
-        String sessionKey = UuidUtil.getUUID();
+        String sessionKey = UuidUtil.getUuid();
         WxUser wxUser = wxUserService.selectByOpenId(openId);
-        String skey = UuidUtil.getUUID();
+        String skey = UuidUtil.getUuid();
         if (wxUser == null) {
             WxUser newWXUser = wxUserService.insert(mpwxUserInfo, openId, sessionKey, skey);
             User user = new User();
-            String userId = UuidUtil.getUUID();
+            String userId = UuidUtil.getUuid();
             user.setUserId(userId);
             user.setUsername("Tips_"+KeyUtil.genUniqueUsername());
             user.setNickname(mpwxUserInfo.getNickName());

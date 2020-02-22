@@ -26,7 +26,7 @@ public class UserPasswordServiceImpl implements UserPasswordService {
     @Override
     public int insert(String userId, String password) {
         UserPassword userPassword = new UserPassword();
-        userPassword.setId(UuidUtil.getUUID());
+        userPassword.setId(UuidUtil.getUuid());
         userPassword.setPassword(password);
         userPassword.setUserId(userId);
         int insert = userPasswordMapper.insert(userPassword);

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface PostMapper extends BaseMapper<Post> {
     int deleteByPrimaryKey(String postId);
 
+    @Override
     int insert(Post record);
 
     int insertSelective(Post record);

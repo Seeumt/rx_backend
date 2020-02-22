@@ -37,7 +37,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
         //如果没有点过赞 成功啦！点赞  改变love的status
         if (aCollect==null) {
             Collect collect = new Collect();
-            collect.setCollectId(UuidUtil.getUUID());
+            collect.setCollectId(UuidUtil.getUuid());
             collect.setType(0);
             collect.setStatus(true);
             collect.setCreateTime(new Date());

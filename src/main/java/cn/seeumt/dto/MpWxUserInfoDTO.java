@@ -6,8 +6,11 @@ import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * @author Seeumt
+ */
 @Data
-public class MPWXUserInfoDTO {
+public class MpWxUserInfoDTO {
     private String userId;
     @JsonProperty("faceIcon")
     private String avatarUrl;

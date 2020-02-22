@@ -21,7 +21,6 @@ import org.springframework.stereotype.Component;
  * @date 2020/2/2 19:54
  */
 @Component("otpAuthenticationSecurityConfig")
-//@Configuration
 public class OtpAuthenticationSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     @Autowired

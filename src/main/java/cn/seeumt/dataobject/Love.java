@@ -7,6 +7,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.util.Date;
+
+/**
+ * @author Seeumt
+ */
 @Data
 public class Love {
 

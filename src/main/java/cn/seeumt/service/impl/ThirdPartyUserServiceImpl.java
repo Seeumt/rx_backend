@@ -2,8 +2,6 @@ package cn.seeumt.service.impl;
 
 import cn.seeumt.dataobject.ThirdPartyUser;
 import cn.seeumt.dao.ThirdPartyUserMapper;
-import cn.seeumt.dataobject.WxUser;
-import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.dto.ThirdPartyUserDTO;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.exception.TipsException;
@@ -44,7 +42,7 @@ public class ThirdPartyUserServiceImpl implements ThirdPartyUserService {
             thirdPartyUserDO.setThirdPartyId(thirdPartyUser.getThirdPartyId());
             thirdPartyUserDO.setLoginType(thirdPartyUser.getLoginType());
             thirdPartyUserDO.setTelephone(thirdPartyUser.getTelephone());
-            thirdPartyUserDO.setUserId(UuidUtil.getUUID());
+            thirdPartyUserDO.setUserId(UuidUtil.getUuid());
             thirdPartyUserDO.setCreateTime(new Date());
             thirdPartyUserDO.setLastVisitTime(new Date());
             thirdPartyUserDO.setSessionKey(null);
@@ -56,7 +54,7 @@ public class ThirdPartyUserServiceImpl implements ThirdPartyUserService {
         } else {
             thirdPartyUserDB.setLastVisitTime(new Date());
             // TODO: 2020/1/10 skey
-            thirdPartyUserDB.setSkey(UuidUtil.getUUID());
+            thirdPartyUserDB.setSkey(UuidUtil.getUuid());
         }
         ThirdPartyUserDTO thirdPartyUserDTO = new ThirdPartyUserDTO();
         BeanUtils.copyProperties(thirdPartyUserDB, thirdPartyUserDTO);

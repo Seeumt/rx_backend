@@ -30,8 +30,6 @@ public class TpAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     @Qualifier("userDetailServiceImpl")
     private MyUserDetailService userDetailsService;
-//    @Autowired
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     @Override

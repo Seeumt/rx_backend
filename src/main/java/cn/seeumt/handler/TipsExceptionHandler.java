@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+/**
+ * @author Seeumt
+ */
 @ControllerAdvice
 public class TipsExceptionHandler {
     @ExceptionHandler(value = TipsException.class)

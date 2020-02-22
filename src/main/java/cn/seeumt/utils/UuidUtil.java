@@ -7,7 +7,7 @@ import java.util.UUID;
  * @date 2019/12/8 11:29
  */
 public class UuidUtil {
-    public static String getUUID() {
+    public static String getUuid() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 

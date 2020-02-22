@@ -3,9 +3,7 @@ package cn.seeumt.enums;
 import lombok.Getter;
 
 /**
-
- * 状态码
- * Created by jt on 2018/3/8.
+@author Seeumt
  */
 @Getter
 public enum ResultCode implements CodeEnum {

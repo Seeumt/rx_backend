@@ -10,7 +10,6 @@ import java.util.Collection;
  * @version 1.0
  * @date 2020/2/2 17:24
  */
-// TODO: 2020/2/2 001
 public class OtpAuthenticationToken extends AbstractAuthenticationToken {
 
     private static final long serialVersionUID = -2730294016361141263L;
@@ -18,7 +17,6 @@ public class OtpAuthenticationToken extends AbstractAuthenticationToken {
      * 放认证信息
      */
     private final Object principal;
-//    private Object credentials; 短信验证码这个业务不需要
 
     public OtpAuthenticationToken(String telephone) {
         super((Collection)null);

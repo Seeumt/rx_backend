@@ -1,39 +1,29 @@
 package cn.seeumt.controller;
 
 import cn.seeumt.dataobject.User;
-import cn.seeumt.dataobject.WxUser;
-import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.dto.MpWxUserInfoDTO;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.form.*;
 import cn.seeumt.model.CommentContent;
 import cn.seeumt.model.OtpCode;
 import cn.seeumt.model.UserDetail;
-import cn.seeumt.security.exception.VaildCodeException;
-import cn.seeumt.security.loginmodel.Otp;
 import cn.seeumt.service.*;
 import cn.seeumt.utils.*;
 import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
-import com.sun.org.apache.bcel.internal.generic.DADD;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -58,6 +48,7 @@ public class UserController {
     private AuthService authService;
 
 
+    public static final String PASSWORD = "password";
 
 
     @GetMapping(value = "/")
@@ -70,11 +61,11 @@ public class UserController {
     public ResultVO mpLogin(
             @ApiParam(name = "code",value = "wx.login得到的code",required = true)
             @PathVariable String code,
-            @RequestBody MPWXUserInfo mpwxUserInfo) {
-        JSONObject SessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
-        String openId = SessionKeyAndOpenId.getString("openid");
+            @RequestBody MpWxUserInfo mpwxUserInfo) {
+        JSONObject sessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
+        String openId = sessionKeyAndOpenId.getString("openid");
         mpwxUserInfo.setOpenId(openId);
-        String sessionKey = SessionKeyAndOpenId.getString("session_key");
+        String sessionKey = sessionKeyAndOpenId.getString("session_key");
         UserDetail userDetail = authService.mpLogin(mpwxUserInfo);
         return ResultVO.success(userDetail,"登录成功");
     }
@@ -113,13 +104,19 @@ public class UserController {
         if ("".equals(type)) {
             User user = userService.selectByTelephone(telephone);
             if (user != null) {
-                return ResultVO.error(TipsFlash.TELEPHOEN_HAS_BINDED);
+                return ResultVO.error(TipsFlash.TELEPHONE_HAS_BINDED);
+            }
+        }
+        if (PASSWORD.equals(type)) {
+            User user = userService.selectByTelephone(telephone);
+            if (user == null) {
+                return ResultVO.error(TipsFlash.TELEPHONE_NOT_BINDED);
             }
         }
         OtpCode otpCode = OtpCode.createCode(600L);
         userService.addCache(telephone, otpCode.getCode().toString());
-//        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
-        AliyunMessageUtil.sendSmsWel(telephone, "aa", "dasdsa");
+        // TODO: 2020/2/22  AliyunMessageUtil.sendSms(null, otpCode.getCode().toString());
+        // TODO: 2020/2/22  AliyunMessageUtil.sendSmsWel(telephone, "aa", "xx");
         System.out.println(otpCode.getCode());
         return ResultVO.success("验证码已发送!");
     }
@@ -151,7 +148,7 @@ public class UserController {
 
 
     @PostMapping(value = "/modifyUserInfo",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO modifyUserInfo(@RequestBody MPWXUserInfoDTO mpwxUserInfoDTO) {
+    public ResultVO modifyUserInfo(@RequestBody MpWxUserInfoDTO mpwxUserInfoDTO) {
         ResultVO resultVO = wxUserService.modifyUserInfo(mpwxUserInfoDTO);
         return resultVO;
     }

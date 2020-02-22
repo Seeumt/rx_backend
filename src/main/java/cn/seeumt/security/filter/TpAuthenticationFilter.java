@@ -1,7 +1,6 @@
 package cn.seeumt.security.filter;
 
 import cn.seeumt.form.LoginUser;
-import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.security.token.TpAuthenticationToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.security.authentication.AuthenticationServiceException;
@@ -9,7 +8,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +25,7 @@ public class TpAuthenticationFilter extends AbstractAuthenticationProcessingFilt
     private String telephoneParameter = TELEPHONE_KEY;
     private String passwordParameter = PASSWORD_KEY;
     private boolean postOnly = true;
+    public static final String METHOD = "POST";
 
     public TpAuthenticationFilter() {
         super(new AntPathRequestMatcher("/userss/tpLogin", "POST"));
@@ -34,7 +33,7 @@ public class TpAuthenticationFilter extends AbstractAuthenticationProcessingFilt
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
-        if (this.postOnly && !request.getMethod().equals("POST")) {
+        if (this.postOnly && !METHOD.equals(request.getMethod())) {
             throw new AuthenticationServiceException("Authentication method not supported: " + request.getMethod());
         } else {
             LoginUser loginUser = this.obtainLoginUser(request);

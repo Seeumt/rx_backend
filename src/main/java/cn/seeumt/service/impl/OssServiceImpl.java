@@ -46,9 +46,9 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     private AliyunOssConfig aliyunOssConfig;
     @Override
     public String saveOss(String originUrl,String parentId) {
-        String dbUrl = AliyunOssUtil.getDBUrl(originUrl);
+        String dbUrl = AliyunOssUtil.getDbUrl(originUrl);
         Oss oss = new Oss();
-        oss.setOssId(UuidUtil.getUUID());
+        oss.setOssId(UuidUtil.getUuid());
         oss.setUrl(dbUrl);
         oss.setType(Tips.IMAGE.getCode());
         Date date = new Date();

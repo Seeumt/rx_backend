@@ -25,16 +25,16 @@ public class DateUtil {
     /**
      * 日期格式字符串转换成时间戳
      *
-     * @param date_str
+     * @param dataStr
      *            字符串日期
      * @param format
      *            如：yyyy-MM-dd HH:mm:ss
      * @return
      */
-    public static String date2TimeStamp(String date_str, String format) {
+    public static String date2TimeStamp(String dataStr, String format) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat(format);
-            return String.valueOf(sdf.parse(date_str).getTime() / 1000);
+            return String.valueOf(sdf.parse(dataStr).getTime() / 1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class DateUtil {
      */
     public static void calendarUtil() {
         Calendar calendar = Calendar.getInstance();
-        System.out.println("年：" + calendar.get(calendar.YEAR));
+        System.out.println("年：" + calendar.get(Calendar.YEAR));
         System.out.println("月：" + (calendar.get(Calendar.MONTH) + 1));
         System.out.println("日：" + calendar.get(Calendar.DATE));
         /**
@@ -79,7 +79,6 @@ public class DateUtil {
         // 24小时制
         System.out.println("时：" + calendar.get(Calendar.HOUR_OF_DAY));
         // 12小时制
-        // System.out.println(calendar.get(Calendar.HOUR));
         System.out.println("分：" + calendar.get(Calendar.MINUTE));
         System.out.println("秒：" + calendar.get(Calendar.SECOND));
 

@@ -42,10 +42,10 @@ public class CommentFirstVO implements Serializable {
     private String apiRootId;
 
     @JsonProperty("reviewLess")
-    private List<CommentVO> commentVOS1;
+    private List<CommentVO> commentVos1;
 
     @JsonProperty("reviewLessss")
-    private List<Comment> commentVOS;
+    private List<Comment> commentVos;
 
     @JsonProperty("reviewNum")
     private Integer commentCount;

@@ -13,7 +13,6 @@ import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import io.swagger.models.auth.In;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,16 +34,16 @@ public class CommentServiceImpl implements CommentService {
     private UserMapper userMapper;
 
     @Override
-    public CommentFirstMO getLuckyCommentsAndChildren(String apiRootId) {
+    public CommentFirstMo getLuckyCommentsAndChildren(String apiRootId) {
 
         List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
         //找到所有0级评论
-        List<CommentMO> commentMOS = assemblecCommentMOList(allLuckyComments);
+        List<CommentMo> commentMos = assemblecCommentMOList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
             n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
         }
-        return new CommentFirstMO(commentMOS,n);
+        return new CommentFirstMo(commentMos,n);
 
     }
 
@@ -52,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
     public Integer getAllCommentCount(String apiRootId) {
         List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
         //找到所有0级评论
-        List<CommentMO> commentMOS = assemblecCommentMOList(allLuckyComments);
+        List<CommentMo> commentMos = assemblecCommentMOList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
             n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
@@ -60,13 +59,13 @@ public class CommentServiceImpl implements CommentService {
         return n;
     }
 
-    public List<CommentMO> assemblecCommentMOList(List<Comment> comments) {
+    public List<CommentMo> assemblecCommentMOList(List<Comment> comments) {
         return     comments.stream().map(comment -> {
-                    CommentMO commentMO = new CommentMO();
+                    CommentMo commentMO = new CommentMo();
                     BeanUtils.copyProperties(comment, commentMO);
                     List<Comment> comment1s = selectCommentCountByRootIdAndType(comment.getCommentId(), (byte) 3);
                     List<Comment> commentLess = selectCommentLessByRootIdAndType(comment.getCommentId(), (byte) 3);
-                    commentMO.setCommentVOS(assembleCommentVOList(commentLess));
+                    commentMO.setCommentVos(assembleCommentVOList(commentLess));
                     commentMO.setChildrenCount(assembleCommentVOList(comment1s).size());
                     User user = userMapper.selectById(comment.getUserId());
                     if (user == null) {
@@ -115,7 +114,7 @@ public class CommentServiceImpl implements CommentService {
 
     public static Comment createComment(String apiRootId, String userId, String content,Byte type,String parentId) {
         Comment comment = new Comment();
-        comment.setCommentId(UuidUtil.getUUID());
+        comment.setCommentId(UuidUtil.getUuid());
         comment.setType(type);
         comment.setUserId(userId);
         comment.setContent(content);
@@ -217,7 +216,7 @@ public class CommentServiceImpl implements CommentService {
             commentFirstVO.setUsername(user.getUsername());
             commentFirstVO.setFaceIcon(user.getFaceIcon());
             // TODO: 2020/2/18
-            commentFirstVO.setCommentVOS1(findAllLevelCommentsByApiRootId(commentFirstVO.getCommentId()));
+            commentFirstVO.setCommentVos1(findAllLevelCommentsByApiRootId(commentFirstVO.getCommentId()));
             commentFirstVO.setCommentCount(findAllLevelCommentsByApiRootId(commentFirstVO.getCommentId()).size());
             commentFirstVOList.add(commentFirstVO);
         }
@@ -251,7 +250,7 @@ public class CommentServiceImpl implements CommentService {
             List<cn.seeumt.model.Comment> comments1 = findNextLevelCommentsByParentId(commentFirstVO.getCommentId());
             // TODO: 2020/2/18 这里要改一下 TreeUtil
             List<cn.seeumt.model.Comment> comments2 = TreeUtil.listToTreeNew(comments1, commentFirstVO.getCommentId());
-            commentFirstVO.setCommentVOS(comments2);
+            commentFirstVO.setCommentVos(comments2);
             commentFirstVO.setCommentCount(findAllLevelCommentsByApiRootId(commentFirstVO.getCommentId()).size());
             commentFirstVOList.add(commentFirstVO);
         }
@@ -277,11 +276,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-
-//    @Override
-//    public Comment selectByCommentId(String commentId) {
-//        return commentMapper.selectByCommentId(commentId);
-//    }
 
     @Override
     public List<Comment> getAllLuckyComments(String apiRootId) {

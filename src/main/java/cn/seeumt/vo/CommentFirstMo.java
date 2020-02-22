@@ -1,12 +1,10 @@
 package cn.seeumt.vo;
 
-import cn.seeumt.model.Comment;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,12 +14,12 @@ import java.util.List;
  */
 @Data
 @AllArgsConstructor
-public class CommentFirstMO implements Serializable {
+public class CommentFirstMo implements Serializable {
 
     private static final long serialVersionUID = -1237870131418770805L;
 
     @JsonProperty("reviewMsg")
-    private List<CommentMO> commentMOS;
+    private List<CommentMo> commentMos;
 
     @JsonProperty("reviewNum")
     private Integer commentCount;

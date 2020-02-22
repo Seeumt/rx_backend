@@ -2,7 +2,7 @@ package cn.seeumt.security.jwt;
 
 import cn.seeumt.dao.WxUserMapper;
 import cn.seeumt.dataobject.WxUser;
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.security.enums.SecurityEnum;
 import cn.seeumt.security.exception.TokenIsExpiredException;
 import cn.seeumt.security.token.MpAuthenticationToken;
@@ -39,15 +39,20 @@ import java.util.List;
  * @date 2020/1/31 14:56
  */
 @Component
-public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
+public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JWTAuthorizationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
     }
 
     @Autowired
     private WxUserMapper wxUserMapper;
 
+    public static final String WX_USER_MAPPER = "wxUserMapper";
+    public static final String MP = "mp";
+    public static final String OTP = "otp";
+    public static final String UP = "up";
+    public static final String TP = "tp";
 
     @Override
     protected void doFilterInternal(HttpServletRequest request,
@@ -57,9 +62,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         ServletContext sc = request.getSession().getServletContext();
         // 获取 spring 容器
         AbstractApplicationContext cxt = (AbstractApplicationContext) WebApplicationContextUtils.getWebApplicationContext(sc);
-        if(cxt != null && cxt.getBean("wxUserMapper") != null && wxUserMapper == null) {
+        if(cxt != null && cxt.getBean(WX_USER_MAPPER) != null && wxUserMapper == null) {
             // 取出 WxUserMapper
-            wxUserMapper = (WxUserMapper) cxt.getBean("wxUserMapper");
+            wxUserMapper = (WxUserMapper) cxt.getBean(WX_USER_MAPPER);
         }
         String tokenHeader = request.getHeader(JwtTokenUtils.TOKEN_HEADER);
         //判断类型
@@ -72,13 +77,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         }
         // 如果请求头中有token，则进行解析，并且设置认证信息
         try {
-            if ("mp".equals(type)){
+            if (MP.equals(type)){
                 SecurityContextHolder.getContext().setAuthentication(getMpAuthentication(tokenHeader));
-            } else if ("otp".equals(type)) {
+            } else if (OTP.equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getOtpAuthentication(tokenHeader));
-            } else if ("up".equals(type)) {
+            } else if (UP.equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getUpAuthentication(tokenHeader));
-            } else if ("tp".equals(type)) {
+            } else if (TP.equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(getTpAuthentication(tokenHeader));
             } else if ("".equals(type)) {
                 SecurityContextHolder.getContext().setAuthentication(null);
@@ -97,7 +102,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
 
 
-    // 这里从token中获取用户信息并新建一个token（XXXAuthenticationToken）
+
+    /**
+     * 这里从token中获取用户信息并新建一个token（XXXAuthenticationToken）
+     * @param tokenHeader
+     * @return
+     * @throws TokenIsExpiredException
+     */
     private MpAuthenticationToken getMpAuthentication(String tokenHeader) throws TokenIsExpiredException {
         String token = tokenHeader.replace(JwtTokenUtils.TOKEN_PREFIX, "");
         if (JwtTokenUtils.isExpiration(token)) {
@@ -115,7 +126,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
             QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
             wrapper.eq("open_id", openId);
             WxUser wxUser = wxUserMapper.selectOne(wrapper);
-            MPWXUserInfo mpwxUserInfo = new MPWXUserInfo();
+            MpWxUserInfo mpwxUserInfo = new MpWxUserInfo();
             BeanUtils.copyProperties(wxUser,mpwxUserInfo);
             // TODO: 2020/2/2 这个是不是单单在共享信息呢，一会儿放到SecurityContextHolder中
             // TODO: 2020/2/2 authorities这个是在请求的时候进行校验即刻

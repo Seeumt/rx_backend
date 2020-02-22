@@ -45,17 +45,13 @@ public class ValidateCodeController {
 
     @GetMapping("/otp")
     public OtpCode createCode(HttpServletRequest request,String telephone) throws ServletRequestBindingException {
-//        ServletRequestUtils.getRequiredStringParameter(new ServletWebRequest(request).getRequest(), telephone);
         OtpCode otpCode = OtpCode.createCode(60L);
-//        sessionStrategy.setAttribute(new ServletWebRequest(request), telephone, otpCode);
         request.getSession().setAttribute(telephone, otpCode);
         return otpCode;
     }
 
     @GetMapping("/telephone")
     public UserDetail codeLogin(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletRequestBindingException {
-        // TODO: 2020/2/2 这方法厉害
-//        String telephone = ServletRequestUtils.(new ServletWebRequest(request).getRequest(), "telephone");
         String telephone = (String) request.getSession().getAttribute("telephone");
         return authService.otpLogin(telephone);
     }

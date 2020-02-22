@@ -41,7 +41,6 @@ public class SouvenirController {
         return souvenirService.saveOrUpdateProduct(souvenir,pics);
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{souvenirId}")
     public ResultVO delete(@PathVariable Integer souvenirId){
         if (souvenirId == null) {

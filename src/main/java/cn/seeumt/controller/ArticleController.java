@@ -16,6 +16,7 @@ import cn.seeumt.vo.TagVO;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,11 +46,11 @@ public class ArticleController {
     public ArticleDTO findAnArticle(@PathVariable String articleId) {
         ArticleDTO articleDTO = new ArticleDTO();
         List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
-        List<TagVO> tagVOS = tagService.findTagVOByTagIds(tagIds);
-        articleDTO.setTagVOS(tagVOS);
+        List<TagVO> tagVos = tagService.findTagVOByTagIds(tagIds);
+        articleDTO.setTagVos(tagVos);
         List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
-        List<CityVO> cityVOS = cityService.findByCityIds(cityIds);
-        articleDTO.setViaCitiesVOS(cityVOS);
+        List<CityVO> cityVos = cityService.findByCityIds(cityIds);
+        articleDTO.setViaCitiesVos(cityVos);
         //找到根评论
         List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(articleId);
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, articleId);
@@ -67,14 +68,14 @@ public class ArticleController {
         return comments;
     }
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @PreAuthorize("hasRole('ROLE_STU')")
+    @PreAuthorize("hasRole('ROLE_STU')")
     public ResultVO article(String userId) {
         List<Article> articles = articleService.query(userId);
         return ResultVO.success(articles);
     }
 
     @PostMapping(value = "/no", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @PreAuthorize("hasRole('ROLE_STU')")
+    @PreAuthorize("hasRole('ROLE_STU')")
     public ResultVO article(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
                             @RequestParam(value = "page",required = false,defaultValue = "1") int num,
                             @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {

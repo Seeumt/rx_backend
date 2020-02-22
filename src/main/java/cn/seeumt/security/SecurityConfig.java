@@ -4,14 +4,13 @@ import cn.seeumt.security.config.MpAuthenticationSecurityConfig;
 import cn.seeumt.security.config.TpAuthenticationSecurityConfig;
 import cn.seeumt.security.filter.ValidateCodeFilter;
 import cn.seeumt.security.config.OtpAuthenticationSecurityConfig;
-import cn.seeumt.security.jwt.JWTAccessDeniedHandler;
-import cn.seeumt.security.jwt.JWTAuthenticationEntryPoint;
-import cn.seeumt.security.jwt.JWTAuthorizationFilter;
+import cn.seeumt.security.jwt.JwtAccessDeniedHandler;
+import cn.seeumt.security.jwt.JwtAuthenticationEntryPoint;
+import cn.seeumt.security.jwt.JwtAuthorizationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -43,7 +42,6 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    // 因为UserDetailsService的实现类实在太多啦，这里设置一下我们要注入的实现类
     @Qualifier("userDetailServiceImpl")
     private UserDetailsService userDetailsService;
     @Autowired
@@ -96,13 +94,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userDetailsService(userDetailsService)
                 .and()
 //                .addFilter(new JWTAuthenticationFilter(authenticationManager()))
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilter(new JwtAuthorizationFilter(authenticationManager()))
                 // 不需要session
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .exceptionHandling().authenticationEntryPoint(new JWTAuthenticationEntryPoint())
+                .exceptionHandling().authenticationEntryPoint(new JwtAuthenticationEntryPoint())
                 //添加无权限时的处理
-                .accessDeniedHandler(new JWTAccessDeniedHandler()).
+                .accessDeniedHandler(new JwtAccessDeniedHandler()).
                 and()
                 .cors().and().csrf().disable()
                 .apply(otpAuthenticationSecurityConfig).
@@ -130,14 +128,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    // TODO: 2020/2/2 记住我功能开发
+    /**
+     * 开发记住我功能
+     */
     @Autowired
     private DataSource dataSource;
     @Bean
     public PersistentTokenRepository persistentTokenRepository() {
         JdbcTokenRepositoryImpl tokenRepository = new JdbcTokenRepositoryImpl();
         tokenRepository.setDataSource(dataSource);
-//        tokenRepository.setCreateTableOnStartup(true);
         return tokenRepository;
     }
 

@@ -17,12 +17,11 @@ import javax.servlet.http.HttpServletResponse;
  * @version 1.0
  * @date 2020/2/2 17:11
  */
-// TODO: 2020/2/2 222
 public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     public static final String TELEPHONE = "telephone";
-//    public static final String SPRING_SECURITY_FORM_PASSWORD_KEY = "password";
     private String telephoneParameter = TELEPHONE;
+    public static final String METHOD = "POST";
     private boolean postOnly = true;
 
     public OtpAuthenticationFilter() {
@@ -31,18 +30,13 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        if (this.postOnly && !request.getMethod().equals("POST")) {
+        if (this.postOnly && !METHOD.equals(request.getMethod())) {
             throw new AuthenticationServiceException("认证方式不支持: " + request.getMethod()+"请求方式");
         } else {
             String telephone = this.obtainTelephone(request);
-//            String password = this.obtainPassword(request);
             if (telephone == null) {
                 telephone = "";
             }
-
-//            if (password == null) {
-//                password = "";
-//            }
 
             telephone = telephone.trim();
             OtpAuthenticationToken authRequest = new OtpAuthenticationToken(telephone);
@@ -50,9 +44,7 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
             return this.getAuthenticationManager().authenticate(authRequest);
         }
     }
-//    protected String obtainPassword(HttpServletRequest request) {
-//        return request.getParameter(this.passwordParameter);
-//    }
+
 
     protected String obtainTelephone(HttpServletRequest request) {
         return request.getParameter(this.telephoneParameter);
@@ -67,10 +59,6 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
         this.telephoneParameter = telephoneParameter;
     }
 
-//    public void setPasswordParameter(String passwordParameter) {
-//        Assert.hasText(passwordParameter, "Password parameter must not be empty or null");
-//        this.passwordParameter = passwordParameter;
-//    }
 
     public void setPostOnly(boolean postOnly) {
         this.postOnly = postOnly;
@@ -80,7 +68,5 @@ public class OtpAuthenticationFilter extends AbstractAuthenticationProcessingFil
         return this.telephoneParameter;
     }
 
-//    public final String getPasswordParameter() {
-//        return this.passwordParameter;
-//    }
+
 }

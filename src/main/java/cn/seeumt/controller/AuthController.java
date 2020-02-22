@@ -2,42 +2,22 @@ package cn.seeumt.controller;
 
 
 
-import cn.seeumt.dataobject.WxUser;
-import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.enums.ResultCode;
 import cn.seeumt.form.LoginUser;
-import cn.seeumt.form.MPWXUserInfo;
-import cn.seeumt.model.OtpCode;
-import cn.seeumt.model.ResponseTokenUser;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.AuthService;
-import cn.seeumt.utils.KeyUtil;
-import cn.seeumt.utils.UuidUtil;
-import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ResultVO;
-import com.alibaba.fastjson.JSONObject;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Date;
 
-
+/**
+ * @author Seeumt
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
@@ -62,7 +42,7 @@ public class AuthController {
 
     @GetMapping(value = "/logouty")
     @ApiOperation(value = "登出", notes = "退出登陆")
-//    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     public ResultVO logoutt(HttpServletRequest request){
         String token = request.getHeader(TOKEN_HEADER);
         if (token == null) {

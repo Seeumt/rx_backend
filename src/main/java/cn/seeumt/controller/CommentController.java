@@ -27,14 +27,10 @@ public class CommentController {
         return commentService.listByParentId(parentId);
     }
 
-//    @GetMapping("/{apiRootId}")
-//    public ResultVO queryAllComment(@PathVariable String apiRootId) {
-//        return commentService.findAllLevelCommentsByApiRootId(apiRootId);
-//    }
+
 
     @GetMapping("/")
     public ResultVO queryHomeComments(String apiRootId) {
-//        return ResultVO.success(commentService.queryHomeComments(apiRootId));
         return ResultVO.success(commentService.getLuckyCommentsAndChildren(apiRootId));
     }
 

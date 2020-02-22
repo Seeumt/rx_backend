@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.Properties;
 
+/**
+ * @author Seeumt
+ */
 @Configuration
 public class MybatisPageHelperConfig {
     @Bean

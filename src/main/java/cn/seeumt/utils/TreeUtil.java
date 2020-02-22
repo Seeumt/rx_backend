@@ -19,8 +19,9 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import java.util.*;
 
-//用List构建带有层次结构的json数据
-//List父子节点构造树形Json
+/**
+ * @author Seeumt
+ */
 @Component
 @Data
 public class TreeUtil {
@@ -46,7 +47,14 @@ public class TreeUtil {
     }
 
     //将list集合转成树形结构的list集合
-    // TODO: 2019/12/10 在这里要不要把postId当作根节点？
+    // TODO: 2019/12/10 在这里要不要把postId当作根节点？、
+
+    /**
+     * 找到最近一级的List
+     * @param list
+     * @param parentId
+     * @return
+     */
     public static List<Comment> listToTree(List<Comment> list, String parentId) {
         //用递归找子。
         List<Comment> treeList = new ArrayList<>();
@@ -60,7 +68,11 @@ public class TreeUtil {
         return treeList;
     }
 
-    //寻找子节点
+    /**
+     * 寻找子节点
+     * @param tree
+     * @return
+     */
     private static Comment findChildren(Comment tree) {
         List<Comment> comments = TreeUtil.treeUtil.commentService.findNextLevelCommentsByParentId(tree.getCommentId());
 //        TreeUtil.treeUtil.commentService.findNextLevelCommentsByParentId(tree.getCommentId())
@@ -90,7 +102,11 @@ public class TreeUtil {
         return treeList;
     }
 
-    //寻找子节点
+    /**
+     * 寻找子节点新
+     * @param tree
+     * @return
+     */
     private static Comment findChildrenNew(Comment tree) {
         List<Comment> comments = TreeUtil.treeUtil.commentService.findNextLevelCommentsByParentId(tree.getCommentId());
 //        TreeUtil.treeUtil.commentService.findNextLevelCommentsByParentId(tree.getCommentId())

@@ -38,7 +38,7 @@ public class FollowServiceImpl extends ServiceImpl<FollowMapper, Follow> impleme
     @Override
     public ResultVO add(String userId, String idolId) {
         Follow follow = new Follow();
-        follow.setFollowId(UuidUtil.getUUID());
+        follow.setFollowId(UuidUtil.getUuid());
         follow.setUserId(userId);
         follow.setIdolId(idolId);
         follow.setIsFollow(true);

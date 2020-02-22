@@ -17,7 +17,6 @@ import javax.servlet.http.HttpSession;
  */
 @RestController
 @RequestMapping("/order")
-//@Api(tags = "默认是xxx-controller --> order",description = "默认是 Xxx Controller，--> 订单描述 (已过时)")
 public class OrderController {
 
     @Resource
@@ -47,8 +46,8 @@ public class OrderController {
                          @RequestParam(value = "num",required = false,defaultValue = "1") int num,
                          @RequestParam(value = "size", required = false, defaultValue = "3")int size) {
 
-        PageInfo<OrderDTO> orderDTOPageInfo = orderService.list(num, size, userId);
-        return ResultVO.success(orderDTOPageInfo);
+        PageInfo<OrderDTO> orderDtoPageInfo = orderService.list(num, size, userId);
+        return ResultVO.success(orderDtoPageInfo);
     }
 
 

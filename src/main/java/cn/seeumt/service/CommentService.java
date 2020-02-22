@@ -44,7 +44,7 @@ public interface CommentService {
     ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId);
 //    ResultVO comment( String userId, String content, Byte type, String commentId,String parentId);
 
-    CommentFirstMO getLuckyCommentsAndChildren(String apiRootId);
+    CommentFirstMo getLuckyCommentsAndChildren(String apiRootId);
 
     /**
      * 通过某parentId(父级Id 第一级评论的父级id都是articleId,postId)

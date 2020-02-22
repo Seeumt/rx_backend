@@ -32,7 +32,7 @@ public class RatingServiceImpl extends ServiceImpl<RatingMapper, Rating> impleme
         //如果没有点过赞 成功啦！点赞  改变love的status
         if (aRating==null) {
             Rating rating1 = new Rating();
-            rating1.setRatingId(UuidUtil.getUUID());
+            rating1.setRatingId(UuidUtil.getUuid());
             rating1.setRating(rating);
             rating1.setUserId(userId);
             rating1.setApiRootId(apiRootId);

@@ -1,6 +1,6 @@
 package cn.seeumt.security.token;
 
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -18,9 +18,8 @@ public class MpAuthenticationToken extends AbstractAuthenticationToken {
      * 放认证信息
      */
     private final Object principal;
-//    private Object credentials; 短信验证码这个业务不需要
 
-    public MpAuthenticationToken(MPWXUserInfo mpwxUserInfo) {
+    public MpAuthenticationToken(MpWxUserInfo mpwxUserInfo) {
         super((Collection)null);
         this.principal = mpwxUserInfo;
         this.setAuthenticated(false);

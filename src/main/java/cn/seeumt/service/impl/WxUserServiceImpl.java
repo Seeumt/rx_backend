@@ -1,17 +1,15 @@
 package cn.seeumt.service.impl;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dao.WxUserMapper;
-import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.dto.MpWxUserInfoDTO;
 import cn.seeumt.enums.Tips;
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +27,9 @@ public class WxUserServiceImpl implements WxUserService {
     @Autowired
     private WxUserMapper wxUserMapper;
     @Override
-    public WxUser insert(MPWXUserInfo mpwxUserInfo,String openId,String sessionKey,String skey) {
+    public WxUser insert(MpWxUserInfo mpwxUserInfo, String openId, String sessionKey, String skey) {
         WxUser wxUser = new WxUser();
-        wxUser.setUserId(UuidUtil.getUUID());
+        wxUser.setUserId(UuidUtil.getUuid());
         wxUser.setOpenId(openId);
         wxUser.setNickName(mpwxUserInfo.getNickName());
         wxUser.setGender(mpwxUserInfo.getGender());
@@ -70,7 +68,7 @@ public class WxUserServiceImpl implements WxUserService {
     }
 
     @Override
-    public ResultVO modifyUserInfo(MPWXUserInfoDTO mpwxUserInfoDTO) {
+    public ResultVO modifyUserInfo(MpWxUserInfoDTO mpwxUserInfoDTO) {
         QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", mpwxUserInfoDTO.getUserId());
         WxUser wxUser = wxUserMapper.selectOne(wrapper);

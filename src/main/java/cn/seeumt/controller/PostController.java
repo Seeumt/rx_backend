@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Seeumt
+ */
 @RestController
 @RequestMapping("/posts")
 @CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
@@ -93,10 +96,7 @@ public class PostController {
 
 
 
-//    @PostMapping("/")
-//    public int send() {
-//        return postService.sendPost();
-//    }
+
 
     @PostMapping("/detail")
     public ResultVO find(String userId) {
@@ -113,7 +113,7 @@ public class PostController {
 
 
     @PostMapping("/findPost")
-    public ResultVO findAPost(String postId) {
+    public ResultVO findPost(String postId) {
         PostDTO postDTO = postService.selectByPostId(postId);
         List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(postId);
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, postId);

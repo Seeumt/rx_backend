@@ -21,15 +21,19 @@ import java.util.Date;
  * @version 1.0
  * @date 2020/2/2 11:05
  */
-//OncePerRequestFilter保证每次只调用一次
 @Data
 public class ValidateCodeFilter extends OncePerRequestFilter {
+    //OncePerRequestFilter保证每次只调用一次
+    /**
+     * 请求路径
+     */
+    public static final String PATH = "/users/otpLogin";
 
 
     private AuthenticationFailureHandler authenticationFailureHandler;
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        if (StringUtils.equals("/users/otpLogin", httpServletRequest.getRequestURI())
+        if (StringUtils.equals(PATH, httpServletRequest.getRequestURI())
                 && StringUtils.equalsAnyIgnoreCase(httpServletRequest.getMethod(), "POST")) {
             try {
                 validate(httpServletRequest);

@@ -1,6 +1,6 @@
 package cn.seeumt.service;
 
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.model.UserDetail;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -13,6 +13,6 @@ public interface MyUserDetailService extends UserDetailsService {
 
     UserDetail findUserByTelephone(String telephone);
 
-    UserDetail findUserByOpenId(MPWXUserInfo mpwxUserInfo);
+    UserDetail findUserByOpenId(MpWxUserInfo mpwxUserInfo);
 
 }

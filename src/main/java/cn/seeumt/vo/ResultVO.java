@@ -7,6 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+
+/**
+ * @author Seeumt
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

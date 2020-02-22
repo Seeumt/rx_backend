@@ -2,6 +2,9 @@ package cn.seeumt.utils;
 
 import java.util.Random;
 
+/**
+ * @author Seeumt
+ */
 public class KeyUtil {
 
     /**

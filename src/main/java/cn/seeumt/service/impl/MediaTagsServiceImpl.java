@@ -37,7 +37,7 @@ public class MediaTagsServiceImpl implements MediaTagsService {
     @Override
     public void insert(List<String> tagIdList, String parentId) {
         for (String tagId : tagIdList) {
-            String id = UuidUtil.getUUID();
+            String id = UuidUtil.getUuid();
             MediaTags mediaTags = new MediaTags(id, tagId, parentId);
             int insert = mediaTagsMapper.insert(mediaTags);
             if (insert < 1) {

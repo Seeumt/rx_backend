@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2020/2/19 19:20
  */
 @Data
-public class CommentMO implements Serializable {
+public class CommentMo implements Serializable {
 
     private static final long serialVersionUID = -2903316850655341905L;
 
@@ -52,5 +52,5 @@ public class CommentMO implements Serializable {
     private Integer childrenCount;
 
     @JsonProperty("reviewLess")
-    List<CommentVO> commentVOS;
+    List<CommentVO> commentVos;
 }

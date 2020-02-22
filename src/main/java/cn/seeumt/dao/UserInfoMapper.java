@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 public interface UserInfoMapper extends BaseMapper<User> {
     int deleteByPrimaryKey(String id);
-
+    @Override
     int insert(User record);
 
     int insertSelective(User record);

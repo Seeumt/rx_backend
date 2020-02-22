@@ -27,22 +27,34 @@ public class JwtTokenUtils {
     private static final String SECRET = "jwtsecretdemo";
     private static final String ISS = "rx";
 
-    // 过期时间是3600秒，即1个小时
+    /**
+     * 过期时间
+     */
     private static final long EXPIRATION = 3600L;
 
-    // 选择了记住我之后的过期时间为7天
+    /**
+     *  选择了记住我之后的过期时间为7天
+     */
     private static final long EXPIRATION_REMEMBER = 604800L;
 
-    // 添加角色的key
+    /**
+     * 添加角色的key
+     */
     private static final String ROLE_CLAIMS = "roles";
 
     private Map<String, String> tokenMap = new ConcurrentHashMap<>(32);
 
 
-    // 修改一下创建token的方法
+    /**
+     * 创建token的方法
+     * @param validId
+     * @param authorities
+     * @param isRememberMe
+     * @return
+     */
     public static String createToken(String validId, String authorities, boolean isRememberMe) {
         long expiration = isRememberMe ? EXPIRATION_REMEMBER : EXPIRATION;
-        HashMap<String, Object> map = new HashMap<>();
+        HashMap<String, Object> map = new HashMap<>(32);
         map.put(ROLE_CLAIMS, authorities);
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, SECRET)
@@ -74,7 +86,11 @@ public class JwtTokenUtils {
 //                .compact();
 //    }
 
-    // 从token中获取用户名
+    /**
+     * 从token中获取用户名
+     * @param token
+     * @return
+     */
     public static String getValidId(String token){
         return getTokenBody(token).getSubject();
     }
@@ -85,7 +101,11 @@ public class JwtTokenUtils {
      * @param token token
      * @return
      */
-    // 是否已过期
+    /**
+     * 判断是否已过期
+     * @param token
+     * @return
+     */
     public static boolean isExpiration(String token) {
         try {
             return getTokenBody(token).getExpiration().before(new Date());

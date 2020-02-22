@@ -12,11 +12,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import java.util.Date;
 import java.util.List;
-@Data
+
+
+
+
 /**
  * @author Seeumt
  * @date 2019/12/8 14:51
  */
+@Data
 public class PostDTO {
 
     private String postId;
@@ -29,13 +33,8 @@ public class PostDTO {
     private String[] imgUrls;
     private UserVO userVO;
     private List<TagVO> tags;
-//    private Integer thumbCount;
-//    private Integer commentCount;
-//    @JsonProperty("collectCount")
-//    private Integer treasureCount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm",timezone = "GMT+8")
     private Date createTime;
-
     private LoveVO love;
     private Integer commentCount;
     private List<Comment> comments;

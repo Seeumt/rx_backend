@@ -19,7 +19,6 @@ import java.util.List;
  * @date 2020/1/29 11:56
  */
 @Data
-//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class OrderDTO implements Serializable {
 
     private static final long serialVersionUID = 6875339417615309926L;

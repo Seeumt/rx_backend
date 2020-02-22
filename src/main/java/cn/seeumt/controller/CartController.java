@@ -40,9 +40,7 @@ public class CartController {
         log.info("【添加到购物车】用户:user_id={} 添加商品:souvenir_id={} {}件到购物车",userId,souvenirId,count);
         return cartService.add(userId,souvenirId,count);
     }
-//
-//
-//
+
     @PutMapping("/{souvenirId}")
     public ResultVO update(String userId,@PathVariable Integer souvenirId, Integer count ){
         return cartService.update(userId,souvenirId,count);

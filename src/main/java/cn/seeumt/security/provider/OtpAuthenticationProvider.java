@@ -16,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  * @version 1.0
  * @date 2020/2/2 18:23
  */
-// TODO: 2020/2/2 333
 @Data
 public class OtpAuthenticationProvider implements AuthenticationProvider {
     @Autowired

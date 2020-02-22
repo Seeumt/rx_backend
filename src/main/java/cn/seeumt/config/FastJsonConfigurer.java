@@ -16,6 +16,9 @@ import org.springframework.web.util.UrlPathHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Seeumt
+ */
 @Configuration
 public class FastJsonConfigurer implements WebMvcConfigurer {
     @Override

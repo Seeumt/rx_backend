@@ -1,6 +1,6 @@
 package cn.seeumt.security.provider;
 
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.service.MyUserDetailService;
@@ -24,7 +24,7 @@ public class MpAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        UserDetail userDetail = userDetailsService.findUserByOpenId((MPWXUserInfo) authentication.getPrincipal());
+        UserDetail userDetail = userDetailsService.findUserByOpenId((MpWxUserInfo) authentication.getPrincipal());
         if (userDetail == null) {
             throw new InternalAuthenticationServiceException("系统异常");
         }

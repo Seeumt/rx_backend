@@ -5,8 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
+
+/**
+ * @author Seeumt
+ */
 @Data
-//@AllArgsConstructor
 public class ImgDTO {
     private String parentId;
     private List<Img> imgs;

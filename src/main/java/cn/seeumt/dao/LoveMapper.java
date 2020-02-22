@@ -9,6 +9,7 @@ public interface LoveMapper extends BaseMapper<Love> {
 
     int deleteByPrimaryKey(String loveId);
 
+    @Override
     int insert(Love record);
 
 

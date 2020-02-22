@@ -6,6 +6,9 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * @author Seeumt
+ */
 @Data
 @JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class CommentContent {// TODO: 2019/12/9 Oops~~~

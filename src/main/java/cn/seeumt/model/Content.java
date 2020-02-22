@@ -3,6 +3,10 @@ package cn.seeumt.model;
 import lombok.Data;
 
 import java.util.Date;
+
+/**
+ * @author Seeumt
+ */
 @Data
 public class Content {
 

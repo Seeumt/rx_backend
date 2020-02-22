@@ -17,6 +17,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
 
+/**
+ * @author Seeumt
+ */
 @Component
 @Data
 public class AliyunOssUtil {
@@ -65,8 +68,8 @@ public class AliyunOssUtil {
     }
 
     public static String getSuffix(URL url){
-        String Url = url.toString();
-        String suffix = Url.substring(Url.lastIndexOf("/") + 1);
+        String myUrl = url.toString();
+        String suffix = myUrl.substring(myUrl.lastIndexOf("/") + 1);
         System.out.println(suffix);
         return suffix;
     }
@@ -81,17 +84,15 @@ public class AliyunOssUtil {
         return url;
     }
 
-    public static String getDBUrl(String originUrl){
+    public static String getDbUrl(String originUrl){
         String url = originUrl.substring(originUrl.lastIndexOf("/")+1, originUrl.lastIndexOf("?"));
         return url;
     }
 
     public static void main(String[] args) {
-//        String s = AliyunOssUtil.cutSuffix("6b398e08-805d-43b3-8496-f1a7ac049667.mp4?Expires=4731621615&OSSAccessKeyId=LTAI4Fr8bs4fisHj6ycb3oxV&Signature=EjO0fMGBkPBF37EpsJvorMY6qpk%3D");
-//        System.out.println(s);
 
-        String url = AliyunOssUtil.getDBUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg");
-//        String url = AliyunOssUtil.getDBUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg?Expires=4724220220&OSSAccessKeyId=LTAI4Fr8bs4fisHj6ycb3oxV&Signature=U9SI8dNyroqato0Y5JtMQRoFk5A%3D");
+
+        String url = AliyunOssUtil.getDbUrl("http://seeumt.oss-cn-hangzhou.aliyuncs.com/20191009072340.jpg");
         System.out.println(url);
     }
 }

@@ -25,8 +25,6 @@ public class CarouselController {
 
     @Autowired
     private CarouselService carouselService;
-//    @CrossOrigin(origins = "http://localhost:8081")
-//    @CrossOrigin(origins = "http://192.168.3.77:8081")
     @GetMapping(value = "/",produces = MediaType.APPLICATION_JSON_VALUE)
     private ResultVO carousels() {
         List<Carousel> carousels = carouselService.getCarousels();

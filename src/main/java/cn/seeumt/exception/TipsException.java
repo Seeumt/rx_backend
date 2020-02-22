@@ -4,6 +4,9 @@ import cn.seeumt.enums.ResultEnum;
 import cn.seeumt.enums.TipsFlash;
 import lombok.Getter;
 
+/**
+ * @author Seeumt
+ */
 @Getter
 public class TipsException extends RuntimeException {
 

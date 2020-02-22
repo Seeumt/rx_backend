@@ -233,7 +233,7 @@ public class PostServiceImpl implements PostService {
     @Transactional(rollbackFor = TipsException.class)
     public ResultVO send(cn.seeumt.form.Post formPost) {
         String tagIds = formPost.getTagIds();
-        String postId = UuidUtil.getUUID();
+        String postId = UuidUtil.getUuid();
         List<String> tagIdList = Splitter.on(",").splitToList(tagIds);
         if (CollectionUtils.isEmpty(tagIdList)) {
             insertPost(formPost, postId);

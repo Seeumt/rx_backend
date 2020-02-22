@@ -4,7 +4,7 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dao.AuthMapper;
 import cn.seeumt.dao.WxUserMapper;
 import cn.seeumt.exception.TipsException;
-import cn.seeumt.form.MPWXUserInfo;
+import cn.seeumt.form.MpWxUserInfo;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.MpAuthenticationToken;
 import cn.seeumt.security.token.OtpAuthenticationToken;
@@ -86,7 +86,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public UserDetail mpLogin(MPWXUserInfo mpwxUserInfo) {
+    public UserDetail mpLogin(MpWxUserInfo mpwxUserInfo) {
         UserDetail userDetail = getAuthenticationToken(new MpAuthenticationToken(mpwxUserInfo));
         Collection<? extends GrantedAuthority> authorities = userDetail.getAuthorities();
         String roles = StringUtils.join(authorities.toArray(), ",");

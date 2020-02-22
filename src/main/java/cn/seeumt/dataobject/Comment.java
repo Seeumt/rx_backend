@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.util.Date;
+
+/**
+ * @author Seeumt
+ */
 @Data
 public class Comment {
     @TableId

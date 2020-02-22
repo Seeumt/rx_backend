@@ -32,7 +32,7 @@ public class LoveServiceImpl implements LoveService {
         //如果没有点过赞 成功啦！点赞  改变love的status
         if (aLove==null) {
             Love love = new Love();
-            love.setLoveId(UuidUtil.getUUID());
+            love.setLoveId(UuidUtil.getUuid());
             love.setStatus(true);
             love.setCreateTime(new Date());
             love.setUpdateTime(new Date());
@@ -146,14 +146,14 @@ public class LoveServiceImpl implements LoveService {
 //        Love love = loveMapper.selectByLoveId(loveId);
 //        if (love == null) {
 //            Love love1 = new Love();
-//            love1.setId(UuidUtil.getUUID());
+//            love1.setId(UuidUtil.getUuid());
 //            love1.setLoveId(loveId);
 //            love1.setType((byte) Tips.ARTICLE_THUMB.getCode().intValue());
 //            love1.setStatus(true);
 //            love1.setCreateTime(new Date());
 //            love1.setUpdateTime(new Date());
 //            love1.setEnabled(true);
-//            love1.setFromId(UuidUtil.getUUID());
+//            love1.setFromId(UuidUtil.getUuid());
 //            loveMapper.insert(love1);
 //            int thumbNum = loveFromUserService.createThumb(userId, love1.getFromId());
 //            if (thumbNum != 1) {
