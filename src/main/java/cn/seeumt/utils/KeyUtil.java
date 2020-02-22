@@ -16,4 +16,10 @@ public class KeyUtil {
         return System.currentTimeMillis() + number;
     }
 
+    public static synchronized Long genUniqueUsername() {
+        Random random = new Random();
+        Long number = random.nextInt(9000000)+ 1000000L;
+        return number;
+    }
+
 }

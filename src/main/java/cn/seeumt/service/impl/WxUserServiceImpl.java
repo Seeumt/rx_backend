@@ -5,6 +5,7 @@ import java.util.Date;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dao.WxUserMapper;
 import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.enums.Tips;
 import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.service.WxUserService;
 import cn.seeumt.utils.UuidUtil;
@@ -39,7 +40,7 @@ public class WxUserServiceImpl implements WxUserService {
         wxUser.setAvatarUrl(mpwxUserInfo.getAvatarUrl());
         wxUser.setLanguage(mpwxUserInfo.getLanguage());
         wxUser.setMobile("");
-        wxUser.setTelephone("");
+        wxUser.setTelephone(Tips.DEFAULT_TEL.getMsg());
         wxUser.setSessionKey(sessionKey);
 //        设置会话skey
         wxUser.setSkey(skey);

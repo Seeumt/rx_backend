@@ -5,6 +5,7 @@ import cn.seeumt.dataobject.Role;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.dataobject.UserRole;
 import cn.seeumt.dataobject.WxUser;
+import cn.seeumt.enums.Tips;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.form.MPWXUserInfo;
 import cn.seeumt.service.MyUserDetailService;
@@ -73,10 +74,10 @@ public class UserDetailServiceImpl implements MyUserDetailService {
             User user = new User();
             String userId = UuidUtil.getUUID();
             user.setUserId(userId);
-            user.setUsername(mpwxUserInfo.getNickName());
+            user.setUsername("Tips_"+KeyUtil.genUniqueUsername());
             user.setNickname(mpwxUserInfo.getNickName());
             user.setPassword(KeyUtil.genUniqueKey().toString());
-            user.setTelephone("");
+            user.setTelephone(Tips.DEFAULT_TEL.getMsg());
             user.setFaceIcon(mpwxUserInfo.getAvatarUrl());
             user.setEnabled(true);
             user.setLocked(false);
@@ -84,6 +85,7 @@ public class UserDetailServiceImpl implements MyUserDetailService {
             user.setLastVisitTime(new Date());
             user.setIsRememberMe(false);
             user.setOpenId(mpwxUserInfo.getOpenId());
+            System.out.println(user);
             int insert = userMapper.insert(user);
             if (insert < 0) {
                 throw new TipsException(123, "微信登录异常");

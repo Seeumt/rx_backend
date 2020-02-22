@@ -22,7 +22,11 @@ public interface UserService{
 
     UserDetail selectUserDetailByOpenId(String openId);
 
-    int resetPwd(String telephone,String password);
+    void addCache(String telephone, String otpCode);
+
+    ResultVO validCode(String telephone, String otpCode);
+
+    boolean resetPwd(String telephone, String password);
 
     // TODO: 2020/2/4 wx用户更新头像
     ResultVO uploadFaceIcon(String userId, String originUrl);
@@ -31,6 +35,6 @@ public interface UserService{
 
     ResultVO onlineUser(Long gap);
 
-
+    Boolean validTel(String telephone);
     int bindTel(String openId, String telephone);
 }

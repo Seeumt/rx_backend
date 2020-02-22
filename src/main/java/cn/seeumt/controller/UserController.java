@@ -3,6 +3,7 @@ package cn.seeumt.controller;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.dataobject.WxUser;
 import cn.seeumt.dto.MPWXUserInfoDTO;
+import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.form.*;
 import cn.seeumt.model.CommentContent;
@@ -55,6 +56,10 @@ public class UserController {
     private HttpSession httpSession;
     @Autowired
     private AuthService authService;
+
+
+
+
     @GetMapping(value = "/")
     public List<CommentContent> findMyCommentsOfAnArticle(String articleId,String userId) {
         return commentService.findUserCommentsOfAnArticle(articleId, userId);
@@ -104,39 +109,40 @@ public class UserController {
     public ResultVO sendSms(
             @ApiParam(name = "telephone", value = "手机号", required = true)
             @PathVariable String telephone,
-            HttpServletRequest httpServletRequest) throws ClientException {
-        User user = userService.selectByTelephone(telephone);
-        if (user != null) {
-            return ResultVO.error(TipsFlash.TELEPHOEN_HAS_BINDED);
+            @RequestParam(value = "type",required = false,defaultValue = "") String type) throws ClientException {
+        if ("".equals(type)) {
+            User user = userService.selectByTelephone(telephone);
+            if (user != null) {
+                return ResultVO.error(TipsFlash.TELEPHOEN_HAS_BINDED);
+            }
         }
         OtpCode otpCode = OtpCode.createCode(600L);
-        httpServletRequest.getSession().setAttribute(telephone, otpCode);
-        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
-        return ResultVO.success("验证码已发送至您的手机");
+        userService.addCache(telephone, otpCode.getCode().toString());
+//        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
+        AliyunMessageUtil.sendSmsWel(telephone, "aa", "dasdsa");
+        System.out.println(otpCode.getCode());
+        return ResultVO.success("验证码已发送!");
     }
 
-    @PutMapping("/reset/pwd")
-    @ApiOperation(value = "修改|找回密码",notes = "",httpMethod = "PUT")
+    @PutMapping("/pwd")
+    @ApiOperation(value = "重置密码",httpMethod = "PUT")
     public ResultVO resetPwd(@RequestBody TelLogin telLogin) {
-        OtpCode otpCode = (OtpCode) httpSession.getAttribute(telLogin.getTelephone());
-        if (otpCode.getCode().equals(telLogin.getCode()) ) {
-            userService.resetPwd(telLogin.getTelephone(), telLogin.getPassword());
-        }
+        userService.resetPwd(telLogin.getTelephone(), telLogin.getPassword());
         return ResultVO.success(20008, "修改密码成功！");
     }
 
     @PostMapping("/bind")
     @ApiOperation(value = "微信openId绑定手机号",notes = "附带Otp验证码",httpMethod = "POST")
-    public ResultVO bindTel(String openId,String telephone,Long code) {
-        OtpCode otpCode = (OtpCode) httpSession.getAttribute(telephone);
-        if (!otpCode.getCode().equals(code) ) {
-            return ResultVO.error(20006, "验证码错误");
+    public ResultVO bindTel(String openId,String telephone,String code) throws ClientException {
+        ResultVO resultVO = userService.validCode(telephone, code);
+        if (!(Boolean) resultVO.getData()){
+            return ResultVO.error(resultVO.getCode(), resultVO.getMsg());
         }
         int i = userService.bindTel(openId, telephone);
         if (i > 0) {
-            return ResultVO.success(200005, "绑定手机成功！");
+            return ResultVO.success(telephone,Tips.BIND_SUCCESS.getMsg());
         }
-        return ResultVO.error(20007, "手机号绑定异常");
+        return ResultVO.error(TipsFlash.BIND_TELEPHONE_EXCEPTION);
     }
 
 
@@ -176,7 +182,6 @@ public class UserController {
 
     @PostMapping("/logout")
     public ResultVO logout(String userId) {
-//        httpSession.removeAttribute(httpSession.getId());
         return ResultVO.success(0, userId+" 已成功退出！");
     }
 
@@ -184,6 +189,18 @@ public class UserController {
     public ResultVO online(@RequestParam(value = "gap", required = false, defaultValue = "600000") Integer gap) {
         return userService.onlineUser(gap.longValue());
     }
+
+
+    @PostMapping("/valid")
+    public ResultVO valid(String telephone,String code) {
+        ResultVO resultVO = userService.validCode(telephone, code);
+        if (!(Boolean) resultVO.getData()){
+            return ResultVO.error(resultVO.getCode(), resultVO.getMsg());
+        }
+        return ResultVO.success(TipsFlash.VALID_OTPCODE_SUCCESS.getCode(),TipsFlash.VALID_OTPCODE_SUCCESS.getMsg());
+    }
+
+
 
 
 }

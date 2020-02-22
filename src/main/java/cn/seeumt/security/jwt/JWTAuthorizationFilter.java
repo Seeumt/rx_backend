@@ -66,7 +66,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
         String type = request.getHeader("type");
         // 如果请求头中没有Authorization信息则直接放行了
         // TODO: 2020/2/5 开发需要 判断条件可以更严谨
-        if ("".equals(type)||type==null||!tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)||tokenHeader==null) {
+        if ("".equals(type)||type==null||!tokenHeader.startsWith(JwtTokenUtils.TOKEN_PREFIX)) {
             chain.doFilter(request, response);
             return;
         }

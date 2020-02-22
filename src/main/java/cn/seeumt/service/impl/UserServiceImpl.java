@@ -6,13 +6,17 @@ import cn.seeumt.dataobject.*;
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dto.MPWXUserInfoDTO;
 import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
+import cn.seeumt.handler.TipsExceptionHandler;
 import cn.seeumt.model.UserDetail;
+import cn.seeumt.service.RedisService;
 import cn.seeumt.service.UserRoleService;
 import cn.seeumt.service.UserService;
-import cn.seeumt.utils.DateUtil;
+import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,8 +45,16 @@ public class UserServiceImpl implements UserService {
     private RoleMapper roleMapper;
     @Autowired
     private WxUserMapper wxUserMapper;
+
+    @Autowired
+    private RedisService redisService;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public static final String REDIS_KEY_PREFIX_OTP_CODE = "otp";
+    public static final Long OTP_CODE_EXPIRE_SECONDS = 300L;
+
     @Override
     public UserDetail selectUserDetailByUserId(String userId) {
         User user = userMapper.selectById(userId);
@@ -79,13 +91,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @Transactional
-    public int resetPwd(String telephone,String password) {
+    public void addCache(String telephone, String otpCode) {
+        redisService.set(REDIS_KEY_PREFIX_OTP_CODE+telephone,otpCode);
+        redisService.expire(REDIS_KEY_PREFIX_OTP_CODE + telephone, OTP_CODE_EXPIRE_SECONDS);
+    }
+
+    @Override
+    public ResultVO validCode(String telephone, String otpCode) {
+        String redisOtpCode= redisService.get(REDIS_KEY_PREFIX_OTP_CODE+telephone);
+        if(StringUtils.isEmpty(redisOtpCode)){
+            return ResultVO.error(Tips.OTP_CODE_EXPIRED.getCode(),Tips.OTP_CODE_EXPIRED.getMsg(),false);
+        }
+        if(!"".equals(redisOtpCode)&&!otpCode.equals(redisOtpCode)){
+            return ResultVO.error(Tips.OTP_CODE_ERROR.getCode(),Tips.OTP_CODE_ERROR.getMsg(),false);
+        }
+        return  ResultVO.success(Tips.BIND_SUCCESS.getCode(),Tips.BIND_SUCCESS.getMsg(),true);
+    }
+
+    @Override
+    @Transactional(rollbackFor = TipsException.class)
+    public boolean resetPwd(String telephone, String password) {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("telephone", telephone);
         User user = userMapper.selectOne(queryWrapper);
         user.setPassword(bCryptPasswordEncoder.encode(password));
-        return userMapper.updateById(user);
+        int i = userMapper.updateById(user);
+        if (i < 1) {
+            throw new TipsException(TipsFlash.UPDATE_USER_PASSWORD_EXCEPTION);
+        }
+        return true;
     }
 
 
@@ -121,6 +155,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional(rollbackFor = TipsException.class)
     public int bindTel(String openId, String telephone) {
         QueryWrapper<User> wrapper = new QueryWrapper<>();
         wrapper.eq("open_id", openId);
@@ -131,17 +166,41 @@ public class UserServiceImpl implements UserService {
             wxUser.setTelephone(telephone);
             int a = wxUserMapper.updateById(wxUser);
             if (a < 0) {
-                throw new TipsException(200007, "绑定手机异常2");
+                throw new TipsException(TipsFlash.UPDATE_WX_USER_EXCEPTION);
             }
         }else {
-            throw new TipsException(200004, "无此微信用户");
+            throw new TipsException(TipsFlash.FIND_WX_USER_EXCEPTION);
         }
         User user = userMapper.selectOne(wrapper);
-        if (user != null) {
-            user.setTelephone(telephone);
-           return userMapper.updateById(user);
+        boolean hasTel = true;
+        if (user == null) {
+            throw new TipsException(TipsFlash.FIND_USER_EXCEPTION);
         }else {
-            throw new TipsException(200007, "绑定手机异常1");
+            if (Tips.DEFAULT_TEL.getMsg().equals(user.getTelephone())) {
+                hasTel = false;
+            }
+            user.setTelephone(telephone);
+            int i = userMapper.updateById(user);
+            if (i < 1) {
+                throw new TipsException(TipsFlash.UPDATE_USER_EXCEPTION);
+            }
+            if (!hasTel) {
+                Long pwd = KeyUtil.genUniqueKey();
+                user.setPassword(bCryptPasswordEncoder.encode(pwd.toString()));
+                try {
+//                    AliyunMessageUtil.sendSmsWel(telephone, user.getUsername(), pwd.toString());
+                    //
+                    System.out.println(pwd);
+                } catch (Exception e) {
+                    throw new TipsException(TipsFlash.SEND_WELCOME_MSG_EXCEPTION);
+                }
+                int m = userMapper.updateById(user);
+                if (m < 1) {
+                    throw new TipsException(TipsFlash.UPDATE_USER_EXCEPTION);
+                }
+            }
+            return i;
+
         }
     }
 
@@ -154,6 +213,11 @@ public class UserServiceImpl implements UserService {
         queryWrapper.between("last_visit_time", validDate, nowDate);
         Integer count = userMapper.selectCount(queryWrapper);
         return ResultVO.success(count);
+    }
+
+    @Override
+    public Boolean validTel(String telephone) {
+        return null;
     }
 
 }

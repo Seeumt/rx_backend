@@ -26,6 +26,7 @@ import java.util.List;
 @CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
 public class PostController {
 
+
     @Autowired
     private PostService postService;
     @Autowired

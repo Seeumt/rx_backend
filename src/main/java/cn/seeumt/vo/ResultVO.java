@@ -78,6 +78,14 @@ public class ResultVO implements Serializable {
         return resultVO;
     }
 
+    public static ResultVO success(Integer code,String msg,Boolean isOk) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        resultVO.setData(isOk);
+        return resultVO;
+    }
+
     public static ResultVO error(TipsBusiness tipsBusiness) {
         ResultVO resultVO = new ResultVO();
         resultVO.setCode(tipsBusiness.getCode());
@@ -100,6 +108,14 @@ public class ResultVO implements Serializable {
         resultVO.setCode(1);
         resultVO.setMsg("操作失败");
         resultVO.setData(object);
+        return resultVO;
+    }
+
+    public static ResultVO error(Integer code,String msg,Boolean isOk) {
+        ResultVO resultVO = new ResultVO();
+        resultVO.setCode(code);
+        resultVO.setMsg(msg);
+        resultVO.setData(isOk);
         return resultVO;
     }
 

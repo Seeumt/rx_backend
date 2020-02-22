@@ -27,6 +27,10 @@ public enum Tips implements CodeEnum {
     WEIBO(20002,"weibo"),
     QQ(20003,"qq"),
     DELETED_SUCCESS(10007, "删除成功"),
+    OTP_CODE_EXPIRED(10008, "验证码已过期"),
+    OTP_CODE_ERROR(10009, "验证码错误"),
+    BIND_SUCCESS(10010, "绑定成功"),
+    DEFAULT_TEL(10050, "none"),
     ;
 
     /**

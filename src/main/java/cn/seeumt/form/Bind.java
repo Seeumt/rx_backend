@@ -5,11 +5,11 @@ import lombok.Data;
 /**
  * @author Seeumt
  * @version 1.0
- * @date 2020/2/4 9:50
+ * @date 2020/2/22 14:15
  */
 @Data
-public class TelLogin {
+public class Bind {
+    private String openId;
     private String telephone;
-    private String  code;
-    private String password;
+    private String otpCode;
 }

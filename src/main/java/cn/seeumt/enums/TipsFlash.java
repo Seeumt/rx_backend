@@ -37,6 +37,14 @@ public enum TipsFlash implements CodeEnum {
     UPDATE_LAST_VISIT_TIME_FAILED(10009, "更新用户最近访问时间失败"),
     QUERY_USER_FAILED(10010, "查询用户失败"),
     QUERY_TARGET_COMMENT_FAILED(50009, "查询父级评论失败"),
+    BIND_TELEPHONE_EXCEPTION(10011, "绑定手机号异常"),
+    FIND_WX_USER_EXCEPTION(10012, "查找微信用户异常"),
+    FIND_USER_EXCEPTION(10015, "查找用户异常"),
+    UPDATE_USER_EXCEPTION(10016, "更新用户异常"),
+    UPDATE_USER_PASSWORD_EXCEPTION(10026, "更改用户密码异常"),
+    UPDATE_WX_USER_EXCEPTION(10018, "更新微信用户异常"),
+    SEND_WELCOME_MSG_EXCEPTION(10020, "发送密码短信异常"),
+    VALID_OTPCODE_SUCCESS(10021, "验证码校验成功"),
 
 
     ;

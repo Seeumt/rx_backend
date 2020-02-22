@@ -2,6 +2,7 @@ package cn.seeumt.service.impl;
 
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.User;
+import cn.seeumt.enums.Tips;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,6 +60,30 @@ public class UserServiceImplTest {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("last_visit_time", validDate, nowDate);
         Integer integer = userMapper.selectCount(queryWrapper);
+    }
+
+    @Test
+    public void selectByUserId() {
+        System.out.println(userMapper.selectById("aamm"));
+    }
+
+    @Test
+    public void insert() {
+        User user = new User();
+        user.setUserId("aammb");
+        user.setUsername("bbssb");
+        user.setNickname("dd");
+        user.setPassword("ss");
+        user.setTelephone(Tips.DEFAULT_TEL.getMsg());
+        user.setFaceIcon("ss");
+        user.setEnabled(false);
+        user.setLocked(false);
+        user.setCreateTime(new Date());
+        user.setLastVisitTime(new Date());
+        user.setIsRememberMe(false);
+        user.setReseted(false);
+        user.setOpenId("xxx");
+        System.out.println(userMapper.insert(user));
     }
 
     @Test
