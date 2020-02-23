@@ -371,7 +371,7 @@ public class PostServiceImpl implements PostService {
             PostVO postVO = new PostVO();
             User user = userMapper.selectById(post.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                return null;
             }
             postVO.setUsername(user.getUsername());
             postVO.setFaceIcon(user.getFaceIcon());

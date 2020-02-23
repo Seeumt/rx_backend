@@ -6,6 +6,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import java.util.List;
 
 public interface CommentMapper extends BaseMapper<Comment> {
+    /**
+     * 通过主键删除
+     * @param commentId
+     * @return
+     */
     int deleteByPrimaryKey(String commentId);
 
     @Override
