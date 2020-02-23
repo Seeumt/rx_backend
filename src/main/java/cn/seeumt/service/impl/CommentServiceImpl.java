@@ -69,7 +69,7 @@ public class CommentServiceImpl implements CommentService {
                     commentMO.setChildrenCount(assembleCommentVOList(comment1s).size());
                     User user = userMapper.selectById(comment.getUserId());
                     if (user == null) {
-                        throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                        return null;
                     }
                     commentMO.setUsername(user.getUsername());
                     commentMO.setFaceIcon(user.getFaceIcon());
@@ -90,7 +90,7 @@ public class CommentServiceImpl implements CommentService {
             BeanUtils.copyProperties(comment1, commentVO);
             User user = userMapper.selectById(comment1.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                return null;
             }
             commentVO.setUsername(user.getUsername());
             commentVO.setFaceIcon(user.getFaceIcon());
@@ -103,7 +103,7 @@ public class CommentServiceImpl implements CommentService {
 
             User userT = userMapper.selectById(commentT.getUserId());
             if (userT == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                return null;
             }
             commentVO.setTargetUserId(userT.getUserId());
             commentVO.setTargetUsername(userT.getUsername());
@@ -151,7 +151,7 @@ public class CommentServiceImpl implements CommentService {
             BeanUtils.copyProperties(comment, commentVO);
             User user = userMapper.selectById(comment.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                return null;
             }
             commentVO.setUsername(user.getUsername());
             commentVO.setFaceIcon(user.getFaceIcon());
@@ -159,13 +159,13 @@ public class CommentServiceImpl implements CommentService {
             //查询父级评论信息获取其userId
             Comment commentT = commentMapper.selectById(comment.getParentId());
             if (commentT == null) {
-                throw new TipsException(TipsFlash.QUERY_TARGET_COMMENT_FAILED);
+                return null;
             }
             //获取userId后进行查询该用户信息
 
                 User userT = userMapper.selectById(commentT.getUserId());
                 if (userT == null) {
-                    throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                    return null;
                 }
                 commentVO.setTargetUserId(commentT.getUserId());
                 commentVO.setTargetUsername(userT.getUsername());
@@ -210,7 +210,7 @@ public class CommentServiceImpl implements CommentService {
             BeanUtils.copyProperties(comment, commentFirstVO);
             User user = userMapper.selectById(comment.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                continue;
             }
             commentFirstVO.setUserId(user.getUserId());
             commentFirstVO.setUsername(user.getUsername());
@@ -242,7 +242,7 @@ public class CommentServiceImpl implements CommentService {
             BeanUtils.copyProperties(comment, commentFirstVO);
             User user = userMapper.selectById(comment.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                continue;
             }
             commentFirstVO.setUserId(user.getUserId());
             commentFirstVO.setUsername(user.getUsername());
@@ -291,7 +291,7 @@ public class CommentServiceImpl implements CommentService {
             CommentVO commentVO = new CommentVO();
             User user = userMapper.selectById(comment.getUserId());
             if (user == null) {
-                throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+                return null;
             }
             commentVO.setUsername(user.getUsername());
             commentVO.setFaceIcon(user.getFaceIcon());
