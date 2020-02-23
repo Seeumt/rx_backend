@@ -53,13 +53,13 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void selectByTelephone() {
+    public void selectOnline() {
         Long nowTime = System.currentTimeMillis();
         Date nowDate = new Date(nowTime);
-        Date validDate = new Date(nowTime-100000);
+        Date validDate = new Date(nowTime-1000000000);
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.between("last_visit_time", validDate, nowDate);
-        Integer integer = userMapper.selectCount(queryWrapper);
+        System.out.println(userMapper.selectCount(queryWrapper));
     }
 
     @Test

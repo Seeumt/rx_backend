@@ -40,6 +40,6 @@ public class LoveServiceImplTest {
 
     @Test
     public void selectThumbCountByRootIdAndType() {
-        System.out.println(loveService.selectThumbCountByRootIdAndType("227b8b1afb43408897d1dbb81eaa2ab9", (byte) 3).size());
+        System.out.println(loveService.selectThumbCountByRootIdAndType("7d362df6504d4bae8dbe6721baabec07", (byte) 3).size());
     }
 }

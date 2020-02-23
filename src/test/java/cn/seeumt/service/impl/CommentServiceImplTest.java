@@ -31,7 +31,7 @@ public class CommentServiceImplTest {
 
     @Test
     public void selectCommentCountByRootIdAndType() {
-        System.out.println(commentService.getAllLuckyComments("a"));
+        System.out.println(commentService.getAllLuckyComments("b11a042123944a58a731b16852f9b991").size());
     }
 
 

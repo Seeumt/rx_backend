@@ -22,7 +22,6 @@ public class PostServiceImplTest {
     private PostService postService;
     @Test
     public void list() {
-//        System.out.println(postService.list().size());
     }
 
     @Test
