@@ -11,8 +11,18 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 public interface MyUserDetailService extends UserDetailsService {
 
+    /**
+     * 通过手机号查找用户权限等
+     * @param telephone 手机号
+     * @return UserDetail
+     */
     UserDetail findUserByTelephone(String telephone);
 
+    /**
+     * 通过openId查找用户权限等
+     * @param mpwxUserInfo 微信原生实体
+     * @return UserDetail
+     */
     UserDetail findUserByOpenId(MpWxUserInfo mpwxUserInfo);
 
 }

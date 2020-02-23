@@ -34,8 +34,8 @@ public class ThirdPartyUserServiceImpl implements ThirdPartyUserService {
         wrapper.eq("login_type", loginType)
                 .eq("third_party_id", thirdPartyUser.getThirdPartyId());
         thirdPartyUser.setLoginType(loginType);
-        ThirdPartyUser thirdPartyUserDB = thirdPartyUserMapper.selectOne(wrapper);
-        if (thirdPartyUserDB == null) {
+        ThirdPartyUser thirdPartyUserDb = thirdPartyUserMapper.selectOne(wrapper);
+        if (thirdPartyUserDb == null) {
             ThirdPartyUser thirdPartyUserDO = new ThirdPartyUser();
             thirdPartyUserDO.setFaceIcon(thirdPartyUser.getFaceIcon());
             thirdPartyUserDO.setNickName(thirdPartyUser.getNickName());
@@ -52,12 +52,11 @@ public class ThirdPartyUserServiceImpl implements ThirdPartyUserService {
             BeanUtils.copyProperties(newThirdPartyUser, thirdPartyUserDTO);
             return ResultVO.success(thirdPartyUserDTO, "亲，你终于来了！");
         } else {
-            thirdPartyUserDB.setLastVisitTime(new Date());
-            // TODO: 2020/1/10 skey
-            thirdPartyUserDB.setSkey(UuidUtil.getUuid());
+            thirdPartyUserDb.setLastVisitTime(new Date());
+            thirdPartyUserDb.setSkey(UuidUtil.getUuid());
         }
         ThirdPartyUserDTO thirdPartyUserDTO = new ThirdPartyUserDTO();
-        BeanUtils.copyProperties(thirdPartyUserDB, thirdPartyUserDTO);
+        BeanUtils.copyProperties(thirdPartyUserDb, thirdPartyUserDTO);
         return ResultVO.success(thirdPartyUserDTO, "登录成功");
     }
 

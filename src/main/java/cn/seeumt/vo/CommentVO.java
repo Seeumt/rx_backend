@@ -44,7 +44,7 @@ public class CommentVO implements Serializable {
 
     private Boolean enabled;
 
-    private Boolean expand = false;
+    private Boolean expand;
 
     private String parentId;
 

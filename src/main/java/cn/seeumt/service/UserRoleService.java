@@ -15,6 +15,11 @@ import java.util.List;
  * @since 2020-02-03
  */
 public interface UserRoleService {
+    /**
+     * 通过用户id选择其所对应的角色id
+     * @param userId 用户id
+     * @return List<Integer>
+     */
     List<Integer> selectRoleIdsByUserId(String userId);
 
 }

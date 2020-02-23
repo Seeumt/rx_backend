@@ -47,16 +47,11 @@ public class AliyunMessageUtil {
             request.setTemplateCode("SMS_183795539");
             //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
             request.setTemplateParam("{\"code\":\"" + otpCode + "\"}");
-
-
-
-
-
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
             return sendSmsResponse;
         }
 
-    public static SendSmsResponse sendSmsWel(String telephone,String username,String password) throws com.aliyuncs.exceptions.ClientException {
+    public static SendSmsResponse sendSmsWel(String telephone,String password) throws com.aliyuncs.exceptions.ClientException {
 
         //可自助调整超时时间
         System.setProperty("sun.net.client.defaultConnectTimeout", "10000");
@@ -76,7 +71,6 @@ public class AliyunMessageUtil {
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode("SMS_183790510");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
-        request.setTemplateParam("{\"name\":\"" + username + "\"}");
         request.setTemplateParam("{\"code\":\"" + password + "\"}");
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
         return sendSmsResponse;

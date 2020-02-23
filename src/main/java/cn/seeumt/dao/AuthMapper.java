@@ -4,6 +4,9 @@ package cn.seeumt.dao;
 import cn.seeumt.model.UserDetail;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+/**
+ * @author Seeumt
+ */
 public interface AuthMapper extends BaseMapper<Number> {
     /**
      * 根据用Id查找用户

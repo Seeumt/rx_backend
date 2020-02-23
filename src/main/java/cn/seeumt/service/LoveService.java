@@ -27,20 +27,45 @@ public interface LoveService {
      */
     List<Love> selectByApiRootId(String apiRootId);
 
+    /**
+     * 是否已点赞（*）
+     * @param apiRootId 根id
+     * @param userId 用户id
+     * @return
+     */
     Boolean isLoveExist(String apiRootId,String userId);
 
     /**
      * 通过 apiRootId userId 查找该用户是否已点赞
      * @param apiRootId 点赞rootId
      * @param userId 用户id
+     * @param type 类型
      * @return 一条love记录
      */
     Love selectByApiRootIdAndUserIdAndType(String apiRootId, String userId,Byte type);
 
+    /**
+     * 查询点赞数量
+     * @param rootId 某一id
+     * @param type 类型
+     * @return List<Love>
+     */
     List<Love> selectThumbCountByRootIdAndType(String rootId, Byte type);
 
+    /**
+     * 查询点踩数量
+     * @param rootId 根id
+     * @param type
+     * @return
+     */
     List<Love> selectHateCountByRootIdAndType(String rootId, Byte type);
 
-
+    /**
+     * 点赞点踩状态切换
+     * @param apiRootId 根id
+     * @param userId 用户id
+     * @param type 类型
+     * @return ResultVO
+     */
     ResultVO changeLoveType(String apiRootId, String userId, Byte type);
 }

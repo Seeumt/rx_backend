@@ -61,9 +61,6 @@ public class WxUserServiceImpl implements WxUserService {
 
     @Override
     public int update(WxUser wxUser) {
-//        QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
-//        wrapper.eq("open_id", wxUser.getOpenId());
-//        wxUserMapper.update(wxUser, wrapper);
         return wxUserMapper.updateById(wxUser);
     }
 
@@ -72,9 +69,7 @@ public class WxUserServiceImpl implements WxUserService {
         QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", mpwxUserInfoDTO.getUserId());
         WxUser wxUser = wxUserMapper.selectOne(wrapper);
-//        String avatarUrl = wxUser.getAvatarUrl();
         BeanUtils.copyProperties(mpwxUserInfoDTO, wxUser);
-//        wxUser.setAvatarUrl(avatarUrl);
         wxUserMapper.updateById(wxUser);
         return ResultVO.success(mpwxUserInfoDTO,"更新用户信息成功");
     }

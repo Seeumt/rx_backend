@@ -12,14 +12,28 @@ import java.util.List;
  */
 public interface CommentService {
 
+    /**
+         * 获取所有0级评论
+         * @param apiRootId 根id(文章id,动态id)
+         * @return ResultVO
+     */
     List<Comment> getAllLuckyComments(String apiRootId);
 
+    /**
+     * 查询子级评论VO
+     * @param parentId
+     * @return ResultVO
+     */
     ResultVO listByParentId(String parentId);
 
 
+    /**
+     * 查询评论
+     * @param commentId 评论id
+     * @return Comment
+     */
     Comment selectByCommentId(String commentId);
-    List<CommentContent> findUserCommentsOfAnArticle(String articleId, String userId);
-    List<CommentContent> findUserCommentsOfAnComments(String userId,String commentId);
+
 
     /**
      *插入一级评论
@@ -42,8 +56,12 @@ public interface CommentService {
      * @return 1
      */
     ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId);
-//    ResultVO comment( String userId, String content, Byte type, String commentId,String parentId);
 
+    /**
+     * 查询所有一级评论及其下所有评论
+     * @param apiRootId 文章id/动态id
+     * @return CommentFirstMo
+     */
     CommentFirstMo getLuckyCommentsAndChildren(String apiRootId);
 
     /**
@@ -56,28 +74,56 @@ public interface CommentService {
     List<cn.seeumt.model.Comment> findNextLevelCommentsByParentId(String parentId);
 
 
-
+    /**
+     * 找到所有级别的评论（*）
+     * @param apiRootId
+     * @return List<CommentVO>
+     */
     List<CommentVO> findAllLevelCommentsByApiRootId(String apiRootId);
 
 
     /**
      * 通过根id 找到属于其的子评论数字
-     * @param rootId
-     * @param type
-     * @return
+     * @param rootId 任意一条评论
+     * @param type 类型
+     * @return List<Comment>
      */
     List<Comment> selectCommentCountByRootIdAndType(String rootId, Byte type);
 
+    /**
+     * 通过根id 找到属于其的子评论数字
+     * @param parentId 任意一条评论
+     * @param type 类型
+     * @return List<Comment>
+     */
     List<Comment> selectCommentCountByParentIdAndType(String parentId, Byte type);
 
+    /**
+     * 查询所有一级评论及其省略评论
+     * @param apiRootId
+     * @return
+     */
     List<CommentFirstVO> queryHomeComments(String apiRootId);
 
+    /**
+     * 查询零级评论（*）
+     * @param apiRootId
+     * @return List<Comment>
+     */
     List<Comment> queryOneLevelComments(String apiRootId);
 
-    List<CommentFirstVO> queryHomeAndAllComments(String apiRootId);
-
+    /**
+     * 查询所有评论数
+     * @param apiRootId
+     * @return
+     */
     Integer getAllCommentCount(String apiRootId);
 
+    /**
+     * 根据0级评论查询其下所有评论
+     * @param apiRootId 0级评论id
+     * @return List<CommentVO>
+     */
     List<CommentVO> getLuckyChildData(String apiRootId);
 }
 

@@ -22,8 +22,29 @@ import java.util.List;
  */
 public interface SouvenirService extends IService<Souvenir> {
 
+    /**
+     * 通过关键词查询商品（递归）
+     * @param keywords 关键字
+     * @param categoryId 类目id
+     * @param pageNum 当前页数
+     * @param pageSize 每页数量
+     * @param orderBy 排序规则
+     * @return ResultVO
+     */
     ResultVO getProductByKeywordCategory(String keywords, Integer categoryId, int pageNum, int pageSize, String orderBy);
+
+    /**
+     * 保存或更新纪念品
+     * @param souvenir 纪念品
+     * @param pics 图片
+     * @return ResultVO
+     */
     ResultVO saveOrUpdateProduct(Souvenir souvenir, MultipartFile[] pics);
+
+    /**
+     * 展示所有纪念品
+     * @return List<SouvenirSimpleVO>
+     */
     List<SouvenirSimpleVO> listSimpleVO();
 
 }

@@ -29,7 +29,6 @@ public class MediaTagsServiceImpl implements MediaTagsService {
         QueryWrapper<MediaTags> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("parent_id", parentId);
         List<MediaTags> mediaTags = mediaTagsMapper.selectList(queryWrapper);
-//        List<String> tagIds = mediaTags.stream().sorted((at1,at2)->Integer.parseInt(at1.getTagId())-Integer.parseInt(at2.getTagId())).map(articleTag -> articleTag.getTagId()).collect(Collectors.toList());
         List<String> tagIds = mediaTags.stream().sorted(Comparator.comparing(MediaTags::getTagId)).map(mediaTag -> mediaTag.getTagId()).collect(Collectors.toList());
         return tagIds;
     }

@@ -22,13 +22,19 @@ import static org.junit.Assert.*;
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class TagServiceImplTest {
+
     @Autowired
     private TagService tagService;
     @Test
     public void findByTagIds() {
         String[] tagIdsArr = {"1", "2", "3", "5"};
         List<String> tagIdsList = Arrays.asList(tagIdsArr);
-        List<TagVO> tagVOS = tagService.findTagVOByTagIds(tagIdsList);
+        List<TagVO> tagVOS = tagService.findTagVoByTagIds(tagIdsList);
         System.out.println(tagVOS);
+    }
+
+    @Test
+    public void get() {
+        System.out.println(tagService.get());
     }
 }

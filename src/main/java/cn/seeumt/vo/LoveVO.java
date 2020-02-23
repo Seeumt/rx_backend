@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class LoveVO {
 
-    private String type="";
+    private String type;
 
     private Integer likeCount;
 

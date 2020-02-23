@@ -52,11 +52,6 @@ public class UserController {
     public static final String TEL_LOGIN = "tp";
 
 
-    @GetMapping(value = "/")
-    public List<CommentContent> findMyCommentsOfAnArticle(String articleId,String userId) {
-        return commentService.findUserCommentsOfAnArticle(articleId, userId);
-    }
-
     @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
     @PostMapping(value = "/mpLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO mpLogin(
@@ -149,15 +144,9 @@ public class UserController {
         return ResultVO.error(TipsFlash.BIND_TELEPHONE_EXCEPTION);
     }
 
-
-
-
-
-
     @PostMapping(value = "/modifyUserInfo",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO modifyUserInfo(@RequestBody MpWxUserInfoDTO mpwxUserInfoDTO) {
-        ResultVO resultVO = wxUserService.modifyUserInfo(mpwxUserInfoDTO);
-        return resultVO;
+        return wxUserService.modifyUserInfo(mpwxUserInfoDTO);
     }
 
     @PostMapping(value = "/uploadFace", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -173,15 +162,6 @@ public class UserController {
         return thirdPartyUserService.actionByLoginTypeAndThreePartyId(loginType, thirdPartyUser);
 
     }
-
-
-//    @PostMapping(value = "/registerOrLogin",consumes = MediaType.APPLICATION_JSON_VALUE)
-////    @Cacheable(cacheNames = "user_session",key = "123456")
-//    // 这是把这个resultVO放到了redis里？
-//    public ResultVO login(@RequestBody UserInfo userInfo) {
-//        ResultVO resultVO = userInfoService.logIn(userInfo.getUserId(), userInfo.getPassword());
-//        return resultVO;
-//    }
 
 
     @PostMapping("/logout")
@@ -205,12 +185,10 @@ public class UserController {
     }
 
 
-    public ResultVO sendOtpCode(String telephone){
+    public ResultVO sendOtpCode(String telephone) throws ClientException {
         OtpCode otpCode = OtpCode.createCode(600L);
         userService.addCache(telephone, otpCode.getCode().toString());
-        // TODO: 2020/2/22  AliyunMessageUtil.sendSms(null, otpCode.getCode().toString());
-        // TODO: 2020/2/22  AliyunMessageUtil.sendSmsWel(telephone, "aa", "xx");
-        System.out.println(otpCode.getCode());
+        AliyunMessageUtil.sendSms(telephone, otpCode.getCode().toString());
         return ResultVO.success("验证码已发送!");
     }
 

@@ -32,13 +32,13 @@ public class CityServiceImpl implements CityService {
     @Override
     public List<CityVO> findByCityIds(List<String> cityIds) {
         List<City> citys = cityMapper.selectBatchIds(cityIds);
-        List<CityVO> cityVOS = new ArrayList<>();
+        List<CityVO> cityVos = new ArrayList<>();
         for (City city : citys) {
             CityVO cityVO = new CityVO();
             BeanUtils.copyProperties(city,cityVO);
-            cityVOS.add(cityVO);
+            cityVos.add(cityVO);
         }
-        return cityVOS;
+        return cityVos;
 
     }
 }

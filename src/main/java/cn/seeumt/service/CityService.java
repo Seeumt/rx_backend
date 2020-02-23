@@ -17,5 +17,10 @@ import java.util.List;
  */
 public interface CityService{
 
+    /**
+     * 通过城市id集合 批量查询城市信息
+     * @param cityIds 城市id集合
+     * @return
+     */
     List<CityVO> findByCityIds(List<String> cityIds);
 }

@@ -38,7 +38,7 @@ public class CommentServiceImpl implements CommentService {
 
         List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
         //找到所有0级评论
-        List<CommentMo> commentMos = assemblecCommentMOList(allLuckyComments);
+        List<CommentMo> commentMos = assemblecCommentMoList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
             n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
@@ -51,7 +51,7 @@ public class CommentServiceImpl implements CommentService {
     public Integer getAllCommentCount(String apiRootId) {
         List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
         //找到所有0级评论
-        List<CommentMo> commentMos = assemblecCommentMOList(allLuckyComments);
+        List<CommentMo> commentMos = assemblecCommentMoList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
             n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
@@ -59,21 +59,21 @@ public class CommentServiceImpl implements CommentService {
         return n;
     }
 
-    public List<CommentMo> assemblecCommentMOList(List<Comment> comments) {
+    public List<CommentMo> assemblecCommentMoList(List<Comment> comments) {
         return     comments.stream().map(comment -> {
-                    CommentMo commentMO = new CommentMo();
-                    BeanUtils.copyProperties(comment, commentMO);
+                    CommentMo commentMo = new CommentMo();
+                    BeanUtils.copyProperties(comment, commentMo);
                     List<Comment> comment1s = selectCommentCountByRootIdAndType(comment.getCommentId(), (byte) 3);
                     List<Comment> commentLess = selectCommentLessByRootIdAndType(comment.getCommentId(), (byte) 3);
-                    commentMO.setCommentVos(assembleCommentVOList(commentLess));
-                    commentMO.setChildrenCount(assembleCommentVOList(comment1s).size());
+                    commentMo.setCommentVos(assembleCommentVOList(commentLess));
+                    commentMo.setChildrenCount(assembleCommentVOList(comment1s).size());
                     User user = userMapper.selectById(comment.getUserId());
                     if (user == null) {
                         return null;
                     }
-                    commentMO.setUsername(user.getUsername());
-                    commentMO.setFaceIcon(user.getFaceIcon());
-                    return commentMO;
+                    commentMo.setUsername(user.getUsername());
+                    commentMo.setFaceIcon(user.getFaceIcon());
+                    return commentMo;
                 }).collect(Collectors.toList());
  }
 
@@ -146,7 +146,7 @@ public class CommentServiceImpl implements CommentService {
     public List<CommentVO> findAllLevelCommentsByApiRootId(String apiRootId) {
         List<Comment> comments0 = selectCommentCountByParentIdAndType(apiRootId, (byte) 3);
         List<cn.seeumt.model.Comment> comments = assembleCommentModel(comments0);
-        List<CommentVO> commentVOS = comments.stream().map(comment -> {
+        List<CommentVO> commentVos = comments.stream().map(comment -> {
             CommentVO commentVO = new CommentVO();
             BeanUtils.copyProperties(comment, commentVO);
             User user = userMapper.selectById(comment.getUserId());
@@ -174,7 +174,7 @@ public class CommentServiceImpl implements CommentService {
 
             return commentVO;
         }).collect(Collectors.toList());
-        return commentVOS;
+        return commentVos;
     }
 
 
@@ -231,31 +231,6 @@ public class CommentServiceImpl implements CommentService {
     }
 
 
-    // TODO: 2020/2/18 New
-    @Override
-    public List<CommentFirstVO> queryHomeAndAllComments(String apiRootId) {
-        //找出所有的一级评论
-        List<Comment> comments = queryOneLevelComments(apiRootId);
-        List<CommentFirstVO> commentFirstVOList = new ArrayList<>();
-        for (Comment comment : comments) {
-            CommentFirstVO commentFirstVO = new CommentFirstVO();
-            BeanUtils.copyProperties(comment, commentFirstVO);
-            User user = userMapper.selectById(comment.getUserId());
-            if (user == null) {
-                continue;
-            }
-            commentFirstVO.setUserId(user.getUserId());
-            commentFirstVO.setUsername(user.getUsername());
-            commentFirstVO.setFaceIcon(user.getFaceIcon());
-            List<cn.seeumt.model.Comment> comments1 = findNextLevelCommentsByParentId(commentFirstVO.getCommentId());
-            // TODO: 2020/2/18 这里要改一下 TreeUtil
-            List<cn.seeumt.model.Comment> comments2 = TreeUtil.listToTreeNew(comments1, commentFirstVO.getCommentId());
-            commentFirstVO.setCommentVos(comments2);
-            commentFirstVO.setCommentCount(findAllLevelCommentsByApiRootId(commentFirstVO.getCommentId()).size());
-            commentFirstVOList.add(commentFirstVO);
-        }
-        return commentFirstVOList;
-    }
 
 
 
@@ -287,7 +262,7 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public ResultVO listByParentId(String parentId) {
         List<cn.seeumt.model.Comment> comments = findNextLevelCommentsByParentId(parentId);
-        List<CommentVO> commentVOS = comments.stream().map(comment -> {
+        List<CommentVO> commentVos = comments.stream().map(comment -> {
             CommentVO commentVO = new CommentVO();
             User user = userMapper.selectById(comment.getUserId());
             if (user == null) {
@@ -299,7 +274,7 @@ public class CommentServiceImpl implements CommentService {
             BeanUtils.copyProperties(comment, commentVO);
             return commentVO;
         }).collect(Collectors.toList());
-        return ResultVO.success(commentVOS);
+        return ResultVO.success(commentVos);
     }
 
 
@@ -309,15 +284,8 @@ public class CommentServiceImpl implements CommentService {
         return null;
     }
 
-    @Override
-    public List<CommentContent> findUserCommentsOfAnArticle(String articleId, String userId) {
-        return null;
-    }
 
-    @Override
-    public List<CommentContent> findUserCommentsOfAnComments(String userId, String commentId) {
-        return null;
-    }
+
 
 
 }

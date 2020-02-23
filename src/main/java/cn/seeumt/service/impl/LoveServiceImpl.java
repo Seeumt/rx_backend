@@ -48,7 +48,6 @@ public class LoveServiceImpl implements LoveService {
                 love.setEnabled(false);
                 love.setLoveType(Tips.POST_HATE.getMsg());
             }
-            System.out.println(love.getLoveType());
             int insert = loveMapper.insert(love);
             if (insert < 1) {
                 throw new TipsException(TipsFlash.TH_FAILED);

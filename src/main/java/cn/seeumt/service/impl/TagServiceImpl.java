@@ -3,6 +3,7 @@ package cn.seeumt.service.impl;
 import cn.seeumt.dataobject.Tag;
 import cn.seeumt.dao.TagMapper;
 import cn.seeumt.service.TagService;
+import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -28,15 +30,26 @@ public class TagServiceImpl implements TagService {
     private TagMapper tagMapper;
 
     @Override
-    public List<TagVO> findTagVOByTagIds(List<String> tagIds) {
+    public List<TagVO> findTagVoByTagIds(List<String> tagIds) {
         List<Tag> tags = tagMapper.selectBatchIds(tagIds);
-        List<TagVO> tagVOS = new ArrayList<>();
+        List<TagVO> tagVos = new ArrayList<>();
         for (Tag tag : tags) {
             TagVO tagVO = new TagVO();
             BeanUtils.copyProperties(tag,tagVO);
-            tagVOS.add(tagVO);
+            tagVO.setIsSelected(false);
+            tagVos.add(tagVO);
         }
-        return tagVOS;
+        return tagVos;
+    }
+
+    @Override
+    public ResultVO get() {
+        List<TagVO> tagVos = tagMapper.selectList(null).stream().map(tag -> {
+            TagVO tagVO = new TagVO();
+            BeanUtils.copyProperties(tag, tagVO);
+            return tagVO;
+        }).collect(Collectors.toList());
+        return ResultVO.success(tagVos);
     }
 
 }

@@ -69,7 +69,7 @@ public class UserDetailServiceImpl implements MyUserDetailService {
         WxUser wxUser = wxUserService.selectByOpenId(openId);
         String skey = UuidUtil.getUuid();
         if (wxUser == null) {
-            WxUser newWXUser = wxUserService.insert(mpwxUserInfo, openId, sessionKey, skey);
+            WxUser newWxUser = wxUserService.insert(mpwxUserInfo, openId, sessionKey, skey);
             User user = new User();
             String userId = UuidUtil.getUuid();
             user.setUserId(userId);

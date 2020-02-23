@@ -14,6 +14,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-01-30
  */
 public interface CategoryService{
+
+    /**
+     * 根据根目录id查询所有树状子级目录
+     * @param categoryId 目录id
+     * @return ResultVO
+     */
     ResultVO selectCategoryTreeByCategoryId(Integer categoryId);
 
 }

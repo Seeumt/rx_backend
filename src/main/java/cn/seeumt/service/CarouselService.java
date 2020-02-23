@@ -17,9 +17,14 @@ import java.util.List;
 public interface CarouselService {
     /**
      * 轮播图接口
-     * @return
+     * @return List<Carousel>
      */
     List<Carousel> getCarousels();
 
+    /***
+     * 根据父级id获取轮播图集合
+     * @param parentId 父级id
+     * @return List<Carousel>
+     */
     List<Carousel> getCarouselsByParentId(String parentId);
 }

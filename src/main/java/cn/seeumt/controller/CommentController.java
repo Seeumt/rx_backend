@@ -43,6 +43,7 @@ public class CommentController {
 
     @PostMapping("/")
     public ResultVO commentForComment(@RequestBody Comment comment) {
+        OnlineUtil.setLastOperateTimeByUserId(comment.getUserId());
         return commentService.comment(comment.getApiRootId(), comment.getUserId(), comment.getContent(), comment.getType(),comment.getParentId());
     }
 
@@ -51,6 +52,7 @@ public class CommentController {
     public int commentForRoot(String apiRootId,
                               @RequestParam(value = "type",defaultValue ="3" ) Byte type,
                               String userId,String content) {
+        OnlineUtil.setLastOperateTimeByUserId(userId);
         return commentService.commentForRoot(apiRootId, userId, content, type);
 
     }

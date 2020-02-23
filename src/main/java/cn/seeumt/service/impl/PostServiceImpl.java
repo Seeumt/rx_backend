@@ -25,6 +25,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Seeumt
+ */
 @Service
 public class PostServiceImpl implements PostService {
 
@@ -56,9 +59,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<PostListDataItem> listFollowAndRecommendData(String userId) {
 
-//        PageHelper.startPage(1, 3);
         List<Post> posts = postMapper.selectList(null);
-//        PageInfo<Post> pageInfo = new PageInfo<>(posts);
         PostListDataItem postListDataItem0 = null;
         PostListDataItem postListDataItem1 = null;
         List<PostListDataItem> postListDataItemList = new ArrayList<>();
@@ -156,8 +157,8 @@ public class PostServiceImpl implements PostService {
         }
         recommendSet.addAll(followSet);
         recommendSet.addAll(notFollowSet);
-        List<PostDTO> recommendPostDTOS = new ArrayList<>(recommendSet);
-        PageInfo<PostDTO> pageInfo = new PageInfo<>(recommendPostDTOS);
+        List<PostDTO> recommendPostDtos = new ArrayList<>(recommendSet);
+        PageInfo<PostDTO> pageInfo = new PageInfo<>(recommendPostDtos);
         PostListDataItem postListDataItem1 = new PostListDataItem(1,pageInfo);
         return ResultVO.success(postListDataItem1);
     }
@@ -166,7 +167,7 @@ public class PostServiceImpl implements PostService {
     public PostListDataItem listRecommendList(String userId) {
 
         Set<PostDTO> recommendSet = new HashSet<>();
-        Set<PostDTO> postDTOSetNotFollow = new HashSet<>();
+        Set<PostDTO> postDtoSetNotFollow = new HashSet<>();
         List<Post> posts = postMapper.selectList(null);
         if (!"".equals(userId)) {
             List<Follow> allIdol = followService.getAllIdol(userId);
@@ -175,14 +176,14 @@ public class PostServiceImpl implements PostService {
               for (Follow idol : allIdol) {
                     if (!idol.getIdolId().equals(post.getUserId())) {
                         postDTO.setIsFollow(false);
-                        postDTOSetNotFollow.add(postDTO);
+                        postDtoSetNotFollow.add(postDTO);
                     }else {
 
                     }
                 }
             }
             Set<PostDTO> followSet = getFollowSet(userId);
-            recommendSet.addAll(postDTOSetNotFollow);
+            recommendSet.addAll(postDtoSetNotFollow);
             recommendSet.addAll(followSet);
         }else {
             for (Post post : posts) {
@@ -361,7 +362,7 @@ public class PostServiceImpl implements PostService {
         if (tagsIds.size() == 0) {
             postDTO.setTags(null);
         }else {
-            postDTO.setTags(tagServie.findTagVOByTagIds(tagsIds));
+            postDTO.setTags(tagServie.findTagVoByTagIds(tagsIds));
         }
         return postDTO;
     }

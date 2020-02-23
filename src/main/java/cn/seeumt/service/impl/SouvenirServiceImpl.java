@@ -57,12 +57,6 @@ public class SouvenirServiceImpl extends ServiceImpl<SouvenirMapper, Souvenir> i
     @Override
     public ResultVO saveOrUpdateProduct(Souvenir souvenir, MultipartFile[] pics) {
         if(souvenir != null){
-//            if(StringUtils.isNotBlank(souvenir.getSubImages())){
-//                String[] subImageArray = souvenir.getSubImages().split(",");
-//                if(subImageArray.length > 0){
-//                    souvenir.setMainImage(subImageArray[0]);
-//                }
-//            }
             if(souvenir.getSouvenirId() != null){
                 int rowCount = souvenirMapper.updateById(souvenir);
                 if(rowCount > 0){

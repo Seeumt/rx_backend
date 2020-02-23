@@ -1,6 +1,7 @@
 package cn.seeumt.controller;
 
 import cn.seeumt.service.LoveService;
+import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ public class LoveController {
     public ResultVO addLove(@RequestParam("apiRootId") String apiRootId,
                             @RequestParam("userId") String userId,
                             @PathVariable("type")Integer type) {
+        OnlineUtil.setLastOperateTimeByUserId(userId);
         return loveService.addOrCancelLove(apiRootId, userId,type);
     }
 
@@ -26,6 +28,7 @@ public class LoveController {
     public ResultVO changeLoveType(@RequestParam("apiRootId") String apiRootId,
                             @RequestParam("userId") String userId)
                             {
+        OnlineUtil.setLastOperateTimeByUserId(userId);
         return loveService.changeLoveType(apiRootId, userId, (byte) 3);
     }
 }

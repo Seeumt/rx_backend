@@ -4,6 +4,7 @@ package cn.seeumt.controller;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.form.Follow;
 import cn.seeumt.service.FollowService;
+import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.ResultVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,7 @@ public class FollowController {
 
     @PostMapping("/")
     public ResultVO follow(@RequestBody Follow follow) {
+        OnlineUtil.setLastOperateTimeByUserId(follow.getUserId());
         return followService.add(follow.getUserId(), follow.getIdolId());
     }
 

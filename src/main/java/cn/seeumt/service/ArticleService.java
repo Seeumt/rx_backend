@@ -14,6 +14,19 @@ import java.util.List;
  * @since 2019-12-21
  */
 public interface ArticleService{
+    /**
+     * 通过用户id查找所有文章
+     * @param userId
+     * @return
+     */
     List<Article> query(String userId);
+
+    /**
+     * 分页 关键词 查询文章
+     * @param num 当前页
+     * @param size 每页条数
+     * @param keywords 关键词
+     * @return PageInfo<Article>
+     */
     PageInfo<Article> queryAll(int num, int size,String keywords);
 }

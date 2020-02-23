@@ -34,7 +34,7 @@ public class CommentFirstVO implements Serializable {
     @JsonProperty("sendTime")
     private Date createTime;
 
-    private Boolean expand = false;
+    private Boolean expand;
 
     private String parentId;
 

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -72,22 +73,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         validateCodeFilter.setAuthenticationFailureHandler(codeFailureHandler);
         http.authorizeRequests()
                 // 测试用资源，需要验证了的用户才能访问
-//                .antMatchers("/articles/**").authenticated()
-//                .antMatchers("/articles/**").hasAuthority("ROLE_STU")
+                .antMatchers("/loves/**").authenticated()
                 .antMatchers("/follows/**").authenticated()
+                .antMatchers(HttpMethod.POST,"/comments/**").authenticated()
                 .antMatchers("/follows/**").hasAuthority("ROLE_STU")
-//                .antMatchers(HttpMethod.GET,"/posts/**").permitAll()
+                .antMatchers("/users/**").permitAll()
+                .antMatchers(HttpMethod.POST).authenticated()
+                .antMatchers(HttpMethod.GET).permitAll()
                 .antMatchers("http://localhost:8086/swagger-ui.html").permitAll()
-                // 其他都XX(放行、需认证)了
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(validateCodeFilter, UsernamePasswordAuthenticationFilter.class)
-//                .formLogin()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/code/login")
-//                .successHandler(codeSuccessHandler)
-//                .failureHandler(codeFailureHandler)
-//                .and()
                 .rememberMe()
                 .tokenRepository(persistentTokenRepository())
                 .tokenValiditySeconds(3600)

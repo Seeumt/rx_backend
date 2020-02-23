@@ -12,6 +12,7 @@ import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.RedisService;
 import cn.seeumt.service.UserRoleService;
 import cn.seeumt.service.UserService;
+import cn.seeumt.utils.AliyunMessageUtil;
 import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -136,13 +137,10 @@ public class UserServiceImpl implements UserService {
         QueryWrapper<WxUser> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
         WxUser wxUser = wxUserMapper.selectOne(wrapper);
-//        String dbUrl = AliyunOssUtil.getDBUrl(originUrl);
-//        wxUser.setAvatarUrl(dbUrl);
         wxUser.setAvatarUrl(originUrl);
         wxUserMapper.updateById(wxUser);
         MpWxUserInfoDTO mpwxUserInfoDTO = new MpWxUserInfoDTO();
         BeanUtils.copyProperties(wxUser,mpwxUserInfoDTO);
-//        mpwxUserInfoDTO.setAvatarUrl(originUrl);
         return ResultVO.success(mpwxUserInfoDTO,"更新头像成功");
     }
 
@@ -187,9 +185,7 @@ public class UserServiceImpl implements UserService {
                 Long pwd = KeyUtil.genUniqueKey();
                 user.setPassword(bCryptPasswordEncoder.encode(pwd.toString()));
                 try {
-//                    AliyunMessageUtil.sendSmsWel(telephone, user.getUsername(), pwd.toString());
-                    //
-                    System.out.println(pwd);
+                    AliyunMessageUtil.sendSmsWel(telephone,pwd.toString());
                 } catch (Exception e) {
                     throw new TipsException(TipsFlash.SEND_WELCOME_MSG_EXCEPTION);
                 }
@@ -214,9 +210,6 @@ public class UserServiceImpl implements UserService {
         return ResultVO.success(count);
     }
 
-    @Override
-    public Boolean validTel(String telephone) {
-        return null;
-    }
+
 
 }

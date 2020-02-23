@@ -46,7 +46,7 @@ public class ArticleController {
     public ArticleDTO findAnArticle(@PathVariable String articleId) {
         ArticleDTO articleDTO = new ArticleDTO();
         List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
-        List<TagVO> tagVos = tagService.findTagVOByTagIds(tagIds);
+        List<TagVO> tagVos = tagService.findTagVoByTagIds(tagIds);
         articleDTO.setTagVos(tagVos);
         List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
         List<CityVO> cityVos = cityService.findByCityIds(cityIds);

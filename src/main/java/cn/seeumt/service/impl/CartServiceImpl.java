@@ -92,11 +92,7 @@ public class CartServiceImpl implements CartService {
      * @param souvenirIdList
      */
     private void deleteByUserIdAndProductIds(String userId, List<String> souvenirIdList) {
-//        for (String souvenirId : souvenirIdList) {
-//            QueryWrapper<Cart> wrapper = new QueryWrapper<>();
-//            wrapper.eq("user_id", userId).eq("souvenir_id", souvenirId);
-//            cartMapper.delete(wrapper);
-//        }
+
 
         QueryWrapper<Cart> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId).in("souvenir_id", souvenirIdList);
@@ -110,7 +106,7 @@ public class CartServiceImpl implements CartService {
      */
     @Override
     public ResultVO list(String userId) {
-        CartVO cartVO = this.getCartVOLimit(userId);
+        CartVO cartVO = this.getCartVoLimit(userId);
         return ResultVO.success(cartVO);
     }
 
@@ -140,7 +136,7 @@ public class CartServiceImpl implements CartService {
     }
 
 
-    private CartVO getCartVOLimit(String userId){
+    private CartVO getCartVoLimit(String userId){
         CartVO cartVO = new CartVO();
         // TODO: 2020/1/28 查出来这个用户的所有购物车item干嘛呢？---要实时更新库存！！！
         List<Cart> cartList = selectByUserId(userId);
@@ -163,11 +159,6 @@ public class CartServiceImpl implements CartService {
                     }else{
                         buyLimitCount = souvenir.getStock();
                         cartDTO.setLimitQuantity("限制数量失败！");
-                        // TODO: 2020/1/28 为什么要这么麻烦地更新呢？
-                        //购物车中更新有效库存
-//                        Cart cartForQuantity = new Cart();
-//                        cartForQuantity.set(cartItem.getId());
-//                        cartForQuantity.setQuantity(buyLimitCount);
                         cartItem.setQuantity(buyLimitCount);
                         cartMapper.updateById(cartItem);
                     }

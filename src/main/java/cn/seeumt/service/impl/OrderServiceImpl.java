@@ -33,10 +33,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-
+/**
+ * @author Seeumt
+ */
 @Service
 @Slf4j
-@Transactional
+@Transactional(rollbackFor = TipsException.class)
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderMasterMapper orderMasterMapper;
@@ -167,7 +169,6 @@ public class OrderServiceImpl implements OrderService {
      * @param carts
      * @return ResultVO
      */
-    // TODO: 2020/1/29 skills
     private ResultVO getVaildCartItem(String userId, List<Cart> carts) {
         List<OrderDetail> orderDetailList = Lists.newArrayList();
         if(CollectionUtils.isEmpty(carts)){
@@ -237,8 +238,8 @@ public class OrderServiceImpl implements OrderService {
         for (OrderMaster orderMaster : orderMasters) {
             orderDTOList.add(findOne(orderMaster.getOrderId()));
         }
-        PageInfo<OrderDTO> orderDTOPageInfo = new PageInfo<>(orderDTOList);
-        return orderDTOPageInfo;
+        PageInfo<OrderDTO> orderDtoPageInfo = new PageInfo<>(orderDTOList);
+        return orderDtoPageInfo;
     }
 
     @Override

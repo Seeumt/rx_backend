@@ -5,23 +5,51 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 
+/**
+ * @author Seeumt
+ */
 public interface CommentMapper extends BaseMapper<Comment> {
     /**
      * 通过主键删除
-     * @param commentId
+     * @param commentId 评论id
      * @return
      */
     int deleteByPrimaryKey(String commentId);
 
     @Override
+    /***
+     * 插入记录
+     * @param record
+     * @return int
+     */
     int insert(Comment record);
 
+    /**
+     * 选择性插入
+     * @param record
+     * @return int
+     */
     int insertSelective(Comment record);
 
+    /**
+     * 通过通过主键选择
+     * @param commentId
+     * @return
+     */
     Comment selectByPrimaryKey(String commentId);
 
+    /**
+     * 选择性更新
+     * @param record
+     * @return
+     */
     int updateByPrimaryKeySelective(Comment record);
 
+    /**
+     * 通过主键更新
+     * @param record
+     * @return
+     */
     int updateByPrimaryKey(Comment record);
 
     /**

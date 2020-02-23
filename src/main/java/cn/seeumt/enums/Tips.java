@@ -31,6 +31,8 @@ public enum Tips implements CodeEnum {
     OTP_CODE_ERROR(10009, "验证码错误"),
     BIND_SUCCESS(10010, "绑定成功"),
     DEFAULT_TEL(10050, "none"),
+    SENDSMS_NORMAL(0, "普通短信"),
+    SENDSMS_WEL(1, "带密码短信"),
     ;
 
     /**
