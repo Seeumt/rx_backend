@@ -60,11 +60,11 @@ public class UserController {
             @ApiParam(name = "code",value = "wx.login得到的code",required = true)
             @PathVariable String code,
             @RequestBody MpWxUserInfo mpwxUserInfo) {
-        log.info("【登录】用户{}进行微信授权登录",mpwxUserInfo.getOpenId());
         JSONObject sessionKeyAndOpenId = WechatUtil.getSessionKeyOrOpenId(code);
         String openId = sessionKeyAndOpenId.getString("openid");
         mpwxUserInfo.setOpenId(openId);
         String sessionKey = sessionKeyAndOpenId.getString("session_key");
+        log.info("【登录】用户{}进行微信授权登录成功",mpwxUserInfo.getOpenId());
         UserDetail userDetail = authService.mpLogin(mpwxUserInfo);
         return ResultVO.success(userDetail,"登录成功");
     }

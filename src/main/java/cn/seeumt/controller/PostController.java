@@ -131,7 +131,7 @@ public class PostController {
     }
 
 
-    @PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO search(@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords) {
         log.info("通过{}搜索",keywords);
         return ResultVO.success( postService.search(keywords));
