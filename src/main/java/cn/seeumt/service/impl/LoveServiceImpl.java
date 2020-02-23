@@ -9,6 +9,7 @@ import cn.seeumt.service.LoveService;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ import java.util.List;
  * @date 2019/12/8 12:28
  */
 @Service
+@Slf4j
 public class LoveServiceImpl implements LoveService {
 
 
@@ -31,6 +33,7 @@ public class LoveServiceImpl implements LoveService {
         Love aLove = selectByApiRootIdAndUserIdAndType(apiRootId, userId, (byte) 3);
         //如果没有点过赞 成功啦！点赞  改变love的status
         if (aLove==null) {
+            log.info("用户 {}点赞了{}",userId,apiRootId);
             Love love = new Love();
             love.setLoveId(UuidUtil.getUuid());
             love.setStatus(true);
@@ -44,6 +47,7 @@ public class LoveServiceImpl implements LoveService {
                 love.setEnabled(true);
                 love.setLoveType(Tips.POST_THUMB.getMsg());
             }else {
+                log.info("用户 {}点踩了{}",userId,apiRootId);
                 love.setType((byte)(Tips.POST_HATE.getCode().intValue()));
                 love.setEnabled(false);
                 love.setLoveType(Tips.POST_HATE.getMsg());
@@ -56,6 +60,7 @@ public class LoveServiceImpl implements LoveService {
         }
         //如果点过了赞，再点就是取消
         else if (aLove.getStatus()) {
+            log.info("用户 {}取消点赞|点踩 {}",userId,apiRootId);
             aLove.setStatus(false);
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);
@@ -65,6 +70,7 @@ public class LoveServiceImpl implements LoveService {
                 throw new TipsException(TipsFlash.TH_FAILED);
             }
         } else if (!aLove.getStatus()) {
+            log.info("用户 {}再次点赞|点踩 {}",userId,apiRootId);
             aLove.setStatus(true);
             aLove.setUpdateTime(new Date());
             int i = loveMapper.updateById(aLove);

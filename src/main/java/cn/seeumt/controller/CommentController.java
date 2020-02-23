@@ -8,6 +8,7 @@ import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.CommentVO;
 import cn.seeumt.vo.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/comments")
+@Slf4j
 public class CommentController {
 
     @Autowired
@@ -44,6 +46,7 @@ public class CommentController {
     @PostMapping("/")
     public ResultVO commentForComment(@RequestBody Comment comment) {
         OnlineUtil.setLastOperateTimeByUserId(comment.getUserId());
+        log.info("【评论】用户 {}评论 {}:{}",comment.getUserId(),comment.getParentId(),comment.getContent());
         return commentService.comment(comment.getApiRootId(), comment.getUserId(), comment.getContent(), comment.getType(),comment.getParentId());
     }
 
@@ -53,6 +56,7 @@ public class CommentController {
                               @RequestParam(value = "type",defaultValue ="3" ) Byte type,
                               String userId,String content) {
         OnlineUtil.setLastOperateTimeByUserId(userId);
+        log.info("【评论】用户 {}评论 {}:{}",userId,apiRootId,content);
         return commentService.commentForRoot(apiRootId, userId, content, type);
 
     }

@@ -15,6 +15,7 @@ import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/posts")
+@Slf4j
 @CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
 public class PostController {
 
@@ -41,6 +43,7 @@ public class PostController {
     @PostMapping("/")
     public ResultVO send(@RequestBody cn.seeumt.form.Post post) {
         OnlineUtil.setLastOperateTimeByUserId(post.getUserId());
+        log.info("【发布动态】用户 {}发布动态",post.getUserId());
         return postService.send(post);
     }
 
@@ -79,12 +82,14 @@ public class PostController {
 
     @GetMapping("/")
     public ResultVO list(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId) {
+        log.info("为用户 {}展示首页数据",userId);
         List<PostListDataItem> postListDataItems = postService.listFollowAndRecommendData(userId);
         return ResultVO.success(postListDataItems);
     }
 
     @GetMapping("/{type}/{userId}")
     public ResultVO listAlone(@PathVariable("type") Integer type, @PathVariable("userId") String userId) {
+        log.info("为用户 {}展示私人定制数据",userId);
         if (!"".equals(userId)) {
             if (type == 0) {
                 return postService.listFollowList(userId);
@@ -128,6 +133,7 @@ public class PostController {
 
     @PostMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO search(@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords) {
+        log.info("通过{}搜索",keywords);
         return ResultVO.success( postService.search(keywords));
     }
 

@@ -6,6 +6,7 @@ import cn.seeumt.form.Follow;
 import cn.seeumt.service.FollowService;
 import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.ResultVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/follows")
+@Slf4j
 @CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class FollowController {
     @Autowired
@@ -28,6 +30,7 @@ public class FollowController {
     @PostMapping("/")
     public ResultVO follow(@RequestBody Follow follow) {
         OnlineUtil.setLastOperateTimeByUserId(follow.getUserId());
+        log.info("用户 {}关注用户 {}",follow.getUserId(),follow.getUserId());
         return followService.add(follow.getUserId(), follow.getIdolId());
     }
 

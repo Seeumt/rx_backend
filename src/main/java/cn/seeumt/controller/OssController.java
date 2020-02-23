@@ -8,6 +8,7 @@ import cn.seeumt.utils.AliyunOssUtil;
 import cn.seeumt.vo.ResultVO;
 import com.aliyun.oss.OSSException;
 import com.aliyuncs.exceptions.ClientException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/oss")
+@Slf4j
 @CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class OssController {
 
@@ -50,6 +52,7 @@ public class OssController {
     @PostMapping("/")
     public ResultVO commentPic(@RequestPart("file") MultipartFile file, String parentId) throws IOException {
         String originUrl = AliyunOssUtil.getOriginUrl(file);
+        log.info("进行图片评论,图片地址：{}",originUrl);
         ossService.saveOssForComment(originUrl, parentId);
         return ResultVO.success(originUrl);
     }

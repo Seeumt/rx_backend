@@ -8,6 +8,7 @@ import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.AuthService;
 import cn.seeumt.vo.ResultVO;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import javax.validation.Valid;
  */
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthController {
 
     public static final String TOKEN_HEADER = "Authorization";
@@ -31,6 +33,7 @@ public class AuthController {
     @ApiOperation(value = "登陆", notes = "登陆成功返回token,登陆之前请先注册账号")
     public ResultVO login(
             @Valid @RequestBody LoginUser loginUser){
+        log.info("【用户登录】用户{}通过用户名密码方式登录",loginUser.getUsername());
         UserDetail userDetail = authService.upLogin(loginUser.getUsername(), loginUser.getPassword());
         return ResultVO.ok(userDetail);
     }

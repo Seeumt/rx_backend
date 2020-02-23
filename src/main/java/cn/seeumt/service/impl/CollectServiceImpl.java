@@ -13,6 +13,7 @@ import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.assist.ISqlRunner;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +28,7 @@ import java.util.Date;
  * @since 2020-02-16
  */
 @Service
+@Slf4j
 public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> implements CollectService {
     @Autowired
     private CollectMapper collectMapper;
@@ -49,6 +51,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             if (insert < 1) {
                 throw new TipsException(TipsFlash.TH_FAILED);
             }
+            log.info("【收藏】用户 {}收藏 {}",userId,apiRootId);
             return ResultVO.success("收藏成功啦！");
         }
         //如果点过了赞，再点就是取消
@@ -57,6 +60,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             aCollect.setUpdateTime(new Date());
             int i = collectMapper.updateById(aCollect);
             if (i == 1) {
+                log.info("【取消收藏】用户{}取消收藏{}",userId,apiRootId);
                 return ResultVO.success("取消收藏啦！");
             } else {
                 throw new TipsException(TipsFlash.COLLECT_FAILED);
@@ -66,6 +70,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             aCollect.setUpdateTime(new Date());
             int i = collectMapper.updateById(aCollect);
             if (i == 1) {
+                log.info("【再次收藏】用户 {}再次收藏 {}",userId,apiRootId);
                 return ResultVO.success("收藏成功啦！");
             } else {
                 throw new TipsException(TipsFlash.COLLECT_FAILED);
