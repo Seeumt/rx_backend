@@ -55,7 +55,7 @@ public class CommentController {
     public int commentForRoot(String apiRootId,
                               @RequestParam(value = "type",defaultValue ="3" ) Byte type,
                               String userId,String content) {
-//        OnlineUtil.setLastOperateTimeByUserId(userId);
+        OnlineUtil.setLastOperateTimeByUserId(userId);
         log.info("【评论】用户 {}评论 {}:{}",userId,apiRootId,content);
         return commentService.commentForRoot(apiRootId, userId, content, type);
 

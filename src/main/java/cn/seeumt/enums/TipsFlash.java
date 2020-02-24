@@ -39,7 +39,7 @@ public enum TipsFlash implements CodeEnum {
     QUERY_TARGET_COMMENT_FAILED(50009, "查询父级评论失败"),
     BIND_TELEPHONE_EXCEPTION(10011, "绑定手机号异常"),
     FIND_WX_USER_EXCEPTION(10012, "查找微信用户异常"),
-    FIND_USER_EXCEPTION(10015, "查找用户异常"),
+    FIND_USER_EXCEPTION(10015, "查找用户异常,微信未绑定"),
     UPDATE_USER_EXCEPTION(10016, "更新用户异常"),
     UPDATE_USER_PASSWORD_EXCEPTION(10026, "更改用户密码异常"),
     UPDATE_WX_USER_EXCEPTION(10018, "更新微信用户异常"),

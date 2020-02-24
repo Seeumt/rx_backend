@@ -153,7 +153,6 @@ public class UserController {
         System.out.println(i);
         if (i > 0) {
             log.info("【绑定手机】手机号{}与{}绑定成功",telephone,openId);
-            System.out.println(telephone+code);
             return ResultVO.success(telephone, Tips.BIND_SUCCESS.getMsg());
         }
         return ResultVO.error(TipsFlash.BIND_TELEPHONE_EXCEPTION);

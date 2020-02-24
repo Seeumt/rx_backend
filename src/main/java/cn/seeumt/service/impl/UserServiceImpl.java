@@ -12,6 +12,7 @@ import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.RedisService;
 import cn.seeumt.service.UserRoleService;
 import cn.seeumt.service.UserService;
+import cn.seeumt.utils.AliyunMessageUtil2;
 import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -185,7 +186,7 @@ public class UserServiceImpl implements UserService {
                 Long pwd = KeyUtil.genUniqueKey();
                 user.setPassword(bCryptPasswordEncoder.encode(pwd.toString()));
                 try {
-                    System.out.println(pwd);
+                    AliyunMessageUtil2.sendSms(telephone, pwd.toString());
                 } catch (Exception e) {
                     throw new TipsException(TipsFlash.SEND_WELCOME_MSG_EXCEPTION);
                 }

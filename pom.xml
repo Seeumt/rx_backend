@@ -8,7 +8,7 @@
         <version>2.0.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-<!--    <packaging>war</packaging>-->
+    <packaging>war</packaging>
     <groupId>cn.seeumt</groupId>
     <artifactId>tips</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -27,6 +27,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--因配置外部TOMCAT 而配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.mybatis.spring.boot</groupId>-->
