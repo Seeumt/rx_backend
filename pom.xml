@@ -8,7 +8,7 @@
         <version>2.0.9.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <packaging>war</packaging>
+<!--    <packaging>war</packaging>-->
     <groupId>cn.seeumt</groupId>
     <artifactId>tips</artifactId>
     <version>0.0.1-SNAPSHOT</version>
