@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/collects")
 @Slf4j
+@CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
 public class CollectController {
     @Autowired
     private CollectService collectService;
@@ -35,9 +36,9 @@ public class CollectController {
                                        @RequestParam("userId") String userId) {
         Collect collect = collectService.selectByApiRootIdAndUserId(apiRootId, userId);
         if (collect == null) {
-            return ResultVO.success(true);
+            return ResultVO.success(false);
         }
-        return ResultVO.success(false);
+        return ResultVO.success(true);
     }
 
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/ratings")
 @Slf4j
+@CrossOrigin(origins = {"*"},allowCredentials = "true",allowedHeaders = {"*"})
 public class RatingController {
     @Autowired
     private RatingService ratingService;

@@ -21,14 +21,14 @@ public class PostListDataItem {
      */
     private Integer id;
     private Set<PostDTO> posts;
-    private PageInfo pageInfo;
+    private PageInfo<PostDTO> pageInfo;
 
     public PostListDataItem(Integer id, Set<PostDTO> posts) {
         this.id = id;
         this.posts = posts;
     }
 
-    public PostListDataItem(Integer id, PageInfo pageInfo) {
+    public PostListDataItem(Integer id, PageInfo<PostDTO> pageInfo) {
         this.id = id;
         this.pageInfo = pageInfo;
     }
