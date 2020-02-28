@@ -83,4 +83,15 @@ public class ArticleController {
         return ResultVO.success(articlePageInfo);
     }
 
+
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_STU')")
+    public ResultVO post(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
+                            @RequestParam(value = "page",required = false,defaultValue = "1") int num,
+                            @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {
+        PageInfo<Article> articlePageInfo = articleService.queryAll(num, size,keywords);
+        return ResultVO.success(articlePageInfo);
+    }
+
+
     }
