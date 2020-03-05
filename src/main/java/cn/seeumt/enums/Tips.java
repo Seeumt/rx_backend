@@ -33,6 +33,7 @@ public enum Tips implements CodeEnum {
     DEFAULT_TEL(10050, "none"),
     SENDSMS_NORMAL(0, "普通短信"),
     SENDSMS_WEL(1, "带密码短信"),
+    NO_IDOL(50002, "亲还没有关注任何人"),
     ;
 
     /**

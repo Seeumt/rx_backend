@@ -1,4 +1,5 @@
 package cn.seeumt.service.impl;
+import com.google.common.collect.Lists;
 import java.util.Date;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -12,6 +13,7 @@ import cn.seeumt.dto.PostListDataItem;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
+import cn.seeumt.model.MyPageHelper;
 import cn.seeumt.service.*;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.*;
@@ -56,72 +58,63 @@ public class PostServiceImpl implements PostService {
         return ResultVO.success(postDTO);
     }
 
+
     @Override
-    public List<PostListDataItem> listFollowAndRecommendData(String userId) {
-
-        List<Post> posts = postMapper.selectList(null);
-        PostListDataItem postListDataItem0 = null;
-        PostListDataItem postListDataItem1 = null;
-        List<PostListDataItem> postListDataItemList = new ArrayList<>();
-        Set<PostDTO> followSet = new HashSet<>();
-        Set<PostDTO> notFollowSet = new HashSet<>();
-        Set<PostDTO> recommendSet = new HashSet<>();
-        if (!"".equals(userId)) {
-            List<Follow> allIdol = followService.getAllIdol(userId);
-            Boolean isIdol = false;
-             for (Post post : posts) {
-                List<Boolean> trues = new ArrayList<>();
-                List<Boolean> falses = new ArrayList<>();
-                PostDTO postDTO = assemblePostDTO(post,userId);
-                  for (Follow idol : allIdol) {
-                    if (idol.getIdolId().equals(post.getUserId())) {
-                        trues.add(!isIdol);
-                    }else {
-                        falses.add(isIdol);
-                    }
-                }
-                if (trues.size() > 0||post.getUserId().equals(userId)) {
-                    postDTO.setIsFollow(true);
-                    followSet.add(postDTO);
-                }else {
-                    postDTO.setIsFollow(false);
-                    notFollowSet.add(postDTO);
-                }
-
-            }
-        }else {
-            for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post,userId);
-                postDTO.setIsFollow(false);
-                notFollowSet.add(postDTO);
-            }
+    public ResultVO getIdolsPosts(String userId, int currentNum, int size) {
+        List<Follow> allIdol = followService.getAllIdol(userId);
+        List<String> idolUserIds = allIdol.stream().map(Follow::getIdolId).collect(Collectors.toList());
+        if (allIdol.size() == 0) {
+            return ResultVO.success(Tips.NO_IDOL);
         }
+        PageHelper.startPage(currentNum, size);
+        List<Post> posts = postMapper.selectIdolPostsBatch(idolUserIds);
+        PageInfo<Post> postPageInfo = new PageInfo<>(posts);
+        MyPageHelper<PostDTO> myPageHelper = new MyPageHelper<>();
+        BeanUtils.copyProperties(postPageInfo, myPageHelper);
+        List<PostDTO> postDtos = postPageInfo.getList().stream().map(post -> {
+            PostDTO postDTO = assemblePostDTO(post, userId);
+            postDTO.setIsFollow(true);
+            return postDTO;
+        }).collect(Collectors.toList());
+        myPageHelper.setId(0);
+        myPageHelper.setList(postDtos);
+        List<MyPageHelper> myPageHelpers = new ArrayList<>();
+        MyPageHelper<PostDTO> myPageHelper1 = new MyPageHelper<>();
+        myPageHelper1.setId(1);
+        myPageHelper1.setPageNum(0);
+        myPageHelper1.setPageSize(0);
+        myPageHelper1.setSize(0);
+        myPageHelper1.setOrderBy("");
+        myPageHelper1.setStartRow(0);
+        myPageHelper1.setEndRow(0);
+        myPageHelper1.setTotal(0L);
+        myPageHelper1.setPages(0);
+        myPageHelper1.setList(Lists.newArrayList());
+        myPageHelper1.setFirstPage(0);
+        myPageHelper1.setPrePage(0);
+        myPageHelper1.setNextPage(0);
+        myPageHelper1.setLastPage(0);
+        myPageHelper1.setFPage(false);
+        myPageHelper1.setLPage(false);
+        myPageHelper1.setHasPreviousPage(false);
+        myPageHelper1.setHasNextPage(false);
+        myPageHelper1.setNavigatePages(0);
+        myPageHelper1.setNavigatepageNums(null);
+        myPageHelpers.add(myPageHelper);
+        myPageHelpers.add(myPageHelper1);
+        return ResultVO.success(myPageHelpers);
 
-        recommendSet.addAll(followSet);
-        recommendSet.addAll(notFollowSet);
-        postListDataItem0 = new PostListDataItem(0,followSet);
-        postListDataItem1 = new PostListDataItem(1, recommendSet);
-
-        postListDataItemList.add(postListDataItem0);
-        postListDataItemList.add(postListDataItem1);
-        return postListDataItemList;
     }
 
     @Override
-    public ResultVO listFollowList(String userId) {
-        Set<PostDTO> followSet = new HashSet<>();
-        PostListDataItem postListDataItem0 = new PostListDataItem(0,followSet);
-        if (!"".equals(userId)) {
-            followSet = getFollowSet(userId);
-            postListDataItem0.setPosts(followSet);
-        }
-        return ResultVO.success(postListDataItem0);
-    }
-
-    @Override
-    public ResultVO listNotFollowList(String userId) {
-        PageHelper.startPage(1, 1);
-        List<Post> posts = postMapper.selectList(null);
+    public ResultVO getRecommendPosts(String userId, int currentNum, int size) {
+        QueryWrapper<Post> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+        PageHelper.startPage(currentNum, size);
+        List<Post> posts = postMapper.selectList(wrapper);
+        PageInfo<Post> postPageInfo = new PageInfo<>(posts);
+        MyPageHelper<PostDTO> myPageHelper = new MyPageHelper<>();
+        BeanUtils.copyProperties(postPageInfo, myPageHelper);
         Set<PostDTO> followSet = new HashSet<>();
         Set<PostDTO> notFollowSet = new HashSet<>();
         Set<PostDTO> recommendSet = new HashSet<>();
@@ -157,59 +150,34 @@ public class PostServiceImpl implements PostService {
         }
         recommendSet.addAll(followSet);
         recommendSet.addAll(notFollowSet);
-        List<PostDTO> recommendPostDtos = new ArrayList<>(recommendSet);
-        PageInfo<PostDTO> pageInfo = new PageInfo<>(recommendPostDtos);
-        PostListDataItem postListDataItem1 = new PostListDataItem(1,pageInfo);
-        return ResultVO.success(postListDataItem1);
-    }
-
-    @Override
-    public PostListDataItem listRecommendList(String userId) {
-
-        Set<PostDTO> recommendSet = new HashSet<>();
-        Set<PostDTO> postDtoSetNotFollow = new HashSet<>();
-        List<Post> posts = postMapper.selectList(null);
-        if (!"".equals(userId)) {
-            List<Follow> allIdol = followService.getAllIdol(userId);
-            for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post,userId);
-              for (Follow idol : allIdol) {
-                    if (!idol.getIdolId().equals(post.getUserId())) {
-                        postDTO.setIsFollow(false);
-                        postDtoSetNotFollow.add(postDTO);
-                    }else {
-
-                    }
-                }
-            }
-            Set<PostDTO> followSet = getFollowSet(userId);
-            recommendSet.addAll(postDtoSetNotFollow);
-            recommendSet.addAll(followSet);
-        }else {
-            for (Post post : posts) {
-                PostDTO postDTO = assemblePostDTO(post,userId);
-                        postDTO.setIsFollow(false);
-                        recommendSet.add(postDTO);
-            }
-        }
-        PostListDataItem postListDataItem1 = new PostListDataItem(1,recommendSet);
-
-        return postListDataItem1;
-    }
-    private Set<PostDTO> getFollowSet(String userId) {
-        Set<PostDTO> followSet = new HashSet<>();
-        List<Follow> allIdol = followService.getAllIdol(userId);
-        List<Post> posts = postMapper.selectList(null);
-         for (Post post : posts) {
-            PostDTO postDTO = assemblePostDTO(post,userId);
-            for (Follow idol : allIdol) {
-                if (idol.getIdolId().equals(post.getUserId())||post.getUserId().equals(userId)) {
-                    postDTO.setIsFollow(true);
-                    followSet.add(postDTO);
-                }
-            }
-        }
-        return followSet;
+        List<PostDTO> recommendList = new ArrayList<>(recommendSet);
+        myPageHelper.setList(recommendList);
+        myPageHelper.setId(1);
+        List<MyPageHelper> myPageHelpers = new ArrayList<>();
+        MyPageHelper<PostDTO> myPageHelper1 = new MyPageHelper<>();
+        myPageHelper1.setId(0);
+        myPageHelper1.setPageNum(0);
+        myPageHelper1.setPageSize(0);
+        myPageHelper1.setSize(0);
+        myPageHelper1.setOrderBy("");
+        myPageHelper1.setStartRow(0);
+        myPageHelper1.setEndRow(0);
+        myPageHelper1.setTotal(0L);
+        myPageHelper1.setPages(0);
+        myPageHelper1.setList(Lists.newArrayList());
+        myPageHelper1.setFirstPage(0);
+        myPageHelper1.setPrePage(0);
+        myPageHelper1.setNextPage(0);
+        myPageHelper1.setLastPage(0);
+        myPageHelper1.setFPage(false);
+        myPageHelper1.setLPage(false);
+        myPageHelper1.setHasPreviousPage(false);
+        myPageHelper1.setHasNextPage(false);
+        myPageHelper1.setNavigatePages(0);
+        myPageHelper1.setNavigatepageNums(null);
+        myPageHelpers.add(myPageHelper1);
+        myPageHelpers.add(myPageHelper);
+        return ResultVO.success(myPageHelpers);
     }
 
 
@@ -353,7 +321,6 @@ public class PostServiceImpl implements PostService {
 
         }
         postDTO.setImgUrls(imgDTO.getUrls());
-
         loveVO.setLikeCount(loveService.selectThumbCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         loveVO.setHateCount(loveService.selectHateCountByRootIdAndType(post.getPostId(), (byte) 3).size());
         postDTO.setLove(loveVO);

@@ -49,13 +49,14 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
-//    @PostMapping("/")
-//    public ResultVO commentPic(@RequestPart("file") MultipartFile file, String parentId) throws IOException {
-//        String originUrl = AliyunOssUtil.getOriginUrl(file);
-//        log.info("进行图片评论,图片地址：{}",originUrl);
-//        ossService.saveOssForArticle(originUrl, parentId);
-//        return ResultVO.success(originUrl);
-//    }
+    @PostMapping("/{type}")
+    public ResultVO commentPic(@RequestPart("file") MultipartFile file, String parentId,
+    @PathVariable("type") Integer type) throws IOException {
+        String originUrl = AliyunOssUtil.getOriginUrl(file);
+        log.info("进行图片评论,图片地址：{}",originUrl);
+        ossService.saveOssForMedia(originUrl, parentId,type);
+        return ResultVO.success(originUrl);
+    }
 
     @PostMapping("/article")
     public ResultVO article(@RequestPart("file") MultipartFile file, String parentId) throws IOException {

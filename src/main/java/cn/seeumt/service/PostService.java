@@ -21,33 +21,8 @@ public interface PostService{
      */
     ResultVO getDto(String postId);
 
-    /**
-     * 查询推荐与关注列表
-     * @param userId 用户id
-     * @return List<PostListDataItem>
-     */
-    List<PostListDataItem> listFollowAndRecommendData(String userId);
 
-    /**
-     * 关注列表
-     * @param userId
-     * @return
-     */
-    ResultVO listFollowList(String userId);
 
-    /**
-     * 展示非关注列表
-     * @param userId 用户id
-     * @return ResultVO
-     */
-    ResultVO listNotFollowList(String userId);
-
-    /**
-     * 列出推荐列表
-     * @param userId 用户id
-     * @return PostListDataItem
-     */
-    PostListDataItem listRecommendList(String userId);
 
     /**
      * 通过用户发布的动态的Id得到一个完整的动态详情
@@ -99,6 +74,28 @@ public interface PostService{
      * @return List<PostVO>
      */
     List<PostVO> search(String keywords);
+
+
+    /**
+     * 展示关注列表
+     * @param userId 用户id
+     * @param currentNum 当前页
+     * @param size 每页条数
+     * @return ResultVO
+     */
+    ResultVO getIdolsPosts(String userId, int currentNum, int size);
+
+    /**
+     * 展示推荐列表
+     * @param userId 用户id
+     * @param currentNum 当前页
+     * @param size 每页条数
+     * @return ResultVO
+     */
+    ResultVO getRecommendPosts(String userId, int currentNum, int size);
+
+
+
 }
 
 

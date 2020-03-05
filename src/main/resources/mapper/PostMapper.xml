@@ -15,7 +15,7 @@
     post_id, type, content, img_id, user_id, create_time, update_time, deleted
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from post
     where post_id = #{postId,jdbcType=VARCHAR}
@@ -25,11 +25,11 @@
     where post_id = #{postId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="cn.seeumt.dataobject.Post">
-    insert into post (post_id, type, content, 
-      img_id, user_id, create_time, 
+    insert into post (post_id, type, content,
+      img_id, user_id, create_time,
       update_time, deleted)
-    values (#{postId,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{content,jdbcType=VARCHAR}, 
-      #{imgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{postId,jdbcType=VARCHAR}, #{type,jdbcType=BIT}, #{content,jdbcType=VARCHAR},
+      #{imgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{updateTime,jdbcType=TIMESTAMP}, #{deleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="cn.seeumt.dataobject.Post">
@@ -125,4 +125,17 @@
       deleted = #{deleted,jdbcType=BIT}
     where post_id = #{postId,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectIdolPostsBatch" resultMap="BaseResultMap" parameterType="list">
+    select
+    <include refid="Base_Column_List" />
+    from post
+    <where>
+      user_id in
+      <foreach item="item" collection="list" separator="," open="(" close=")" index="">
+        #{item}
+      </foreach>
+    </where>
+    ORDER BY create_time desc
+  </select>
 </mapper>

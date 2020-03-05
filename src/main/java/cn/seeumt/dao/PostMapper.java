@@ -3,6 +3,8 @@ package cn.seeumt.dao;
 import cn.seeumt.dataobject.Post;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * @author Seeumt
  */
@@ -49,4 +51,7 @@ public interface PostMapper extends BaseMapper<Post> {
      * @return
      */
     int updateByPrimaryKey(Post record);
+
+
+    List<Post> selectIdolPostsBatch(List<String> idolUserIds);
 }

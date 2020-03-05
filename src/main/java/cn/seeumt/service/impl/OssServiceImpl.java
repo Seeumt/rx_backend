@@ -3,6 +3,7 @@ import cn.seeumt.dao.CommentMapper;
 import cn.seeumt.dataobject.Comment;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
+import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.vo.ResultVO;
 import com.google.common.collect.Lists;
 import java.util.ArrayList;
@@ -102,5 +103,28 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
             throw new TipsException(TipsFlash.DELETE_OSS_FAILED);
         }
         return ResultVO.success("跟你说了再见");
+    }
+
+    @Override
+    public String saveOssForMedia(String originUrl, String parentId, Integer type) {
+        if (type.equals(3)) {
+            Oss oss = new Oss();
+            oss.setOssId(KeyUtil.genUniqueKey().toString());
+            oss.setUrl(AliyunOssUtil.getDbUrl(originUrl));
+            oss.setType(0);
+            oss.setCreateTime(new Date());
+            oss.setUpdateTime(new Date());
+            oss.setEnabled(false);
+            oss.setDeleted(false);
+            oss.setParentId(parentId);
+            int insert = ossMapper.insert(oss);
+            if (insert < 1) {
+                throw new TipsException(TipsFlash.INSERT_COMMENT_PIC_FAILED);
+            }
+            Comment comment = commentMapper.selectById(parentId);
+            comment.setCommentPic(originUrl);
+            commentMapper.updateById(comment);
+        }
+        return originUrl;
     }
 }

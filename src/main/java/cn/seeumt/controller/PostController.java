@@ -1,11 +1,11 @@
 package cn.seeumt.controller;
 
-import cn.seeumt.dataobject.Article;
 import cn.seeumt.dataobject.Post;
 import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.model.Comment;
+import cn.seeumt.model.MyPageHelper;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.service.FollowService;
@@ -14,13 +14,11 @@ import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
-import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -81,26 +79,21 @@ public class PostController {
 
 
     @GetMapping("/")
-    public ResultVO list(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId) {
+    public ResultVO getRecommendPosts(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId,
+                         @RequestParam(value = "currentNum") int currentNum,
+                         @RequestParam(value = "size",required = false,defaultValue = "5") int size) {
         log.info("为用户 {}展示首页数据",userId);
-        List<PostListDataItem> postListDataItems = postService.listFollowAndRecommendData(userId);
-        return ResultVO.success(postListDataItems);
+        return postService.getRecommendPosts(userId, currentNum, size);
     }
 
-    @GetMapping("/{type}/{userId}")
-    public ResultVO listAlone(@PathVariable("type") Integer type, @PathVariable("userId") String userId) {
-        log.info("为用户 {}展示私人定制数据",userId);
-        if (!"".equals(userId)) {
-            if (type == 0) {
-                return postService.listFollowList(userId);
-            } else if (type == 1) {
-                return postService.listNotFollowList(userId);
-            }
-            return ResultVO.error(0, "参数错误！");
-        }
-        return ResultVO.error(0, "用户id不能为空！");
-    }
 
+    @GetMapping("/idols")
+    public ResultVO getIdolsPosts(String userId,
+                         @RequestParam(value = "currentNum") int currentNum,
+                                  @RequestParam(value = "size", required = false, defaultValue = "5") int size){
+        log.info("为用户 {}展示关注数据",userId);
+        return postService.getIdolsPosts(userId,currentNum,size);
+    }
 
 
 
