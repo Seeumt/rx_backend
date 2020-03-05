@@ -42,4 +42,6 @@ public interface OssService extends IService<Oss> {
      * @return ResultVO
      */
     ResultVO deleteByOssId(String ossId);
+
+//    String saveOssForArticle(String originUrl, String parentId);
 }

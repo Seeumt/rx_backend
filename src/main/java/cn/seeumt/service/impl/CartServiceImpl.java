@@ -59,7 +59,7 @@ public class CartServiceImpl implements CartService {
             cart.setQuantity(count);
             cartMapper.updateById(cart);
         }
-        // TODO: 2020/1/28 list方法是干嘛的 转去了getCartVOList
+
         return this.list(userId);
     }
 
@@ -138,7 +138,7 @@ public class CartServiceImpl implements CartService {
 
     private CartVO getCartVoLimit(String userId){
         CartVO cartVO = new CartVO();
-        // TODO: 2020/1/28 查出来这个用户的所有购物车item干嘛呢？---要实时更新库存！！！
+        // TODO: 查出来这个用户的所有购物车item干嘛呢？---要实时更新库存！
         List<Cart> cartList = selectByUserId(userId);
         List<CartDTO> cartDTOList = Lists.newArrayList();
         BigDecimal cartTotalPrice = new BigDecimal("0");
@@ -149,7 +149,6 @@ public class CartServiceImpl implements CartService {
                 Souvenir souvenir = souvenirMapper.selectById(cartItem.getSouvenirId());
                 if(souvenir != null){
                     BeanUtils.copyProperties(souvenir, cartDTO);
-                    // TODO: 2020/1/28  buyLimitCount干嘛的呢
                     //判断库存
                     int buyLimitCount = 0;
                     if(souvenir.getStock() >= cartItem.getQuantity()){

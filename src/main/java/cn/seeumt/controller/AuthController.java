@@ -40,9 +40,6 @@ public class AuthController {
 
 
 
-
-
-
     @GetMapping(value = "/logouty")
     @ApiOperation(value = "登出", notes = "退出登陆")
     @PreAuthorize("hasAuthority('ROLE_USER')")

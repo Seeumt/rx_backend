@@ -3,7 +3,6 @@ package cn.seeumt.controller;
 
 import cn.seeumt.dataobject.Article;
 import cn.seeumt.dto.ArticleDTO;
-
 import cn.seeumt.model.Comment;
 import cn.seeumt.model.Thumber;
 import cn.seeumt.service.*;
@@ -67,12 +66,12 @@ public class ArticleController {
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, apiRootId);
         return comments;
     }
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_STU')")
-    public ResultVO article(String userId) {
-        List<Article> articles = articleService.query(userId);
-        return ResultVO.success(articles);
-    }
+//    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasRole('ROLE_STU')")
+//    public ResultVO article(String userId) {
+//        List<Article> articles = articleService.query(userId);
+//        return ResultVO.success(articles);
+//    }
 
     @PostMapping(value = "/no", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_STU')")
