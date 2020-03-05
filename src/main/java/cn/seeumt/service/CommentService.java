@@ -1,7 +1,6 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Comment;
-import cn.seeumt.model.CommentContent;
 import cn.seeumt.vo.*;
 
 import java.util.List;
@@ -13,9 +12,9 @@ import java.util.List;
 public interface CommentService {
 
     /**
-         * 获取所有0级评论
-         * @param apiRootId 根id(文章id,动态id)
-         * @return ResultVO
+     * 获取所有0级评论
+     * @param apiRootId 根id(文章id,动态id)
+     * @return ResultVO
      */
     List<Comment> getAllLuckyComments(String apiRootId);
 
@@ -60,9 +59,11 @@ public interface CommentService {
     /**
      * 查询所有一级评论及其下所有评论
      * @param apiRootId 文章id/动态id
+     * @param currentNum 当前页
+     * @param size  每页条数
      * @return CommentFirstMo
      */
-    CommentFirstMo getLuckyCommentsAndChildren(String apiRootId);
+    CommentFirstMo getLuckyCommentsAndChildren(String apiRootId,int currentNum,int size);
 
     /**
      * 通过某parentId(父级Id 第一级评论的父级id都是articleId,postId)
@@ -124,6 +125,6 @@ public interface CommentService {
      * @param apiRootId 0级评论id
      * @return List<CommentVO>
      */
-    List<CommentVO> getLuckyChildData(String apiRootId);
+    ResultVO getLuckyChildData(String apiRootId, int currentNum, int size);
 }
 

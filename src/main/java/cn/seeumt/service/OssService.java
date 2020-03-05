@@ -43,5 +43,12 @@ public interface OssService extends IService<Oss> {
      */
     ResultVO deleteByOssId(String ossId);
 
+    /**
+     * 保存图片
+     * @param originUrl 原始图片url
+     * @param parentId 父级id
+     * @param type 类型
+     * @return 原始图片url
+     */
     String saveOssForMedia(String originUrl, String parentId,Integer type);
 }

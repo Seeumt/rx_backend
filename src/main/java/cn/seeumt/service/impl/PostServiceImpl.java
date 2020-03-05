@@ -94,8 +94,8 @@ public class PostServiceImpl implements PostService {
         myPageHelper1.setPrePage(0);
         myPageHelper1.setNextPage(0);
         myPageHelper1.setLastPage(0);
-        myPageHelper1.setFPage(false);
-        myPageHelper1.setLPage(false);
+        myPageHelper1.setFaPage(false);
+        myPageHelper1.setLaPage(false);
         myPageHelper1.setHasPreviousPage(false);
         myPageHelper1.setHasNextPage(false);
         myPageHelper1.setNavigatePages(0);
@@ -169,8 +169,8 @@ public class PostServiceImpl implements PostService {
         myPageHelper1.setPrePage(0);
         myPageHelper1.setNextPage(0);
         myPageHelper1.setLastPage(0);
-        myPageHelper1.setFPage(false);
-        myPageHelper1.setLPage(false);
+        myPageHelper1.setFaPage(false);
+        myPageHelper1.setLaPage(false);
         myPageHelper1.setHasPreviousPage(false);
         myPageHelper1.setHasNextPage(false);
         myPageHelper1.setNavigatePages(0);

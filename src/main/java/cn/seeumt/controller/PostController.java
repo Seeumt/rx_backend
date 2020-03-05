@@ -90,7 +90,7 @@ public class PostController {
     @GetMapping("/idols")
     public ResultVO getIdolsPosts(String userId,
                          @RequestParam(value = "currentNum") int currentNum,
-                                  @RequestParam(value = "size", required = false, defaultValue = "5") int size){
+                         @RequestParam(value = "size", required = false, defaultValue = "5") int size){
         log.info("为用户 {}展示关注数据",userId);
         return postService.getIdolsPosts(userId,currentNum,size);
     }

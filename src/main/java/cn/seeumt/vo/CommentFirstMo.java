@@ -1,5 +1,6 @@
 package cn.seeumt.vo;
 
+import cn.seeumt.model.MyPageHelper;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,4 +26,11 @@ public class CommentFirstMo implements Serializable {
     private Integer commentCount;
 
 
+    private MyPageHelper<CommentMo> myPageHelper;
+
+
+    public CommentFirstMo(MyPageHelper<CommentMo> myPageHelper,Integer commentCount) {
+        this.myPageHelper = myPageHelper;
+        this.commentCount = commentCount;
+    }
 }

@@ -26,8 +26,8 @@ public class MyPageHelper<T>  implements Serializable {
     private int prePage;
     private int nextPage;
     private int lastPage;
-    private boolean isFPage;
-    private boolean isLPage;
+    private boolean isFaPage;
+    private boolean isLaPage;
     private boolean hasPreviousPage;
     private boolean hasNextPage;
     private int navigatePages;

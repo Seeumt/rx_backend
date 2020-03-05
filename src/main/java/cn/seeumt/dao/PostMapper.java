@@ -52,6 +52,10 @@ public interface PostMapper extends BaseMapper<Post> {
      */
     int updateByPrimaryKey(Post record);
 
-
+    /**
+     * 批量查询所有关注的动态
+     * @param idolUserIds 关注者id
+     * @return List<Post>
+     */
     List<Post> selectIdolPostsBatch(List<String> idolUserIds);
 }

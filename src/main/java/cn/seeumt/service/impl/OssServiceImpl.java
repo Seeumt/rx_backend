@@ -107,7 +107,7 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
 
     @Override
     public String saveOssForMedia(String originUrl, String parentId, Integer type) {
-        if (type.equals(3)) {
+        if (type.equals(Tips.POST.getCode())) {
             Oss oss = new Oss();
             oss.setOssId(KeyUtil.genUniqueKey().toString());
             oss.setUrl(AliyunOssUtil.getDbUrl(originUrl));

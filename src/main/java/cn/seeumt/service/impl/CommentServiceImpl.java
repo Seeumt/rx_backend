@@ -7,12 +7,13 @@ import cn.seeumt.dataobject.Comment;
 import cn.seeumt.dataobject.User;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
-import cn.seeumt.model.CommentContent;
+import cn.seeumt.model.MyPageHelper;
 import cn.seeumt.service.CommentService;
-import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.utils.UuidUtil;
 import cn.seeumt.vo.*;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,17 +35,22 @@ public class CommentServiceImpl implements CommentService {
     private UserMapper userMapper;
 
     @Override
-    public CommentFirstMo getLuckyCommentsAndChildren(String apiRootId) {
+    public CommentFirstMo getLuckyCommentsAndChildren(String apiRootId,int currentNum,int size) {
 
-        List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
         //找到所有0级评论
+        PageHelper.startPage(currentNum, size);
+        List<Comment> allLuckyComments = getAllLuckyComments(apiRootId);
+        //组装成带子评论
         List<CommentMo> commentMos = assemblecCommentMoList(allLuckyComments);
         Integer n = 0;
         for (Comment allLuckyComment : allLuckyComments) {
             n=n+selectCommentCountByRootIdAndType(allLuckyComment.getCommentId(), (byte) 3).size();
         }
-        return new CommentFirstMo(commentMos,n);
-
+        PageInfo<Comment> commentPageInfo = new PageInfo<>(allLuckyComments);
+        MyPageHelper<CommentMo> myPageHelper = new MyPageHelper<>();
+        BeanUtils.copyProperties(commentPageInfo, myPageHelper);
+        myPageHelper.setList(commentMos);
+        return new CommentFirstMo(myPageHelper,n);
     }
 
     @Override
@@ -78,9 +84,15 @@ public class CommentServiceImpl implements CommentService {
  }
 
     @Override
-    public List<CommentVO> getLuckyChildData(String apiRootId) {
+    public ResultVO getLuckyChildData(String apiRootId, int currentNum, int size) {
+        PageHelper.startPage(currentNum, size);
         List<Comment> comments = selectCommentCountByRootIdAndType(apiRootId, (byte) 3);
-        return assembleCommentVOList(comments);
+        PageInfo<Comment> commentPageInfo = new PageInfo<>(comments);
+        List<CommentVO> commentVos = assembleCommentVOList(comments);
+        MyPageHelper<CommentVO> myPageHelper = new MyPageHelper<>();
+        BeanUtils.copyProperties(commentPageInfo, myPageHelper);
+        myPageHelper.setList(commentVos);
+        return ResultVO.success(myPageHelper);
     }
 
     public List<CommentVO> assembleCommentVOList(List<Comment> comment1s) {

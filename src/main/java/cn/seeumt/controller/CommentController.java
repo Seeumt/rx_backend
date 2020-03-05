@@ -32,14 +32,18 @@ public class CommentController {
 
 
     @GetMapping("/")
-    public ResultVO queryHomeComments(String apiRootId) {
-        return ResultVO.success(commentService.getLuckyCommentsAndChildren(apiRootId));
+    public ResultVO queryHomeComments(String apiRootId,
+                                    @RequestParam(value = "currentNum") int currentNum,
+                                    @RequestParam(value = "size", required = false, defaultValue = "5") int size){
+        return ResultVO.success(commentService.getLuckyCommentsAndChildren(apiRootId,currentNum,size));
     }
 
 
     @GetMapping("/{apiRootId}")
-    public ResultVO getLuckyDetail(@PathVariable String apiRootId) {
-        return ResultVO.success(commentService.getLuckyChildData(apiRootId));
+    public ResultVO getLuckyDetail(@PathVariable String apiRootId,
+                                   @RequestParam(value = "currentNum") int currentNum,
+                                   @RequestParam(value = "size", required = false, defaultValue = "5") int size) {
+        return commentService.getLuckyChildData(apiRootId,currentNum,size);
     }
 
 

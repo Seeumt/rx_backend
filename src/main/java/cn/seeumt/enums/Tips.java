@@ -13,6 +13,7 @@ public enum Tips implements CodeEnum {
      */
     ARTICLE_THUMB(1,"文章点赞"),
     ARTICLE_TRANSFER(2,"文章转发"),
+    POST(3,"动态"),
     POST_THUMB(3,"like"),
     POST_HATE(4,"hate"),
     ARTICLE_COMMENT(1,"文章的评论"),
