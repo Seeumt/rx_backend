@@ -123,6 +123,8 @@ public interface CommentService {
     /**
      * 根据0级评论查询其下所有评论
      * @param apiRootId 0级评论id
+     * @param currentNum 当前页
+     * @param size  每页条数
      * @return List<CommentVO>
      */
     ResultVO getLuckyChildData(String apiRootId, int currentNum, int size);

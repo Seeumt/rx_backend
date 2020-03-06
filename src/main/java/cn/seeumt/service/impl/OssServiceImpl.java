@@ -108,23 +108,30 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     @Override
     public String saveOssForMedia(String originUrl, String parentId, Integer type) {
         if (type.equals(Tips.POST.getCode())) {
-            Oss oss = new Oss();
-            oss.setOssId(KeyUtil.genUniqueKey().toString());
-            oss.setUrl(AliyunOssUtil.getDbUrl(originUrl));
-            oss.setType(0);
-            oss.setCreateTime(new Date());
-            oss.setUpdateTime(new Date());
-            oss.setEnabled(false);
-            oss.setDeleted(false);
-            oss.setParentId(parentId);
-            int insert = ossMapper.insert(oss);
-            if (insert < 1) {
-                throw new TipsException(TipsFlash.INSERT_COMMENT_PIC_FAILED);
-            }
+            insertOss(originUrl,parentId);
             Comment comment = commentMapper.selectById(parentId);
             comment.setCommentPic(originUrl);
             commentMapper.updateById(comment);
+        } else if (type.equals(Tips.ARTICLE.getCode())) {
+            insertOss(originUrl,parentId);
         }
         return originUrl;
+    }
+
+
+    public void insertOss(String originUrl,String parentId) {
+        Oss oss = new Oss();
+        oss.setOssId(KeyUtil.genUniqueKey().toString());
+        oss.setUrl(AliyunOssUtil.getDbUrl(originUrl));
+        oss.setType(0);
+        oss.setCreateTime(new Date());
+        oss.setUpdateTime(new Date());
+        oss.setEnabled(false);
+        oss.setDeleted(false);
+        oss.setParentId(parentId);
+        int insert = ossMapper.insert(oss);
+        if (insert < 1) {
+            throw new TipsException(TipsFlash.INSERT_COMMENT_PIC_FAILED);
+        }
     }
 }

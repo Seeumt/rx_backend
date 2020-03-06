@@ -1,6 +1,7 @@
 package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Article;
+import cn.seeumt.vo.ResultVO;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -29,4 +30,11 @@ public interface ArticleService{
      * @return PageInfo<Article>
      */
     PageInfo<Article> queryAll(int num, int size,String keywords);
+
+    /**
+     * 发布文章
+     * @param article 游记id
+     * @return ResultVO
+     */
+    ResultVO insert(cn.seeumt.form.Article article);
 }

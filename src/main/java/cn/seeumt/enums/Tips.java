@@ -11,6 +11,8 @@ public enum Tips implements CodeEnum {
     /**
      *
      */
+    ARTICLE(1,"文章"),
+    SEND_SUCCESS(0,"发布成功"),
     ARTICLE_THUMB(1,"文章点赞"),
     ARTICLE_TRANSFER(2,"文章转发"),
     POST(3,"动态"),

@@ -2,13 +2,19 @@ package cn.seeumt.service.impl;
 
 import cn.seeumt.dataobject.Article;
 import cn.seeumt.dao.ArticleMapper;
+import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.service.ArticleService;
+import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,6 +50,21 @@ public class ArticleServiceImpl implements ArticleService {
             List<Article> articles = articleMapper.selectList(wrapper);
             return new PageInfo<>(articles);
      }
+
+    @Override
+    public ResultVO insert(cn.seeumt.form.Article article) {
+        Article article1 = new Article();
+        BeanUtils.copyProperties(article, article1);
+        article1.setCreateTime(new Date());
+        article1.setUpdateTime(new Date());
+        article1.setEnabled(true);
+        article1.setDeleted(false);
+        int insert = articleMapper.insert(article1);
+        if (insert < 1) {
+            throw new TipsException(TipsFlash.ARTICLE_INSERT_FAILED);
+        }
+        return ResultVO.success(Tips.SEND_SUCCESS);
+    }
 
 
 }

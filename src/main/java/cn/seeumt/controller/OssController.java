@@ -2,6 +2,7 @@ package cn.seeumt.controller;
 
 
 import cn.seeumt.dto.ImgDTO;
+import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.model.Img;
 import cn.seeumt.service.OssService;
 import cn.seeumt.utils.AliyunOssUtil;
@@ -50,8 +51,11 @@ public class OssController {
     }
 
     @PostMapping("/{type}")
-    public ResultVO commentPic(@RequestPart("file") MultipartFile file, String parentId,
+    public ResultVO saveOssForMedia(@RequestPart("file") MultipartFile file, String parentId,
     @PathVariable("type") Integer type) throws IOException {
+        if (parentId.equals("")) {
+            return ResultVO.error(TipsFlash.INVAILD_ARGUMENT);
+        }
         String originUrl = AliyunOssUtil.getOriginUrl(file);
         log.info("进行图片评论,图片地址：{}",originUrl);
         ossService.saveOssForMedia(originUrl, parentId,type);

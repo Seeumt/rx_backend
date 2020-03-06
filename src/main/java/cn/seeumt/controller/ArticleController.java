@@ -66,12 +66,12 @@ public class ArticleController {
         List<Comment> comments = TreeUtil.listToTree(levelCommentsList, apiRootId);
         return comments;
     }
-//    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-//    @PreAuthorize("hasRole('ROLE_STU')")
-//    public ResultVO article(String userId) {
-//        List<Article> articles = articleService.query(userId);
-//        return ResultVO.success(articles);
-//    }
+    @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasRole('ROLE_STU')")
+    public ResultVO article(String userId) {
+        List<Article> articles = articleService.query(userId);
+        return ResultVO.success(articles);
+    }
 
     @PostMapping(value = "/no", produces = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ROLE_STU')")
@@ -83,13 +83,18 @@ public class ArticleController {
     }
 
 
+//    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//    @PreAuthorize("hasRole('ROLE_STU')")
+//    public ResultVO post(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
+//                            @RequestParam(value = "page",required = false,defaultValue = "1") int num,
+//                            @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {
+//        PageInfo<Article> articlePageInfo = articleService.queryAll(num, size,keywords);
+//        return ResultVO.success(articlePageInfo);
+//    }
+
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    @PreAuthorize("hasRole('ROLE_STU')")
-    public ResultVO post(@RequestParam(value = "keywords",required = false,defaultValue = "") String keywords,
-                            @RequestParam(value = "page",required = false,defaultValue = "1") int num,
-                            @RequestParam(value = "pageSize",required = false,defaultValue = "3")int size) {
-        PageInfo<Article> articlePageInfo = articleService.queryAll(num, size,keywords);
-        return ResultVO.success(articlePageInfo);
+    public ResultVO post(@RequestBody cn.seeumt.form.Article article) {
+        return articleService.insert(article);
     }
 
 
