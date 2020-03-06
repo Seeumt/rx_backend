@@ -46,7 +46,7 @@ public class PostController {
     }
 
     @GetMapping("/{postId}")
-    public ResultVO getDto(@PathVariable("postId") String postId) {
+        public ResultVO getDto(@PathVariable("postId") String postId) {
         if ("".equals(postId)) {
             return ResultVO.error(TipsFlash.NULL_ARGUMENT);
         }

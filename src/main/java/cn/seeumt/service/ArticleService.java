@@ -37,4 +37,8 @@ public interface ArticleService{
      * @return ResultVO
      */
     ResultVO insert(cn.seeumt.form.Article article);
+
+    ResultVO selectById(String articleId);
+
+    ResultVO search(String keywords, int currentNum, int size);
 }

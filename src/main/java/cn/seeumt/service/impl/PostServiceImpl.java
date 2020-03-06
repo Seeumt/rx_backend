@@ -282,7 +282,7 @@ public class PostServiceImpl implements PostService {
         QueryWrapper<Post> wrapper = new QueryWrapper<>();
         if ("".equals(keywords)) {
             wrapper.orderByDesc("create_time");
-
+            System.out.println("????????");
             List<Post> posts = postMapper.selectList(wrapper);
             return assemblePostVO(posts);
         }

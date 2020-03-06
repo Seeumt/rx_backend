@@ -2,6 +2,7 @@ package cn.seeumt.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.models.auth.In;
 import lombok.Data;
 
@@ -15,9 +16,10 @@ import java.util.Date;
 @Data
 public class PostVO {
 
-    @TableId
+    @JsonProperty("mediaId")
     private String postId;
 
+    @JsonProperty("title")
     private String content;
 
     private String cover;

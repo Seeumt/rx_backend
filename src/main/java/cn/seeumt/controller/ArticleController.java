@@ -13,6 +13,7 @@ import cn.seeumt.vo.CityVO;
 import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/articles")
+@Slf4j
 @CrossOrigin(origins = {"*"},allowCredentials = "true")
 public class ArticleController {
     @Autowired
@@ -42,21 +44,21 @@ public class ArticleController {
     private CommentService commentService;
 
     @GetMapping("/{articleId}")
-    public ArticleDTO findAnArticle(@PathVariable String articleId) {
-        ArticleDTO articleDTO = new ArticleDTO();
-        List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
-        List<TagVO> tagVos = tagService.findTagVoByTagIds(tagIds);
-        articleDTO.setTagVos(tagVos);
-        List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
-        List<CityVO> cityVos = cityService.findByCityIds(cityIds);
-        articleDTO.setViaCitiesVos(cityVos);
-        //找到根评论
-        List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(articleId);
-        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, articleId);
-        articleDTO.setComments(comments);
-        List<Thumber> thumbers = ThumberUtil.allThumbers(articleId);
-        articleDTO.setThumbers(thumbers);
-        return articleDTO;
+    public ResultVO findAnArticle(@PathVariable String articleId) {
+//        ArticleDTO articleDTO = new ArticleDTO();
+//        List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
+//        List<TagVO> tagVos = tagService.findTagVoByTagIds(tagIds);
+//        articleDTO.setTagVos(tagVos);
+//        List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
+//        List<CityVO> cityVos = cityService.findByCityIds(cityIds);
+//        articleDTO.setViaCitiesVos(cityVos);
+//        //找到根评论
+//        List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(articleId);
+//        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, articleId);
+//        articleDTO.setComments(comments);
+//        List<Thumber> thumbers = ThumberUtil.allThumbers(articleId);
+//        articleDTO.setThumbers(thumbers);
+        return articleService.selectById(articleId);
     }
 
     @PostMapping("/test")
@@ -95,6 +97,14 @@ public class ArticleController {
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO post(@RequestBody cn.seeumt.form.Article article) {
         return articleService.insert(article);
+    }
+
+    @GetMapping(value = "/search", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResultVO search(@RequestParam(value = "keywords", defaultValue = "",required = false) String keywords,
+                           @RequestParam(value = "currentNum") int currentNum,
+                           @RequestParam(value = "size",required = false,defaultValue = "7") int size) {
+        log.info("通过{}搜索文章",keywords);
+        return articleService.search(keywords,currentNum,size);
     }
 
 

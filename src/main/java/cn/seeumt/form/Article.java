@@ -40,7 +40,4 @@ public class Article implements Serializable {
      */
     private String userId;
 
-    public static void main(String[] args) {
-        System.out.println();
-    }
 }

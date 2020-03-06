@@ -12,19 +12,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b930e5f-2658-43c3-81fe-872ede893c2a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/ArticleServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/OssController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/OssController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/CommentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/CommentService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/OssServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/OssServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-dev.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-dev.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/Article.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/dataobject/Article.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/cn/seeumt/enums/Tips.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/cn/seeumt/enums/Tips.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -53,6 +51,25 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
+  </component>
+  <component name="DockManager">
+    <window id="1">
+      <content type="file-editors">
+        <state>
+          <leaf>
+            <file pinned="false" current-in-tab="true">
+              <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="324">
+                    <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+          </leaf>
+        </state>
+      </content>
+    </window>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="tips" />
@@ -126,11 +143,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1435">
-              <caret line="95" column="59" selection-start-line="95" selection-start-column="59" selection-end-line="95" selection-end-column="59" />
+            <state relative-caret-position="221">
+              <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#4008#4009#0" expanded="true" />
@@ -140,14 +157,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="463">
-              <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
+            <state relative-caret-position="321">
+              <caret line="261" column="27" lean-forward="true" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
               <folding>
-                <element signature="e#670#671#0" expanded="true" />
-                <element signature="e#706#707#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="method#getIdolsPosts#0;class#PostServiceImpl#0" />
               </folding>
             </state>
           </provider>
@@ -156,8 +173,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+            <state relative-caret-position="321">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -165,26 +182,26 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="365">
-              <caret line="61" column="49" selection-start-line="61" selection-start-column="49" selection-end-line="61" selection-end-column="49" />
+            <state relative-caret-position="181">
+              <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="49" column="28" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
+            <state relative-caret-position="156">
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/OssController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="140">
-              <caret line="60" column="61" selection-start-line="60" selection-start-column="61" selection-end-line="60" selection-end-column="61" />
+            <state relative-caret-position="112">
+              <caret line="18" column="26" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -199,28 +216,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/OssService.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="442">
-              <caret line="52" column="11" selection-start-line="52" selection-start-column="11" selection-end-line="52" selection-end-column="11" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/OssServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="246">
-              <caret line="121" column="61" selection-start-line="121" selection-start-column="61" selection-end-line="121" selection-end-column="61" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="14" column="16" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
+            <state relative-caret-position="181">
+              <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -231,9 +230,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="JUnit4 Test Class" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
@@ -309,9 +308,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/LoveController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/AliyunMessageUtil.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/CarouselController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/CollectServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/FileUploadController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/FollowController.java" />
@@ -321,7 +317,6 @@
         <option value="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/LoveServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/PostServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/UserServiceImplTest.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/WarStartApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/AliyunMessageUtil2.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/UserController.java" />
@@ -344,9 +339,7 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/OssService.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/dao/PostMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/model/MyPageHelper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/CommentFirstMo.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/CommentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/CommentController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/utils/JwtTokenUtils.java" />
@@ -355,11 +348,17 @@
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/OssServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/OssController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" />
+        <option value="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/ArticleServiceImplTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" />
       </list>
     </option>
   </component>
@@ -401,10 +400,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
-    <option name="y" value="-8" />
-    <option name="width" value="1456" />
-    <option name="height" value="916" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1938" />
+    <option name="height" value="1098" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -466,17 +465,58 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="cn" type="462c0819:PsiDirectoryNode" />
               <item name="seeumt" type="462c0819:PsiDirectoryNode" />
-              <item name="controller" type="462c0819:PsiDirectoryNode" />
+              <item name="vo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tips" type="b2602c69:ProjectViewProjectNode" />
               <item name="tips" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tips" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tips" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tips" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tips" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tips" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tips" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="cn" type="462c0819:PsiDirectoryNode" />
               <item name="seeumt" type="462c0819:PsiDirectoryNode" />
-              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tips" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tips" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="seeumt" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tips" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tips" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="cn" type="462c0819:PsiDirectoryNode" />
+              <item name="seeumt" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="tips" type="b2602c69:ProjectViewProjectNode" />
@@ -517,8 +557,8 @@
       <recent name="cn.seeumt.dataobject" />
     </key>
     <key name="CreateTestDialog.RecentsKey">
-      <recent name="cn.seeumt.controller" />
       <recent name="cn.seeumt.service.impl" />
+      <recent name="cn.seeumt.controller" />
       <recent name="cn.seeumt.utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -533,9 +573,9 @@
       <recent name="cn.seeumt.service.impl" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="cn.seeumt.vo" />
       <recent name="cn.seeumt.form" />
       <recent name="cn.seeumt.utils" />
-      <recent name="cn.seeumt.vo" />
       <recent name="cn.seeumt.aspect" />
       <recent name="cn.seeumt.security" />
     </key>
@@ -562,7 +602,23 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Spring Boot.TipsApplication">
+    <configuration name="ArticleServiceImplTest.search" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="tips" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="cn.seeumt.service.impl.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="cn.seeumt.service.impl" />
+      <option name="MAIN_CLASS_NAME" value="cn.seeumt.service.impl.ArticleServiceImplTest" />
+      <option name="METHOD_NAME" value="search" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="TipsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="tips" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="cn.seeumt.TipsApplication" />
@@ -570,6 +626,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.TipsApplication" />
+      <item itemvalue="JUnit.ArticleServiceImplTest.search" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ArticleServiceImplTest.search" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpringBeansView">
     <option name="beanDetailsProportion" value="0.3" />
@@ -695,14 +760,7 @@
       <workItem from="1583118623342" duration="3136000" />
       <workItem from="1583374461133" duration="35684000" />
       <workItem from="1583452818131" duration="684000" />
-      <workItem from="1583453921201" duration="11860000" />
-    </task>
-    <task id="LOCAL-00025" summary="增加订单功能实现">
-      <created>1580303686566</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1580303686567</updated>
+      <workItem from="1583453921201" duration="26180000" />
     </task>
     <task id="LOCAL-00026" summary="SwaggerToAPI静态部署配置">
       <created>1580355299324</created>
@@ -1040,19 +1098,17 @@
       <option name="project" value="LOCAL" />
       <updated>1583421299282</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="文章上传">
+      <created>1583488775161</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1583488775165</updated>
+    </task>
+    <option name="localTasksCounter" value="75" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="UserServiceImplTest_selectByUserId - 2020.02.22 at 09h 20m 31s.xml">
-      <configuration name="UserServiceImplTest.selectByUserId" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="UserServiceImplTest_insert - 2020.02.22 at 09h 27m 04s.xml">
-      <configuration name="UserServiceImplTest.insert" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="TagServiceImplTest_get - 2020.02.23 at 18h 06m 14s.xml">
-      <configuration name="TagServiceImplTest.get" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="TagServiceImplTest_findByTagIds - 2020.02.23 at 18h 08m 33s.xml">
       <configuration name="TagServiceImplTest.findByTagIds" configurationId="JUnit" />
     </history-entry>
@@ -1074,9 +1130,18 @@
     <history-entry file="UserServiceImplTest_selectOnline - 2020.02.24 at 00h 04m 58s.xml">
       <configuration name="UserServiceImplTest.selectOnline" configurationId="JUnit" />
     </history-entry>
+    <history-entry file="ArticleServiceImplTest_search - 2020.03.06 at 19h 32m 12s.xml">
+      <configuration name="ArticleServiceImplTest.search" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleServiceImplTest_search - 2020.03.06 at 19h 33m 21s.xml">
+      <configuration name="ArticleServiceImplTest.search" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="ArticleServiceImplTest_search - 2020.03.06 at 20h 01m 44s.xml">
+      <configuration name="ArticleServiceImplTest.search" configurationId="JUnit" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1021487000" />
+    <option name="totallyTimeSpent" value="1035807000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1088,10 +1153,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1456" height="916" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.23655914" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.17706238" />
       <window_info id="Structure" order="1" sideWeight="0.23584905" side_tool="true" weight="0.26291078" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" sideWeight="0.11313868" side_tool="true" weight="0.29443327" />
@@ -1102,7 +1167,7 @@
       <window_info id="Web" order="8" sideWeight="0.3743501" side_tool="true" weight="0.23844609" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49933067" weight="0.46380696" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.10230179" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.5616622" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966466" weight="0.6796247" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1112,9 +1177,9 @@
       <window_info anchor="bottom" id="TODO" order="9" weight="0.32841823" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3283582" />
       <window_info anchor="bottom" id="Problems" order="11" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32972974" />
-      <window_info anchor="bottom" id="Spring" order="13" weight="0.328877" />
-      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Spring" order="12" weight="0.328877" />
+      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32841823" />
       <window_info anchor="bottom" id="Version Control" order="15" weight="0.32841823" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="16" weight="0.3297587" />
       <window_info anchor="bottom" id="MyBatis Log" order="17" />
@@ -1136,7 +1201,7 @@
       <window_info anchor="right" id="Key Promoter X" order="12" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.19852448" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.22132796" />
       <window_info id="Structure" order="1" sideWeight="0.23584905" side_tool="true" weight="0.26291078" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" sideWeight="0.11313868" side_tool="true" weight="0.29443327" />
@@ -1147,19 +1212,19 @@
       <window_info id="Web" order="8" sideWeight="0.3743501" side_tool="true" weight="0.23844609" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49933067" weight="0.46380696" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.24530831" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.4544236" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966466" weight="0.6796247" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="6" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50033534" side_tool="true" weight="0.22520107" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.51876676" />
+      <window_info anchor="bottom" id="Messages" order="8" weight="0.18900804" />
       <window_info anchor="bottom" id="TODO" order="9" weight="0.32841823" />
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3283582" />
       <window_info anchor="bottom" id="Problems" order="11" />
-      <window_info anchor="bottom" id="Java Enterprise" order="12" weight="0.32972974" />
-      <window_info anchor="bottom" id="Spring" order="13" weight="0.328877" />
-      <window_info anchor="bottom" id="Database Changes" order="14" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Spring" order="12" weight="0.328877" />
+      <window_info anchor="bottom" id="Database Changes" order="13" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Java Enterprise" order="14" weight="0.32841823" />
       <window_info anchor="bottom" id="Version Control" order="15" weight="0.32841823" />
       <window_info anchor="bottom" id="FindBugs-IDEA" order="16" weight="0.3297587" />
       <window_info anchor="bottom" id="MyBatis Log" order="17" />
@@ -1185,7 +1250,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="点赞表添加字段 love_type" />
     <MESSAGE value="点赞点踩系统" />
     <MESSAGE value="图片内容文字更新" />
     <MESSAGE value="收藏功能开发" />
@@ -1210,7 +1274,8 @@
     <MESSAGE value="开发需要调整，更改一些伪代码" />
     <MESSAGE value="动态分页 图片评论接口扩展" />
     <MESSAGE value="评论分页" />
-    <option name="LAST_COMMIT_MESSAGE" value="评论分页" />
+    <MESSAGE value="文章上传" />
+    <option name="LAST_COMMIT_MESSAGE" value="文章上传" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1289,27 +1354,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/config/MybatisPageHelperConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/config/SwaggerConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/config/MailConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/config/MybatisPlusConfig.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="168">
@@ -1481,18 +1525,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2072">
-          <caret line="118" column="40" selection-start-line="118" selection-start-column="40" selection-end-line="118" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#getIdolsPosts#0;class#PostServiceImpl#0" />
-            <element signature="method#assemblePostVO#0;class#PostServiceImpl#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/CommentServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1820">
@@ -1518,20 +1550,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="896">
           <caret line="45" column="42" selection-start-line="45" selection-start-column="42" selection-end-line="45" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1848">
-          <caret line="85" column="42" selection-start-line="85" selection-start-column="42" selection-end-line="85" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2464">
-          <caret line="94" column="13" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
         </state>
       </provider>
     </entry>
@@ -1601,10 +1619,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="36" column="23" selection-start-line="36" selection-start-column="23" selection-end-line="36" selection-end-column="23" />
+        <state relative-caret-position="168">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-59">
+          <caret line="13" column="45" lean-forward="true" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -1615,39 +1640,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/ArticleServiceImplTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
+        <state relative-caret-position="220">
+          <caret line="41" column="52" selection-start-line="41" selection-start-column="52" selection-end-line="41" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="261" column="27" lean-forward="true" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#getIdolsPosts#0;class#PostServiceImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="365">
-          <caret line="61" column="49" selection-start-line="61" selection-start-column="49" selection-end-line="61" selection-end-column="49" />
+        <state relative-caret-position="181">
+          <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1435">
-          <caret line="95" column="59" selection-start-line="95" selection-start-column="59" selection-end-line="95" selection-end-column="59" />
+        <state relative-caret-position="221">
+          <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#4008#4009#0" expanded="true" />
             <element signature="e#4061#4062#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="43" column="27" selection-start-line="43" selection-start-column="27" selection-end-line="43" selection-end-column="27" />
-          <folding>
-            <element signature="e#670#671#0" expanded="true" />
-            <element signature="e#706#707#0" expanded="true" />
           </folding>
         </state>
       </provider>

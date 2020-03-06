@@ -1,11 +1,17 @@
 package cn.seeumt.service.impl;
 
+import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.Article;
 import cn.seeumt.dao.ArticleMapper;
+import cn.seeumt.dataobject.User;
+import cn.seeumt.dto.ImgDTO;
 import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
-import cn.seeumt.service.ArticleService;
+import cn.seeumt.model.MyPageHelper;
+import cn.seeumt.service.*;
+import cn.seeumt.vo.ArticleVO;
+import cn.seeumt.vo.PostVO;
 import cn.seeumt.vo.ResultVO;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
@@ -16,6 +22,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -30,6 +37,20 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
     private ArticleMapper articleMapper;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private OssService ossService;
+    @Autowired
+    private FollowService followService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private LoveService loveService;
+    @Autowired
+    private TagService tagServie;
+    @Autowired
+    private MediaTagsService mediaTagsService;
     @Override
     public List<Article> query(String userId) {
         QueryWrapper<Article> wrapper = new QueryWrapper<>();
@@ -66,5 +87,57 @@ public class ArticleServiceImpl implements ArticleService {
         return ResultVO.success(Tips.SEND_SUCCESS);
     }
 
+    @Override
+    public ResultVO selectById(String articleId) {
+        Article article = articleMapper.selectById(articleId);
+        if (article == null) {
+            throw new TipsException(TipsFlash.QUERY_ARTICLE_FAILED);
+        }
+        return ResultVO.success(article);
+    }
+
+    @Override
+    public ResultVO search(String keywords, int currentNum, int size) {
+        QueryWrapper<Article> wrapper = new QueryWrapper<>();
+        if (keywords.length() <= 0) {
+            wrapper.orderByDesc("create_time");
+        }else {
+            wrapper.orderByDesc("create_time").like("html_content", keywords);
+        }
+        PageHelper.startPage(currentNum, size);
+        List<Article> articles = articleMapper.selectList(wrapper);
+        PageInfo<Article> articlePageInfo = new PageInfo<>(articles);
+        List<ArticleVO> articleVos = assembleArticleVO(articles);
+        MyPageHelper<ArticleVO> myPageHelper = new MyPageHelper<>();
+        BeanUtils.copyProperties(articlePageInfo, myPageHelper);
+        myPageHelper.setList(articleVos);
+        return ResultVO.success(myPageHelper);
+    }
+
+    public List<ArticleVO> assembleArticleVO(List<Article> articles) {
+        return  articles.stream().map(article -> {
+            ArticleVO articleVO = new ArticleVO();
+            User user = userMapper.selectById(article.getUserId());
+            if (user == null) {
+                return null;
+            }
+            articleVO.setUsername(user.getUsername());
+            articleVO.setFaceIcon(user.getFaceIcon());
+            BeanUtils.copyProperties(article, articleVO);
+            articleVO.setThumbCount(commentService.selectCommentCountByRootIdAndType(article.getArticleId(), (byte) 3).size());
+            if (article.getCoverPicture() == null) {
+                ImgDTO imgDTO = ossService.queryByParentId(article.getArticleId());
+                if (imgDTO.getUrls().length == 0) {
+                    articleVO.setCoverPicture("http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg");
+                }
+                else {
+                    String[] urls = imgDTO.getUrls();
+                    articleVO.setCoverPicture(urls[0]);
+                }
+            }
+            return articleVO;
+        }).collect(Collectors.toList());
+
+    }
 
 }
