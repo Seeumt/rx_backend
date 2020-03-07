@@ -103,7 +103,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (keywords.length() <= 0) {
             wrapper.orderByDesc("create_time");
         }else {
-            wrapper.orderByDesc("create_time").like("html_content", keywords);
+            wrapper.orderByDesc("create_time").like("title", "%"+keywords+"%");
         }
         PageHelper.startPage(currentNum, size);
         List<Article> articles = articleMapper.selectList(wrapper);
