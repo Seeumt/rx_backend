@@ -1,6 +1,7 @@
 package cn.seeumt.vo;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
@@ -15,8 +16,7 @@ import java.util.Date;
 public class ArticleVO implements Serializable {
 
 
-    private static final long serialVersionUID = -467880577878210466L;
-
+    private static final long serialVersionUID = 8980049727757275555L;
     @JsonProperty("mediaId")
     private String articleId;
 
@@ -43,14 +43,36 @@ public class ArticleVO implements Serializable {
     private String username;
 
     /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
      * 用户头像
      */
     private String faceIcon;
 
     /**
+     * //html内容
+     */
+    private String htmlContent;
+
+    /**
      * 点赞数
      */
     private Integer thumbCount;
+
+    /**
+     * //创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date createTime;
+
+    /**
+     * //更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    private Date updateTime;
 
 
 }

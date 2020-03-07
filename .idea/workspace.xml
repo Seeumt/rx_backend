@@ -12,17 +12,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b930e5f-2658-43c3-81fe-872ede893c2a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/ArticleServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -51,25 +44,6 @@
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
-  </component>
-  <component name="DockManager">
-    <window id="1">
-      <content type="file-editors">
-        <state>
-          <leaf>
-            <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="324">
-                    <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-          </leaf>
-        </state>
-      </content>
-    </window>
   </component>
   <component name="FavoritesManager">
     <favorites_list name="tips" />
@@ -143,29 +117,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
+            <state relative-caret-position="258">
+              <caret line="98" column="32" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4008#4009#0" expanded="true" />
-                <element signature="e#4061#4062#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="261" column="27" lean-forward="true" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="method#getIdolsPosts#0;class#PostServiceImpl#0" />
-              </folding>
+            <state relative-caret-position="168">
+              <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -173,8 +141,21 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            <state relative-caret-position="146">
+              <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ResultVO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="154">
+              <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+              <folding>
+                <element signature="e#1479#1480#0" expanded="true" />
+                <element signature="e#1515#1516#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -182,26 +163,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
+            <state relative-caret-position="146">
+              <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+              <folding>
+                <element signature="method#assembleArticleVOList#1;class#ArticleServiceImpl#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
+            <state relative-caret-position="104">
+              <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="112">
-              <caret line="18" column="26" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="26" />
+            <state relative-caret-position="300">
+              <caret line="47" selection-start-line="47" selection-end-line="47" />
             </state>
           </provider>
         </entry>
@@ -209,7 +193,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
+            <state relative-caret-position="252">
               <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
             </state>
           </provider>
@@ -218,7 +202,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
+            <state relative-caret-position="1932">
               <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
             </state>
           </provider>
@@ -238,7 +222,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>TelLogin</find>
       <find>otp</find>
       <find>throw new TipsException(TipsFlash.QUERY_USER_FAILED);</find>
       <find>QUERY</find>
@@ -268,6 +251,7 @@
       <find>myPageHelper0</find>
       <find>setLPage</find>
       <find>getLuckyCommentsAndChildren</find>
+      <find>nickname</find>
     </findStrings>
     <replaceStrings>
       <replace>loveType</replace>
@@ -347,18 +331,18 @@
         <option value="$PROJECT_DIR$/src/main/resources/application-dev.properties" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/OssServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/OssController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java" />
         <option value="$PROJECT_DIR$/src/test/java/cn/seeumt/service/impl/ArticleServiceImplTest.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java" />
         <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java" />
       </list>
     </option>
   </component>
@@ -400,10 +384,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-9" />
-    <option name="y" value="-9" />
-    <option name="width" value="1938" />
-    <option name="height" value="1098" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1939" />
+    <option name="height" value="1099" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -415,6 +399,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -527,7 +512,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -627,8 +611,8 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.TipsApplication" />
       <item itemvalue="JUnit.ArticleServiceImplTest.search" />
+      <item itemvalue="Spring Boot.TipsApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -760,14 +744,8 @@
       <workItem from="1583118623342" duration="3136000" />
       <workItem from="1583374461133" duration="35684000" />
       <workItem from="1583452818131" duration="684000" />
-      <workItem from="1583453921201" duration="26180000" />
-    </task>
-    <task id="LOCAL-00026" summary="SwaggerToAPI静态部署配置">
-      <created>1580355299324</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1580355299324</updated>
+      <workItem from="1583453921201" duration="29211000" />
+      <workItem from="1583537863680" duration="2863000" />
     </task>
     <task id="LOCAL-00027" summary="纪念品增删改查&#10;暂停 关键词+categoryId 查询产品业务">
       <created>1580393386078</created>
@@ -1105,7 +1083,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583488775165</updated>
     </task>
-    <option name="localTasksCounter" value="75" />
+    <task id="LOCAL-00075" summary="文章查询接口；游客查询逻辑不严密处">
+      <created>1583508952251</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1583508952254</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1141,7 +1126,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1035807000" />
+    <option name="totallyTimeSpent" value="1041701000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1156,7 +1141,7 @@
     <frame x="-7" y="-7" width="1550" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.17706238" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7641509" visible="true" weight="0.17974514" />
       <window_info id="Structure" order="1" sideWeight="0.23584905" side_tool="true" weight="0.26291078" />
       <window_info id="Designer" order="2" />
       <window_info id="Persistence" order="3" sideWeight="0.11313868" side_tool="true" weight="0.29443327" />
@@ -1167,7 +1152,7 @@
       <window_info id="Web" order="8" sideWeight="0.3743501" side_tool="true" weight="0.23844609" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49933067" weight="0.46380696" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.5616622" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49933067" visible="true" weight="0.34316355" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49966466" weight="0.6796247" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -1250,7 +1235,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="点赞点踩系统" />
     <MESSAGE value="图片内容文字更新" />
     <MESSAGE value="收藏功能开发" />
     <MESSAGE value="收藏功能" />
@@ -1275,7 +1259,8 @@
     <MESSAGE value="动态分页 图片评论接口扩展" />
     <MESSAGE value="评论分页" />
     <MESSAGE value="文章上传" />
-    <option name="LAST_COMMIT_MESSAGE" value="文章上传" />
+    <MESSAGE value="文章查询接口；游客查询逻辑不严密处" />
+    <option name="LAST_COMMIT_MESSAGE" value="文章查询接口；游客查询逻辑不严密处" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1354,13 +1339,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/config/MybatisPlusConfig.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mybatis-generator.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -1486,17 +1464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ResultVO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="59" column="27" selection-start-line="59" selection-start-column="27" selection-end-line="59" selection-end-column="27" />
-          <folding>
-            <element signature="e#1479#1480#0" expanded="true" />
-            <element signature="e#1515#1516#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/FollowService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
@@ -1612,31 +1579,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="49" column="28" selection-start-line="49" selection-start-column="28" selection-end-line="49" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="14" column="16" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/form/Article.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-59">
           <caret line="13" column="45" lean-forward="true" selection-start-line="13" selection-start-column="45" selection-end-line="13" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
         </state>
       </provider>
     </entry>
@@ -1647,17 +1593,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/PostServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="261" column="27" lean-forward="true" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
+        <state relative-caret-position="6076">
+          <caret line="261" column="27" selection-start-line="261" selection-start-column="27" selection-end-line="261" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#getIdolsPosts#0;class#PostServiceImpl#0" />
@@ -1665,50 +1604,97 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="28" />
+        <state relative-caret-position="336">
+          <caret line="18" column="26" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="26" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/PostVO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/TipsFlash.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="19" selection-end-line="18" selection-end-column="26" />
+        <state relative-caret-position="252">
+          <caret line="10" column="12" selection-start-line="10" selection-start-column="12" selection-end-line="10" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/PostService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1932">
+          <caret line="75" column="17" selection-start-line="75" selection-start-column="17" selection-end-line="75" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/PostController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="49" column="32" lean-forward="true" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
+        <state relative-caret-position="204">
+          <caret line="49" column="32" selection-start-line="49" selection-start-column="32" selection-end-line="49" selection-end-column="32" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/enums/Tips.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        <state relative-caret-position="168">
+          <caret line="35" column="31" selection-start-line="35" selection-start-column="31" selection-end-line="35" selection-end-column="31" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ResultVO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="99" column="20" selection-start-line="99" selection-start-column="20" selection-end-line="99" selection-end-column="20" />
+        <state relative-caret-position="154">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+          <folding>
+            <element signature="e#1479#1480#0" expanded="true" />
+            <element signature="e#1515#1516#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/baomidou/mybatis-plus-core/3.3.0/mybatis-plus-core-3.3.0.jar!/com/baomidou/mybatisplus/core/mapper/BaseMapper.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="137">
+          <caret line="30" column="6" selection-start-line="30" selection-start-column="6" selection-end-line="30" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/dataobject/Article.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="47" selection-start-line="47" selection-end-line="47" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/controller/ArticleController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="104" column="90" selection-start-line="104" selection-start-column="90" selection-end-line="104" selection-end-column="90" />
+        <state relative-caret-position="258">
+          <caret line="98" column="32" selection-start-line="98" selection-start-column="32" selection-end-line="98" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4008#4009#0" expanded="true" />
-            <element signature="e#4061#4062#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/ArticleService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/service/impl/ArticleServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="146">
+          <caret line="78" column="31" lean-forward="true" selection-start-line="78" selection-start-column="31" selection-end-line="78" selection-end-column="31" />
+          <folding>
+            <element signature="method#assembleArticleVOList#1;class#ArticleServiceImpl#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/cn/seeumt/vo/ArticleVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="66" column="7" lean-forward="true" selection-start-line="66" selection-start-column="7" selection-end-line="66" selection-end-column="7" />
         </state>
       </provider>
     </entry>

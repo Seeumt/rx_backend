@@ -76,8 +76,9 @@ public class ArticleServiceImpl implements ArticleService {
     public ResultVO insert(cn.seeumt.form.Article article) {
         Article article1 = new Article();
         BeanUtils.copyProperties(article, article1);
-        article1.setCreateTime(new Date());
-        article1.setUpdateTime(new Date());
+        Date date = new Date();
+        article1.setCreateTime(date);
+        article1.setUpdateTime(date);
         article1.setEnabled(true);
         article1.setDeleted(false);
         int insert = articleMapper.insert(article1);
@@ -93,7 +94,7 @@ public class ArticleServiceImpl implements ArticleService {
         if (article == null) {
             throw new TipsException(TipsFlash.QUERY_ARTICLE_FAILED);
         }
-        return ResultVO.success(article);
+        return ResultVO.success(assembleArticleVO(article));
     }
 
     @Override
@@ -107,36 +108,42 @@ public class ArticleServiceImpl implements ArticleService {
         PageHelper.startPage(currentNum, size);
         List<Article> articles = articleMapper.selectList(wrapper);
         PageInfo<Article> articlePageInfo = new PageInfo<>(articles);
-        List<ArticleVO> articleVos = assembleArticleVO(articles);
+        List<ArticleVO> articleVos = assembleArticleVOList(articles);
         MyPageHelper<ArticleVO> myPageHelper = new MyPageHelper<>();
         BeanUtils.copyProperties(articlePageInfo, myPageHelper);
         myPageHelper.setList(articleVos);
         return ResultVO.success(myPageHelper);
     }
 
-    public List<ArticleVO> assembleArticleVO(List<Article> articles) {
+    public List<ArticleVO> assembleArticleVOList(List<Article> articles) {
         return  articles.stream().map(article -> {
-            ArticleVO articleVO = new ArticleVO();
-            User user = userMapper.selectById(article.getUserId());
-            if (user == null) {
-                return null;
-            }
-            articleVO.setUsername(user.getUsername());
-            articleVO.setFaceIcon(user.getFaceIcon());
-            BeanUtils.copyProperties(article, articleVO);
-            articleVO.setThumbCount(commentService.selectCommentCountByRootIdAndType(article.getArticleId(), (byte) 3).size());
-            if (article.getCoverPicture() == null) {
-                ImgDTO imgDTO = ossService.queryByParentId(article.getArticleId());
-                if (imgDTO.getUrls().length == 0) {
-                    articleVO.setCoverPicture("http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg");
-                }
-                else {
-                    String[] urls = imgDTO.getUrls();
-                    articleVO.setCoverPicture(urls[0]);
-                }
-            }
-            return articleVO;
+            return assembleArticleVO(article);
         }).collect(Collectors.toList());
+
+    }
+
+    public ArticleVO assembleArticleVO(Article article) {
+        ArticleVO articleVO = new ArticleVO();
+        User user = userMapper.selectById(article.getUserId());
+        if (user == null) {
+            return null;
+        }
+        articleVO.setUsername(user.getUsername());
+        articleVO.setNickname(user.getNickname());
+        articleVO.setFaceIcon(user.getFaceIcon());
+        BeanUtils.copyProperties(article, articleVO);
+        articleVO.setThumbCount(commentService.selectCommentCountByRootIdAndType(article.getArticleId(), (byte) 3).size());
+        if (article.getCoverPicture() == null) {
+            ImgDTO imgDTO = ossService.queryByParentId(article.getArticleId());
+            if (imgDTO.getUrls().length == 0) {
+                articleVO.setCoverPicture("http://seeumt.oss-cn-hangzhou.aliyuncs.com/5ebfed05dbd340a69cd288d75628986a.jpg");
+            }
+            else {
+                String[] urls = imgDTO.getUrls();
+                articleVO.setCoverPicture(urls[0]);
+            }
+        }
+        return articleVO;
 
     }
 
