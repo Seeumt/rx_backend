@@ -22,16 +22,20 @@ public class CommentVO implements Serializable {
 
     private String userId;
 
-    @JsonProperty("userName")
     private String username;
+
+    @JsonProperty("userName")
+    private String nickname;
 
     @JsonProperty("headImgSrc")
     private String faceIcon;
 
     private String targetUserId;
 
-    @JsonProperty("targetUserName")
     private String targetUsername;
+
+    @JsonProperty("targetUserName")
+    private String targetNickname;
 
     @JsonProperty("sendMsg")
     private String content;

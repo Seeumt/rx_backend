@@ -25,8 +25,10 @@ public class CommentMo implements Serializable {
 
     private String userId;
 
-    @JsonProperty("userName")
     private String username;
+
+    @JsonProperty("userName")
+    private String nickname;
 
     @JsonProperty("headImgSrc")
     private String faceIcon;

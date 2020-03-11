@@ -26,6 +26,7 @@ public class PostDTO {
     private String postId;
     private String userId;
     private String username;
+    private String nickname;
     private String faceIcon;
     private Boolean isFollow;
     private Boolean type;

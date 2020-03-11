@@ -282,7 +282,6 @@ public class PostServiceImpl implements PostService {
         QueryWrapper<Post> wrapper = new QueryWrapper<>();
         if ("".equals(keywords)) {
             wrapper.orderByDesc("create_time");
-            System.out.println("????????");
             List<Post> posts = postMapper.selectList(wrapper);
             return assemblePostVO(posts);
         }
@@ -308,6 +307,7 @@ public class PostServiceImpl implements PostService {
         }
         postDTO.setFaceIcon(user.getFaceIcon());
         postDTO.setUsername(user.getUsername());
+        postDTO.setNickname(user.getNickname());
         ImgDTO imgDTO = ossService.queryByParentId(post.getPostId());
         if (imgDTO == null) {
             postDTO.setImgUrls(null);

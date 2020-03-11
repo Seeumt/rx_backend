@@ -78,6 +78,7 @@ public class CommentServiceImpl implements CommentService {
                         return null;
                     }
                     commentMo.setUsername(user.getUsername());
+                    commentMo.setNickname(user.getNickname());
                     commentMo.setFaceIcon(user.getFaceIcon());
                     return commentMo;
                 }).collect(Collectors.toList());
@@ -105,6 +106,7 @@ public class CommentServiceImpl implements CommentService {
                 return null;
             }
             commentVO.setUsername(user.getUsername());
+            commentVO.setNickname(user.getNickname());
             commentVO.setFaceIcon(user.getFaceIcon());
             //查询父级评论信息获取其userId
             Comment commentT = commentMapper.selectById(comment1.getParentId());
@@ -119,6 +121,7 @@ public class CommentServiceImpl implements CommentService {
             }
             commentVO.setTargetUserId(userT.getUserId());
             commentVO.setTargetUsername(userT.getUsername());
+            commentVO.setTargetNickname(userT.getNickname());
             return commentVO;
         }).collect(Collectors.toList());
     }
