@@ -14,6 +14,7 @@ import cn.seeumt.vo.ResultVO;
 import cn.seeumt.vo.TagVO;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -45,19 +46,6 @@ public class ArticleController {
 
     @GetMapping("/{articleId}")
     public ResultVO findAnArticle(@PathVariable String articleId) {
-//        ArticleDTO articleDTO = new ArticleDTO();
-//        List<String> tagIds = mediaTagsService.findTagIdsByParentId(articleId);
-//        List<TagVO> tagVos = tagService.findTagVoByTagIds(tagIds);
-//        articleDTO.setTagVos(tagVos);
-//        List<String> cityIds = articleCitiesService.findCityIdsByArticleId(articleId);
-//        List<CityVO> cityVos = cityService.findByCityIds(cityIds);
-//        articleDTO.setViaCitiesVos(cityVos);
-//        //找到根评论
-//        List<Comment> levelCommentsList = commentService.findNextLevelCommentsByParentId(articleId);
-//        List<Comment> comments = TreeUtil.listToTree(levelCommentsList, articleId);
-//        articleDTO.setComments(comments);
-//        List<Thumber> thumbers = ThumberUtil.allThumbers(articleId);
-//        articleDTO.setThumbers(thumbers);
         return articleService.selectById(articleId);
     }
 
@@ -95,7 +83,7 @@ public class ArticleController {
 //    }
 
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultVO post(@RequestBody cn.seeumt.form.Article article) {
+    public ResultVO post(@RequestBody cn.seeumt.form.Article article) throws HttpException {
         return articleService.insert(article);
     }
 

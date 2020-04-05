@@ -28,8 +28,8 @@ public enum TipsFlash implements CodeEnum {
     INSERT_MEDIA_TAGS_FAILED(5001, "插入标签失败"),
     INSERT_POST_FAILED(30001, "新建动态失败"),
     DELETE_OSS_FAILED(30002, "删除OSS失败"),
-    TELEPHONE_NOT_RECORED(10019, "该手机号无记录"),
-    TELEPHONE_HAS_BINDED(10009, "该手机号已被绑定"),
+    TELEPHONE_NOT_RECORDED(10019, "该手机号无记录"),
+    TELEPHONE_HAS_BOUND(10009, "该手机号已被绑定"),
     UPDATE_POST_CONTENT(30003, "更新评论内容失败"),
     INSERT_COMMENT_FAILED(30004, "插入评论失败"),
     INSERT_COMMENT_PIC_FAILED(30005, "插入评论图片失败"),
@@ -46,6 +46,7 @@ public enum TipsFlash implements CodeEnum {
     UPDATE_WX_USER_EXCEPTION(10018, "更新微信用户异常"),
     SEND_WELCOME_MSG_EXCEPTION(10020, "发送密码短信异常"),
     VALID_OTPCODE_SUCCESS(10021, "验证码校验成功"),
+    PIC_CONVERT_FAILED(10056, "图片转化成流失败"),
 
 
     ;

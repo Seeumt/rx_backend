@@ -59,7 +59,11 @@ public class UserDetailServiceImpl implements MyUserDetailService {
 
     @Override
     public UserDetail findUserByTelephone(String telephone) {
-      return userService.selectUserDetailByTelephone(telephone);
+        UserDetail userDetail = userService.selectUserDetailByTelephone(telephone);
+        if (userDetail == null) {
+            return null;
+        }
+        return userDetail;
     }
 
     @Override

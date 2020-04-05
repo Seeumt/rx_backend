@@ -1,9 +1,13 @@
 package cn.seeumt.utils;
 
+import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import net.iharder.Base64;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpException;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -34,6 +38,40 @@ public class WechatUtil {
         //发送post请求读取调用微信接口获取openid用户唯一标识
         JSONObject jsonObject = JSON.parseObject(HttpClientUtil.doPost(requestUrl, requestUrlParam));
         return jsonObject;
+    }
+
+    public static JSONObject getAccessToken() {
+        String requestUrl = "https://api.weixin.qq.com/cgi-bin/token";
+        Map<String, String> requestUrlParam = new HashMap<>(20);
+        // https://mp.weixin.qq.com/wxopen/devprofile?action=get_profile&token=164113089&lang=zh_CN
+        //小程序appId
+        requestUrlParam.put("appid", "wx24d570065aeb53e2");
+        //小程序secret
+        requestUrlParam.put("secret", "7b2e218c4a0725372bbdcfb3e7d93171");
+        //默认参数
+        requestUrlParam.put("grant_type", "client_credential");
+        //发送post请求读取调用微信接口获取openid用户唯一标识
+        JSONObject jsonObject = JSON.parseObject(HttpClientUtil.doGet(requestUrl, requestUrlParam));
+        return jsonObject;
+    }
+
+    public static JSONObject checkMsg(String content) throws HttpException {
+        Map<String, String> requestUrlParam = new HashMap<>(20);
+        JSONObject token = getAccessToken();
+        String jsonStr = "{\"content\":\"" + content + "\"}";
+        String accessToken = token.getString("access_token");
+        String requestUrl = "https://api.weixin.qq.com/wxa/msg_sec_check?access_token="+accessToken;
+        JSONObject jsonObject = JSON.parseObject(HttpClientUtil.doPostJson(requestUrl, jsonStr));
+        return jsonObject;
+    }
+
+
+
+    public static JSONObject checkImg(MultipartFile file) throws HttpException, IOException {
+        JSONObject token = getAccessToken();
+        String accessToken = token.getString("access_token");
+        String requestUrl = "https://api.weixin.qq.com/wxa/img_sec_check?access_token="+accessToken;
+        return JSON.parseObject(HttpClientUtil.checkImg(file, requestUrl));
     }
 
     public static JSONObject getUserInfo(String encryptedData, String sessionKey, String iv) throws IOException {

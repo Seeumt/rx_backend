@@ -159,4 +159,23 @@ public class UserDetail implements UserDetails {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
+
+    @Override
+    public String toString() {
+        return "UserDetail{" +
+                "userId='" + userId + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", faceIcon='" + faceIcon + '\'' +
+                ", openId='" + openId + '\'' +
+                ", enabled=" + enabled +
+                ", locked=" + locked +
+                ", reseted=" + reseted +
+                ", token='" + token + '\'' +
+                ", tokenType='" + tokenType + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 }

@@ -67,9 +67,9 @@ public class AliyunMessageUtil {
         //必填:待发送手机号
         request.setPhoneNumbers(telephone);
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName("大学生出行助手");
+        request.setSignName("Tips");
         //必填:短信模板-可在短信控制台中找到
-        request.setTemplateCode("SMS_183790510");
+        request.setTemplateCode("SMS_184105883");
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
         request.setTemplateParam("{\"code\":\"" + password + "\"}");
         SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);

@@ -9,6 +9,7 @@ import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.CommentVO;
 import cn.seeumt.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,7 +49,7 @@ public class CommentController {
 
 
     @PostMapping("/")
-    public ResultVO commentForComment(@RequestBody Comment comment) {
+    public ResultVO commentForComment(@RequestBody Comment comment) throws HttpException {
         OnlineUtil.setLastOperateTimeByUserId(comment.getUserId());
         log.info("【评论】用户 {}评论 {}:{}",comment.getUserId(),comment.getParentId(),comment.getContent());
         return commentService.comment(comment.getApiRootId(), comment.getUserId(), comment.getContent(), comment.getType(),comment.getParentId());

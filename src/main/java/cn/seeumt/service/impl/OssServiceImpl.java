@@ -63,6 +63,22 @@ public class OssServiceImpl extends ServiceImpl<OssMapper, Oss> implements OssSe
     }
 
     @Override
+    public String saveExtraOss(String originUrl, String parentId) {
+        Oss oss = new Oss();
+        oss.setOssId(UuidUtil.getUuid());
+        oss.setUrl(originUrl);
+        oss.setType(Tips.IMAGE.getCode());
+        Date date = new Date();
+        oss.setCreateTime(date);
+        oss.setUpdateTime(date);
+        oss.setEnabled(true);
+        oss.setDeleted(false);
+        oss.setParentId(parentId);
+        ossService.save(oss);
+        return originUrl;
+    }
+
+    @Override
     public void saveOssForComment(String originUrl, String parentId) {
         saveOss(originUrl, parentId);
         Comment comment = commentMapper.selectById(parentId);

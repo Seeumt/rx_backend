@@ -110,7 +110,7 @@ public class UserController {
             log.info("【获取短信验证码】手机号{}获取短信验证码",telephone);
             User user = userService.selectByTelephone(telephone);
             if (user != null) {
-                return ResultVO.error(TipsFlash.TELEPHONE_HAS_BINDED);
+                return ResultVO.error(TipsFlash.TELEPHONE_HAS_BOUND);
             }
             return sendOtpCode(telephone);
 
@@ -118,14 +118,14 @@ public class UserController {
             log.info("【获取短信验证码】手机号{}获取短信验证码找回密码",telephone);
             User user = userService.selectByTelephone(telephone);
             if (user == null) {
-                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORED);
+                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORDED);
             }
             return sendOtpCode(telephone);
         }else if (TEL_LOGIN.equals(type)) {
             log.info("【获取短信验证码】手机号{}获取短信验证码登录",telephone);
             User user = userService.selectByTelephone(telephone);
             if (user == null) {
-                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORED);
+                return ResultVO.error(TipsFlash.TELEPHONE_NOT_RECORDED);
             }
             return sendOtpCode(telephone);
         }
@@ -150,7 +150,6 @@ public class UserController {
             return ResultVO.error(resultVO.getCode(), resultVO.getMsg());
         }
         int i = userService.bindTel(openId, telephone);
-        System.out.println(i);
         if (i > 0) {
             log.info("【绑定手机】手机号{}与{}绑定成功",telephone,openId);
             return ResultVO.success(telephone, Tips.BIND_SUCCESS.getMsg());

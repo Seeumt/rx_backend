@@ -15,6 +15,7 @@ import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,7 @@ public class PostController {
     private FollowService followService;
 
     @PostMapping("/")
-    public ResultVO send(@RequestBody cn.seeumt.form.Post post) {
+    public ResultVO send(@RequestBody cn.seeumt.form.Post post) throws HttpException {
         OnlineUtil.setLastOperateTimeByUserId(post.getUserId());
         log.info("【发布动态】用户 {}发布动态",post.getUserId());
         return postService.send(post);

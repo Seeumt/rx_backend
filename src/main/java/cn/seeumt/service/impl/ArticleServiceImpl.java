@@ -10,12 +10,15 @@ import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.MyPageHelper;
 import cn.seeumt.service.*;
+import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.ArticleVO;
 import cn.seeumt.vo.PostVO;
 import cn.seeumt.vo.ResultVO;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.HttpException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,7 +76,23 @@ public class ArticleServiceImpl implements ArticleService {
      }
 
     @Override
-    public ResultVO insert(cn.seeumt.form.Article article) {
+    public ResultVO insert(cn.seeumt.form.Article article) throws HttpException {
+        String checkedTitle = null;
+        String checkedHtmlContent = null;
+        String checkedCoverPicture = null;
+        JSONObject jsonObject1 = WechatUtil.checkMsg(article.getTitle());
+        JSONObject jsonObject2 = WechatUtil.checkMsg(article.getHtmlContent());
+        String errcode1 = jsonObject1.getString("errcode");
+        String errcode2 = jsonObject2.getString("errcode");
+        if (errcode1.equals(Tips.RISK_CONTENT.getCode().toString())||errcode2.equals(Tips.RISK_CONTENT.getCode().toString())) {
+            checkedTitle = "净网行动 刻不容缓";
+            checkedHtmlContent = "<h1 style=\"text-align: center;\">净网行动 刻不容缓</h1>";
+            checkedCoverPicture = "https://seeumt.oss-cn-hangzhou.aliyuncs.com/e3f4aa0b811c4ccabcb684a2e1e2290f.jpg";
+        }else {
+            checkedTitle = article.getTitle();
+            checkedHtmlContent = article.getHtmlContent();
+            checkedCoverPicture = article.getCoverPicture();
+        }
         Article article1 = new Article();
         BeanUtils.copyProperties(article, article1);
         Date date = new Date();
@@ -81,6 +100,9 @@ public class ArticleServiceImpl implements ArticleService {
         article1.setUpdateTime(date);
         article1.setEnabled(true);
         article1.setDeleted(false);
+        article1.setTitle(checkedTitle);
+        article1.setCoverPicture(checkedCoverPicture);
+        article1.setHtmlContent(checkedHtmlContent);
         int insert = articleMapper.insert(article1);
         if (insert < 1) {
             throw new TipsException(TipsFlash.ARTICLE_INSERT_FAILED);

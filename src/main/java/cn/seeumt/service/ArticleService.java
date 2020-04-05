@@ -3,6 +3,7 @@ package cn.seeumt.service;
 import cn.seeumt.dataobject.Article;
 import cn.seeumt.vo.ResultVO;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.HttpException;
 
 import java.util.List;
 
@@ -36,9 +37,21 @@ public interface ArticleService{
      * @param article 游记id
      * @return ResultVO
      */
-    ResultVO insert(cn.seeumt.form.Article article);
+    ResultVO insert(cn.seeumt.form.Article article) throws HttpException;
 
+    /**
+     * 通过文章主键查询文章
+     * @param articleId 文章主键
+     * @return ResultVO
+     */
     ResultVO selectById(String articleId);
 
+    /**
+     * 通过关键字搜索并分页
+     * @param keywords 关键词
+     * @param currentNum 当前页码
+     * @param size 每页数量
+     * @return ResultVO
+     */
     ResultVO search(String keywords, int currentNum, int size);
 }

@@ -2,6 +2,7 @@ package cn.seeumt.utils;
 
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.User;
+import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -44,6 +45,9 @@ public class OnlineUtil {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("username", username);
         User user = OnlineUtil.onlineUtil.userMapper.selectOne(queryWrapper);
+        if (user == null) {
+            throw new TipsException(TipsFlash.QUERY_USER_FAILED);
+        }
         user.setLastVisitTime(new Date());
         int i = OnlineUtil.onlineUtil.userMapper.updateById(user);
         if (i < 1) {

@@ -6,6 +6,7 @@ import cn.seeumt.dto.PostDTO;
 import cn.seeumt.dto.PostListDataItem;
 import cn.seeumt.vo.PostVO;
 import cn.seeumt.vo.ResultVO;
+import org.apache.http.HttpException;
 
 import java.util.List;
 
@@ -36,7 +37,7 @@ public interface PostService{
      * @param post 用户表单实体类
      * @return int
      */
-    ResultVO send(cn.seeumt.form.Post post);
+    ResultVO send(cn.seeumt.form.Post post) throws HttpException;
 
 
     /**

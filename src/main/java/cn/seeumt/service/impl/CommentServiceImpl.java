@@ -5,15 +5,19 @@ import cn.seeumt.dao.CommentMapper;
 import cn.seeumt.dao.UserMapper;
 import cn.seeumt.dataobject.Comment;
 import cn.seeumt.dataobject.User;
+import cn.seeumt.enums.Tips;
 import cn.seeumt.enums.TipsFlash;
 import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.MyPageHelper;
 import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.UuidUtil;
+import cn.seeumt.utils.WechatUtil;
 import cn.seeumt.vo.*;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.HttpException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -256,8 +260,16 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId) {
-        Comment comment = CommentServiceImpl.createComment(apiRootId, userId, content, type, parentId);
+    public ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId) throws HttpException {
+        String checkedContent = null;
+        JSONObject jsonObject = WechatUtil.checkMsg(content);
+        String errcode = jsonObject.getString("errcode");
+        if (errcode.equals(Tips.RISK_CONTENT.getCode().toString())) {
+            checkedContent = "*@#￥%&…净网行动 刻不容缓…*￥%%&*";
+        }else {
+            checkedContent = content;
+        }
+        Comment comment = CommentServiceImpl.createComment(apiRootId, userId, checkedContent, type, parentId);
         int i = commentMapper.insert(comment);
         if (i < 1) {
             throw new TipsException(TipsFlash.INSERT_COMMENT_FAILED);

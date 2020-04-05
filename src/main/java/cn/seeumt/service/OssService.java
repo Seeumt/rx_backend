@@ -23,6 +23,13 @@ public interface OssService extends IService<Oss> {
     String saveOss(String originUrl, String parentId);
 
     /**
+     * 保存
+     * @param originUrl 服务器返回资源url
+     * @param parentId 父id
+     * @return String
+     */
+    String saveExtraOss(String originUrl, String parentId);
+    /**
      * 保存评论图片（原始url）
      * @param originUrl 服务器返回资源url
      * @param parentId 父id

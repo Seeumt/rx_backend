@@ -1,5 +1,8 @@
 package cn.seeumt.security.provider;
 
+import cn.seeumt.enums.Tips;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.security.token.TpAuthenticationToken;
 import cn.seeumt.service.MyUserDetailService;
@@ -34,8 +37,10 @@ public class TpAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-
         UserDetail userDetail = userDetailsService.findUserByTelephone((String) authentication.getPrincipal());
+        if (userDetail==null) {
+            throw new TipsException(TipsFlash.TELEPHONE_NOT_RECORDED);
+        }
         String presentedPassword =  authentication.getCredentials().toString();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         if (!bCryptPasswordEncoder.matches(presentedPassword, userDetail.getPassword())) {

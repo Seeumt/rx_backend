@@ -1,4 +1,6 @@
 package cn.seeumt.service.impl;
+import cn.seeumt.utils.WechatUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import java.util.Date;
 import java.util.*;
@@ -22,6 +24,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Splitter;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.http.HttpException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -200,7 +203,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     @Transactional(rollbackFor = TipsException.class)
-    public ResultVO send(cn.seeumt.form.Post formPost) {
+    public ResultVO send(cn.seeumt.form.Post formPost) throws HttpException {
         String tagIds = formPost.getTagIds();
         String postId = UuidUtil.getUuid();
         List<String> tagIdList = Splitter.on(",").splitToList(tagIds);
@@ -213,11 +216,19 @@ public class PostServiceImpl implements PostService {
         return ResultVO.success(postId);
     }
 
-    public void insertPost(cn.seeumt.form.Post formPost,String postId) {
+    public void insertPost(cn.seeumt.form.Post formPost,String postId) throws HttpException {
+        String checkedContent = null;
+        JSONObject jsonObject = WechatUtil.checkMsg(formPost.getContent());
+        String errcode = jsonObject.getString("errcode");
+        if (errcode.equals(Tips.RISK_CONTENT.getCode().toString())) {
+            checkedContent = "*@#￥%&……*￥%%&*";
+        }else {
+            checkedContent = formPost.getContent();
+        }
         Post post = new Post();
         post.setPostId(postId);
         post.setType(formPost.getType());
-        post.setContent(formPost.getContent());
+        post.setContent(checkedContent);
         post.setImgId("66");
         post.setUserId(formPost.getUserId());
         post.setCreateTime(new Date());

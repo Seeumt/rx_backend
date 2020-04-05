@@ -12,6 +12,7 @@ import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.RedisService;
 import cn.seeumt.service.UserRoleService;
 import cn.seeumt.service.UserService;
+import cn.seeumt.utils.AliyunMessageUtil;
 import cn.seeumt.utils.AliyunMessageUtil2;
 import cn.seeumt.utils.KeyUtil;
 import cn.seeumt.vo.ResultVO;
@@ -77,6 +78,9 @@ public class UserServiceImpl implements UserService {
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("telephone", telephone);
         User user = userMapper.selectOne(queryWrapper);
+        if (user == null) {
+            return null;
+        }
         return createUserDetail(user);
     }
 
@@ -176,7 +180,6 @@ public class UserServiceImpl implements UserService {
             if (Tips.DEFAULT_TEL.getMsg().equals(user.getTelephone())) {
                 hasTel = false;
             }
-            System.out.println(telephone);
             user.setTelephone(telephone);
             int i = userMapper.updateById(user);
             if (i < 1) {
@@ -186,7 +189,7 @@ public class UserServiceImpl implements UserService {
                 Long pwd = KeyUtil.genUniqueKey();
                 user.setPassword(bCryptPasswordEncoder.encode(pwd.toString()));
                 try {
-                    AliyunMessageUtil2.sendSms(telephone, pwd.toString());
+                    AliyunMessageUtil.sendSmsWel(telephone, pwd.toString());
                 } catch (Exception e) {
                     throw new TipsException(TipsFlash.SEND_WELCOME_MSG_EXCEPTION);
                 }

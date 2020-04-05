@@ -37,6 +37,8 @@ public enum Tips implements CodeEnum {
     SENDSMS_NORMAL(0, "普通短信"),
     SENDSMS_WEL(1, "带密码短信"),
     NO_IDOL(50002, "亲还没有关注任何人"),
+    RISK_CONTENT(87014, "涉及敏感信息！"),
+    SAFE_CONTENT(0, "安全信息"),
     ;
 
     /**

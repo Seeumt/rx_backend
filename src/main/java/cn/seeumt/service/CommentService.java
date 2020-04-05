@@ -2,6 +2,7 @@ package cn.seeumt.service;
 
 import cn.seeumt.dataobject.Comment;
 import cn.seeumt.vo.*;
+import org.apache.http.HttpException;
 
 import java.util.List;
 
@@ -54,7 +55,7 @@ public interface CommentService {
      * @param parentId 要评论的评论的id 作为其子评论的parentId
      * @return 1
      */
-    ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId);
+    ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId) throws HttpException;
 
     /**
      * 查询所有一级评论及其下所有评论

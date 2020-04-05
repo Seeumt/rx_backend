@@ -1,24 +1,35 @@
 package cn.seeumt.utils;
 
-import org.apache.http.NameValuePair;
+import cn.seeumt.enums.TipsFlash;
+import cn.seeumt.exception.TipsException;
+import cn.seeumt.vo.ResultVO;
+import okhttp3.*;
+import org.apache.http.*;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author: create by calvin wong
@@ -134,5 +145,36 @@ public class HttpClientUtil {
 
         return resultString;
     }
+
+
+
+
+    public static String checkImg(MultipartFile multipartFile, String imgSecCheckUrl) throws HttpException, IOException {
+        InputStream inputStream = multipartFile.getInputStream();
+        String url = String.format(imgSecCheckUrl);
+        HttpClient httpclient = HttpClients.createDefault();
+        HttpPost request = new HttpPost(url);
+        request.addHeader("Content-Type", "application/octet-stream");
+        try {
+            byte[] byt = new byte[inputStream.available()];
+            inputStream.read(byt);
+            request.setEntity(new ByteArrayEntity(byt, ContentType.create("image/jpg")));
+            HttpResponse response = httpclient.execute(request);
+            HttpEntity entity = response.getEntity();
+            String result = EntityUtils.toString(entity, "UTF-8");// 转成string
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+        }
+        return null;
+    }
+
+
 
 }
