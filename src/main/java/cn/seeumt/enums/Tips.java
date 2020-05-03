@@ -39,6 +39,10 @@ public enum Tips implements CodeEnum {
     NO_IDOL(50002, "亲还没有关注任何人"),
     RISK_CONTENT(87014, "涉及敏感信息！"),
     SAFE_CONTENT(0, "安全信息"),
+    INSERT_CATEGORY_SUCCESS(70001, "增加新类目成功"),
+    DELETE_CATEGORY_SUCCESS(70002, "删除新类目成功"),
+    UPDATE_CATEGORY_SUCCESS(70004, "更新新类目成功"),
+
     ;
 
     /**

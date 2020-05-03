@@ -37,7 +37,7 @@ public class Category implements Serializable {
     private String name;
 
     /**
-     * 类别状态1-正常,2-已废弃
+     * 类别状态1-正常,0-已废弃
      */
     private Boolean status;
 

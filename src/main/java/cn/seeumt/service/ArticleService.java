@@ -36,6 +36,7 @@ public interface ArticleService{
      * 发布文章
      * @param article 游记id
      * @return ResultVO
+     * @throws HttpException 网络异常
      */
     ResultVO insert(cn.seeumt.form.Article article) throws HttpException;
 

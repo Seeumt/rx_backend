@@ -47,7 +47,11 @@ public enum TipsFlash implements CodeEnum {
     SEND_WELCOME_MSG_EXCEPTION(10020, "发送密码短信异常"),
     VALID_OTPCODE_SUCCESS(10021, "验证码校验成功"),
     PIC_CONVERT_FAILED(10056, "图片转化成流失败"),
-
+    INSERT_CATEGORY_FAILED(70003, "增加新类目失败"),
+    CATEGORY_NAME_EXISTED(70005, "增加新类目失败"),
+    DELETE_CATEGORY_FAILED(70007, "删除类目失败"),
+    CATEGORY_NOT_EXISTED(70009, "该类目不存在"),
+    UPDATE_CATEGORY_FAILED(70011, "更新类目失败"),
 
     ;
     /**

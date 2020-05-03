@@ -27,6 +27,7 @@ public enum TipsBusiness implements CodeEnum {
     ON_SALE(1,"在出售状态"),
     LOW_STOCKS(10003, "产品库存不足"),
 
+
     ;
 
     /**

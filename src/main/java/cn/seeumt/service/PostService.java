@@ -36,6 +36,7 @@ public interface PostService{
      * 发布动态
      * @param post 用户表单实体类
      * @return int
+     * @throws HttpException 网络异常
      */
     ResultVO send(cn.seeumt.form.Post post) throws HttpException;
 

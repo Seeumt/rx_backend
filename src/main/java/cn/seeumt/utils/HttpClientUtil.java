@@ -161,7 +161,8 @@ public class HttpClientUtil {
             request.setEntity(new ByteArrayEntity(byt, ContentType.create("image/jpg")));
             HttpResponse response = httpclient.execute(request);
             HttpEntity entity = response.getEntity();
-            String result = EntityUtils.toString(entity, "UTF-8");// 转成string
+            // 转成string
+            String result = EntityUtils.toString(entity, "UTF-8");
             return result;
         } catch (IOException e) {
             e.printStackTrace();

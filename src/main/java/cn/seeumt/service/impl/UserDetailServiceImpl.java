@@ -88,7 +88,6 @@ public class UserDetailServiceImpl implements MyUserDetailService {
             user.setLastVisitTime(new Date());
             user.setIsRememberMe(false);
             user.setOpenId(mpwxUserInfo.getOpenId());
-            System.out.println(user);
             int insert = userMapper.insert(user);
             if (insert < 0) {
                 throw new TipsException(123, "微信登录异常");

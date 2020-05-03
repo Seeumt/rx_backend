@@ -35,6 +35,11 @@ public class SouvenirController {
         return ResultVO.success(souvenirService.listSimpleVO());
     }
 
+    @GetMapping("/all")
+    public ResultVO listFcSouvenir() {
+        return ResultVO.success(souvenirService.listFcSouvenirList());
+    }
+
 
     @PostMapping("/")
     public ResultVO saveOrUpdate(Souvenir souvenir, @RequestPart("pics") MultipartFile[] pics){

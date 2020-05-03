@@ -5,6 +5,7 @@ import cn.seeumt.dataobject.Category;
 import cn.seeumt.dataobject.Souvenir;
 import cn.seeumt.dao.SouvenirMapper;
 import cn.seeumt.enums.TipsBusiness;
+import cn.seeumt.model.FcSouvenir;
 import cn.seeumt.service.CategoryService;
 import cn.seeumt.service.SouvenirService;
 import cn.seeumt.vo.OrderDetailVO;
@@ -81,6 +82,33 @@ public class SouvenirServiceImpl extends ServiceImpl<SouvenirMapper, Souvenir> i
             SouvenirSimpleVO souvenirSimpleVO = new SouvenirSimpleVO();
             BeanUtils.copyProperties(souvenir, souvenirSimpleVO);
             souvenirSimpleVO.setNumber(1);
+            return souvenirSimpleVO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FcSouvenir> listFcSouvenirList() {
+        QueryWrapper<Category> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", true);
+        List<Category> categories = categoryMapper.selectList(wrapper);
+        return categories.stream().map(category -> {
+            FcSouvenir fcSouvenir = new FcSouvenir();
+            Integer categoryId = category.getCategoryId();
+            List<SouvenirSimpleVO> souvenirSimpleVOList = listSouvenirSimpleVoByCategoryId(categoryId);
+            BeanUtils.copyProperties(category,fcSouvenir);
+            fcSouvenir.setGoods(souvenirSimpleVOList);
+            return fcSouvenir;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<SouvenirSimpleVO> listSouvenirSimpleVoByCategoryId(Integer categoryId) {
+        QueryWrapper<Souvenir> wrapper = new QueryWrapper<>();
+        wrapper.eq("category_id", categoryId);
+        List<Souvenir> souvenirList = souvenirMapper.selectList(wrapper);
+        return souvenirList.stream().map(souvenir -> {
+            SouvenirSimpleVO souvenirSimpleVO = new SouvenirSimpleVO();
+            BeanUtils.copyProperties(souvenir, souvenirSimpleVO);
             return souvenirSimpleVO;
         }).collect(Collectors.toList());
     }

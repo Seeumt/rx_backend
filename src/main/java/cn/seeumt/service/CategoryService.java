@@ -1,9 +1,8 @@
 package cn.seeumt.service;
-
-import cn.seeumt.dataobject.Category;
-import cn.seeumt.dataobject.Souvenir;
+import cn.seeumt.model.Category;
 import cn.seeumt.vo.ResultVO;
-import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -22,4 +21,33 @@ public interface CategoryService{
      */
     ResultVO selectCategoryTreeByCategoryId(Integer categoryId);
 
+    /**
+     * 新建类目
+     * @param category 表单类category
+     * @return ResultVO
+     */
+    ResultVO create(cn.seeumt.form.Category category);
+
+    /**
+     * 删除类目
+     * @param categoryId category表主键
+     * @return ResultVO
+     */
+    ResultVO delete(Integer categoryId);
+
+    /**
+     * 更新类目名称
+     * @param categoryId category表主键
+     * @param name 新名称
+     * @return ResultVO
+     */
+    ResultVO put(Integer categoryId, String name);
+
+    /**
+     * 返回树状结构的类别
+     * @return List<Category>
+     */
+    List<Category> getNextLevelCategory(Integer categoryId);
+
+    List<Category> listCategoryTree(List<Category> categoryModelList, Integer parentId);
 }

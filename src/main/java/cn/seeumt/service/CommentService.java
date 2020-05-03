@@ -54,6 +54,7 @@ public interface CommentService {
      * @param type 评论的类型 文章的评论 文章评论的评论 动态的评论 动态评论的评论
      * @param parentId 要评论的评论的id 作为其子评论的parentId
      * @return 1
+     * @throws HttpException 网络异常
      */
     ResultVO comment(String apiRootId, String userId, String content, Byte type, String parentId) throws HttpException;
 

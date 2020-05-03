@@ -2,6 +2,8 @@ package cn.seeumt.vo;
 
 import cn.seeumt.enums.*;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,11 +16,13 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(value = "通用返回类",description = "通用返回类")
 public class ResultVO implements Serializable {
 
     private static final long serialVersionUID = -6721853439167521929L;
-
+    @ApiModelProperty(example="0")
     private Integer code;
+    @ApiModelProperty(example="成功")
     private String msg;
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private Object data;
