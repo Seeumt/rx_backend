@@ -16,5 +16,6 @@ public class Category {
     private Integer categoryId;
     private Integer parentId;
     private String name;
+    private Integer rootId;
     private List<Category> children;
 }

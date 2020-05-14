@@ -1,5 +1,5 @@
 package cn.seeumt.service.impl;
-import cn.seeumt.utils.WechatUtil;
+        import cn.seeumt.utils.WechatUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
 import java.util.Date;
@@ -49,7 +49,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private LoveService loveService;
     @Autowired
-    private TagService tagServie;
+    private TagService tagService;
     @Autowired
     private MediaTagsService mediaTagsService;
 
@@ -340,7 +340,7 @@ public class PostServiceImpl implements PostService {
         if (tagsIds.size() == 0) {
             postDTO.setTags(null);
         }else {
-            postDTO.setTags(tagServie.findTagVoByTagIds(tagsIds));
+            postDTO.setTags(tagService.findTagVoByTagIds(tagsIds));
         }
         return postDTO;
     }

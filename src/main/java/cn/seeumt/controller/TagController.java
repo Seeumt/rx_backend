@@ -23,6 +23,7 @@ public class TagController {
 
     @GetMapping("/")
     public ResultVO get() {
+        System.out.println("this is online");
         return tagService.get();
     }
 }

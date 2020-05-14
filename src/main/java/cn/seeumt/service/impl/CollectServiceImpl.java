@@ -36,7 +36,6 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
     @Override
     public ResultVO addOrCancelCollect(String apiRootId, String userId) {
         Collect aCollect = selectByApiRootIdAndUserId(apiRootId, userId);
-        //如果没有点过赞 成功啦！点赞  改变love的status
         if (aCollect==null) {
             Collect collect = new Collect();
             collect.setCollectId(UuidUtil.getUuid());
@@ -54,7 +53,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
             log.info("【收藏】用户 {}收藏 {}",userId,apiRootId);
             return ResultVO.success("收藏成功啦！");
         }
-        //如果点过了赞，再点就是取消
+        //如果已经收藏，再点就是取消
         else if (aCollect.getStatus()) {
             aCollect.setStatus(false);
             aCollect.setUpdateTime(new Date());
@@ -85,7 +84,7 @@ public class CollectServiceImpl extends ServiceImpl<CollectMapper, Collect> impl
     @Override
     public Collect selectByApiRootIdAndUserId(String apiRootId, String userId) {
         QueryWrapper<Collect> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("api_root_id", apiRootId).eq("user_id", userId);
+        queryWrapper.eq("api_root_id", apiRootId).eq("user_id", userId).eq("status",true);
         return collectMapper.selectOne(queryWrapper);
     }
 }

@@ -47,6 +47,11 @@ public class Category implements Serializable {
     private Integer sortOrder;
 
     /**
+     * 根级id
+     */
+    private Integer rootId;
+
+    /**
      * 创建时间
      */
     private LocalDateTime createTime;
