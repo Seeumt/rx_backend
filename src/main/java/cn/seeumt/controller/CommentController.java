@@ -8,15 +8,18 @@ import cn.seeumt.service.CommentService;
 import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.CommentVO;
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
+ * 评论
  * @author Seeumt
  * @date 2019/12/9 9:21
  */
+@Api(tags = {"评论"})
 @RestController
 @RequestMapping("/comments")
 @Slf4j
@@ -25,13 +28,24 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
+    /**
+     * 查询子评论 树状
+     * @param parentId 父级某id
+     * @return ResultVO
+     */
     @GetMapping("/child")
     public ResultVO queryChildComment(String parentId) {
         return commentService.listByParentId(parentId);
     }
 
 
-
+    /**
+     * 查询推荐评论
+     * @param apiRootId 某主键id
+     * @param currentNum 当前页码
+     * @param size 某页条数
+     * @return ResultVO
+     */
     @GetMapping("/")
     public ResultVO queryHomeComments(String apiRootId,
                                     @RequestParam(value = "currentNum") int currentNum,
@@ -40,6 +54,13 @@ public class CommentController {
     }
 
 
+    /**
+     * 分页查询子评论
+     * @param apiRootId 某主键id
+     * @param currentNum 当前页码
+     * @param size 每页条数
+     * @return ResultVO
+     */
     @GetMapping("/{apiRootId}")
     public ResultVO getLuckyDetail(@PathVariable String apiRootId,
                                    @RequestParam(value = "currentNum") int currentNum,
@@ -48,6 +69,12 @@ public class CommentController {
     }
 
 
+    /**
+     * 为某条评论评论
+     * @param comment 评论请求体
+     * @return ResultVO
+     * @throws HttpException
+     */
     @PostMapping("/")
     public ResultVO commentForComment(@RequestBody Comment comment) throws HttpException {
         OnlineUtil.setLastOperateTimeByUserId(comment.getUserId());
@@ -56,6 +83,14 @@ public class CommentController {
     }
 
 
+    /**
+     * 为root评论
+     * @param apiRootId 某主键id
+     * @param type 评论类型
+     * @param userId 用户主键id
+     * @param content 用户评论内容
+     * @return int
+     */
     @GetMapping("/root")
     public int commentForRoot(String apiRootId,
                               @RequestParam(value = "type",defaultValue ="3" ) Byte type,

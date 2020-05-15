@@ -12,6 +12,7 @@ import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyun.oss.OSSException;
 import com.aliyuncs.exceptions.ClientException;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +28,11 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ * 对象存储
  * @author Seeumt
  * @since 2020-01-08
  */
+@Api(tags = {"对象存储"})
 @RestController
 @RequestMapping("/oss")
 @Slf4j
@@ -43,6 +42,14 @@ public class OssController {
     @Autowired
     private OssService ossService;
 
+    /**
+     * 上传图片
+     * @param files 文件数组
+     * @param parentId 父级id
+     * @return ResultVO
+     * @throws IOException
+     * @throws HttpException
+     */
     @PostMapping("/insert")
     public ResultVO fileUpload(@RequestPart("file") MultipartFile[] files, String parentId) throws IOException, HttpException {
         List<String> urlList = new ArrayList<>();
@@ -61,6 +68,15 @@ public class OssController {
         return ResultVO.success(urlList);
     }
 
+    /**
+     * 保存到Oss
+     * @param file 文件
+     * @param parentId 父级id
+     * @param type 类型
+     * @return ResultVO
+     * @throws IOException
+     * @throws HttpException
+     */
     @PostMapping("/{type}")
     public ResultVO saveOssForMedia(@RequestPart("file") MultipartFile file, String parentId,
     @PathVariable("type") Integer type) throws IOException, HttpException {
@@ -78,6 +94,13 @@ public class OssController {
         return ResultVO.success(AliyunOssUtil.cutSuffix(originUrl));
     }
 
+    /**
+     * 图文评论
+     * @param file 文件
+     * @param parentId 父级id
+     * @return ResultVO
+     * @throws IOException
+     */
     @PostMapping("/article")
     public ResultVO article(@RequestPart("file") MultipartFile file, String parentId) throws IOException {
         String originUrl = AliyunOssUtil.getOriginUrl(file);
@@ -86,20 +109,22 @@ public class OssController {
         return ResultVO.success(originUrl);
     }
 
+    /**
+     * 得到其下所有图片
+     * @param parentId 某一主键id
+     * @return ResultVO
+     */
     @GetMapping("/imgs/{parentId}")
     public ResultVO getPicture(@PathVariable("parentId") String parentId) {
         ImgDTO imgDTO = ossService.queryByParentId(parentId);
         return ResultVO.success(imgDTO);
     }
 
-
-
-
-
-
-
-
-
+    /**
+     * 删除数据库内对象存储
+     * @param ossId 对象存储主键id
+     * @return ResultVO
+     */
     @DeleteMapping("/imgs/{ossId}")
     public ResultVO delPicture(@PathVariable("ossId") String ossId) {
         return  ossService.deleteByOssId(ossId);
@@ -107,37 +132,3 @@ public class OssController {
     }
 
 }
-
-
-//    /**
-//     * 改
-//     * @param TPicture
-//     */
-//    @ResponseBody
-//    @PutMapping("/update")
-//    public void updatePicture(TPicture TPicture) {
-//        pictureService.updatePicture(TPicture);
-//    }
-//
-//    /**
-//     * 删
-//     * @param id
-//     */
-//    @ResponseBody
-//    @DeleteMapping("/delete/{id}")
-//    public void deletePicture(@PathVariable("id") Integer id) {
-//        pictureService.deletePicture(id);
-//    }
-//
-
-
-//
-//    /**
-//     * 把文件保存到阿里云OSS，返回路径保存到数据库
-//     * @param fileupload
-//     * @return
-//     * @throws OSSException
-//     * @throws ClientException
-//     * @throws IOException
-//     */
-//}

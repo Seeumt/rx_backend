@@ -45,6 +45,7 @@ public interface CategoryService{
 
     /**
      * 返回树状结构的类别
+     * @param categoryId 目录id
      * @return List<Category>
      */
     List<Category> getNextLevelCategory(Integer categoryId);

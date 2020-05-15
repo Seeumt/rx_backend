@@ -1,6 +1,7 @@
 package cn.seeumt.controller;
 
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,11 +14,18 @@ import java.io.File;
 import java.io.IOException;
 
 /**
+ * 文件上传接口
  * @author Seeumt
  */
+@Api(tags = {"上传文件"})
 @RestController
 @RequestMapping("/uploads")
 public class FileUploadController {
+    /**
+     * 文件上传接口
+     * @param files 文件数组
+     * @return ResultVO
+     */
     @PostMapping("/imgs")
     public ResultVO fileUpload(@RequestPart("imgs") MultipartFile[] files) {
 

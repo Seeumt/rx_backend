@@ -13,6 +13,7 @@ import cn.seeumt.utils.*;
 import cn.seeumt.vo.ResultVO;
 import com.alibaba.fastjson.JSONObject;
 import com.aliyuncs.exceptions.ClientException;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
@@ -28,9 +29,11 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * 用户
  * @author Seeumt
  * @date 2019/12/8 18:08
  */
+@Api(tags = {"用户"})
 @RestController("userController")
 @RequestMapping("/users")
 @Slf4j
@@ -54,6 +57,12 @@ public class UserController {
     public static final String TEL_LOGIN = "tp";
 
 
+    /**
+     * 微信小程序登录
+     * @param code 小程序身份码
+     * @param mpwxUserInfo 小程序用户请求体
+     * @return ResultVO
+     */
     @ApiOperation(value = "微信小程序登录",notes = "code需要通过wx.login获取",httpMethod = "POST")
     @PostMapping(value = "/mpLogin/{code}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO mpLogin(
@@ -70,6 +79,11 @@ public class UserController {
     }
 
 
+    /**
+     * Otp 手机验证码登录
+     * @param telLogin 手机验证码登录请求体
+     * @return ResultVO
+     */
     @PostMapping("/otpLogin")
     @ApiOperation(value = "Otp 手机验证码登录", notes = "在过滤器中进行校验otpCode是否合法", httpMethod = "GET")
     public ResultVO otpLogin(@RequestBody TelLogin telLogin){
@@ -82,6 +96,13 @@ public class UserController {
         return ResultVO.success(userDetail, "登录成功");
     }
 
+    /**
+     * 手机号密码登录
+     * @param loginUser  手机号密码登录请求体
+     * @return 手机号密码登录
+     * @throws IOException
+     * @throws ServletRequestBindingException
+     */
     @PostMapping("/tpLogin")
     @ApiOperation(value = "手机号密码登录",notes = "",httpMethod = "POST")
     public ResultVO otpLogin(@Valid @RequestBody LoginUser loginUser) throws IOException, ServletRequestBindingException {
@@ -90,6 +111,11 @@ public class UserController {
         return ResultVO.success(userDetail,"登录成功");
     }
 
+    /**
+     * 用户名密码登录
+     * @param loginUser 用户名密码登录请求体
+     * @return ResultVO
+     */
     @PostMapping(value = "/upLogin")
     @ApiOperation(value = "用户名密码登录", notes = "")
     public ResultVO upLogin(
@@ -100,6 +126,13 @@ public class UserController {
         return ResultVO.success(userDetail);
     }
 
+    /**
+     * 获取短信验证码
+     * @param telephone 手机号
+     * @param type 类型
+     * @return ResultVO
+     * @throws ClientException
+     */
     @ApiOperation(value = "获取短信验证码", notes = "字符串手机号", httpMethod = "GET")
     @GetMapping(value = "/otp/{telephone}")
     public ResultVO sendSms(
@@ -132,6 +165,11 @@ public class UserController {
         return ResultVO.error(TipsFlash.INVAILD_ARGUMENT);
     }
 
+    /**
+     * 重置密码
+     * @param telLogin 手机号重置密码请求体
+     * @return ResultVO
+     */
     @PutMapping("/pwd")
     @ApiOperation(value = "重置密码",httpMethod = "PUT")
     public ResultVO resetPwd(@RequestBody TelLogin telLogin) {
@@ -140,6 +178,14 @@ public class UserController {
         return ResultVO.success(20008, "修改密码成功！");
     }
 
+    /**
+     * 微信openId绑定手机号
+     * @param openId 微信openId
+     * @param telephone 手机号
+     * @param code 小程序身份码
+     * @return ResultVO
+     * @throws ClientException
+     */
     @PostMapping("/bind")
     @ApiOperation(value = "微信openId绑定手机号", notes = "附带Otp验证码", httpMethod = "POST")
     public ResultVO bindTel(String openId, String telephone, String code) throws ClientException {
@@ -157,12 +203,24 @@ public class UserController {
         return ResultVO.error(TipsFlash.BIND_TELEPHONE_EXCEPTION);
     }
 
+    /**
+     * 修改个人信息
+     * @param mpwxUserInfoDTO 小程序个人信息请求体
+     * @return ResultVO
+     */
     @PostMapping(value = "/modifyUserInfo",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO modifyUserInfo(@RequestBody MpWxUserInfoDTO mpwxUserInfoDTO) {
         log.info("【更改信息】{}修改个人信息",mpwxUserInfoDTO.getUserId());
         return wxUserService.modifyUserInfo(mpwxUserInfoDTO);
     }
 
+    /**
+     * 更新头像
+     * @param userId 用户主键id
+     * @param file 用户上传文件
+     * @return ResultVO
+     * @throws IOException
+     */
     @PostMapping(value = "/uploadFace", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResultVO uploadFace(String userId, @RequestPart("file") MultipartFile file) throws IOException {
         String originUrl = AliyunOssUtil.getOriginUrl(file);
@@ -171,6 +229,12 @@ public class UserController {
         return resultVO;
     }
 
+    /**
+     * 用户进行第三方登录
+     * @param loginType 登录类型
+     * @param thirdPartyUser 第三方登录请求体
+     * @return ResultVO
+     */
     @PostMapping(value = "/thirdPartyLogin/{logintype}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResultVO thirdPartyLogin(@PathVariable("logintype") String loginType,
                                     @RequestBody ThirdPartyUser thirdPartyUser) {
@@ -180,12 +244,22 @@ public class UserController {
     }
 
 
+    /**
+     * 用户登出
+     * @param userId 用户主键id
+     * @return ResultVO
+     */
     @PostMapping("/logout")
     public ResultVO logout(String userId) {
         log.info("用户 {}登出",userId);
         return ResultVO.success(0, userId+" 已成功退出！");
     }
 
+    /**
+     * 用户统计
+     * @param gap 据此刻时间范围
+     * @return ResultVO
+     */
     @GetMapping("/online")
     public ResultVO online(@RequestParam(value = "gap", required = false, defaultValue = "600000") Integer gap) {
         log.info("进行用户统计");
@@ -193,6 +267,12 @@ public class UserController {
     }
 
 
+    /**
+     * 手机号短信验证码校验
+     * @param telephone 手机号
+     * @param code 短信验证码
+     * @return ResultVO
+     */
     @PostMapping("/valid")
     public ResultVO valid(String telephone,String code) {
         ResultVO resultVO = userService.validCode(telephone, code);
@@ -203,6 +283,12 @@ public class UserController {
     }
 
 
+    /**
+     * 发送短信验证码
+     * @param telephone 手机号
+     * @return ResultVO
+     * @throws ClientException
+     */
     public ResultVO sendOtpCode(String telephone) throws ClientException {
         OtpCode otpCode = OtpCode.createCode(600L);
         userService.addCache(telephone, otpCode.getCode().toString());

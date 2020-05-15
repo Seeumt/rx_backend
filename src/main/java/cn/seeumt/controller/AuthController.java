@@ -7,6 +7,7 @@ import cn.seeumt.form.LoginUser;
 import cn.seeumt.model.UserDetail;
 import cn.seeumt.service.AuthService;
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
+ * 授权
  * @author Seeumt
  */
+@Api(tags = {"权限接口"})
 @RestController
 @RequestMapping("/auth")
 @Slf4j
@@ -29,6 +32,11 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    /**
+     * 登陆
+     * @param loginUser 登录用户请求体
+     * @return ResultVO
+     */
     @PostMapping(value = "/login")
     @ApiOperation(value = "登陆", notes = "登陆成功返回token,登陆之前请先注册账号")
     public ResultVO login(

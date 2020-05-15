@@ -14,6 +14,7 @@ import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.utils.ThumberUtil;
 import cn.seeumt.utils.TreeUtil;
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 /**
+ * 动态
  * @author Seeumt
  */
+@Api(tags = {"动态"})
 @RestController
 @RequestMapping("/posts")
 @Slf4j
@@ -39,6 +42,12 @@ public class PostController {
     @Autowired
     private FollowService followService;
 
+    /**
+     * 发布动态
+     * @param post 发布动态请求体
+     * @return ResultVO
+     * @throws HttpException
+     */
     @PostMapping("/")
     public ResultVO send(@RequestBody cn.seeumt.form.Post post) throws HttpException {
         OnlineUtil.setLastOperateTimeByUserId(post.getUserId());
@@ -46,6 +55,11 @@ public class PostController {
         return postService.send(post);
     }
 
+    /**
+     * 查询某一动态
+     * @param postId 动态主键id
+     * @return ResultVO
+     */
     @GetMapping("/{postId}")
         public ResultVO getDto(@PathVariable("postId") String postId) {
         if ("".equals(postId)) {
@@ -54,6 +68,11 @@ public class PostController {
         return postService.getDto(postId);
     }
 
+    /**
+     * 查询单一动态
+     * @param postId 动态主键id
+     * @return ResultVO
+     */
     @GetMapping("/one")
     public ResultVO get(String postId) {
         if ("".equals(postId)) {
@@ -61,6 +80,12 @@ public class PostController {
         }
         return postService.get(postId);
     }
+
+    /**
+     * 删除某一动态
+     * @param postId 动态主键id
+     * @return ResultVO
+     */
     @DeleteMapping("/{postId}")
     public ResultVO delete(@PathVariable("postId") String postId) {
         if ("".equals(postId)) {
@@ -69,6 +94,12 @@ public class PostController {
         return postService.delete(postId);
     }
 
+    /**
+     *更新动态文本内容
+     * @param postId 动态主键id
+     * @param content 动态文本内容
+     * @return ResultVO
+     */
     @PutMapping("/one")
     public ResultVO updateContent(String postId,String content) {
         if ("".equals(postId)) {
@@ -78,7 +109,13 @@ public class PostController {
     }
 
 
-
+    /**
+     * 获取推荐动态
+     * @param userId 用户id
+     * @param currentNum 当前页码数
+     * @param size 每页条数
+     * @return ResultVO
+     */
     @GetMapping("/")
     public ResultVO getRecommendPosts(@RequestParam(value = "userId", defaultValue = "\"\"", required = false) String userId,
                          @RequestParam(value = "currentNum") int currentNum,
@@ -88,6 +125,13 @@ public class PostController {
     }
 
 
+    /**
+     * 获取关注列表动态
+     * @param userId 用户主键id
+     * @param currentNum 当前页码数
+     * @param size 每页条数
+     * @return ResultVO
+     */
     @GetMapping("/idols")
     public ResultVO getIdolsPosts(String userId,
                          @RequestParam(value = "currentNum") int currentNum,

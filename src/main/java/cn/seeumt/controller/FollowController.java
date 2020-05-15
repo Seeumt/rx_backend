@@ -6,19 +6,18 @@ import cn.seeumt.form.Follow;
 import cn.seeumt.service.FollowService;
 import cn.seeumt.utils.OnlineUtil;
 import cn.seeumt.vo.ResultVO;
+import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ * 关注
  * @author Seeumt
  * @since 2020-02-10
  */
+@Api(tags = {"关注"})
 @RestController
 @RequestMapping("/follows")
 @Slf4j
@@ -27,6 +26,11 @@ public class FollowController {
     @Autowired
     private FollowService followService;
 
+    /**
+     * 关注用户
+     * @param follow 关注用户请求体
+     * @return ResultVO
+     */
     @PostMapping("/")
     public ResultVO follow(@RequestBody Follow follow) {
         OnlineUtil.setLastOperateTimeByUserId(follow.getUserId());
@@ -34,6 +38,12 @@ public class FollowController {
         return followService.add(follow.getUserId(), follow.getIdolId());
     }
 
+    /**
+     * 是否已关注
+     * @param idolId 爱豆用户主键id
+     * @param userId 用户主键id
+     * @return
+     */
     @GetMapping("/{idolId}")
     public ResultVO isIdol(@PathVariable("idolId") String idolId,
                             String userId) {
