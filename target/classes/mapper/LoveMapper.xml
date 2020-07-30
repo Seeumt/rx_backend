@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.seeumt.dao.LoveMapper">
+  <resultMap id="BaseResultMap" type="cn.seeumt.dataobject.Love">
+    <id column="love_id" jdbcType="VARCHAR" property="loveId" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="user_id" jdbcType="VARCHAR" property="userId" />
+    <result column="api_root_id" jdbcType="VARCHAR" property="apiRootId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="love_type" jdbcType="VARCHAR" property="loveType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    love_id, type, status, create_time, update_time, enabled, user_id, api_root_id, content,love_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where love_id = #{loveId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from love
+    where love_id = #{loveId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="cn.seeumt.dataobject.Love">
+    insert into love (love_id, type, status,
+      create_time, update_time, enabled,
+      user_id, api_root_id, content,love_type
+      )
+    values (#{loveId,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{status,jdbcType=BIT},
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{enabled,jdbcType=BIT},
+      #{userId,jdbcType=VARCHAR}, #{apiRootId,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{loveType,jdbcType=VARCHAR}
+      )
+  </insert>
+  <select id="selectByApiRootId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from love
+    where api_root_id = #{apiRootId,jdbcType=VARCHAR}
+  </select>
+</mapper>

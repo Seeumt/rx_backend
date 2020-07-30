@@ -1,0 +1,13 @@
+cn\seeumt\controller\MediaTagsControllerTest.class
+cn\seeumt\service\impl\CategoryServiceImplTest.class
+cn\seeumt\service\impl\CarouselServiceImplTest.class
+cn\seeumt\service\impl\FollowServiceImplTest.class
+cn\seeumt\service\impl\SouvenirServiceImplTest.class
+cn\seeumt\service\impl\LoveServiceImplTest.class
+cn\seeumt\utils\ThumberUtilTest.class
+cn\seeumt\service\impl\UserServiceImplTest.class
+cn\seeumt\service\impl\ArticleServiceImplTest.class
+cn\seeumt\service\impl\TagServiceImplTest.class
+cn\seeumt\service\impl\PostServiceImplTest.class
+cn\seeumt\service\impl\MediaTagsServiceImplTest.class
+cn\seeumt\service\impl\CommentServiceImplTest.class
