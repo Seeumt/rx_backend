@@ -12,9 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2b930e5f-2658-43c3-81fe-872ede893c2a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icon_removebg_b.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icon_removebg_y.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -129,8 +129,8 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="140">
-                <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+              <first_editor>
+                <caret column="11" selection-start-column="11" selection-end-column="11" />
               </first_editor>
               <second_editor />
             </state>
@@ -371,9 +371,6 @@
     <property name="settings.editor.selected.configurable" value="settings.github" />
   </component>
   <component name="RecentsManager">
-    <key name="CreateClassDialog.RecentsKey">
-      <recent name="cn.seeumt.service" />
-    </key>
     <key name="ImportMappingsDialog.RecentPackages">
       <recent name="cn.seeumt.dataobject" />
     </key>
@@ -381,6 +378,10 @@
       <recent name="cn.seeumt.service.impl" />
       <recent name="cn.seeumt.controller" />
       <recent name="cn.seeumt.utils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\security\filter" />
+      <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\security\jwt" />
     </key>
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -403,9 +404,8 @@
       <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\filter" />
       <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\model" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\security\filter" />
-      <recent name="D:\MyProject\tips\src\main\java\cn\seeumt\security\jwt" />
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="cn.seeumt.service" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -720,14 +720,7 @@
       <workItem from="1592556867622" duration="599000" />
       <workItem from="1595305880769" duration="6000" />
       <workItem from="1596113556923" duration="484000" />
-      <workItem from="1596122258606" duration="2890000" />
-    </task>
-    <task id="LOCAL-00035" summary="关闭session">
-      <created>1580655208322</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1580655208322</updated>
+      <workItem from="1596122258606" duration="3401000" />
     </task>
     <task id="LOCAL-00036" summary="SpringSecurity+Jwt">
       <created>1580739980849</created>
@@ -1065,7 +1058,14 @@
       <option name="project" value="LOCAL" />
       <updated>1596123539614</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="delete sensitive information">
+      <created>1596125196388</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1596125196388</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1101,7 +1101,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1188442000" />
+    <option name="totallyTimeSpent" value="1188953000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1210,7 +1210,6 @@
     <option name="version" value="1" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="图文评论--&gt;评论图片上传接口 数据库字段修改" />
     <MESSAGE value="修改计算评论数" />
     <MESSAGE value="忘记密码 验证码校验 redis" />
     <MESSAGE value="修改部分阿里规范，完善重置密码逻辑" />
@@ -1235,7 +1234,8 @@
     <MESSAGE value="增加配置文件；修改判断是否收藏条件；" />
     <MESSAGE value="controller-doc" />
     <MESSAGE value="delete sensitive information" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete sensitive information" />
+    <MESSAGE value="add README.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="add README.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1664,8 +1664,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="140">
-            <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
+          <first_editor>
+            <caret column="11" selection-start-column="11" selection-end-column="11" />
           </first_editor>
           <second_editor />
         </state>
