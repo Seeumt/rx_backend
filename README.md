@@ -2,9 +2,7 @@
 ## This is cdio Group 8 sm cumt !
 **Travel Social Platform** 
 <p align=center>
-  <a href="http://www.moguit.cn">
     <img src="./icon_b.JPG" alt="Tips" style="width:200px;height:200px">
-  </a>
 </p>
 <p align=center>
    Tips
